@@ -1,0 +1,30 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const core_1 = require("@nestjs/core");
+const swagger_1 = require("@nestjs/swagger");
+const app_module_1 = require("./app.module");
+const path_1 = require("path");
+async function bootstrap() {
+    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.enableCors();
+    const config = new swagger_1.DocumentBuilder()
+        .setTitle('Amonak API')
+        .setDescription('API for amonak project')
+        .setVersion('1.0')
+        .addTag('amonak-home')
+        .build();
+    const document = swagger_1.SwaggerModule.createDocument(app, config);
+    const customOptions = {
+        swaggerOptions: {
+            persistAuthorization: true,
+        },
+        customSiteTitle: 'Amonak APIs REST',
+    };
+    swagger_1.SwaggerModule.setup('api', app, document, customOptions);
+    app.useStaticAssets((0, path_1.join)(__dirname, '..', 'static'));
+    app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
+    app.setViewEngine('hbs');
+    await app.listen(process.env.APP_PORT);
+}
+bootstrap();
+//# sourceMappingURL=main.js.map
