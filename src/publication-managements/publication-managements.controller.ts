@@ -10,7 +10,7 @@ import { ApiHeader, ApiTags } from '@nestjs/swagger';
   name: 'lang',
   description: 'language',
 })
-@Controller('publication-managements')
+@Controller('api/publication-managements')
 export class PublicationManagementsController {
   constructor(private readonly publicationManagementsService: PublicationManagementsService) {}
 

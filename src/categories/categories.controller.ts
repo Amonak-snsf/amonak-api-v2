@@ -24,7 +24,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
   }),
 )
 
-@Controller('categories')
+@Controller('api/categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

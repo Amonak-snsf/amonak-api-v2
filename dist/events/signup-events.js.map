@@ -1,0 +1,1 @@
+{"version":3,"file":"signup-events.js","sourceRoot":"","sources":["../../src/events/signup-events.ts"],"names":[],"mappings":";;;;;;;;;;;;AACA,yDAAgD;AAShD,MAAa,WAAW;IAGpB,YAAY,IAAI;IAQZ,CAAC;IAGL,iBAAiB,CAAC,IAAiB;QAC/B,OAAO,CAAC,GAAG,CAAC,MAAM,CAAC,CAAC;IAIxB,CAAC;IAED,oBAAoB,CAAC,IAAI;IAOzB,CAAC;CACJ;AAfG;IADC,IAAA,uBAAO,EAAC,QAAQ,CAAC;;qCACM,WAAW;;oDAKlC;AAnBL,kCA6BC"}

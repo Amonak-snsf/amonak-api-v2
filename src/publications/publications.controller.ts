@@ -23,7 +23,7 @@ import { FilterPublicationDto } from './dto/filter-publication.dto';
     fileFilter: imageFileFilter,
 }),
 )
-@Controller('publications')
+@Controller('api/publications')
 export class PublicationsController {
   constructor(private readonly publicationsService: PublicationsService) {}
 

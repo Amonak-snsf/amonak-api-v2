@@ -13,7 +13,7 @@ import { FilterToptenDto } from './dto/filter-topten.dto';
   name: 'lang',
   description: 'language',
 })
-@Controller('toptens')
+@Controller('api/toptens')
 export class ToptensController {
   constructor(private readonly toptensService: ToptensService) {}
 

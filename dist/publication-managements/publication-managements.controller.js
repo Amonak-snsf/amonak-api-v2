@@ -75,7 +75,7 @@ PublicationManagementsController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('publication-managements'),
+    (0, common_1.Controller)('api/publication-managements'),
     __metadata("design:paramtypes", [publication_managements_service_1.PublicationManagementsService])
 ], PublicationManagementsController);
 exports.PublicationManagementsController = PublicationManagementsController;

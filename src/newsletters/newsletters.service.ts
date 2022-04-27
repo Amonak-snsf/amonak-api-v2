@@ -1,18 +1,32 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { MailService } from 'src/mail/mail.service';
 import { all, createIfne, destroy, one, put } from 'src/utils/query';
 import { CreateNewsletterDto } from './dto/create-newsletter.dto';
 import { UpdateNewsletterDto } from './dto/update-newsletter.dto';
+import { ContactType } from './entities/newsletter-type.dto';
 import { Newsletter, NewsletterDocument } from './entities/newsletter.entity';
 
 @Injectable()
 export class NewslettersService {
-  constructor(@InjectModel(Newsletter.name) private readonly newsModel: Model<NewsletterDocument>){}
+  constructor(@InjectModel(Newsletter.name) private readonly newsModel: Model<NewsletterDocument>,
+  private emailService: MailService, private config: ConfigService
+  ){}
 
   async create(createNewsletterDto: CreateNewsletterDto, res) {
 
-    const data = await createIfne(this.newsModel, createNewsletterDto, { email: createNewsletterDto.email });
+    const url = this.config.get('front_url');
+    const data = await createIfne(this.newsModel, createNewsletterDto, { email: createNewsletterDto.email, type: createNewsletterDto.type == ContactType.newsletter ? ContactType.newsletter : null });
+
+    if(data.type == ContactType.contact){
+      this.emailService.contact(data, url)
+    }
+
+    if(data.type == ContactType.newsletter){
+      this.emailService.newsletter(data, url);
+    }
 
     return res.status(HttpStatus.OK).json(data);
   }

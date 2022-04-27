@@ -18,10 +18,10 @@ export class Notification {
   @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' })
   publication_id: Publication
 
-  @Prop({ required: true, type: String, default: true })
+  @Prop({ required: false, type: String })
   content: String;
 
-  @Prop({ required: false, type: String, default: true })
+  @Prop({ required: false, type: String })
   comment: String;
 
   @Prop({ required: true, type: String, default: NotificationType.all })
@@ -34,10 +34,10 @@ export class Notification {
   @Prop({ required: true, default: Date.now })
   created_at: Date;
 
-  @Prop({ required: true, default: Date.now })
+  @Prop({ required: false })
   seen_at: Date;
 
-  @Prop({ required: true, default: Date.now })
+  @Prop({ required: false })
   read_at: Date;
 }
 

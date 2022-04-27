@@ -10,7 +10,7 @@ import { UpdateCartDto } from './dto/update-cart.dto';
   name: 'lang',
   description: 'language', 
 })
-@Controller('carts')
+@Controller('api/carts')
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 

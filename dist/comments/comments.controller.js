@@ -97,7 +97,7 @@ CommentsController = __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter3,
     })),
-    (0, common_1.Controller)('comments'),
+    (0, common_1.Controller)('api/comments'),
     __metadata("design:paramtypes", [comments_service_1.CommentsService])
 ], CommentsController);
 exports.CommentsController = CommentsController;

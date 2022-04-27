@@ -21,8 +21,17 @@ let AuthsGateway = class AuthsGateway {
     constructor(authsService) {
         this.authsService = authsService;
     }
+    handleConnection(client, ...args) {
+        console.log("socket.io connected");
+    }
+    afterInit(server) {
+        console.log("socket.io server init");
+    }
+    handleDisconnect(client) {
+        console.log(`socket.io disconnected${client}`);
+    }
     create(createAuthDto) {
-        return this.authsService.create(createAuthDto);
+        return { event: 'createAuth', data: this.authsService.create(createAuthDto) };
     }
     findAll() {
         return this.authsService.findAll();

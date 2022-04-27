@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 import { errorFilter } from "./helpers";
 
-export const error = (data, http_code?) => {
+export const error = (data, http_code?: number) => {
 
     const error_message = errorFilter(data);
 

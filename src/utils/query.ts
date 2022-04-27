@@ -1,9 +1,10 @@
 import { HttpStatus } from "@nestjs/common";
+import { Model } from "mongoose";
 import { error } from "./error";
 import { arrayToString, limitData } from "./helpers";
 
 
-export const exist = async (model, filter: Object) =>{
+export const exist = async (model: Model<any>, filter: Object) =>{
 
     const take_data = await model.findOne(filter).exec().catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
@@ -16,7 +17,7 @@ export const exist = async (model, filter: Object) =>{
     return take_data;
 }
 
-export const create = async (model, body: Object, populate?: String, populate_fields?) => {
+export const create = async (model: Model<any>, body: Object, populate?: String, populate_fields?: String | String[]) => {
     
     let data = await new model(body).save().catch(err =>{
         throw error(err, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -29,7 +30,7 @@ export const create = async (model, body: Object, populate?: String, populate_fi
     return data;
 }
 
-export const createIfne = async (model, body: Object, filter: Object, populate?: String, populate_fields?) => {
+export const createIfne = async (model: Model<any>, body: Object, filter: Object, populate?: String, populate_fields?: String | String[]) => {
 
     const data_exist = await exist(model, filter);
     if(data_exist){
@@ -47,7 +48,7 @@ export const createIfne = async (model, body: Object, filter: Object, populate?:
     return data;
 }
 
-export const one = async (model, filter: Object, fields?, populate?: String, populate_fields?) => {
+export const one = async (model: Model<any>, filter: Object, fields?: String | String[], populate?: String, populate_fields?: String | String[]) => {
     
     const data = await model.findOne(filter, arrayToString(fields)).populate(populate, arrayToString(populate_fields)).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
@@ -56,7 +57,7 @@ export const one = async (model, filter: Object, fields?, populate?: String, pop
     return data;
 }
 
-export const all = async (model, filter: Object, fields?, sort?: Object, limit?: Number, populate?: String, populate_fields?) => {
+export const all = async (model: Model<any>, filter: Object, fields?: String | String[], sort?: Object, limit?: Number, populate?: String, populate_fields?: String | String[]) => {
    
     const data = await model.find(filter, arrayToString(fields)).populate(populate, arrayToString(populate_fields)).sort(sort).limit(limitData(limit)).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
@@ -65,7 +66,7 @@ export const all = async (model, filter: Object, fields?, sort?: Object, limit?:
     return data;
 }
 
-export const put = async (model, body: Object, filter: Object, populate?: String, populate_fields?) => {
+export const put = async (model: Model<any>, body: Object, filter: Object, populate?: String, populate_fields?: String | String[]) => {
     
     const data = await model.findOneAndUpdate(filter, body).populate(populate, arrayToString(populate_fields)).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
@@ -78,7 +79,7 @@ export const put = async (model, body: Object, filter: Object, populate?: String
     return await one(model, { _id: data._id }, null, populate, populate_fields);
 }
 
-export const destroy = async (model, filter)=> {
+export const destroy = async (model: Model<any>, filter: Object)=> {
 
     const data = await model.findByIdAndDelete(filter).catch(err => {
         throw error(err, HttpStatus.NOT_FOUND);

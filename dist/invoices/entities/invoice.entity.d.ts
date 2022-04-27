@@ -9,5 +9,7 @@ export declare class Invoice extends Cart {
     payment_date: Date;
     payment_reference: String;
     invoice_url: String;
+    created_at: Date;
+    updated_at: Date;
 }
 export declare const InvoiceSchema: mongoose.Schema<mongoose.Document<Invoice, any, any>, mongoose.Model<mongoose.Document<Invoice, any, any>, any, any, any>, any, any>;

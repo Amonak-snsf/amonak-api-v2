@@ -14,16 +14,28 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NewslettersService = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const mail_service_1 = require("../mail/mail.service");
 const query_1 = require("../utils/query");
+const newsletter_type_dto_1 = require("./entities/newsletter-type.dto");
 const newsletter_entity_1 = require("./entities/newsletter.entity");
 let NewslettersService = class NewslettersService {
-    constructor(newsModel) {
+    constructor(newsModel, emailService, config) {
         this.newsModel = newsModel;
+        this.emailService = emailService;
+        this.config = config;
     }
     async create(createNewsletterDto, res) {
-        const data = await (0, query_1.createIfne)(this.newsModel, createNewsletterDto, { email: createNewsletterDto.email });
+        const url = this.config.get('front_url');
+        const data = await (0, query_1.createIfne)(this.newsModel, createNewsletterDto, { email: createNewsletterDto.email, type: createNewsletterDto.type == newsletter_type_dto_1.ContactType.newsletter ? newsletter_type_dto_1.ContactType.newsletter : null });
+        if (data.type == newsletter_type_dto_1.ContactType.contact) {
+            this.emailService.contact(data, url);
+        }
+        if (data.type == newsletter_type_dto_1.ContactType.newsletter) {
+            this.emailService.newsletter(data, url);
+        }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
@@ -46,7 +58,8 @@ let NewslettersService = class NewslettersService {
 NewslettersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(newsletter_entity_1.Newsletter.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mail_service_1.MailService, config_1.ConfigService])
 ], NewslettersService);
 exports.NewslettersService = NewslettersService;
 //# sourceMappingURL=newsletters.service.js.map

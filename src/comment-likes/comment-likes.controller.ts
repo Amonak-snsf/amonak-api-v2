@@ -10,7 +10,7 @@ import { UpdateCommentLikeDto } from './dto/update-comment-like.dto';
   description: 'language', 
 })
 
-@Controller('comment-likes')
+@Controller('api/comment-likes')
 export class CommentLikesController {
   constructor(private readonly commentLikesService: CommentLikesService) {}
 

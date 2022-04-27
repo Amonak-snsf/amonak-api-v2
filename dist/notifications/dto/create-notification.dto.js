@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateNotificationDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
+const notification_type_dto_1 = require("./notification-type.dto");
 class CreateNotificationDto {
 }
 __decorate([
@@ -26,15 +28,16 @@ __decorate([
     __metadata("design:type", String)
 ], CreateNotificationDto.prototype, "publication_id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: true, type: String, default: true }),
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], CreateNotificationDto.prototype, "content", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: false, type: String, default: true }),
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], CreateNotificationDto.prototype, "comment", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: true, type: String, default: true }),
+    (0, swagger_1.ApiProperty)({ required: true, type: String }),
+    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friend_request, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
     __metadata("design:type", String)
 ], CreateNotificationDto.prototype, "type", void 0);
 __decorate([

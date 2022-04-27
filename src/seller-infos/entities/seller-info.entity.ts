@@ -56,10 +56,10 @@ export class SellerInfo {
   @Prop({ required: false, trim: true, type: String })
   type: String;
 
-  @Prop({ required: true, default: Date.now, expires: 86400 })
+  @Prop({ required: true, default: Date.now })
   created_at: Date;
 
-  @Prop({ required: true, default: Date.now, expires: 86400 })
+  @Prop({ required: true, default: Date.now })
   updated_at: Date;
 
 }

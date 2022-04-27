@@ -4,6 +4,9 @@ export declare class Newsletter {
     email: String;
     name: String;
     full_address: String;
+    subject: String;
+    message: String;
+    type: String;
     status: Boolean;
     created_at: Date;
     updated_at: Date;

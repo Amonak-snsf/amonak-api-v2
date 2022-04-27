@@ -97,7 +97,7 @@ InvoicesController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('invoices'),
+    (0, common_1.Controller)('api/invoices'),
     __metadata("design:paramtypes", [invoices_service_1.InvoicesService])
 ], InvoicesController);
 exports.InvoicesController = InvoicesController;

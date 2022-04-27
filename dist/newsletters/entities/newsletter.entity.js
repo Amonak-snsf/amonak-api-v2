@@ -11,10 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NewsletterSchema = exports.Newsletter = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const newsletter_type_dto_1 = require("./newsletter-type.dto");
 let Newsletter = class Newsletter {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: String, trim: true, lowercase: true, unique: true }),
+    (0, mongoose_1.Prop)({ required: true, type: String, trim: true, lowercase: true }),
     __metadata("design:type", String)
 ], Newsletter.prototype, "email", void 0);
 __decorate([
@@ -25,6 +26,18 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     __metadata("design:type", String)
 ], Newsletter.prototype, "full_address", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
+    __metadata("design:type", String)
+], Newsletter.prototype, "subject", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
+    __metadata("design:type", String)
+], Newsletter.prototype, "message", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, type: String, trim: true, default: newsletter_type_dto_1.ContactType.newsletter }),
+    __metadata("design:type", String)
+], Newsletter.prototype, "type", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Boolean, default: false }),
     __metadata("design:type", Boolean)

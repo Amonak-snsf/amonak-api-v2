@@ -24,7 +24,7 @@ import { ApiHeader, ApiTags } from '@nestjs/swagger';
 }),
 )
 
-@Controller('products')
+@Controller('api/products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 

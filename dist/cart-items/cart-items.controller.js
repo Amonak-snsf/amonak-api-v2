@@ -72,7 +72,7 @@ CartItemsController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('cart-items'),
+    (0, common_1.Controller)('api/cart-items'),
     __metadata("design:paramtypes", [cart_items_service_1.CartItemsService])
 ], CartItemsController);
 exports.CartItemsController = CartItemsController;

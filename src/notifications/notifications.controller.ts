@@ -10,7 +10,7 @@ import { FilterNotification } from './dto/filter-notification.dto';
   name: 'lang',
   description: 'language', 
 })
-@Controller('notifications')
+@Controller('api/notifications')
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 

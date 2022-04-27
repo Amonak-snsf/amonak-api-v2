@@ -27,6 +27,12 @@ export class Invoice extends Cart {
 
     @Prop({ required: true, type: String })
     invoice_url: String;
+
+    @Prop({ required: false, type: Date, default: Date.now })
+    created_at: Date;
+
+    @Prop({ required: false, type: Date, default: Date.now })
+    updated_at: Date;
 }
 
 export  const InvoiceSchema = SchemaFactory.createForClass(Invoice);

@@ -8,3 +8,5 @@ https://stackoverflow.com/questions/69660408/how-to-handle-the-internal-server-e
 
 transaction
 https://wanago.io/2021/09/06/api-nestjs-transactions-mongodb-mongoose/
+
+https://nextjs.org/docs/api-reference/next/router

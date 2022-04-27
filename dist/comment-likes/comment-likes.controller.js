@@ -86,7 +86,7 @@ CommentLikesController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('comment-likes'),
+    (0, common_1.Controller)('api/comment-likes'),
     __metadata("design:paramtypes", [comment_likes_service_1.CommentLikesService])
 ], CommentLikesController);
 exports.CommentLikesController = CommentLikesController;

@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -38,6 +38,10 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'api/v2',
+  });
   await app.listen(process.env.APP_PORT);
 }
 bootstrap();

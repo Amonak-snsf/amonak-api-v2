@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MailService = void 0;
 const mailer_1 = require("@nestjs-modules/mailer");
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 let MailService = class MailService {
-    constructor(mailerService) {
+    constructor(mailerService, config) {
         this.mailerService = mailerService;
+        this.config = config;
     }
     async sendUserConfirmation(user, token, url) {
         let date = new Date();
@@ -43,10 +45,79 @@ let MailService = class MailService {
             },
         });
     }
+    async contact(data, url) {
+        let date = new Date();
+        await this.mailerService.sendMail({
+            to: this.config.get('admin_email'),
+            subject: 'Contact',
+            template: 'admin',
+            context: {
+                username: data.email,
+                url: url,
+                year: date.getFullYear(),
+                message: data.message,
+                subject: data.subject,
+                admin: this.config.get('admin_email')
+            },
+        });
+    }
+    async newsletter(data, url) {
+        let date = new Date();
+        await this.mailerService.sendMail({
+            to: data.email,
+            subject: 'Newsletter',
+            template: 'news-letter',
+            context: {
+                username: data.email,
+                url: url,
+                year: date.getFullYear()
+            },
+        });
+    }
+    async topten(data, url) {
+        let date = new Date();
+        await this.mailerService.sendMail({
+            to: data.email,
+            subject: 'Topten',
+            template: 'topten',
+            context: {
+                username: data.username,
+                url: url,
+                year: date.getFullYear()
+            },
+            attachments: data.files
+        });
+    }
+    async friendRequest(data, url) {
+        let date = new Date();
+        await this.mailerService.sendMail({
+            to: data.email,
+            subject: 'Friend request',
+            template: 'friend-request',
+            context: {
+                username: data.username,
+                url: url,
+                year: date.getFullYear()
+            }
+        });
+    }
+    async confirmFriendRequest(data, url) {
+        let date = new Date();
+        await this.mailerService.sendMail({
+            to: data.email,
+            subject: 'Accept invitation',
+            template: 'accept-invitation',
+            context: {
+                username: data.username,
+                url: url,
+                year: date.getFullYear()
+            }
+        });
+    }
 };
 MailService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [mailer_1.MailerService])
+    __metadata("design:paramtypes", [mailer_1.MailerService, config_1.ConfigService])
 ], MailService);
 exports.MailService = MailService;
 //# sourceMappingURL=mail.service.js.map

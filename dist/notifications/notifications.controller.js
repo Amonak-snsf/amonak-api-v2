@@ -92,7 +92,7 @@ NotificationsController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('notifications'),
+    (0, common_1.Controller)('api/notifications'),
     __metadata("design:paramtypes", [notifications_service_1.NotificationsService])
 ], NotificationsController);
 exports.NotificationsController = NotificationsController;

@@ -31,11 +31,11 @@ __decorate([
     __metadata("design:type", publication_entity_1.Publication)
 ], Notification.prototype, "publication_id", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: String, default: true }),
+    (0, mongoose_1.Prop)({ required: false, type: String }),
     __metadata("design:type", String)
 ], Notification.prototype, "content", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, type: String, default: true }),
+    (0, mongoose_1.Prop)({ required: false, type: String }),
     __metadata("design:type", String)
 ], Notification.prototype, "comment", void 0);
 __decorate([
@@ -52,11 +52,11 @@ __decorate([
     __metadata("design:type", Date)
 ], Notification.prototype, "created_at", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
 ], Notification.prototype, "seen_at", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
 ], Notification.prototype, "read_at", void 0);
 Notification = __decorate([

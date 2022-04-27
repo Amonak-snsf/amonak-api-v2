@@ -11,7 +11,7 @@ import { FilterInvoice } from './dto/filter-invoice.dto';
   description: 'language', 
 })
 
-@Controller('invoices')
+@Controller('api/invoices')
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 

@@ -43,6 +43,14 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
 ], Invoice.prototype, "invoice_url", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: Date, default: Date.now }),
+    __metadata("design:type", Date)
+], Invoice.prototype, "created_at", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: Date, default: Date.now }),
+    __metadata("design:type", Date)
+], Invoice.prototype, "updated_at", void 0);
 Invoice = __decorate([
     (0, mongoose_1.Schema)()
 ], Invoice);

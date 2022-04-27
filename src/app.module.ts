@@ -28,6 +28,7 @@ import { CartsModule } from './carts/carts.module';
 import { CartItemsModule } from './cart-items/cart-items.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MessagesModule } from './messages/messages.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -66,7 +67,14 @@ import { MessagesModule } from './messages/messages.module';
     CartItemsModule,
     InvoicesModule,
     MessagesModule,
-    NotificationsModule
+    NotificationsModule,
+    EventEmitterModule.forRoot({
+      wildcard: true,
+      delimiter: '.',
+      maxListeners: 1000000,
+      ignoreErrors: true,
+      newListener: true
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

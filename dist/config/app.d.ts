@@ -5,5 +5,6 @@ declare const _default: () => {
     front_url: string;
     port: number;
     file_directory: string;
+    admin_email: string;
 };
 export default _default;

@@ -86,7 +86,7 @@ NewslettersController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('newsletters'),
+    (0, common_1.Controller)('api/newsletters'),
     __metadata("design:paramtypes", [newsletters_service_1.NewslettersService])
 ], NewslettersController);
 exports.NewslettersController = NewslettersController;

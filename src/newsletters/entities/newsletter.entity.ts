@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from 'mongoose';
+import { ContactType } from "./newsletter-type.dto";
 
 export type NewsletterDocument = Newsletter & Document;
 
 @Schema()
 export class Newsletter {
 
-    @Prop({ required: true, type: String, trim: true, lowercase: true, unique: true })
+    @Prop({ required: true, type: String, trim: true, lowercase: true })
     email: String;
 
     @Prop({ required: false, type: String, trim: true })
@@ -14,6 +15,15 @@ export class Newsletter {
 
     @Prop({ required: false, type: String, trim: true })
     full_address: String;
+
+    @Prop({ required: false, type: String, trim: true })
+    subject: String;
+
+    @Prop({ required: false, type: String, trim: true })
+    message: String;
+
+    @Prop({ required: true, type: String, trim: true, default: ContactType.newsletter })
+    type: String;
 
     @Prop({ required: true, type: Boolean , default: false })
     status: Boolean;

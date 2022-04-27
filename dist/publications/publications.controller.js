@@ -97,7 +97,7 @@ PublicationsController = __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter,
     })),
-    (0, common_1.Controller)('publications'),
+    (0, common_1.Controller)('api/publications'),
     __metadata("design:paramtypes", [publications_service_1.PublicationsService])
 ], PublicationsController);
 exports.PublicationsController = PublicationsController;

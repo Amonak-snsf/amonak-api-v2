@@ -75,11 +75,11 @@ __decorate([
     __metadata("design:type", String)
 ], SellerInfo.prototype, "type", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now, expires: 86400 }),
+    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
     __metadata("design:type", Date)
 ], SellerInfo.prototype, "created_at", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now, expires: 86400 }),
+    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
     __metadata("design:type", Date)
 ], SellerInfo.prototype, "updated_at", void 0);
 SellerInfo = __decorate([

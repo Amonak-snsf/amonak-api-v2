@@ -97,7 +97,7 @@ CategoriesController = __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter,
     })),
-    (0, common_1.Controller)('categories'),
+    (0, common_1.Controller)('api/categories'),
     __metadata("design:paramtypes", [categories_service_1.CategoriesService])
 ], CategoriesController);
 exports.CategoriesController = CategoriesController;

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const swagger_1 = require("@nestjs/swagger");
 const app_module_1 = require("./app.module");
@@ -24,6 +25,10 @@ async function bootstrap() {
     app.useStaticAssets((0, path_1.join)(__dirname, '..', 'static'));
     app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
     app.setViewEngine('hbs');
+    app.enableVersioning({
+        type: common_1.VersioningType.URI,
+        prefix: 'api/v2',
+    });
     await app.listen(process.env.APP_PORT);
 }
 bootstrap();

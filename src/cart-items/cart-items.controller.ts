@@ -9,7 +9,7 @@ import { CreateCartItemDto } from './dto/create-cart-item.dto';
   description: 'language', 
 })
 
-@Controller('cart-items')
+@Controller('api/cart-items')
 export class CartItemsController {
   constructor(private readonly cartItemsService: CartItemsService) {}
 

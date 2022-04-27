@@ -6,6 +6,7 @@ exports.default = () => ({
     api_url: process.env.API_URL || 'http://localhost:3000/api',
     front_url: process.env.FRONT_URL || 'http://localhost:4200',
     port: parseInt(process.env.APP_PORT, 10) || 3000,
-    file_directory: process.env.FILE_DIRECTORY || './static'
+    file_directory: process.env.FILE_DIRECTORY || './static',
+    admin_email: process.env.ADMIN_EMAIL || 'aikpeachille55@gmail.com'
 });
 //# sourceMappingURL=app.js.map

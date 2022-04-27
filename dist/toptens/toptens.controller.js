@@ -97,7 +97,7 @@ ToptensController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('toptens'),
+    (0, common_1.Controller)('api/toptens'),
     __metadata("design:paramtypes", [toptens_service_1.ToptensService])
 ], ToptensController);
 exports.ToptensController = ToptensController;

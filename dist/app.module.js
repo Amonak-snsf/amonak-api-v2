@@ -37,6 +37,7 @@ const carts_module_1 = require("./carts/carts.module");
 const cart_items_module_1 = require("./cart-items/cart-items.module");
 const notifications_module_1 = require("./notifications/notifications.module");
 const messages_module_1 = require("./messages/messages.module");
+const event_emitter_1 = require("@nestjs/event-emitter");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -77,7 +78,14 @@ AppModule = __decorate([
             cart_items_module_1.CartItemsModule,
             invoices_module_1.InvoicesModule,
             messages_module_1.MessagesModule,
-            notifications_module_1.NotificationsModule
+            notifications_module_1.NotificationsModule,
+            event_emitter_1.EventEmitterModule.forRoot({
+                wildcard: true,
+                delimiter: '.',
+                maxListeners: 1000000,
+                ignoreErrors: true,
+                newListener: true
+            }),
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

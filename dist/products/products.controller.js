@@ -98,7 +98,7 @@ ProductsController = __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter3,
     })),
-    (0, common_1.Controller)('products'),
+    (0, common_1.Controller)('api/products'),
     __metadata("design:paramtypes", [products_service_1.ProductsService])
 ], ProductsController);
 exports.ProductsController = ProductsController;

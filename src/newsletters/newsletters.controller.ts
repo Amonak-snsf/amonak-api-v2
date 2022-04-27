@@ -10,7 +10,7 @@ import { FilterNewsLetterDto } from './dto/filter-newsletter.dto';
   name: 'lang',
   description: 'language',
 })
-@Controller('newsletters')
+@Controller('api/newsletters')
 export class NewslettersController {
   constructor(
     private readonly newslettersService: NewslettersService,
