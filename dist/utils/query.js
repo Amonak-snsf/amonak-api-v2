@@ -63,10 +63,10 @@ const put = async (model, body, filter, populate, populate_fields) => {
 };
 exports.put = put;
 const destroy = async (model, filter) => {
-    const data = await model.findByIdAndDelete(filter).catch(err => {
+    await model.findByIdAndDelete(filter).catch(err => {
         throw (0, error_1.error)(err, common_1.HttpStatus.NOT_FOUND);
     });
-    return data;
+    return 1;
 };
 exports.destroy = destroy;
 //# sourceMappingURL=query.js.map

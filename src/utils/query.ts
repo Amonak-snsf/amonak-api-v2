@@ -81,9 +81,9 @@ export const put = async (model: Model<any>, body: Object, filter: Object, popul
 
 export const destroy = async (model: Model<any>, filter: Object)=> {
 
-    const data = await model.findByIdAndDelete(filter).catch(err => {
+    await model.findByIdAndDelete(filter).catch(err => {
         throw error(err, HttpStatus.NOT_FOUND);
     });
 
-    return data;
+    return 1;
 }

@@ -7,5 +7,5 @@ export declare class MessagesService {
     findAll(params: any): Promise<any[]>;
     findOne(id: string): Promise<any>;
     update(id: string, updateMessageDto: any): Promise<any>;
-    remove(id: string): Promise<any>;
+    remove(id: string): Promise<number>;
 }
