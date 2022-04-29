@@ -19,7 +19,7 @@ export class NotificationsService {
 
   async findAll(params) {
     
-    const data = await all(this.notificationModel, params, null, { created_at: -1 }, params.limit);
+    const data = await all(this.notificationModel, params, null, { createdAt: -1 }, params.limit);
 
     return data;
   }
@@ -27,21 +27,21 @@ export class NotificationsService {
   async findOne(from: string, params) {
 
     let query = { $or: [{from: from}, {to: from}], params };
-    const data = await all(this.notificationModel, query, null, { created_at: -1 }, params.limit);
+    const data = await all(this.notificationModel, query, null, { createdAt: -1 }, params.limit);
 
     return data;
   }
 
-  async update(id: string, updateNotificationDto) {
+  async update(_id: string, updateNotificationDto) {
     
-    const data = await put(this.notificationModel, UpdateNotificationDto, { _id: id }, 'from', userDataPopulateWithComment());
+    const data = await put(this.notificationModel, UpdateNotificationDto, { _id: _id }, 'from', userDataPopulateWithComment());
 
     return data;
   }
 
-  async remove(id: string) {
+  async remove(_id: string) {
 
-    const data = await destroy(this.notificationModel, { _id: id });
+    const data = await destroy(this.notificationModel, { _id: _id });
 
     return data;
   }

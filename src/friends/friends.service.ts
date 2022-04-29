@@ -72,12 +72,12 @@ export class FriendsService {
     }
 
     if(this.friend){
-      const query1 = { status: true, $pull: { friends: user._id } };
+      const query1 = { status: true, $pull: { friends: user.__id } };
       this.user = await put(this.userModel, query1, { _id: cfDto.from });
     }
 
     if(this.user){
-      const query2 = { status: true, $pull: { friends: this.friend._id } };
+      const query2 = { status: true, $pull: { friends: this.friend.__id } };
       this.to_request = await put(this.userModel, query2, { _id: cfDto.to });
     }
 

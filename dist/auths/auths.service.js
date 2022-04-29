@@ -15,14 +15,14 @@ let AuthsService = class AuthsService {
     findAll() {
         return `This action returns all auths`;
     }
-    findOne(id) {
-        return `This action returns a #${id} auth`;
+    findOne(_id) {
+        return `This action returns a #${_id} auth`;
     }
-    update(id, updateAuthDto) {
-        return `This action updates a #${id} auth`;
+    update(_id, updateAuthDto) {
+        return `This action updates a #${_id} auth`;
     }
-    remove(id) {
-        return `This action removes a #${id} auth`;
+    remove(_id) {
+        return `This action removes a #${_id} auth`;
     }
 };
 AuthsService = __decorate([

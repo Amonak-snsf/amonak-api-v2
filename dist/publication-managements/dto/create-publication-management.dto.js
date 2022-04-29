@@ -18,11 +18,11 @@ class CreatePublicationManagementDto {
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreatePublicationManagementDto.prototype, "user_id", void 0);
+], CreatePublicationManagementDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreatePublicationManagementDto.prototype, "publication_id", void 0);
+], CreatePublicationManagementDto.prototype, "publication", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: true }),
     __metadata("design:type", Boolean)

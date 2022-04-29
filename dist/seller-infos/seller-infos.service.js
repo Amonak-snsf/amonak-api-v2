@@ -30,24 +30,23 @@ let SellerInfosService = class SellerInfosService {
         this.userModel = userModel;
         this.configService = configService;
         this.mailService = mailService;
-        this.fileArray = [];
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.sellerInforModel, params, null, { created_at: -1 }, params.limit, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.sellerInforModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(user_id, res) {
-        const data = await (0, query_1.one)(this.sellerInforModel, { user_id: user_id }, null, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async findOne(user, res) {
+        const data = await (0, query_1.one)(this.sellerInforModel, { user: user }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(user_id, upDto, file, files, res) {
+    async update(user, upDto, file, files, res) {
         this.data = upDto;
         if (file && file.path) {
             const fileReponse = {
                 url: `/${file.path}`,
                 type: file.mimetype
             };
-            this.data.identity_card = fileReponse;
+            this.data.identityCard = fileReponse;
         }
         const custom_files = (0, helpers_1.customFiles)(files);
         if (custom_files) {
@@ -58,31 +57,31 @@ let SellerInfosService = class SellerInfosService {
             this.data.address = address;
         }
         this.data.status = status_seller_info_1.Status.read;
-        await (0, query_1.put)(this.sellerInforModel, this.data, { user_id: user_id });
-        this.account_type = user_account_type_enum_1.AccountType.pending;
-        const user = await (0, query_1.put)(this.userModel, { account_type: this.account_type }, { user_id: user_id });
-        return res.status(common_1.HttpStatus.OK).json(user);
+        await (0, query_1.put)(this.sellerInforModel, this.data, { user: user });
+        this.accountType = user_account_type_enum_1.AccountType.pending;
+        const userUpdated = await (0, query_1.put)(this.userModel, { accountType: this.accountType }, { user: user });
+        return res.status(common_1.HttpStatus.OK).json(userUpdated);
     }
-    async manageSellerInfoStatus(user_id, status, res) {
-        await (0, query_1.put)(this.sellerInforModel, { status: status }, { user_id: user_id });
+    async manageSellerInfoStatus(user, status, res) {
+        await (0, query_1.put)(this.sellerInforModel, { status: status }, { user: user });
         const account = this.status(status);
-        await (0, query_1.put)(this.userModel, { account_type: account }, { user_id: user_id });
-        return res.status(common_1.HttpStatus.OK).json({ message: "User account status has been changed to " + this.account_type + " with success !" });
+        await (0, query_1.put)(this.userModel, { accountType: account }, { user: user });
+        return res.status(common_1.HttpStatus.OK).json({ message: "User account status has been changed to " + this.accountType + " with success !" });
     }
     status(status) {
         if (status == status_seller_info_1.Status.accepted) {
-            this.account_type = user_account_type_enum_1.AccountType.seller;
+            this.accountType = user_account_type_enum_1.AccountType.seller;
         }
         if (status == status_seller_info_1.Status.refused) {
-            this.account_type = user_account_type_enum_1.AccountType.refused;
+            this.accountType = user_account_type_enum_1.AccountType.refused;
         }
         if (status == status_seller_info_1.Status.cancelled) {
-            this.account_type = user_account_type_enum_1.AccountType.cancelled;
+            this.accountType = user_account_type_enum_1.AccountType.cancelled;
         }
         if (status == status_seller_info_1.Status.read) {
-            this.account_type = user_account_type_enum_1.AccountType.pending;
+            this.accountType = user_account_type_enum_1.AccountType.pending;
         }
-        return this.account_type;
+        return this.accountType;
     }
 };
 SellerInfosService = __decorate([

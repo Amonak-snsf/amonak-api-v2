@@ -22,7 +22,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateSellerInfoDto.prototype, "phone_number", void 0);
+], CreateSellerInfoDto.prototype, "phone", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
@@ -30,7 +30,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: {} }),
     __metadata("design:type", Object)
-], CreateSellerInfoDto.prototype, "identity_card", void 0);
+], CreateSellerInfoDto.prototype, "identityCard", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: {} }),
     __metadata("design:type", Object)
@@ -38,7 +38,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
-], CreateSellerInfoDto.prototype, "product_nature", void 0);
+], CreateSellerInfoDto.prototype, "productNature", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     __metadata("design:type", String)

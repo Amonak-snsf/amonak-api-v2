@@ -37,23 +37,23 @@ let ToptensService = class ToptensService {
         }
         let d = new Date();
         this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
-        const data = await (0, query_1.create)(this.toptenModel, this.data, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.create)(this.toptenModel, this.data, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(body, res) {
-        const data = await (0, query_1.all)(this.toptenModel, body, null, { created_at: -1 }, body.limit, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.toptenModel, body, null, { createdAt: -1 }, body.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.toptenModel, { _id: id }, null, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.toptenModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateToptenDto, res) {
-        const data = await (0, query_1.put)(this.toptenModel, updateToptenDto, { _id: id }, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async update(_id, updateToptenDto, res) {
+        const data = await (0, query_1.put)(this.toptenModel, updateToptenDto, { _id: _id }, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.toptenModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.toptenModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };

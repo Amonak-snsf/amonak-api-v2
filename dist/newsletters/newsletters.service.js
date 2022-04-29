@@ -39,19 +39,19 @@ let NewslettersService = class NewslettersService {
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.newsModel, params, null, { created_at: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.newsModel, params, null, { createdAt: -1 }, params.limit);
         return await res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.newsModel, { _id: id });
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.newsModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateNewsletterDto, res) {
-        const data = await (0, query_1.put)(this.newsModel, updateNewsletterDto, { _id: id });
+    async update(_id, updateNewsletterDto, res) {
+        const data = await (0, query_1.put)(this.newsModel, updateNewsletterDto, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.newsModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.newsModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };

@@ -36,14 +36,14 @@ let AuthsGateway = class AuthsGateway {
     findAll() {
         return this.authsService.findAll();
     }
-    findOne(id) {
-        return this.authsService.findOne(id);
+    findOne(_id) {
+        return this.authsService.findOne(_id);
     }
     update(updateAuthDto) {
-        return this.authsService.update(updateAuthDto.id, updateAuthDto);
+        return this.authsService.update(updateAuthDto._id, updateAuthDto);
     }
-    remove(id) {
-        return this.authsService.remove(id);
+    remove(_id) {
+        return this.authsService.remove(_id);
     }
 };
 __decorate([

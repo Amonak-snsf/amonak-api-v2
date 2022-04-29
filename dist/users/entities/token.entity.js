@@ -18,7 +18,7 @@ let Token = class Token {
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Token.prototype, "user_id", void 0);
+], Token.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: Date.now, expires: 86400 }),
     __metadata("design:type", Date)
-], Token.prototype, "created_at", void 0);
+], Token.prototype, "createdAt", void 0);
 Token = __decorate([
     (0, mongoose_1.Schema)()
 ], Token);

@@ -31,16 +31,16 @@ let NotificationsController = class NotificationsController {
         const data = await this.notificationsService.findAll(params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, params, res) {
-        const data = await this.notificationsService.findOne(id, params);
+    async findOne(_id, params, res) {
+        const data = await this.notificationsService.findOne(_id, params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateNotificationDto, res) {
-        const data = await this.notificationsService.update(id, updateNotificationDto);
+    async update(_id, updateNotificationDto, res) {
+        const data = await this.notificationsService.update(_id, updateNotificationDto);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await this.notificationsService.remove(id);
+    async remove(_id, res) {
+        const data = await this.notificationsService.remove(_id);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };
@@ -61,8 +61,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], NotificationsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Query)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -70,8 +70,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], NotificationsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -79,8 +79,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], NotificationsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

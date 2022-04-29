@@ -1,7 +1,7 @@
 export declare class CreateNotificationDto {
     from: String;
     to: String;
-    publication_id: String;
+    publication: String;
     content: String;
     comment: String;
     type: String;

@@ -33,12 +33,12 @@ let CommentsService = class CommentsService {
             createCommentDto.files = (0, helpers_1.customFiles)(files);
         }
         const data = await (0, query_1.create)(this.commentModel, createCommentDto);
-        await new this.pubmanegementModel({ user_id: data.user_id, publication_id: data.publication_id, type: publication_managements_type_dto_1.PubManagementType.follow });
+        await new this.pubmanegementModel({ user: data.user, publication: data.publication, type: publication_managements_type_dto_1.PubManagementType.follow });
         await this.notificationService.create({
-            from: data.user_id,
+            from: data.user,
             content: "publicationComment",
             to: data.to,
-            publication: data.publication_id
+            publication: data.publication
         });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
@@ -46,19 +46,19 @@ let CommentsService = class CommentsService {
         if (params.search) {
             params = { content: { $regex: new RegExp(params.search, 'i') } };
         }
-        const data = await (0, query_1.all)(this.commentModel, params, null, { created_at: -1 }, params.limit, 'user_id', (0, helpers_1.userDataPopulateWithComment)());
+        const data = await (0, query_1.all)(this.commentModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithComment)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.commentModel, { _id: id }, null, 'user_id', (0, helpers_1.userDataPopulateWithComment)());
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.commentModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithComment)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateCommentDto, res) {
-        const data = await (0, query_1.put)(this.commentModel, updateCommentDto, { _id: id });
+    async update(_id, updateCommentDto, res) {
+        const data = await (0, query_1.put)(this.commentModel, updateCommentDto, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.commentModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.commentModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };

@@ -1,1 +1,1 @@
-export declare const error: (data: any, http_code?: number) => void;
+export declare const error: (data: any, httpCode?: number) => void;

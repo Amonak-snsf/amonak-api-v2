@@ -1,11 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from 'mongoose';
+import { DefaultModel } from "src/utils/default-model";
 import { ContactType } from "./newsletter-type.dto";
 
 export type NewsletterDocument = Newsletter & Document;
 
 @Schema()
-export class Newsletter {
+export class Newsletter extends DefaultModel{
 
     @Prop({ required: true, type: String, trim: true, lowercase: true })
     email: String;
@@ -14,7 +15,7 @@ export class Newsletter {
     name: String;
 
     @Prop({ required: false, type: String, trim: true })
-    full_address: String;
+    fullAddress: String;
 
     @Prop({ required: false, type: String, trim: true })
     subject: String;
@@ -27,12 +28,6 @@ export class Newsletter {
 
     @Prop({ required: true, type: Boolean , default: false })
     status: Boolean;
-
-    @Prop({ required: false, type: Date, default: Date.now })
-    created_at: Date;
-
-    @Prop({ required: false, type: Date, default: Date.now })
-    updated_at: Date;
 }
 
 export const NewsletterSchema = SchemaFactory.createForClass(Newsletter);

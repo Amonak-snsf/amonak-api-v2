@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from "mongoose"
+import { DefaultModel } from "src/utils/default-model";
 
 export type CategoryDocument = Category & Document;
 
 @Schema()
-export class Category {
+export class Category extends DefaultModel{
 
     @Prop({ type: String, required: true, trim: true, unique: true })
     name: String;
@@ -17,12 +18,6 @@ export class Category {
 
     @Prop({ type: Boolean, required: true, default: false })
     status: Boolean;
-
-    @Prop({ required: false, type: Date, default: Date.now })
-    created_at: Date;
-
-    @Prop({ required: false, type: Date, default: Date.now })
-    updated_at: Date;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category)

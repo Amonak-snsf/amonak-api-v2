@@ -3,14 +3,15 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from 'src/users/entities/user.entity';
 import { Status } from '../dto/status-seller-info';
+import { DefaultModel } from 'src/utils/default-model';
 
 export type SellerInfoDocument = SellerInfo & Document;
 
 @Schema()
-export class SellerInfo {
+export class SellerInfo extends DefaultModel{
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user_id: User
+  user: User
 
   @Prop({ required: true, enum: Status })
   status: Number;
@@ -25,7 +26,7 @@ export class SellerInfo {
     url: { required: false, trim: true, type: String, select: true },
     type: { required: false, trim: true, type: String, select: true }
   }))
-  identity_card: Record<string, any>;
+  identityCard: Record<string, any>;
 
   @Prop({ required: false, trim: true, type: String })
   message: String
@@ -34,34 +35,27 @@ export class SellerInfo {
   email: String;
 
   @Prop({ required: false, trim: true, type: String })
-  phone_number: String;
+  phone: String;
 
   @Prop({ required: false, trim: true, type: String })
-  register_number: String;
+  registerNumber: String;
   
   @Prop(raw({
-    country_name: { required: false, trim: true, type: String },
-    country_code: { required: false, trim: true, type: String },
+    countryName: { required: false, trim: true, type: String },
+    countryCode: { required: false, trim: true, type: String },
     state: { required: false, trim: true, type: String },
     city: { required: false, trim: true, type: String },
-    postal_code: { required: false, trim: true, type: String },
+    postalCode: { required: false, trim: true, type: String },
     street: { required: false, trim: true, type: String },
-    full_address: { required: false, trim: true, type: String }
+    fullAddress: { required: false, trim: true, type: String }
   }))
   address: Record<string, any>;
 
   @Prop({ type: [String]})
-  product_nature: String[];
+  productNature: String[];
 
   @Prop({ required: false, trim: true, type: String })
   type: String;
-
-  @Prop({ required: true, default: Date.now })
-  created_at: Date;
-
-  @Prop({ required: true, default: Date.now })
-  updated_at: Date;
-
 }
 
 export const SellerInfoSchema = SchemaFactory.createForClass(SellerInfo);

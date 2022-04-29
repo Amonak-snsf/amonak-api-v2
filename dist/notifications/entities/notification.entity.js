@@ -16,7 +16,8 @@ const mongoose = require("mongoose");
 const publication_entity_1 = require("../../publications/entities/publication.entity");
 const notification_type_dto_1 = require("../dto/notification-type.dto");
 const class_validator_1 = require("class-validator");
-let Notification = class Notification {
+const default_model_1 = require("../../utils/default-model");
+let Notification = class Notification extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
@@ -29,7 +30,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' }),
     __metadata("design:type", publication_entity_1.Publication)
-], Notification.prototype, "publication_id", void 0);
+], Notification.prototype, "publication", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String }),
     __metadata("design:type", String)
@@ -40,7 +41,7 @@ __decorate([
 ], Notification.prototype, "comment", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String, default: notification_type_dto_1.NotificationType.all }),
-    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friend_request, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
+    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friendRequest, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
     __metadata("design:type", String)
 ], Notification.prototype, "type", void 0);
 __decorate([
@@ -48,17 +49,13 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Notification.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
-], Notification.prototype, "created_at", void 0);
+], Notification.prototype, "seenAt", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
-], Notification.prototype, "seen_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Date)
-], Notification.prototype, "read_at", void 0);
+], Notification.prototype, "readAt", void 0);
 Notification = __decorate([
     (0, mongoose_1.Schema)()
 ], Notification);

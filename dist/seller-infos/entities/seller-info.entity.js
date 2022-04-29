@@ -13,15 +13,16 @@ exports.SellerInfoSchema = exports.SellerInfo = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
-const status_seller_info_1 = require("../dto/status-seller-info");
-let SellerInfo = class SellerInfo {
+const status_sellerInfo_1 = require("../dto/status-seller-info");
+const default_model_1 = require("../../utils/default-model");
+let SellerInfo = class SellerInfo extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], SellerInfo.prototype, "user_id", void 0);
+], SellerInfo.prototype, "user", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, enum: status_seller_info_1.Status }),
+    (0, mongoose_1.Prop)({ required: true, enum: status_sellerInfo_1.Status }),
     __metadata("design:type", Number)
 ], SellerInfo.prototype, "status", void 0);
 __decorate([
@@ -37,7 +38,7 @@ __decorate([
         type: { required: false, trim: true, type: String, select: true }
     })),
     __metadata("design:type", Object)
-], SellerInfo.prototype, "identity_card", void 0);
+], SellerInfo.prototype, "identityCard", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
@@ -49,39 +50,31 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], SellerInfo.prototype, "phone_number", void 0);
+], SellerInfo.prototype, "phone", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], SellerInfo.prototype, "register_number", void 0);
+], SellerInfo.prototype, "registerNumber", void 0);
 __decorate([
     (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        country_name: { required: false, trim: true, type: String },
-        country_code: { required: false, trim: true, type: String },
+        countryName: { required: false, trim: true, type: String },
+        countryCode: { required: false, trim: true, type: String },
         state: { required: false, trim: true, type: String },
         city: { required: false, trim: true, type: String },
-        postal_code: { required: false, trim: true, type: String },
+        postalCode: { required: false, trim: true, type: String },
         street: { required: false, trim: true, type: String },
-        full_address: { required: false, trim: true, type: String }
+        fullAddress: { required: false, trim: true, type: String }
     })),
     __metadata("design:type", Object)
 ], SellerInfo.prototype, "address", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [String] }),
     __metadata("design:type", Array)
-], SellerInfo.prototype, "product_nature", void 0);
+], SellerInfo.prototype, "productNature", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
 ], SellerInfo.prototype, "type", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
-    __metadata("design:type", Date)
-], SellerInfo.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
-    __metadata("design:type", Date)
-], SellerInfo.prototype, "updated_at", void 0);
 SellerInfo = __decorate([
     (0, mongoose_1.Schema)()
 ], SellerInfo);

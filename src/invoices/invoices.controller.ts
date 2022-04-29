@@ -25,14 +25,14 @@ export class InvoicesController {
     return this.invoicesService.findAll(params, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.invoicesService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+    return this.invoicesService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInvoiceDto: UpdateInvoiceDto, @Res() res) {
-    return this.invoicesService.update(id, updateInvoiceDto, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateInvoiceDto: UpdateInvoiceDto, @Res() res) {
+    return this.invoicesService.update(_id, updateInvoiceDto, res);
   }
 
   @Patch('payment/success')
@@ -41,8 +41,8 @@ export class InvoicesController {
   }
 
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.invoicesService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+    return this.invoicesService.remove(_id, res);
   }
 }

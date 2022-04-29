@@ -10,8 +10,8 @@ export declare class InvoicesService {
     constructor(invoiceModel: Model<InvoiceDocument>, configServe: ConfigService);
     create(createInvoiceDto: CreateInvoiceDto, res: any): Promise<void>;
     findAll(params: any, res: any): Promise<void>;
-    findOne(id: string, res: any): Promise<void>;
-    update(id: string, updateInvoiceDto: UpdateInvoiceDto, res: any): Promise<void>;
-    remove(id: string, res: any): Promise<void>;
+    findOne(_id: string, res: any): Promise<void>;
+    update(_id: string, updateInvoiceDto: UpdateInvoiceDto, res: any): Promise<void>;
+    remove(_id: string, res: any): Promise<void>;
     success(params: any, res: any): Promise<void>;
 }

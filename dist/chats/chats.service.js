@@ -15,14 +15,14 @@ let ChatsService = class ChatsService {
     findAll() {
         return `This action returns all chats`;
     }
-    findOne(id) {
-        return `This action returns a #${id} chat`;
+    findOne(_id) {
+        return `This action returns a #${_id} chat`;
     }
-    update(id, updateChatDto) {
-        return `This action updates a #${id} chat`;
+    update(_id, updateChatDto) {
+        return `This action updates a #${_id} chat`;
     }
-    remove(id) {
-        return `This action removes a #${id} chat`;
+    remove(_id) {
+        return `This action removes a #${_id} chat`;
     }
 };
 ChatsService = __decorate([

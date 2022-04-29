@@ -26,26 +26,26 @@ let CartsService = class CartsService {
     }
     async create(createCartDto, res) {
         this.data = createCartDto;
-        const data = await (0, query_1.createIfne)(this.cartModel, this.data, { user_id: this.data.user_id, status: cart_status_dto_1.CartStatus.unpaid, is_waiting: true });
+        const data = await (0, query_1.createIfne)(this.cartModel, this.data, { user: this.data.user, status: cart_status_dto_1.CartStatus.unpaid, isWaiting: true });
         if (this.data.from && this.data.from == 'cart_item') {
             return data;
         }
         res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.cartModel, params, null, { created_at: -1 }, params.limit, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.cartModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.cartModel, { _id: id }, null, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.cartModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateCartDto, res) {
-        const data = await (0, query_1.put)(this.cartModel, updateCartDto, { _id: id }, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async update(_id, updateCartDto, res) {
+        const data = await (0, query_1.put)(this.cartModel, updateCartDto, { _id: _id }, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.cartModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.cartModel, { _id: _id });
         res.status(common_1.HttpStatus.OK).json(data);
     }
 };

@@ -12,15 +12,15 @@ export class AuthsService {
     return `This action returns all auths`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
+  findOne(_id: number) {
+    return `This action returns a #${_id} auth`;
   }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
+  update(_id: number, updateAuthDto: UpdateAuthDto) {
+    return `This action updates a #${_id} auth`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  remove(_id: number) {
+    return `This action removes a #${_id} auth`;
   }
 } 

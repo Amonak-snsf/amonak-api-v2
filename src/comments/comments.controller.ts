@@ -38,18 +38,18 @@ export class CommentsController {
     return this.commentsService.findAll(params, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.commentsService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+    return this.commentsService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto, @Res() res) {
-    return this.commentsService.update(id, updateCommentDto, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateCommentDto: UpdateCommentDto, @Res() res) {
+    return this.commentsService.update(_id, updateCommentDto, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.commentsService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+    return this.commentsService.remove(_id, res);
   }
 }

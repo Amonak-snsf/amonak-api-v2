@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilterNotification = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const create_notification_dto_1 = require("./create-notification.dto");
-class FilterNotification extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_notification_dto_1.CreateNotificationDto, ['comment', 'publication_id'])) {
+class FilterNotification extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_notification_dto_1.CreateNotificationDto, ['comment', 'publication'])) {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ type: Number, required: false }),

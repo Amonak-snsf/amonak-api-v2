@@ -14,7 +14,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const publication_entity_1 = require("../../publications/entities/publication.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
 const mongoose = require("mongoose");
-let Comment = class Comment {
+const default_model_1 = require("../../utils/default-model");
+let Comment = class Comment extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
@@ -30,19 +31,15 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' }),
     __metadata("design:type", publication_entity_1.Publication)
-], Comment.prototype, "publication_id", void 0);
+], Comment.prototype, "publication", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Comment.prototype, "user_id", void 0);
+], Comment.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
 ], Comment.prototype, "status", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Comment.prototype, "created_at", void 0);
 Comment = __decorate([
     (0, mongoose_1.Schema)()
 ], Comment);

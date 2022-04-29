@@ -24,13 +24,13 @@ export class PublicationManagementsController {
     return this.publicationManagementsService.findAll(params, res);
   }
 
-  @Get(':publication_id')
-  findOne(@Param('publication_id') publication_id: string, @Query() params:CreatePublicationManagementDto, @Res() res) {
-    return this.publicationManagementsService.findOne(publication_id, params, res);
+  @Get(':publication')
+  findOne(@Param('publication') publication: string, @Query() params:CreatePublicationManagementDto, @Res() res) {
+    return this.publicationManagementsService.findOne(publication, params, res);
   }
 
-  @Delete(':publication_id')
-  remove(@Param('publication_id') publication_id: string, @Query() params:CreatePublicationManagementDto, @Res() res) {
-    return this.publicationManagementsService.remove(publication_id, params, res);
+  @Delete(':publication')
+  remove(@Param('publication') publication: string, @Query() params:CreatePublicationManagementDto, @Res() res) {
+    return this.publicationManagementsService.remove(publication, params, res);
   }
 }

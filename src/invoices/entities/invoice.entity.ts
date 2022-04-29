@@ -8,31 +8,28 @@ export type InvoiceDocument = Invoice & Document;
 export class Invoice extends Cart {
 
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Cart' })
-    cart_id: Cart
+    cart: Cart
 
     @Prop({ required: false, type: String, default: '' })
     comment: String
 
     @Prop({ required: false, type: String, default: '' })
-    payment_type: String
+    paymentType: String
 
     @Prop({ required: false, type: String, default: '' })
-    payment_method: String
+    paymentMethod: String
 
     @Prop({ required: false, type: Date, default: '' })
-    payment_date: Date
+    paymentDate: Date
 
     @Prop({ required: false, type: String, default: '' })
-    payment_reference: String
+    paymentReference: String
 
     @Prop({ required: true, type: String })
-    invoice_url: String;
+    invoiceUrl: String;
 
-    @Prop({ required: false, type: Date, default: Date.now })
-    created_at: Date;
-
-    @Prop({ required: false, type: Date, default: Date.now })
-    updated_at: Date;
+    @Prop({ required: false, type: String })
+    transactionId: String;
 }
 
 export  const InvoiceSchema = SchemaFactory.createForClass(Invoice);

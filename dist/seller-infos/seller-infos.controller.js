@@ -29,14 +29,14 @@ let SellerInfosController = class SellerInfosController {
     findAll(params, res) {
         return this.sellerInfosService.findAll(params, res);
     }
-    findOne(user_id, res) {
-        return this.sellerInfosService.findOne(user_id, res);
+    findOne(user, res) {
+        return this.sellerInfosService.findOne(user, res);
     }
-    update(user_id, updateSellerInfoDto, file, files, res) {
-        return this.sellerInfosService.update(user_id, updateSellerInfoDto, file, files, res);
+    update(user, updateSellerInfoDto, file, files, res) {
+        return this.sellerInfosService.update(user, updateSellerInfoDto, file, files, res);
     }
-    manageSellerInfoStatus(user_id, upDto, res) {
-        return this.sellerInfosService.manageSellerInfoStatus(user_id, upDto.status, res);
+    manageSellerInfoStatus(user, upDto, res) {
+        return this.sellerInfosService.manageSellerInfoStatus(user, upDto.status, res);
     }
 };
 __decorate([
@@ -48,15 +48,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SellerInfosController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)('seller-infos/:user_id'),
-    __param(0, (0, common_1.Param)('user_id')),
+    (0, common_1.Get)('seller-infos/:user'),
+    __param(0, (0, common_1.Param)('user')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], SellerInfosController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('identity_card', {
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('identityCard', {
         storage: (0, multer_1.diskStorage)({
             destination: file_uploading_1.fileDestination,
             filename: file_uploading_1.editFileName,
@@ -69,8 +69,8 @@ __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter3,
     })),
-    (0, common_1.Patch)('seller-requests/:user_id'),
-    __param(0, (0, common_1.Param)('user_id')),
+    (0, common_1.Patch)('seller-requests/:user'),
+    __param(0, (0, common_1.Param)('user')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.UploadedFile)()),
     __param(3, (0, common_1.UploadedFiles)()),
@@ -80,8 +80,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SellerInfosController.prototype, "update", null);
 __decorate([
-    (0, common_1.Put)('seller-managments/:user_id/status'),
-    __param(0, (0, common_1.Param)('user_id')),
+    (0, common_1.Put)('seller-managments/:user/status'),
+    __param(0, (0, common_1.Param)('user')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),

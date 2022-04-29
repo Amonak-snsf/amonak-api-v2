@@ -8,7 +8,7 @@ export declare class ProductsService {
     constructor(productModel: Model<ProductDocument>);
     create(createProductDto: CreateProductDto, files: any, res: any): Promise<any>;
     findAll(params: any, res: any): Promise<any>;
-    findOne(id: string, res: any): Promise<any>;
-    update(id: string, updateProductDto: UpdateProductDto, files: any, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, res: any): Promise<any>;
+    update(_id: string, updateProductDto: UpdateProductDto, files: any, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

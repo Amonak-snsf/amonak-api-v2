@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const create_topten_dto_1 = require("./create-topten.dto");
 const topten_status_interface_1 = require("./topten-status-interface");
-class UpdateToptenDto extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_topten_dto_1.CreateToptenDto, ['files', 'name', 'product_nature', 'company', 'duration', 'user_id', 'price', 'website', 'message'])) {
+class UpdateToptenDto extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_topten_dto_1.CreateToptenDto, ['files', 'name', 'productNature', 'company', 'duration', 'user', 'price', 'webSites', 'message'])) {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String], required: false }),

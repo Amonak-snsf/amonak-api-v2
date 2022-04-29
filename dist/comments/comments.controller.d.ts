@@ -7,7 +7,7 @@ export declare class CommentsController {
     constructor(commentsService: CommentsService);
     create(createCommentDto: CreateCommentDto, files: any, res: any): Promise<any>;
     findAll(params: FilterComment, res: any): Promise<any>;
-    findOne(id: string, res: any): Promise<any>;
-    update(id: string, updateCommentDto: UpdateCommentDto, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, res: any): Promise<any>;
+    update(_id: string, updateCommentDto: UpdateCommentDto, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

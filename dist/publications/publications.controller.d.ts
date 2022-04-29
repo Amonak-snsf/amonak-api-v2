@@ -7,7 +7,7 @@ export declare class PublicationsController {
     constructor(publicationsService: PublicationsService);
     create(body: CreatePublicationDto, files: any, res: any): Promise<any>;
     findAll(params: FilterPublicationDto, res: any): Promise<any>;
-    findOne(id: string, res: any): Promise<void>;
-    update(id: string, body: UpdatePublicationDto, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, res: any): Promise<void>;
+    update(_id: string, body: UpdatePublicationDto, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

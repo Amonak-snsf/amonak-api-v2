@@ -38,18 +38,18 @@ export class ProductsController {
     return this.productsService.findAll(params, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.productsService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+    return this.productsService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto, @UploadedFiles() files, @Res() res) {
-    return this.productsService.update(id, updateProductDto, files, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateProductDto: UpdateProductDto, @UploadedFiles() files, @Res() res) {
+    return this.productsService.update(_id, updateProductDto, files, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.productsService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+    return this.productsService.remove(_id, res);
   }
 }

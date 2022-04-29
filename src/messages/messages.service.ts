@@ -33,29 +33,29 @@ export class MessagesService {
 
     query = { query, params };
 
-    const data = await all(this.messageModel, query, null, { created_at: -1 }, params.limit);
+    const data = await all(this.messageModel, query, null, { createdAt: -1 }, params.limit);
 
     return data;
   }
 
-  async findOne(id: string) {
+  async findOne(_id: string) {
 
-    const data = await one(this.messageModel, { _id: id });
+    const data = await one(this.messageModel, { _id: _id });
 
     return data;
     
   }
 
-  async update(id: string, updateMessageDto) {
+  async update(_id: string, updateMessageDto) {
     
-    const data = await put(this.messageModel, updateMessageDto, { _id: id });
+    const data = await put(this.messageModel, updateMessageDto, { _id: _id });
 
     return data;
   }
 
-  async remove(id: string) {
+  async remove(_id: string) {
     
-    const data = await destroy(this.messageModel, { _id: id });
+    const data = await destroy(this.messageModel, { _id: _id });
 
     return data;
   }

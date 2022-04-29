@@ -5,16 +5,16 @@ import { User } from 'src/users/entities/user.entity';
 export class CreateBiographyDto {
 
   @ApiProperty()
-  relationship: string;
+  relationShip: string;
 
   @ApiProperty({type: [String]})
-  family_member: User[];
+  familyMember: User[];
 
   @ApiProperty({type: [String]})
   nickname: string[];
 
   @ApiProperty({type: [String]})
-  interested_by: string[];
+  interestedBy: string[];
 
   @ApiProperty({type: [String]})
   politics: string[];
@@ -26,7 +26,7 @@ export class CreateBiographyDto {
   languages: string[];
 
   @ApiProperty({ type: Date })
-  web_sites: string[];
+  webSites: string[];
 
   @ApiProperty({ type: [String] })
   networks: String;

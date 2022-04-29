@@ -10,10 +10,10 @@ export class CreatePublicationDto {
     files: File[];
 
     @ApiProperty({ required: false, type: String })
-    user_id: String;
+    user: String;
 
     @ApiProperty({ required: false, type: String })
-    product_id: String;
+    product: String;
 
     @ApiProperty({ required: false, type: Boolean, default: false })
     status: Boolean;
@@ -22,19 +22,19 @@ export class CreatePublicationDto {
     type: String;
 
     @ApiProperty({ required: false, type: String })
-    sale_content: String;
+    saleContent: String;
 
     @ApiProperty({ required: false, type: String })
-    sale_type: String;
+    saleType: String;
 
     @ApiProperty({ required: false, type: String })
-    alerte_type: String;
+    alerteType: String;
 
     @ApiProperty({ required: false, type: String })
-    alerte_name: String;
+    alerteName: String;
 
     @ApiProperty({ required: false, type: String })
-    alerte_duration: String;
+    alerteDuration: String;
 
     @ApiProperty({ required: false, type: String })
     publicity: String;

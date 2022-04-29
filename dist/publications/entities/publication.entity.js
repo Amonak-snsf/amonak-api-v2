@@ -15,8 +15,9 @@ const class_validator_1 = require("class-validator");
 const mongoose = require("mongoose");
 const product_entity_1 = require("../../products/entities/product.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
+const default_model_1 = require("../../utils/default-model");
 const publication_type_dto_1 = require("../dto/publication-type.dto");
-let Publication = class Publication {
+let Publication = class Publication extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
@@ -32,11 +33,11 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Product' }),
     __metadata("design:type", product_entity_1.Product)
-], Publication.prototype, "product_id", void 0);
+], Publication.prototype, "product", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Publication.prototype, "user_id", void 0);
+], Publication.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
@@ -50,32 +51,24 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     (0, class_validator_1.IsIn)([publication_type_dto_1.SaleType.default]),
     __metadata("design:type", String)
-], Publication.prototype, "sale_type", void 0);
+], Publication.prototype, "saleType", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     __metadata("design:type", String)
-], Publication.prototype, "alerte_name", void 0);
+], Publication.prototype, "alerteName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     (0, class_validator_1.IsIn)([publication_type_dto_1.AlerteType.default]),
     __metadata("design:type", String)
-], Publication.prototype, "alerte_type", void 0);
+], Publication.prototype, "alerteType", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     __metadata("design:type", String)
-], Publication.prototype, "alerte_duration", void 0);
+], Publication.prototype, "alerteDuration", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     __metadata("design:type", String)
 ], Publication.prototype, "publicity", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now }),
-    __metadata("design:type", Date)
-], Publication.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now }),
-    __metadata("design:type", Date)
-], Publication.prototype, "updated_at", void 0);
 Publication = __decorate([
     (0, mongoose_1.Schema)()
 ], Publication);

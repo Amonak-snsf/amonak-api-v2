@@ -30,8 +30,8 @@ let AuthController = class AuthController {
     register(createAuthDto, file, res) {
         return this.authService.register(createAuthDto, file, res);
     }
-    checkToken(token_id, res) {
-        return this.authService.checkToken(token_id, res);
+    checkToken(token, res) {
+        return this.authService.checkToken(token, res);
     }
     resentActivationEmail(emailAuth, res) {
         return this.authService.resentActivationEmail(emailAuth.email, res);
@@ -69,8 +69,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, common_1.Get)('check-token/:token_id'),
-    __param(0, (0, common_1.Param)('token_id')),
+    (0, common_1.Get)('check-token/:token'),
+    __param(0, (0, common_1.Param)('token')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

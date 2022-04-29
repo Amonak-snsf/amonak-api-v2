@@ -6,6 +6,6 @@ export declare class PublicationManagementsService {
     constructor(pubmanegementModel: Model<PubManagementDocument>);
     create(body: CreatePublicationManagementDto, res: any): Promise<any>;
     findAll(params: any, res: any): Promise<any>;
-    findOne(publication_id: string, params: any, res: any): Promise<any>;
-    remove(publication_id: string, params: any, res: any): Promise<any>;
+    findOne(publication: string, params: any, res: any): Promise<any>;
+    remove(publication: string, params: any, res: any): Promise<any>;
 }

@@ -24,11 +24,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "user_id", void 0);
+], CreatePublicationDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "product_id", void 0);
+], CreatePublicationDto.prototype, "product", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
@@ -40,23 +40,23 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "sale_content", void 0);
+], CreatePublicationDto.prototype, "saleContent", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "sale_type", void 0);
+], CreatePublicationDto.prototype, "saleType", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "alerte_type", void 0);
+], CreatePublicationDto.prototype, "alerteType", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "alerte_name", void 0);
+], CreatePublicationDto.prototype, "alerteName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreatePublicationDto.prototype, "alerte_duration", void 0);
+], CreatePublicationDto.prototype, "alerteDuration", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)

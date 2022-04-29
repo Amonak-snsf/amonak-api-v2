@@ -9,10 +9,10 @@ export class CreateCommentDto {
     files: File[];
 
     @ApiProperty({ required: true, type: String })
-    user_id: String;
+    user: String;
 
     @ApiProperty({ required: true, type: String })
-    publication_id: String;
+    publication: String;
 
     @ApiProperty({ required: false, type: Boolean, default: true })
     status: Boolean;

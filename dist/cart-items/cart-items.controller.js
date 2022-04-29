@@ -27,11 +27,11 @@ let CartItemsController = class CartItemsController {
     findAll(params, res) {
         return this.cartItemsService.findAll(params, res);
     }
-    findOne(cart_id, res) {
-        return this.cartItemsService.findOne(cart_id, res);
+    findOne(cart, res) {
+        return this.cartItemsService.findOne(cart, res);
     }
-    remove(id, res) {
-        return this.cartItemsService.remove(id, res);
+    remove(_id, res) {
+        return this.cartItemsService.remove(_id, res);
     }
 };
 __decorate([
@@ -51,16 +51,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CartItemsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':cart_id'),
-    __param(0, (0, common_1.Param)('cart_id')),
+    (0, common_1.Get)(':cart'),
+    __param(0, (0, common_1.Param)('cart')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], CartItemsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

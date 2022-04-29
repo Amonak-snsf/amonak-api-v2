@@ -7,7 +7,7 @@ export declare class CategoriesService {
     constructor(categoryModel: Model<CategoryDocument>);
     create(createCategoryDto: CreateCategoryDto, file: any, res: any): Promise<any>;
     findAll(params: any, res: any): Promise<any>;
-    findOne(id: string, res: any): Promise<any>;
-    update(id: string, updateCategoryDto: UpdateCategoryDto, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, res: any): Promise<any>;
+    update(_id: string, updateCategoryDto: UpdateCategoryDto, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

@@ -25,12 +25,12 @@ export class CommentsService {
 
     const data = await create(this.commentModel, createCommentDto);
 
-    await new this.pubmanegementModel({ user_id: data.user_id, publication_id: data.publication_id, type: PubManagementType.follow })
+    await new this.pubmanegementModel({ user: data.user, publication: data.publication, type: PubManagementType.follow })
     await this.notificationService.create({
-      from: data.user_id,
+      from: data.user,
       content: "publicationComment",
       to: data.to,
-      publication: data.publication_id
+      publication: data.publication
     })
     
     return res.status(HttpStatus.OK).json(data);
@@ -42,28 +42,28 @@ export class CommentsService {
       params = { content: { $regex: new RegExp(params.search, 'i') } };
     }
 
-    const data = await all(this.commentModel, params, null, { created_at: -1 }, params.limit, 'user_id',userDataPopulateWithComment());
+    const data = await all(this.commentModel, params, null, { createdAt: -1 }, params.limit, 'user',userDataPopulateWithComment());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
     
-    const data = await one(this.commentModel, { _id: id }, null, 'user_id', userDataPopulateWithComment());
+    const data = await one(this.commentModel, { _id: _id }, null, 'user', userDataPopulateWithComment());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(id: string, updateCommentDto: UpdateCommentDto, res) {
+  async update(_id: string, updateCommentDto: UpdateCommentDto, res) {
     
-    const data = await put(this.commentModel, updateCommentDto, { _id: id });
+    const data = await put(this.commentModel, updateCommentDto, { _id: _id });
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(id: string, res) {
+  async remove(_id: string, res) {
     
-    const data = await destroy(this.commentModel, { _id: id });
+    const data = await destroy(this.commentModel, { _id: _id });
 
     return res.status(HttpStatus.OK).json(data);
   }

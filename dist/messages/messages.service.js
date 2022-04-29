@@ -40,19 +40,19 @@ let MessagesService = class MessagesService {
             query = { $or: [{ from: params.from }, { to: params.to }] };
         }
         query = { query, params };
-        const data = await (0, query_1.all)(this.messageModel, query, null, { created_at: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.messageModel, query, null, { createdAt: -1 }, params.limit);
         return data;
     }
-    async findOne(id) {
-        const data = await (0, query_1.one)(this.messageModel, { _id: id });
+    async findOne(_id) {
+        const data = await (0, query_1.one)(this.messageModel, { _id: _id });
         return data;
     }
-    async update(id, updateMessageDto) {
-        const data = await (0, query_1.put)(this.messageModel, updateMessageDto, { _id: id });
+    async update(_id, updateMessageDto) {
+        const data = await (0, query_1.put)(this.messageModel, updateMessageDto, { _id: _id });
         return data;
     }
-    async remove(id) {
-        const data = await (0, query_1.destroy)(this.messageModel, { _id: id });
+    async remove(_id) {
+        const data = await (0, query_1.destroy)(this.messageModel, { _id: _id });
         return data;
     }
 };

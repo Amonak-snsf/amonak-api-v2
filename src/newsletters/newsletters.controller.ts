@@ -26,18 +26,18 @@ export class NewslettersController {
     return this.newslettersService.findAll(params, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.newslettersService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+    return this.newslettersService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNewsletterDto: UpdateNewsletterDto, @Res() res) {
-    return this.newslettersService.update(id, updateNewsletterDto, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateNewsletterDto: UpdateNewsletterDto, @Res() res) {
+    return this.newslettersService.update(_id, updateNewsletterDto, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.newslettersService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+    return this.newslettersService.remove(_id, res);
   }
 }

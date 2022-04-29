@@ -32,17 +32,17 @@ export class AuthsGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('findOneAuth')
-  findOne(@MessageBody() id: number) {
-    return this.authsService.findOne(id);
+  findOne(@MessageBody() _id: number) {
+    return this.authsService.findOne(_id);
   }
 
   @SubscribeMessage('updateAuth')
   update(@MessageBody() updateAuthDto: UpdateAuthDto) {
-    return this.authsService.update(updateAuthDto.id, updateAuthDto);
+    return this.authsService.update(updateAuthDto._id, updateAuthDto);
   }
 
   @SubscribeMessage('removeAuth')
-  remove(@MessageBody() id: number) {
-    return this.authsService.remove(id);
+  remove(@MessageBody() _id: number) {
+    return this.authsService.remove(_id);
   }
 }

@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategorySchema = exports.Category = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-let Category = class Category {
+const default_model_1 = require("../../utils/default-model");
+let Category = class Category extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ type: String, required: true, trim: true, unique: true }),
@@ -29,14 +30,6 @@ __decorate([
     (0, mongoose_1.Prop)({ type: Boolean, required: true, default: false }),
     __metadata("design:type", Boolean)
 ], Category.prototype, "status", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Category.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Category.prototype, "updated_at", void 0);
 Category = __decorate([
     (0, mongoose_1.Schema)()
 ], Category);

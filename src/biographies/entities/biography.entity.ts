@@ -2,26 +2,27 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from 'src/users/entities/user.entity';
+import { DefaultModel } from 'src/utils/default-model';
 
 export type BiographyDocument = Biography & Document;
 
 @Schema()
-export class Biography {
+export class Biography extends DefaultModel{
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user_id: User
+  user: User
 
   @Prop({ required: false, trim: true, type: String })
-  relationship: string;
+  relationShip: string;
 
   @Prop({ required: false, trim: true, type: [ { type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  family_member: User[];
+  familyMember: User[];
 
   @Prop([String])
   nickname: string[];
 
   @Prop([String])
-  interested_by: string[];
+  interestedBy: string[];
 
   @Prop([String])
   politics: string[];
@@ -33,20 +34,13 @@ export class Biography {
   languages: string[];
 
   @Prop([String])
-  web_sites: string[];
+  webSites: string[];
 
   @Prop([String])
   networks: string[];
 
   @Prop({ required: true, trim: true, type: String, default: 'Public' })
   status: string;
-
-  @Prop({ required: false, default: Date.now })
-  created_at: Date;
-
-  @Prop({ required: false, default: Date.now })
-  updated_at: Date;
-
 }
 
 export const BiographySchema = SchemaFactory.createForClass(Biography);

@@ -31,29 +31,29 @@ let PublicationsService = class PublicationsService {
             body.files = (0, helpers_1.customFiles)(files);
         }
         if (body.type == publication_type_dto_1.PublicationType.sale) {
-            const product = await this.productService.create((0, helpers_1.sale_body)(body), files, res);
-            body.product_id = product._id;
+            const product = await this.productService.create((0, helpers_1.saleBody)(body), files, res);
+            body.product = product._id;
         }
-        const data = await (0, query_1.create)(this.publicationModel, body, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.create)(this.publicationModel, body, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
         if (params.search) {
             params = { status: true, content: { $regex: new RegExp(params.search, 'i') } };
         }
-        const data = (0, query_1.all)(this.publicationModel, params, null, { created_at: -1 }, params.limit, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = (0, query_1.all)(this.publicationModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.publicationModel, { _id: id }, null, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.publicationModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, body, res) {
-        const data = await (0, query_1.put)(this.publicationModel, body, { _id: id }, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async update(_id, body, res) {
+        const data = await (0, query_1.put)(this.publicationModel, body, { _id: _id }, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.publicationModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.publicationModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };

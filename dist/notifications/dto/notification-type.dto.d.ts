@@ -1,8 +1,8 @@
 export declare enum NotificationType {
-    all = "all_user",
+    all = "allUser",
     publication = "publication",
     comment = "comment",
-    friend_request = "friend_request",
+    friendRequest = "friendRequest",
     welcome = "welcome",
     like = "like",
     share = "share",

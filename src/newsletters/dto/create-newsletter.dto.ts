@@ -13,7 +13,7 @@ export class CreateNewsletterDto {
     name: String;
 
     @ApiProperty({ type: String, required: false })
-    full_address: String;
+    fullAddress: String;
 
     @ApiProperty({ required: false, type: String })
     subject: String;

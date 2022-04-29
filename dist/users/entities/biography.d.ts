@@ -3,18 +3,18 @@ import * as mongoose from 'mongoose';
 import { User } from './user.entity';
 export declare type BiographyDocument = Biography & Document;
 export declare class Biography {
-    user_id: User;
-    relationship: string;
-    family_member: User[];
+    user: User;
+    relationShip: string;
+    familyMember: User[];
     nickname: string[];
-    interested_by: string[];
+    interestedBy: string[];
     politics: string[];
     confessions: string[];
     languages: string[];
-    web_sites: string[];
+    webSites: string[];
     networks: string[];
     status: string;
-    created_at: Date;
-    updated_at: Date;
+    createdAt: Date;
+    updatedAt: Date;
 }
 export declare const BiographySchema: mongoose.Schema<Document<Biography, any, any>, mongoose.Model<Document<Biography, any, any>, any, any, any>, any, any>;

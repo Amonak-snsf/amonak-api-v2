@@ -28,14 +28,14 @@ let UsersController = class UsersController {
     findAll(body, res) {
         return this.usersService.findAll(body, res);
     }
-    findOne(id, res) {
-        return this.usersService.findOne(id, res);
+    findOne(_id, res) {
+        return this.usersService.findOne(_id, res);
     }
-    update(id, updateUserDto, file, res) {
-        return this.usersService.update(id, updateUserDto, file, res);
+    update(_id, updateUserDto, file, res) {
+        return this.usersService.update(_id, updateUserDto, file, res);
     }
-    remove(id, res) {
-        return this.usersService.remove(id, res);
+    remove(_id, res) {
+        return this.usersService.remove(_id, res);
     }
 };
 __decorate([
@@ -47,15 +47,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)('users/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('users/:_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)('users/:id'),
+    (0, common_1.Patch)('users/:_id'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('avatar', {
         storage: (0, multer_1.diskStorage)({
             destination: './static/images/avatar',
@@ -63,7 +63,7 @@ __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter,
     })),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.UploadedFile)()),
     __param(3, (0, common_1.Res)()),
@@ -72,8 +72,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)('users/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)('users/:_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

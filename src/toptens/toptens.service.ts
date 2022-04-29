@@ -30,7 +30,7 @@ export class ToptensService {
     let d = new Date();
     this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
 
-    const data = await create(this.toptenModel, this.data, 'user_id', userDataPopulateWithTopten());
+    const data = await create(this.toptenModel, this.data, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
 
@@ -38,28 +38,28 @@ export class ToptensService {
 
   async findAll(body, res) {
 
-    const data = await all(this.toptenModel, body, null, { created_at: -1 }, body.limit, 'user_id', userDataPopulateWithTopten());
+    const data = await all(this.toptenModel, body, null, { createdAt: -1 }, body.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
 
-    const data = await one(this.toptenModel, {_id: id}, null, 'user_id', userDataPopulateWithTopten());
-
-    return res.status(HttpStatus.OK).json(data);
-  }
-
-  async update(id: string, updateToptenDto: UpdateToptenDto, res) {
-
-    const data = await put(this.toptenModel, updateToptenDto, {_id: id}, 'user_id', userDataPopulateWithTopten());
+    const data = await one(this.toptenModel, {_id: _id}, null, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(id: string, res) {
+  async update(_id: string, updateToptenDto: UpdateToptenDto, res) {
+
+    const data = await put(this.toptenModel, updateToptenDto, {_id: _id}, 'user', userDataPopulateWithTopten());
+
+    return res.status(HttpStatus.OK).json(data);
+  }
+
+  async remove(_id: string, res) {
     
-    const data = await destroy(this.toptenModel, {_id: id});
+    const data = await destroy(this.toptenModel, {_id: _id});
 
     return res.status(HttpStatus.OK).json(data);
   }

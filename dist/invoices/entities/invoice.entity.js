@@ -18,7 +18,7 @@ let Invoice = class Invoice extends cart_entity_1.Cart {
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }),
     __metadata("design:type", cart_entity_1.Cart)
-], Invoice.prototype, "cart_id", void 0);
+], Invoice.prototype, "cart", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, default: '' }),
     __metadata("design:type", String)
@@ -26,31 +26,27 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, default: '' }),
     __metadata("design:type", String)
-], Invoice.prototype, "payment_type", void 0);
+], Invoice.prototype, "paymentType", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, default: '' }),
     __metadata("design:type", String)
-], Invoice.prototype, "payment_method", void 0);
+], Invoice.prototype, "paymentMethod", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Date, default: '' }),
     __metadata("design:type", Date)
-], Invoice.prototype, "payment_date", void 0);
+], Invoice.prototype, "paymentDate", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, default: '' }),
     __metadata("design:type", String)
-], Invoice.prototype, "payment_reference", void 0);
+], Invoice.prototype, "paymentReference", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
-], Invoice.prototype, "invoice_url", void 0);
+], Invoice.prototype, "invoiceUrl", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Invoice.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Invoice.prototype, "updated_at", void 0);
+    (0, mongoose_1.Prop)({ required: false, type: String }),
+    __metadata("design:type", String)
+], Invoice.prototype, "transactionId", void 0);
 Invoice = __decorate([
     (0, mongoose_1.Schema)()
 ], Invoice);

@@ -1,43 +1,39 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ConfigService } from '@nestjs/config';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
-import { MailService } from 'src/mail/mail.service';
-import { bankCard, userAddress } from 'src/utils/helpers';
+import { CustomBankCard, userAddress } from 'src/utils/helpers';
 import { all, destroy, exist, one, put } from 'src/utils/query';
 
 @Injectable()
 export class UsersService {
   private data;
 
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,
-  private configService: ConfigService, private mailService: MailService
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findAll(params, res): Promise<User[]>  {
 
     if(params.search){
-      params = {status: true, $or: [{username: {$regex: new RegExp(params.search, 'i')}}, {email: {$regex: new RegExp(params.search, 'i')}}, {firstname: {$regex: new RegExp(params.search, 'i')}}, {lastname: {$regex: new RegExp(params.search, 'i')}}]};
+      params = {status: true, $or: [{userName: {$regex: new RegExp(params.search, 'i')}}, {email: {$regex: new RegExp(params.search, 'i')}}, {firstName: {$regex: new RegExp(params.search, 'i')}}, {lastName: {$regex: new RegExp(params.search, 'i')}}]};
     }
     
-    const data = await all(this.userModel, params, null, { created_at: -1 }, params.limit, null, null);
+    const data = await all(this.userModel, params, null, { createdAt: -1 }, params.limit, null, null);
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
 
-    const data = await one(this.userModel, {_id: id});
+    const data = await one(this.userModel, {_id: _id});
 
     return res.status(HttpStatus.OK).json(data);
   }
 
 
-  async update(id: string, upDto: UpdateUserDto, file, res) {
+  async update(_id: string, upDto: UpdateUserDto, file, res) {
 
-    const user = await exist(this.userModel, {_id: id});
+    const user = await exist(this.userModel, {_id: _id});
 
     delete upDto.friends;
     this.data = upDto;
@@ -46,10 +42,10 @@ export class UsersService {
       this.data.avatar = `/${file.path}`;
     }
     
-    const bank_card = bankCard(upDto.bank_card)
+    const bankCard = CustomBankCard(upDto.bankCard)
     const address = userAddress(upDto.address);
-    if(bank_card){
-      this.data.bank_card = bank_card;
+    if(bankCard){
+      this.data.bankCard = bankCard;
     }
     if(address){
       this.data.address = address;
@@ -62,15 +58,15 @@ export class UsersService {
       });
     }
 
-    const data = await put(this.userModel, this.data, {_id: id});
+    const data = await put(this.userModel, this.data, {_id: _id});
 
     return res.status(HttpStatus.OK).json(data);
   }
 
 
-  async remove(id: string, res) {
+  async remove(_id: string, res) {
     
-    const data = await destroy(this.userModel, {_id: id});
+    const data = await destroy(this.userModel, {_id: _id});
 
     return res.status(HttpStatus.OK).json(data);
   }

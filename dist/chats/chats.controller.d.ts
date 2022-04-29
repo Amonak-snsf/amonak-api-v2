@@ -6,7 +6,7 @@ export declare class ChatsController {
     constructor(chatsService: ChatsService);
     create(createChatDto: CreateChatDto): string;
     findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateChatDto: UpdateChatDto): string;
-    remove(id: string): string;
+    findOne(_id: string): string;
+    update(_id: string, updateChatDto: UpdateChatDto): string;
+    remove(_id: string): string;
 }

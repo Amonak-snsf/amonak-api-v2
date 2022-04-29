@@ -35,7 +35,7 @@ let ProductsService = class ProductsService {
         this.data = createProductDto;
         const from = this.data.from;
         delete this.data.from;
-        const data = await (0, query_1.create)(this.productModel, this.data, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.create)(this.productModel, this.data, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         if (from == 'publication') {
             return data;
         }
@@ -45,14 +45,14 @@ let ProductsService = class ProductsService {
         if (params.search) {
             params = { $or: [{ name: { $regex: new RegExp(params.search, 'i') } }, { content: { $regex: new RegExp(params.search, 'i') } }, { price: { $regex: new RegExp(params.search, 'i') } }] };
         }
-        const data = await (0, query_1.all)(this.productModel, params, null, { created_at: -1 }, params.limit, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.productModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.productModel, { _id: id }, null, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.productModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateProductDto, files, res) {
+    async update(_id, updateProductDto, files, res) {
         const custom_files = (0, helpers_1.customFiles)(files);
         if (custom_files) {
             updateProductDto.files = custom_files;
@@ -61,11 +61,11 @@ let ProductsService = class ProductsService {
         if (address) {
             updateProductDto.address = address;
         }
-        const data = await (0, query_1.put)(this.productModel, updateProductDto, { _id: id }, 'user_id', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.put)(this.productModel, updateProductDto, { _id: _id }, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.productModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.productModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };

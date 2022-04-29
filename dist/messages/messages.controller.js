@@ -34,16 +34,16 @@ let MessagesController = class MessagesController {
         const data = await this.messagesService.findAll(params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await this.messagesService.findOne(id);
+    async findOne(_id, res) {
+        const data = await this.messagesService.findOne(_id);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateMessageDto, res) {
-        const data = await this.messagesService.update(id, updateMessageDto);
+    async update(_id, updateMessageDto, res) {
+        const data = await this.messagesService.update(_id, updateMessageDto);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await this.messagesService.remove(id);
+    async remove(_id, res) {
+        const data = await this.messagesService.remove(_id);
         return res.status(common_1.HttpStatus).json(data);
     }
 };
@@ -65,16 +65,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], MessagesController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], MessagesController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -82,8 +82,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], MessagesController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

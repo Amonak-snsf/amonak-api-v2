@@ -1,8 +1,7 @@
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as csurf from 'csurf';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
@@ -11,12 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
   app.enableCors();
-  //app.use(csurf());
-  //app.useGlobalPipes(new ValidationPipe({
-    //whitelist: false,
-    //transform: true,
-  //}));
-  
+
   const config = new DocumentBuilder()
     .setTitle('Amonak API')
     .setDescription('API for amonak project')

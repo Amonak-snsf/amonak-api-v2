@@ -5,10 +5,10 @@ import { PubManagementType } from "./publication-managements-type.dto";
 export class CreatePublicationManagementDto {
 
     @ApiProperty({ required: true, type: String })
-    user_id: String;
+    user: String;
 
     @ApiProperty({ required: true, type: String })
-    publication_id: String;
+    publication: String;
 
     @ApiProperty({ required: false, type: Boolean, default: true })
     status: Boolean;

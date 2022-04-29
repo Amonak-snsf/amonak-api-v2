@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreateNotificationDto.prototype, "publication_id", void 0);
+], CreateNotificationDto.prototype, "publication", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
@@ -37,7 +37,7 @@ __decorate([
 ], CreateNotificationDto.prototype, "comment", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
-    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friend_request, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
+    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friendRequest, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
     __metadata("design:type", String)
 ], CreateNotificationDto.prototype, "type", void 0);
 __decorate([

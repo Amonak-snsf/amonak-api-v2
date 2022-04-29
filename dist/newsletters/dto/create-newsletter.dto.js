@@ -28,7 +28,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String, required: false }),
     __metadata("design:type", String)
-], CreateNewsletterDto.prototype, "full_address", void 0);
+], CreateNewsletterDto.prototype, "fullAddress", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)

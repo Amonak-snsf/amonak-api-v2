@@ -7,7 +7,7 @@ export class CreateToptenDto {
 
   @ApiProperty({ type: String })
   @IsMongoId()
-  user_id: User;
+  user: User;
 
   @ApiProperty({ type: String })
   @IsNotEmpty()
@@ -23,11 +23,11 @@ export class CreateToptenDto {
   message: String;
 
   @ApiProperty({ type: String})
-  website: String;
+  webSites: String;
 
   @ApiProperty({ type: [String] })
   @IsNotEmpty()
-  product_nature: String[];
+  productNature: String[];
 
   @ApiProperty()
   @IsNotEmpty()
@@ -37,6 +37,5 @@ export class CreateToptenDto {
   @ApiProperty({})
   @IsNotEmpty()
   price: string;
-
 }
       

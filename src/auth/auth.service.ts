@@ -45,15 +45,15 @@ export class AuthService {
     }
     
     this.sendUserConfirmation(user);
-    await new this.biographyModel({ user_id: user._id}).save();
-    await new this.sellerInfoModel({ user_id: user._id, status: Status.created }).save();
+    await new this.biographyModel({ user: user._id}).save();
+    await new this.sellerInfoModel({ user: user._id, status: Status.created }).save();
     
     return res.status(HttpStatus.CREATED).json({ message: 'Your are registered with success, Please check your mail to confirm your account !'});
 }
 
-  async checkToken(token_id: string, res){
+  async checkToken(token: string, res){
 
-    const fetch_token = await this.tokenModel.findOne({ _id: token_id}).exec()
+    const fetch_token = await this.tokenModel.findOne({ _id: token}).exec()
     .catch(err => {
       return err;
     });
@@ -92,7 +92,7 @@ export class AuthService {
       });
     }
 
-    let user = await this.userModel.findOneAndUpdate({ _id: fetch_token.user_id, status: false }, { status: true, is_log: true }).exec();
+    let user = await this.userModel.findOneAndUpdate({ _id: fetch_token.user, status: false }, { status: true, isLog: true }).exec();
 
     if(!user){
       return res.status(HttpStatus.NOT_FOUND).json({
@@ -131,7 +131,7 @@ export class AuthService {
 
    const password = await hashPassword(body.password);
 
-   const update_user = await this.userModel.findByIdAndUpdate(fetch_token.user_id, { password: password}).exec();
+   const update_user = await this.userModel.findByIdAndUpdate(fetch_token.user, { password: password}).exec();
    if(!update_user){
     return res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found !'});
    }
@@ -143,8 +143,8 @@ export class AuthService {
 
   async login(body, res){
 
-    const check_username = await checkUsername(body);
-    const user = await this.userModel.findOne(check_username).exec();
+    const check_userName = await checkUsername(body);
+    const user = await this.userModel.findOne(check_userName).exec();
     if(!user){
       return res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found !'});
     }
@@ -174,7 +174,7 @@ export class AuthService {
 
     const token = Math.floor(1000 + Math.random() * 9000).toString();
     const url = `${this.configService.get('front_url')}/auth/activation`;
-    await new this.tokenModel({ token: token, user_id: user._id}).save();
+    await new this.tokenModel({ token: token, user: user._id}).save();
 
     this.mailService.sendUserConfirmation(user, token, url);
   }
@@ -182,20 +182,20 @@ export class AuthService {
   async sendResetPassswordRequestEmail(user){
 
     const token = Math.floor(1000 + Math.random() * 9000).toString();
-    const token_save = await new this.tokenModel({ token: token, user_id: user._id}).save();
+    const token_save = await new this.tokenModel({ token: token, user: user._id}).save();
     const url = `${this.configService.get('front_url')}/auth/reset-password/${token_save._id}`;
 
     this.mailService.resetPassword(user, url);
   }
 
   async logUser(user){
-    const payload = { email: user.email, sub: user._id };
+    const payload = { email: user.email, sub: user.__id };
     const access_token = this.jwtService.sign(payload);
 
     return {
       access_token: access_token,
       expiresIn: this.configService.get('expire'),
-      user: imagePerform(user, this.configService.get('static_url'))
+      user: imagePerform(user, this.configService.get('staticUrl'))
     };
   }
 

@@ -14,13 +14,14 @@ const mongoose_1 = require("@nestjs/mongoose");
 const class_validator_1 = require("class-validator");
 const mongoose = require("mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
+const default_model_1 = require("../../utils/default-model");
 const cart_status_dto_1 = require("../dto/cart-status.dto");
-let Cart = class Cart {
+let Cart = class Cart extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Cart.prototype, "user_id", void 0);
+], Cart.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Number, default: 0 }),
     __metadata("design:type", Number)
@@ -39,25 +40,17 @@ __decorate([
 ], Cart.prototype, "percentage", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
-    (0, class_validator_1.IsIn)([cart_status_dto_1.CartStatus.cancelled, cart_status_dto_1.CartStatus.deleted, cart_status_dto_1.CartStatus.failed, cart_status_dto_1.CartStatus.shipping_cost, cart_status_dto_1.CartStatus.shipping_request, cart_status_dto_1.CartStatus.successfull, cart_status_dto_1.CartStatus.unpaid, cart_status_dto_1.CartStatus.booking]),
+    (0, class_validator_1.IsIn)([cart_status_dto_1.CartStatus.cancelled, cart_status_dto_1.CartStatus.deleted, cart_status_dto_1.CartStatus.failed, cart_status_dto_1.CartStatus.shippingCost, cart_status_dto_1.CartStatus.shippingRequest, cart_status_dto_1.CartStatus.successfull, cart_status_dto_1.CartStatus.unpaid, cart_status_dto_1.CartStatus.booking]),
     __metadata("design:type", String)
 ], Cart.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
-], Cart.prototype, "is_waiting", void 0);
+], Cart.prototype, "isWaiting", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
-], Cart.prototype, "is_completed", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Cart.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], Cart.prototype, "updated_at", void 0);
+], Cart.prototype, "isCompleted", void 0);
 Cart = __decorate([
     (0, mongoose_1.Schema)()
 ], Cart);

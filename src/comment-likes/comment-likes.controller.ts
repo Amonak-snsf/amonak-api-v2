@@ -24,18 +24,18 @@ export class CommentLikesController {
     return this.commentLikesService.findAll(params, res);
   }
 
-  @Get(':comment_id')
-  findOne(@Param('comment_id') comment_id: string, @Res() res) {
-    return this.commentLikesService.findOne(comment_id, res);
+  @Get(':comment')
+  findOne(@Param('comment') comment: string, @Res() res) {
+    return this.commentLikesService.findOne(comment, res);
   }
 
-  @Patch(':comment_id')
-  update(@Param('comment_id') comment_id: string, @Body() updateCommentLikeDto: UpdateCommentLikeDto, @Res() res) {
-    return this.commentLikesService.update(comment_id, updateCommentLikeDto, res);
+  @Patch(':comment')
+  update(@Param('comment') comment: string, @Body() updateCommentLikeDto: UpdateCommentLikeDto, @Res() res) {
+    return this.commentLikesService.update(comment, updateCommentLikeDto, res);
   }
 
-  @Delete(':comment_id')
-  remove(@Param('comment_id') comment_id: string, @Body() updateCommentLikeDto: UpdateCommentLikeDto, @Res() res) {
-    return this.commentLikesService.remove(comment_id, updateCommentLikeDto, res);
+  @Delete(':comment')
+  remove(@Param('comment') comment: string, @Body() updateCommentLikeDto: UpdateCommentLikeDto, @Res() res) {
+    return this.commentLikesService.remove(comment, updateCommentLikeDto, res);
   }
 }

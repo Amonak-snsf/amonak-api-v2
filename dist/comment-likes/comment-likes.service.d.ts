@@ -7,7 +7,7 @@ export declare class CommentLikesService {
     constructor(commentModel: Model<CommentLikeDocument>);
     create(createCommentLikeDto: CreateCommentLikeDto, res: any): Promise<any>;
     findAll(params: any, res: any): Promise<any>;
-    findOne(comment_id: string, res: any): Promise<any>;
-    update(comment_id: string, updateCommentLikeDto: UpdateCommentLikeDto, res: any): Promise<any>;
-    remove(comment_id: string, params: any, res: any): Promise<any>;
+    findOne(comment: string, res: any): Promise<any>;
+    update(comment: string, updateCommentLikeDto: UpdateCommentLikeDto, res: any): Promise<any>;
+    remove(comment: string, params: any, res: any): Promise<any>;
 }

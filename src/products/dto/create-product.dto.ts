@@ -17,7 +17,7 @@ export class CreateProductDto {
     quantity: Number;
 
     @ApiProperty({ required: false, type: Number, default: 1 })
-    max_weight: Number;
+    maxWeight: Number;
 
     @ApiProperty({ required: false, type: Number, default: 0 })
     purchase: Number;
@@ -32,10 +32,10 @@ export class CreateProductDto {
     address: Address;
 
     @ApiProperty({ required: false, type: String })
-    category_id: String;
+    category: String;
 
     @ApiProperty({ required: true, type: String })
-    user_id: String;
+    user: String;
 
     @ApiProperty({ required: false, type: Boolean, default: false })
     status: Boolean;

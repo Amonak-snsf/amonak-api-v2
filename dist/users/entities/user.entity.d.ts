@@ -1,32 +1,29 @@
 import * as mongoose from 'mongoose';
 import { Friend } from 'src/friends/entities/friend.entity';
+import { DefaultModel } from 'src/utils/default-model';
 export declare type UserDocument = User & Document;
-export declare class User {
+export declare class User extends DefaultModel {
     get fullName(): string;
-    firstname: string;
-    lastname: string;
-    username: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
     email: string;
     password: string;
-    dial_code: string;
+    dialCode: string;
     phone: string;
     gender: string;
-    birthday: string;
-    birth_place: string;
+    birthDay: string;
+    birthPlace: string;
     avatar: string;
     profession: string;
     sectors: string[];
-    country_infos: string;
     address: Record<string, any>;
-    bank_card: Record<string, any>;
+    bankCard: Record<string, any>;
     friends: Friend[];
     status: boolean;
-    account_type: string;
-    is_log: boolean;
-    is_first_time: boolean;
-    is_new_feed: boolean;
-    data: string;
-    created_at: Date;
-    updated_at: Date;
+    accountType: string;
+    isLog: boolean;
+    isFirstTime: boolean;
+    isNewFeed: boolean;
 }
 export declare const UserSchema: mongoose.Schema<mongoose.Document<User, any, any>, mongoose.Model<mongoose.Document<User, any, any>, any, any, any>, any, any>;

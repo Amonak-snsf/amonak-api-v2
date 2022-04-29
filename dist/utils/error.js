@@ -3,38 +3,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.error = void 0;
 const common_1 = require("@nestjs/common");
 const helpers_1 = require("./helpers");
-const error = (data, http_code) => {
-    const error_message = (0, helpers_1.errorFilter)(data);
+const error = (data, httpCode) => {
+    const errorMessage = (0, helpers_1.errorFilter)(data);
     if (data) {
         if (data.errors) {
             if (data.name == 'ValidationError' || data.name == 'CastError') {
                 throw new common_1.HttpException({
-                    status_code: common_1.HttpStatus.BAD_REQUEST,
-                    errors: error_message,
+                    statusCode: common_1.HttpStatus.BAD_REQUEST,
+                    errors: errorMessage,
                 }, common_1.HttpStatus.BAD_REQUEST);
             }
             else {
                 throw new common_1.HttpException({
-                    status_code: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                    statusCode: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
                     errors: data,
                 }, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         if (data.name == 'CastError' || data.name == 'ValidationError') {
             throw new common_1.HttpException({
-                status_code: http_code !== null && http_code !== void 0 ? http_code : common_1.HttpStatus.BAD_REQUEST,
-                errors: error_message,
-            }, http_code !== null && http_code !== void 0 ? http_code : common_1.HttpStatus.BAD_REQUEST);
+                statusCode: httpCode !== null && httpCode !== void 0 ? httpCode : common_1.HttpStatus.BAD_REQUEST,
+                errors: errorMessage,
+            }, httpCode !== null && httpCode !== void 0 ? httpCode : common_1.HttpStatus.BAD_REQUEST);
         }
-        if (http_code) {
+        if (httpCode) {
             throw new common_1.HttpException({
-                status_code: http_code,
+                statusCode: httpCode,
                 errors: data,
-            }, http_code);
+            }, httpCode);
         }
         else {
             throw new common_1.HttpException({
-                status_code: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                statusCode: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
                 errors: data,
             }, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }

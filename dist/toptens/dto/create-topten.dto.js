@@ -19,7 +19,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     (0, class_validator_1.IsMongoId)(),
     __metadata("design:type", user_entity_1.User)
-], CreateToptenDto.prototype, "user_id", void 0);
+], CreateToptenDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     (0, class_validator_1.IsNotEmpty)(),
@@ -40,12 +40,12 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     __metadata("design:type", String)
-], CreateToptenDto.prototype, "website", void 0);
+], CreateToptenDto.prototype, "webSites", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Array)
-], CreateToptenDto.prototype, "product_nature", void 0);
+], CreateToptenDto.prototype, "productNature", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),

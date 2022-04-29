@@ -28,26 +28,31 @@ export class ToptensController {
   )
   @Post()
   create(@Body() createToptenDto: CreateToptenDto, @UploadedFiles() files, @Res() res) {
+
     return this.toptensService.create(createToptenDto, files, res);
   }
 
   @Get()
   findAll(@Query() body: FilterToptenDto, @Res() res) {
+
     return this.toptensService.findAll(body, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.toptensService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+
+    return this.toptensService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateToptenDto: UpdateToptenDto, @Res() res) {
-    return this.toptensService.update(id, updateToptenDto, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateToptenDto: UpdateToptenDto, @Res() res) {
+
+    return this.toptensService.update(_id, updateToptenDto, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.toptensService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+
+    return this.toptensService.remove(_id, res);
   }
 }

@@ -13,20 +13,21 @@ exports.BiographySchema = exports.Biography = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
-let Biography = class Biography {
+const default_model_1 = require("../../utils/default-model");
+let Biography = class Biography extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Biography.prototype, "user_id", void 0);
+], Biography.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], Biography.prototype, "relationship", void 0);
+], Biography.prototype, "relationShip", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
     __metadata("design:type", Array)
-], Biography.prototype, "family_member", void 0);
+], Biography.prototype, "familyMember", void 0);
 __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
@@ -34,7 +35,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
-], Biography.prototype, "interested_by", void 0);
+], Biography.prototype, "interestedBy", void 0);
 __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
@@ -50,7 +51,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
-], Biography.prototype, "web_sites", void 0);
+], Biography.prototype, "webSites", void 0);
 __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
@@ -59,14 +60,6 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, trim: true, type: String, default: 'Public' }),
     __metadata("design:type", String)
 ], Biography.prototype, "status", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now }),
-    __metadata("design:type", Date)
-], Biography.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now }),
-    __metadata("design:type", Date)
-], Biography.prototype, "updated_at", void 0);
 Biography = __decorate([
     (0, mongoose_1.Schema)()
 ], Biography);

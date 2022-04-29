@@ -1,1 +1,1 @@
-export declare const imagePerform: (data: any, static_url: string) => any;
+export declare const imagePerform: (data: any, staticUrl: string) => any;

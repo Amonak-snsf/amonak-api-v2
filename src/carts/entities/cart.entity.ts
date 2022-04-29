@@ -2,15 +2,16 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IsIn } from "class-validator";
 import * as mongoose from 'mongoose';
 import { User } from "src/users/entities/user.entity";
+import { DefaultModel } from "src/utils/default-model";
 import { CartStatus } from "../dto/cart-status.dto";
 
 export type CartDocument = Cart & Document;
 
 @Schema()
-export class Cart {
+export class Cart extends DefaultModel{
 
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    user_id: User
+    user: User
 
     @Prop({ required: false, type: Number, default: 0 })
     amount: Number;
@@ -25,21 +26,14 @@ export class Cart {
     percentage: Number;
 
     @Prop({ required: false, type: String, default: CartStatus.unpaid })
-    @IsIn([CartStatus.cancelled, CartStatus.deleted, CartStatus.failed, CartStatus.shipping_cost, CartStatus.shipping_request, CartStatus.successfull, CartStatus.unpaid, CartStatus.booking])
+    @IsIn([CartStatus.cancelled, CartStatus.deleted, CartStatus.failed, CartStatus.shippingCost, CartStatus.shippingRequest, CartStatus.successfull, CartStatus.unpaid, CartStatus.booking])
     status: String;
 
     @Prop({ required: false, type: Boolean, default: true })
-    is_waiting: Boolean;
+    isWaiting: Boolean;
 
     @Prop({ required: false, type: Boolean, default: false })
-    is_completed: Boolean;
-
-    @Prop({ required: true, type: Date, default: Date.now })
-    created_at: Date
-
-    @Prop({ required: true, type: Date, default: Date.now })
-    updated_at: Date
-
+    isCompleted: Boolean;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

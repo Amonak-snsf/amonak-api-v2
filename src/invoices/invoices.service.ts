@@ -19,51 +19,51 @@ export class InvoicesService {
   async create(createInvoiceDto: CreateInvoiceDto, res) {
     this.data = createInvoiceDto;
 
-    this.data.invoice_url = `${this.configServe.get('front_url')}/invoice/${createInvoiceDto.payment_reference}`;
-    const data = await createIfne(this.invoiceModel, this.data, { cart_id: createInvoiceDto.cart_id, user_id: createInvoiceDto.user_id, amount: createInvoiceDto.amount, status: createInvoiceDto.status })
+    this.data.invoice_url = `${this.configServe.get('front_url')}/invoice/${createInvoiceDto.paymentReference}`;
+    const data = await createIfne(this.invoiceModel, this.data, { cart: createInvoiceDto.cart, user: createInvoiceDto.user, amount: createInvoiceDto.amount, status: createInvoiceDto.status })
 
     res.status(HttpStatus.OK).json(data);
   }
 
   async findAll(params, res) {
     
-    const data = await all(this.invoiceModel, params, null, { created_at: -1 }, params.limit, 'user_id', userDataPopulateWithTopten());
+    const data = await all(this.invoiceModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
 
-    const data = await one(this.invoiceModel, { _id: id }, null, 'user_id', userDataPopulateWithTopten());
-
-    res.status(HttpStatus.OK).json(data);
-  }
-
-  async update(id: string, updateInvoiceDto: UpdateInvoiceDto, res) {
-
-    const data = await put(this.invoiceModel, updateInvoiceDto, { _id: id }, 'user_id', userDataPopulateWithTopten());
+    const data = await one(this.invoiceModel, { _id: _id }, null, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(id: string, res) {
+  async update(_id: string, updateInvoiceDto: UpdateInvoiceDto, res) {
+
+    const data = await put(this.invoiceModel, updateInvoiceDto, { _id: _id }, 'user', userDataPopulateWithTopten());
+
+    res.status(HttpStatus.OK).json(data);
+  }
+
+  async remove(_id: string, res) {
     
-    const data = await destroy(this.invoiceModel, { _id: id });
+    const data = await destroy(this.invoiceModel, { _id: _id });
 
     res.status(HttpStatus.OK).json(data);
   }
 
   async success(params, res){
 
-    let is_completed = false;
-    let is_waiting = true ;
+    let isCompleted = false;
+    let isWaiting = true ;
 
     if(params.status == 'success'){
-      is_completed = true;
-      is_waiting = false;
+      isCompleted = true;
+      isWaiting = false;
     }
 
-    const data = await put(this.invoiceModel, { status: this.data.status, is_waiting: is_waiting, is_completed: is_completed }, { payment_reference: params.transaction }, 'user_id', userDataPopulateWithTopten());
+    const data = await put(this.invoiceModel, { status: this.data.status, isWaiting: isWaiting, isCompleted: isCompleted }, { paymentReference: params.transaction }, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }

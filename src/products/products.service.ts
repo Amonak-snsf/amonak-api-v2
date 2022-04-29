@@ -31,7 +31,7 @@ export class ProductsService {
     const from = this.data.from;
     delete this.data.from;
     
-    const data = await create(this.productModel, this.data, 'user_id', userDataPopulateWithTopten());
+    const data = await create(this.productModel, this.data, 'user', userDataPopulateWithTopten());
 
     if(from == 'publication'){
       return data;
@@ -46,19 +46,19 @@ export class ProductsService {
       params = {$or: [{name: {$regex: new RegExp(params.search, 'i')}}, {content: {$regex: new RegExp(params.search, 'i')}}, {price: {$regex: new RegExp(params.search, 'i')}}]}
     }
 
-    const data = await all(this.productModel, params, null, { created_at: -1 }, params.limit, 'user_id', userDataPopulateWithTopten());
+    const data = await all(this.productModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
     
-    const data = await one(this.productModel, { _id: id }, null, 'user_id', userDataPopulateWithTopten());
+    const data = await one(this.productModel, { _id: _id }, null, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto, files, res) {
+  async update(_id: string, updateProductDto: UpdateProductDto, files, res) {
 
     const custom_files = customFiles(files);
     if(custom_files){
@@ -70,14 +70,14 @@ export class ProductsService {
       updateProductDto.address = address;
     }
 
-    const data = await put(this.productModel, updateProductDto, { _id: id }, 'user_id', userDataPopulateWithTopten());
+    const data = await put(this.productModel, updateProductDto, { _id: _id }, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(id: string, res) {
+  async remove(_id: string, res) {
 
-   const data = await destroy(this.productModel, { _id: id });
+   const data = await destroy(this.productModel, { _id: _id });
 
    return res.status(HttpStatus.OK).json(data);
   }

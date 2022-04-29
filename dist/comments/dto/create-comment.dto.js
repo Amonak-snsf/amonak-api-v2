@@ -24,11 +24,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateCommentDto.prototype, "user_id", void 0);
+], CreateCommentDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateCommentDto.prototype, "publication_id", void 0);
+], CreateCommentDto.prototype, "publication", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: true }),
     __metadata("design:type", Boolean)

@@ -17,15 +17,15 @@ class CreateBiographyDto {
 __decorate([
     (0, swagger_1.ApiProperty)({ type: user_entity_1.User }),
     __metadata("design:type", user_entity_1.User)
-], CreateBiographyDto.prototype, "user_id", void 0);
+], CreateBiographyDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateBiographyDto.prototype, "relationship", void 0);
+], CreateBiographyDto.prototype, "relationShip", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [user_entity_1.User] }),
     __metadata("design:type", Array)
-], CreateBiographyDto.prototype, "family_member", void 0);
+], CreateBiographyDto.prototype, "familyMember", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
@@ -33,7 +33,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
-], CreateBiographyDto.prototype, "interested_by", void 0);
+], CreateBiographyDto.prototype, "interestedBy", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
@@ -49,7 +49,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: Date }),
     __metadata("design:type", Array)
-], CreateBiographyDto.prototype, "web_sites", void 0);
+], CreateBiographyDto.prototype, "webSites", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", String)

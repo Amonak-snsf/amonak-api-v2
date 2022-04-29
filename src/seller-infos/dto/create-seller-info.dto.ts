@@ -10,19 +10,19 @@ export class CreateSellerInfoDto {
   email: string;
 
   @ApiProperty()
-  phone_number: string;
+  phone: string;
 
   @ApiProperty({ type: [String]})
   files: File[];
 
   @ApiProperty({ type: {}})
-  identity_card: File;
+  identityCard: File;
 
   @ApiProperty({ type: {}})
   address: Address;
 
   @ApiProperty({ type: [String] })
-  product_nature: String[];
+  productNature: String[];
 
   @ApiProperty({ type: String})
   type: String;

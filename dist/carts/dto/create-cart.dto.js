@@ -17,7 +17,7 @@ class CreateCartDto {
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateCartDto.prototype, "user_id", void 0);
+], CreateCartDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: Number, default: 1 }),
     __metadata("design:type", Number)
@@ -41,10 +41,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
-], CreateCartDto.prototype, "is_waiting", void 0);
+], CreateCartDto.prototype, "isWaiting", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
-], CreateCartDto.prototype, "is_completed", void 0);
+], CreateCartDto.prototype, "isCompleted", void 0);
 exports.CreateCartDto = CreateCartDto;
 //# sourceMappingURL=create-cart.dto.js.map

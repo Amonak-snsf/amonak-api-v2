@@ -23,13 +23,13 @@ export class CartItemsController {
     return this.cartItemsService.findAll(params, res);
   }
 
-  @Get(':cart_id')
-  findOne(@Param('cart_id') cart_id: string, @Res() res) {
-    return this.cartItemsService.findOne(cart_id, res);
+  @Get(':cart')
+  findOne(@Param('cart') cart: string, @Res() res) {
+    return this.cartItemsService.findOne(cart, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.cartItemsService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+    return this.cartItemsService.remove(_id, res);
   }
 }

@@ -23,13 +23,13 @@ let BiographiesService = class BiographiesService {
     constructor(biographyModel) {
         this.biographyModel = biographyModel;
     }
-    async findOne(user_id, res) {
-        const biography = await (0, query_1.one)(this.biographyModel, { user_id: user_id });
+    async findOne(user, res) {
+        const biography = await (0, query_1.one)(this.biographyModel, { user: user });
         return res.status(common_1.HttpStatus.OK).json(biography);
     }
-    async update(user_id, upDto, res) {
-        const body = (0, helpers_1.update_biography_body)(upDto);
-        const biography = await (0, query_1.put)(this.biographyModel, body, { user_id: user_id });
+    async update(user, upDto, res) {
+        const body = (0, helpers_1.updateBiographyBody)(upDto);
+        const biography = await (0, query_1.put)(this.biographyModel, body, { user: user });
         return res.status(common_1.HttpStatus.OK).json(biography);
     }
 };

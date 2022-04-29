@@ -37,18 +37,18 @@ export class PublicationsController {
     return this.publicationsService.findAll(params, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.publicationsService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+    return this.publicationsService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdatePublicationDto, @Res() res) {
-    return this.publicationsService.update(id, body, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() body: UpdatePublicationDto, @Res() res) {
+    return this.publicationsService.update(_id, body, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() res) {
-    return this.publicationsService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res() res) {
+    return this.publicationsService.remove(_id, res);
   }
 }

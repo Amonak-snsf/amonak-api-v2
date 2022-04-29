@@ -68,11 +68,11 @@ let FriendsService = class FriendsService {
             this.friend = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.reject }, query2);
         }
         if (this.friend) {
-            const query1 = { status: true, $pull: { friends: user._id } };
+            const query1 = { status: true, $pull: { friends: user.__id } };
             this.user = await (0, query_1.put)(this.userModel, query1, { _id: cfDto.from });
         }
         if (this.user) {
-            const query2 = { status: true, $pull: { friends: this.friend._id } };
+            const query2 = { status: true, $pull: { friends: this.friend.__id } };
             this.to_request = await (0, query_1.put)(this.userModel, query2, { _id: cfDto.to });
         }
         if (this.to_request) {

@@ -17,7 +17,7 @@ export class CartsService {
   async create(createCartDto, res) {
     this.data = createCartDto;
 
-    const data = await createIfne(this.cartModel, this.data, { user_id: this.data.user_id, status: CartStatus.unpaid, is_waiting: true })
+    const data = await createIfne(this.cartModel, this.data, { user: this.data.user, status: CartStatus.unpaid, isWaiting: true })
     if(this.data.from && this.data.from == 'cart_item'){
       return data;
     }
@@ -27,28 +27,28 @@ export class CartsService {
 
   async findAll(params, res) {
     
-    const data = await all(this.cartModel, params, null, { created_at: -1 }, params.limit, 'user_id', userDataPopulateWithTopten());
+    const data = await all(this.cartModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
 
-    const data = await one(this.cartModel, { _id: id }, null, 'user_id', userDataPopulateWithTopten());
+    const data = await one(this.cartModel, { _id: _id }, null, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }
 
-  async update(id: string, updateCartDto: UpdateCartDto, res) {
+  async update(_id: string, updateCartDto: UpdateCartDto, res) {
     
-    const data = await put(this.cartModel, updateCartDto, { _id: id }, 'user_id', userDataPopulateWithTopten());
+    const data = await put(this.cartModel, updateCartDto, { _id: _id }, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(id: string, res) {
+  async remove(_id: string, res) {
     
-    const data = await destroy(this.cartModel, { _id: id });
+    const data = await destroy(this.cartModel, { _id: _id });
 
     res.status(HttpStatus.OK).json(data);
   }

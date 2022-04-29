@@ -14,8 +14,7 @@ import { SellerInfo, SellerInfoDocument } from './entities/seller-info.entity';
 @Injectable()
 export class SellerInfosService {
   private data;
-  private account_type;
-  private fileArray = [];
+  private accountType;
 
   constructor(@InjectModel(SellerInfo.name) private sellerInforModel: Model<SellerInfoDocument>,
   @InjectModel(User.name) private userModel: Model<UserDocument>,
@@ -24,19 +23,19 @@ export class SellerInfosService {
 
   async findAll(params, res): Promise<SellerInfo[]>  {
     
-    const data = await all(this.sellerInforModel, params, null, { created_at: -1 }, params.limit, 'user_id', userDataPopulateWithTopten());
+    const data = await all(this.sellerInforModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(user_id: string, res) {
+  async findOne(user: string, res) {
 
-    const data = await one(this.sellerInforModel, { user_id: user_id }, null, 'user_id', userDataPopulateWithTopten())
+    const data = await one(this.sellerInforModel, { user: user }, null, 'user', userDataPopulateWithTopten())
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(user_id: string, upDto: UpdateSellerInfoDto, file, files, res) {
+  async update(user: string, upDto: UpdateSellerInfoDto, file, files, res) {
     this.data = upDto;
     
     if(file && file.path){
@@ -44,7 +43,7 @@ export class SellerInfosService {
         url: `/${file.path}`,
         type: file.mimetype
       };
-      this.data.identity_card = fileReponse;
+      this.data.identityCard = fileReponse;
     }
     
     const custom_files = customFiles(files);
@@ -59,43 +58,43 @@ export class SellerInfosService {
 
     this.data.status = Status.read;
 
-    await put(this.sellerInforModel, this.data, { user_id: user_id });
+    await put(this.sellerInforModel, this.data, { user: user });
     
-    this.account_type = AccountType.pending;
+    this.accountType = AccountType.pending;
 
-    const user = await put(this.userModel, { account_type: this.account_type }, { user_id: user_id });
+    const userUpdated = await put(this.userModel, { accountType: this.accountType }, { user: user });
     
-    return res.status(HttpStatus.OK).json(user);
+    return res.status(HttpStatus.OK).json(userUpdated);
   }
 
 
-  async manageSellerInfoStatus(user_id: string, status, res){
+  async manageSellerInfoStatus(user: string, status, res){
 
-    await put(this.sellerInforModel, { status: status}, { user_id: user_id });
+    await put(this.sellerInforModel, { status: status}, { user: user });
     
     const account = this.status(status);
     
-    await put(this.userModel, { account_type: account }, { user_id: user_id } );
+    await put(this.userModel, { accountType: account }, { user: user } );
     
-    return res.status(HttpStatus.OK).json({ message: "User account status has been changed to "+this.account_type+" with success !"});
+    return res.status(HttpStatus.OK).json({ message: "User account status has been changed to "+this.accountType+" with success !"});
   }
 
   status(status){
 
     if(status == Status.accepted){
-      this.account_type = AccountType.seller;
+      this.accountType = AccountType.seller;
     }
     if(status == Status.refused){
-      this.account_type = AccountType.refused;
+      this.accountType = AccountType.refused;
     }
     if(status == Status.cancelled){
-      this.account_type = AccountType.cancelled;
+      this.accountType = AccountType.cancelled;
     }
     if(status == Status.read){
-      this.account_type = AccountType.pending;
+      this.accountType = AccountType.pending;
     }
 
-    return this.account_type;
+    return this.accountType;
   }
 
 }

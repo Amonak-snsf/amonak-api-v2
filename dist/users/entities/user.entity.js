@@ -13,10 +13,11 @@ exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const class_transformer_1 = require("class-transformer");
 const mongoose = require("mongoose");
-const user_account_type_enum_1 = require("../dto/user-account-type.enum");
-let User = class User {
+const default_model_1 = require("../../utils/default-model");
+const user_accountType_enum_1 = require("../dto/user-account-type.enum");
+let User = class User extends default_model_1.DefaultModel {
     get fullName() {
-        return `${this.firstname} ${this.lastname}`;
+        return `${this.firstName} ${this.lastName}`;
     }
 };
 __decorate([
@@ -27,15 +28,15 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], User.prototype, "firstname", void 0);
+], User.prototype, "firstName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String, uppercase: true }),
     __metadata("design:type", String)
-], User.prototype, "lastname", void 0);
+], User.prototype, "lastName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, trim: true, type: String }),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], User.prototype, "userName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, trim: true, type: String, unique: true, lowercase: true }),
     __metadata("design:type", String)
@@ -48,7 +49,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], User.prototype, "dial_code", void 0);
+], User.prototype, "dialCode", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
@@ -60,11 +61,11 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Date }),
     __metadata("design:type", String)
-], User.prototype, "birthday", void 0);
+], User.prototype, "birthDay", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], User.prototype, "birth_place", void 0);
+], User.prototype, "birthPlace", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
@@ -78,18 +79,14 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "sectors", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
-    __metadata("design:type", String)
-], User.prototype, "country_infos", void 0);
-__decorate([
     (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        country_name: { required: false, trim: true, type: String },
-        country_code: { required: false, trim: true, type: String },
+        countryName: { required: false, trim: true, type: String },
+        countryCode: { required: false, trim: true, type: String },
         state: { required: false, trim: true, type: String },
         city: { required: false, trim: true, type: String },
-        postal_code: { required: false, trim: true, type: String },
+        postalCode: { required: false, trim: true, type: String },
         street: { required: false, trim: true, type: String },
-        full_address: { required: false, trim: true, type: String }
+        fullAddress: { required: false, trim: true, type: String }
     })),
     __metadata("design:type", Object)
 ], User.prototype, "address", void 0);
@@ -101,7 +98,7 @@ __decorate([
         address: { required: false, trim: true, type: String }
     })),
     __metadata("design:type", Object)
-], User.prototype, "bank_card", void 0);
+], User.prototype, "bankCard", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }] }),
     __metadata("design:type", Array)
@@ -111,33 +108,21 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, trim: true, type: String, default: user_account_type_enum_1.AccountType.default }),
+    (0, mongoose_1.Prop)({ required: false, trim: true, type: String, default: user_accountType_enum_1.AccountType.default }),
     __metadata("design:type", String)
-], User.prototype, "account_type", void 0);
+], User.prototype, "accountType", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
-], User.prototype, "is_log", void 0);
+], User.prototype, "isLog", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
-], User.prototype, "is_first_time", void 0);
+], User.prototype, "isFirstTime", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
-], User.prototype, "is_new_feed", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
-    __metadata("design:type", String)
-], User.prototype, "data", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now, type: Date }),
-    __metadata("design:type", Date)
-], User.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now, type: Date }),
-    __metadata("design:type", Date)
-], User.prototype, "updated_at", void 0);
+], User.prototype, "isNewFeed", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

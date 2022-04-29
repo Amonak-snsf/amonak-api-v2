@@ -29,14 +29,14 @@ let NewslettersController = class NewslettersController {
     findAll(params, res) {
         return this.newslettersService.findAll(params, res);
     }
-    findOne(id, res) {
-        return this.newslettersService.findOne(id, res);
+    findOne(_id, res) {
+        return this.newslettersService.findOne(_id, res);
     }
-    update(id, updateNewsletterDto, res) {
-        return this.newslettersService.update(id, updateNewsletterDto, res);
+    update(_id, updateNewsletterDto, res) {
+        return this.newslettersService.update(_id, updateNewsletterDto, res);
     }
-    remove(id, res) {
-        return this.newslettersService.remove(id, res);
+    remove(_id, res) {
+        return this.newslettersService.remove(_id, res);
     }
 };
 __decorate([
@@ -56,16 +56,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], NewslettersController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], NewslettersController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -73,8 +73,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], NewslettersController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

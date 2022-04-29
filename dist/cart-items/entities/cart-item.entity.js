@@ -14,16 +14,17 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const cart_entity_1 = require("../../carts/entities/cart.entity");
 const product_entity_1 = require("../../products/entities/product.entity");
-let CartItem = class CartItem {
+const default_model_1 = require("../../utils/default-model");
+let CartItem = class CartItem extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }),
     __metadata("design:type", cart_entity_1.Cart)
-], CartItem.prototype, "cart_id", void 0);
+], CartItem.prototype, "cart", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Product' }),
     __metadata("design:type", product_entity_1.Product)
-], CartItem.prototype, "product_id", void 0);
+], CartItem.prototype, "product", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Number, default: 1 }),
     __metadata("design:type", Number)
@@ -44,14 +45,6 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Number, default: 0 }),
     __metadata("design:type", Number)
 ], CartItem.prototype, "shipping", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], CartItem.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, type: Date, default: Date.now }),
-    __metadata("design:type", Date)
-], CartItem.prototype, "updated_at", void 0);
 CartItem = __decorate([
     (0, mongoose_1.Schema)()
 ], CartItem);

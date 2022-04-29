@@ -1,40 +1,40 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 import { errorFilter } from "./helpers";
 
-export const error = (data, http_code?: number) => {
+export const error = (data, httpCode?: number) => {
 
-    const error_message = errorFilter(data);
+    const errorMessage = errorFilter(data);
 
     if (data) {
         if (data.errors) {
             if (data.name == 'ValidationError' || data.name == 'CastError') {
                 throw new HttpException({
-                    status_code: HttpStatus.BAD_REQUEST,
-                    errors: error_message,
+                    statusCode: HttpStatus.BAD_REQUEST,
+                    errors: errorMessage,
                 }, HttpStatus.BAD_REQUEST);
             } else {
                 throw new HttpException({
-                    status_code: HttpStatus.INTERNAL_SERVER_ERROR,
+                    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                     errors: data,
                 }, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         if (data.name == 'CastError' || data.name == 'ValidationError') {
             throw new HttpException({
-                status_code: http_code ?? HttpStatus.BAD_REQUEST,
-                errors: error_message,
-            }, http_code ?? HttpStatus.BAD_REQUEST);
+                statusCode: httpCode ?? HttpStatus.BAD_REQUEST,
+                errors: errorMessage,
+            }, httpCode ?? HttpStatus.BAD_REQUEST);
         }
 
-        if (http_code) {
+        if (httpCode) {
             throw new HttpException({
-                status_code: http_code,
+                statusCode: httpCode,
                 errors: data,
-            }, http_code);
+            }, httpCode);
         }
         else {
             throw new HttpException({
-                status_code: HttpStatus.INTERNAL_SERVER_ERROR,
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 errors: data,
             }, HttpStatus.INTERNAL_SERVER_ERROR);
         }

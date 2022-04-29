@@ -5,12 +5,12 @@ export declare class CreateProductDto {
     content: String;
     price: Number;
     quantity: Number;
-    max_weight: Number;
+    maxWeight: Number;
     purchase: Number;
     currency: String;
     files: File[];
     address: Address;
-    category_id: String;
-    user_id: String;
+    category: String;
+    user: String;
     status: Boolean;
 }

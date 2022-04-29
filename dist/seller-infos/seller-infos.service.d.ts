@@ -10,12 +10,11 @@ export declare class SellerInfosService {
     private configService;
     private mailService;
     private data;
-    private account_type;
-    private fileArray;
+    private accountType;
     constructor(sellerInforModel: Model<SellerInfoDocument>, userModel: Model<UserDocument>, configService: ConfigService, mailService: MailService);
     findAll(params: any, res: any): Promise<SellerInfo[]>;
-    findOne(user_id: string, res: any): Promise<any>;
-    update(user_id: string, upDto: UpdateSellerInfoDto, file: any, files: any, res: any): Promise<any>;
-    manageSellerInfoStatus(user_id: string, status: any, res: any): Promise<any>;
+    findOne(user: string, res: any): Promise<any>;
+    update(user: string, upDto: UpdateSellerInfoDto, file: any, files: any, res: any): Promise<any>;
+    manageSellerInfoStatus(user: string, status: any, res: any): Promise<any>;
     status(status: any): any;
 }

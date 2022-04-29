@@ -25,7 +25,7 @@ let MailService = class MailService {
             subject: 'Email confirmation',
             template: 'activate',
             context: {
-                username: user.username,
+                userName: user.userName,
                 url: url,
                 token: token,
                 year: date.getFullYear()
@@ -39,7 +39,7 @@ let MailService = class MailService {
             subject: 'Reset password',
             template: 'reset',
             context: {
-                username: user.username,
+                userName: user.userName,
                 url: url,
                 year: date.getFullYear()
             },
@@ -52,7 +52,7 @@ let MailService = class MailService {
             subject: 'Contact',
             template: 'admin',
             context: {
-                username: data.email,
+                userName: data.email,
                 url: url,
                 year: date.getFullYear(),
                 message: data.message,
@@ -68,7 +68,7 @@ let MailService = class MailService {
             subject: 'Newsletter',
             template: 'news-letter',
             context: {
-                username: data.email,
+                userName: data.email,
                 url: url,
                 year: date.getFullYear()
             },
@@ -81,7 +81,7 @@ let MailService = class MailService {
             subject: 'Topten',
             template: 'topten',
             context: {
-                username: data.username,
+                userName: data.userName,
                 url: url,
                 year: date.getFullYear()
             },
@@ -95,7 +95,7 @@ let MailService = class MailService {
             subject: 'Friend request',
             template: 'friend-request',
             context: {
-                username: data.username,
+                userName: data.userName,
                 url: url,
                 year: date.getFullYear()
             }
@@ -108,7 +108,7 @@ let MailService = class MailService {
             subject: 'Accept invitation',
             template: 'accept-invitation',
             context: {
-                username: data.username,
+                userName: data.userName,
                 url: url,
                 year: date.getFullYear()
             }

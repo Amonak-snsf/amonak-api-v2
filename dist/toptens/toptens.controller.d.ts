@@ -7,7 +7,7 @@ export declare class ToptensController {
     constructor(toptensService: ToptensService);
     create(createToptenDto: CreateToptenDto, files: any, res: any): Promise<any>;
     findAll(body: FilterToptenDto, res: any): Promise<any>;
-    findOne(id: string, res: any): Promise<any>;
-    update(id: string, updateToptenDto: UpdateToptenDto, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, res: any): Promise<any>;
+    update(_id: string, updateToptenDto: UpdateToptenDto, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sale_body = exports.update_biography_body = exports.customFiles = exports.userDataPopulateWithComment = exports.userDataPopulateWithTopten = exports.limitData = exports.errorFilter = exports.arrayToString = exports.hashPassword = exports.checkUsername = exports.bankCard = exports.userAddress = void 0;
+exports.saleBody = exports.updateBiographyBody = exports.customFiles = exports.userDataPopulateWithComment = exports.userDataPopulateWithTopten = exports.limitData = exports.errorFilter = exports.arrayToString = exports.hashPassword = exports.checkUsername = exports.CustomBankCard = exports.userAddress = void 0;
 const bcrypt = require("bcrypt");
 const userAddress = (address) => {
     if (address && typeof address === 'object') {
-        if (address.country_name) {
-            address.country_name = address.country_name;
+        if (address.countryName) {
+            address.countryName = address.countryName;
         }
-        if (address.country_code) {
-            address.country_code = address.country_code;
+        if (address.countryCode) {
+            address.countryCode = address.countryCode;
         }
         if (address.state) {
             address.state = address.state;
@@ -16,8 +16,8 @@ const userAddress = (address) => {
         if (address.city) {
             address.city = address.city;
         }
-        if (address.postal_code) {
-            address.postal_code = address.postal_code;
+        if (address.postalCode) {
+            address.postalCode = address.postalCode;
         }
         if (address.street) {
             address.street = address.street;
@@ -26,31 +26,31 @@ const userAddress = (address) => {
     return address;
 };
 exports.userAddress = userAddress;
-const bankCard = (bank_card) => {
-    if (bank_card && typeof bank_card === 'object') {
-        if (bank_card.number) {
-            bank_card.number = bank_card.number;
+const CustomBankCard = (bankCard) => {
+    if (bankCard && typeof bankCard === 'object') {
+        if (bankCard.number) {
+            bankCard.number = bankCard.number;
         }
-        if (bank_card.cvc) {
-            bank_card.cvc = bank_card.cvc;
+        if (bankCard.cvc) {
+            bankCard.cvc = bankCard.cvc;
         }
-        if (bank_card.zip) {
-            bank_card.zip = bank_card.zip;
+        if (bankCard.zip) {
+            bankCard.zip = bankCard.zip;
         }
-        if (bank_card.address) {
-            bank_card.address = bank_card.address;
+        if (bankCard.address) {
+            bankCard.address = bankCard.address;
         }
     }
-    return bank_card;
+    return bankCard;
 };
-exports.bankCard = bankCard;
+exports.CustomBankCard = CustomBankCard;
 const checkUsername = (body) => {
     const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    if (emailRegexp.test(body.username)) {
-        return { email: body.username };
+    if (emailRegexp.test(body.userName)) {
+        return { email: body.userName };
     }
     else {
-        return { username: body.username };
+        return { userName: body.userName };
     }
 };
 exports.checkUsername = checkUsername;
@@ -76,18 +76,18 @@ const arrayToString = (data) => {
 };
 exports.arrayToString = arrayToString;
 const errorFilter = (data) => {
-    let error_message = {};
+    let errorMessage = {};
     if (data.errors) {
         for (var err in data.errors) {
             if (err) {
-                error_message[err] = data.errors[err].message.split(' (type')[0].replace('"', '').replace('"', '').replace("\\", '').replace('\\', '');
+                errorMessage[err] = data.errors[err].message.split(' (type')[0].replace('"', '').replace('"', '').replace("\\", '').replace('\\', '');
             }
         }
     }
     if (!data.errors && (data.name == 'ValidationError' || data.name == 'CastError')) {
-        error_message[data.path] = data.message.split(' (type')[0].replace('"', '').replace('"', '').replace("\\", '').replace('\\"', '');
+        errorMessage[data.path] = data.message.split(' (type')[0].replace('"', '').replace('"', '').replace("\\", '').replace('\\"', '');
     }
-    return error_message;
+    return errorMessage;
 };
 exports.errorFilter = errorFilter;
 const limitData = (body) => {
@@ -99,11 +99,11 @@ const limitData = (body) => {
 };
 exports.limitData = limitData;
 const userDataPopulateWithTopten = () => {
-    return ['avatar', 'email', 'username', 'gender', 'dial_code', 'phone', 'account_type', 'address', 'sectors', 'is_log'];
+    return ['avatar', 'email', 'userName', 'gender', 'dialCode', 'phone', 'accountType', 'address', 'sectors', 'isLog'];
 };
 exports.userDataPopulateWithTopten = userDataPopulateWithTopten;
 const userDataPopulateWithComment = () => {
-    return ['avatar', 'email', 'username', 'sectors'];
+    return ['avatar', 'email', 'userName', 'sectors'];
 };
 exports.userDataPopulateWithComment = userDataPopulateWithComment;
 const customFiles = (files) => {
@@ -121,39 +121,39 @@ const customFiles = (files) => {
     return fileArray;
 };
 exports.customFiles = customFiles;
-const update_biography_body = (upDto) => {
+const updateBiographyBody = (upDto) => {
     return {
         status: upDto.status,
-        relationship: upDto.relationship,
+        relationShip: upDto.relationShip,
         $push: {
-            family_member: Array.isArray(upDto.family_member) ? upDto.family_member : [upDto.family_member],
+            familyMember: Array.isArray(upDto.familyMember) ? upDto.familyMember : [upDto.familyMember],
             nickname: Array.isArray(upDto.nickname) ? upDto.nickname : [upDto.nickname],
-            interested_by: Array.isArray(upDto.interested_by) ? upDto.interested_by : [upDto.interested_by],
+            interestedBy: Array.isArray(upDto.interestedBy) ? upDto.interestedBy : [upDto.interestedBy],
             politics: Array.isArray(upDto.politics) ? upDto.politics : [upDto.politics],
             confessions: Array.isArray(upDto.confessions) ? upDto.confessions : [upDto.confessions],
             languages: Array.isArray(upDto.languages) ? upDto.languages : [upDto.languages],
-            web_sites: Array.isArray(upDto.web_sites) ? upDto.web_sites : [upDto.web_sites],
+            webSites: Array.isArray(upDto.webSites) ? upDto.webSites : [upDto.webSites],
             networks: Array.isArray(upDto.networks) ? upDto.networks : [upDto.networks],
         }
     };
 };
-exports.update_biography_body = update_biography_body;
-const sale_body = (body) => {
+exports.updateBiographyBody = updateBiographyBody;
+const saleBody = (body) => {
     return {
         content: body.content,
         name: body.name,
         price: parseFloat(body.price),
-        max_weight: parseInt(body.max_weight),
+        maxWeight: parseInt(body.maxWeight),
         currency: body.currency,
         quantity: parseInt(body.quantity),
         purchase: parseInt(body.purchase),
         address: body.address,
         files: body.files,
-        user_id: body.user_id,
-        category_id: body.category_id,
-        status: body.product_status,
+        user: body.user,
+        category: body.category,
+        status: body.productStatus,
         from: 'publication',
     };
 };
-exports.sale_body = sale_body;
+exports.saleBody = saleBody;
 //# sourceMappingURL=helpers.js.map

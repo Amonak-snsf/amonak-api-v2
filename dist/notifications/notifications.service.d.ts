@@ -6,6 +6,6 @@ export declare class NotificationsService {
     create(createNotificationDto: any): Promise<any>;
     findAll(params: any): Promise<any[]>;
     findOne(from: string, params: any): Promise<any[]>;
-    update(id: string, updateNotificationDto: any): Promise<any>;
-    remove(id: string): Promise<number>;
+    update(_id: string, updateNotificationDto: any): Promise<any>;
+    remove(_id: string): Promise<number>;
 }

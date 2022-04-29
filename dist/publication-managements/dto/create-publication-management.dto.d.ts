@@ -1,6 +1,6 @@
 export declare class CreatePublicationManagementDto {
-    user_id: String;
-    publication_id: String;
+    user: String;
+    publication: String;
     status: Boolean;
     type: String;
     reason: String;

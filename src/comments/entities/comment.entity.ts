@@ -2,11 +2,12 @@ import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Publication } from "src/publications/entities/publication.entity";
 import { User } from "src/users/entities/user.entity";
 import * as mongoose from 'mongoose';
+import { DefaultModel } from "src/utils/default-model";
 
 export type CommentDocument = Comment & Document;
 
 @Schema()
-export class Comment {
+export class Comment extends DefaultModel{
     
     @Prop({ required: false, type: String, trim: true })
     content: String;
@@ -18,16 +19,13 @@ export class Comment {
     files: Record<string, any>[];
       
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' })
-    publication_id: Publication
+    publication: Publication
 
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    user_id: User
+    user: User
 
     @Prop({ required: true, type: Boolean, default: true })
     status: Boolean
-
-    @Prop({ required: true, type: Date, default: Date.now })
-    created_at: Date
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);

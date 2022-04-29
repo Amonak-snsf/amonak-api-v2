@@ -8,10 +8,10 @@ import { Gender } from './gender';
 export class CreateUserDto {
 
   @ApiProperty()
-  firstname: string;
+  firstName: string;
 
   @ApiProperty()
-  lastname: string;
+  lastName: string;
 
   @ApiProperty({default: 'aikpeachille55@gmail.com'})
   @IsEmail()
@@ -24,10 +24,10 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  username: string;
+  userName: string;
 
   @ApiProperty()
-  dial_code: string;
+  dialCode: string;
 
   @ApiProperty()
   phone: string;
@@ -37,10 +37,10 @@ export class CreateUserDto {
   gender: Gender;
 
   @ApiProperty({ type: Date })
-  birth_day: Date;
+  birthDay: Date;
 
   @ApiProperty({ type: String })
-  birth_place: String;
+  birthPlace: String;
 
   @ApiProperty()
   profession: string;
@@ -55,7 +55,7 @@ export class CreateUserDto {
   address: Address;
 
   @ApiProperty({ type: {}})
-  bank_card: BankCard;
+  bankCard: BankCard;
 
   @ApiProperty()
   data: string;
@@ -69,7 +69,7 @@ export class CreateUserDto {
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  is_log: Boolean;
+  isLog: Boolean;
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
@@ -80,7 +80,7 @@ export class CreateUserDto {
   is_new_feed: Boolean;
 
   @ApiProperty()
-  account_type: string;
+  accountType: string;
 
 }
    

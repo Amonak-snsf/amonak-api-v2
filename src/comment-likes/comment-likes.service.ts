@@ -24,22 +24,22 @@ export class CommentLikesService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(comment_id: string, res) {
+  async findOne(comment: string, res) {
 
-    const data = await one(this.commentModel, { comment_id: comment_id });
+    const data = await one(this.commentModel, { comment: comment });
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(comment_id: string, updateCommentLikeDto: UpdateCommentLikeDto, res) {
+  async update(comment: string, updateCommentLikeDto: UpdateCommentLikeDto, res) {
     
-    const data = await put(this.commentModel, updateCommentLikeDto, { comment_id: comment_id } );
+    const data = await put(this.commentModel, updateCommentLikeDto, { comment: comment } );
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(comment_id: string, params, res) {
-    params.comment_id = comment_id;
+  async remove(comment: string, params, res) {
+    params.comment = comment;
 
     const data = await destroy(this.commentModel, params);
 

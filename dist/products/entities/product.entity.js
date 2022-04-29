@@ -14,7 +14,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const category_entity_1 = require("../../categories/entities/category.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
-let Product = class Product {
+const default_model_1 = require("../../utils/default-model");
+let Product = class Product extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String, trim: true }),
@@ -35,7 +36,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Number, trim: true, default: 0 }),
     __metadata("design:type", Number)
-], Product.prototype, "max_weight", void 0);
+], Product.prototype, "maxWeight", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Number, trim: true, default: 0 }),
     __metadata("design:type", Number)
@@ -53,36 +54,28 @@ __decorate([
 ], Product.prototype, "files", void 0);
 __decorate([
     (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        country_name: { required: false, trim: true, type: String },
-        country_code: { required: false, trim: true, type: String },
+        countryName: { required: false, trim: true, type: String },
+        countryCode: { required: false, trim: true, type: String },
         state: { required: false, trim: true, type: String },
         city: { required: false, trim: true, type: String },
-        postal_code: { required: false, trim: true, type: String },
+        postalCode: { required: false, trim: true, type: String },
         street: { required: false, trim: true, type: String },
-        full_address: { required: false, trim: true, type: String }
+        fullAddress: { required: false, trim: true, type: String }
     })),
     __metadata("design:type", Object)
 ], Product.prototype, "address", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Category' }),
     __metadata("design:type", category_entity_1.Category)
-], Product.prototype, "category_id", void 0);
+], Product.prototype, "category", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Product.prototype, "user_id", void 0);
+], Product.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
 ], Product.prototype, "status", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now }),
-    __metadata("design:type", Date)
-], Product.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: Date.now }),
-    __metadata("design:type", Date)
-], Product.prototype, "updated_at", void 0);
 Product = __decorate([
     (0, mongoose_1.Schema)()
 ], Product);

@@ -28,14 +28,14 @@ let CommentLikesController = class CommentLikesController {
     findAll(params, res) {
         return this.commentLikesService.findAll(params, res);
     }
-    findOne(comment_id, res) {
-        return this.commentLikesService.findOne(comment_id, res);
+    findOne(comment, res) {
+        return this.commentLikesService.findOne(comment, res);
     }
-    update(comment_id, updateCommentLikeDto, res) {
-        return this.commentLikesService.update(comment_id, updateCommentLikeDto, res);
+    update(comment, updateCommentLikeDto, res) {
+        return this.commentLikesService.update(comment, updateCommentLikeDto, res);
     }
-    remove(comment_id, updateCommentLikeDto, res) {
-        return this.commentLikesService.remove(comment_id, updateCommentLikeDto, res);
+    remove(comment, updateCommentLikeDto, res) {
+        return this.commentLikesService.remove(comment, updateCommentLikeDto, res);
     }
 };
 __decorate([
@@ -55,16 +55,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CommentLikesController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':comment_id'),
-    __param(0, (0, common_1.Param)('comment_id')),
+    (0, common_1.Get)(':comment'),
+    __param(0, (0, common_1.Param)('comment')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], CommentLikesController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':comment_id'),
-    __param(0, (0, common_1.Param)('comment_id')),
+    (0, common_1.Patch)(':comment'),
+    __param(0, (0, common_1.Param)('comment')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -72,8 +72,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CommentLikesController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':comment_id'),
-    __param(0, (0, common_1.Param)('comment_id')),
+    (0, common_1.Delete)(':comment'),
+    __param(0, (0, common_1.Param)('comment')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),

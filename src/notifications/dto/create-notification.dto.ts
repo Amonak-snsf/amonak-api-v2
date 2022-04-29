@@ -11,7 +11,7 @@ export class CreateNotificationDto {
   to: String
 
   @ApiProperty({ required: false, type: String })
-  publication_id: String
+  publication: String
 
   @ApiProperty({ required: false, type: String })
   content: String;
@@ -20,7 +20,7 @@ export class CreateNotificationDto {
   comment: String;
 
   @ApiProperty({ required: true, type: String  })
-  @IsIn([NotificationType.all, NotificationType.comment, NotificationType.friend_request, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])
+  @IsIn([NotificationType.all, NotificationType.comment, NotificationType.friendRequest, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])
   type: String;
 
   @ApiProperty({ required: true, type: Boolean, default: true })

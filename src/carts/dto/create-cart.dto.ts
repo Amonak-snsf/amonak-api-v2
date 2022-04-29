@@ -4,7 +4,7 @@ import { CartStatus } from "./cart-status.dto";
 export class CreateCartDto {
 
     @ApiProperty({ required: true, type: String })
-    user_id: String
+    user: String
     
     @ApiProperty({ required: true, type: Number, default: 1 })
     amount: Number;
@@ -22,8 +22,8 @@ export class CreateCartDto {
     status: CartStatus;
 
     @ApiProperty({ required: false, type: Boolean, default: true })
-    is_waiting: Boolean;
+    isWaiting: Boolean;
 
     @ApiProperty({ required: false, type: Boolean, default: false })
-    is_completed: Boolean;
+    isCompleted: Boolean;
 }

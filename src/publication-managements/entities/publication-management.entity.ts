@@ -2,15 +2,17 @@ import { Prop, SchemaFactory } from "@nestjs/mongoose"
 import { Publication } from "src/publications/entities/publication.entity"
 import * as mongoose from 'mongoose';
 import { User } from "src/users/entities/user.entity";
+import { DefaultModel } from "src/utils/default-model";
 
 export type PubManagementDocument = PublicationManagement & Document;
 
-export class PublicationManagement {
+export class PublicationManagement extends DefaultModel {
+    
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' })
-    publication_id: Publication
+    publication: Publication
 
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    user_id: User
+    user: User
 
     @Prop({ required: false, type: String })
     type: String
@@ -20,10 +22,6 @@ export class PublicationManagement {
 
     @Prop({ required: false, type: Boolean, default: true })
     status: String
-
-    @Prop({ required: false, default: Date.now })
-    created_at: Date;
-
 }
 
 export const PubManagementSchema = SchemaFactory.createForClass(PublicationManagement);

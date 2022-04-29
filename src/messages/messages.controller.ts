@@ -43,26 +43,26 @@ export class MessagesController {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string, @Res() res) {
+  @Get(':_id')
+  async findOne(@Param('_id') _id: string, @Res() res) {
 
-    const data = await this.messagesService.findOne(id);
+    const data = await this.messagesService.findOne(_id);
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto, @Res() res) {
+  @Patch(':_id')
+  async update(@Param('_id') _id: string, @Body() updateMessageDto: UpdateMessageDto, @Res() res) {
    
-    const data = await this.messagesService.update(id, updateMessageDto);
+    const data = await this.messagesService.update(_id, updateMessageDto);
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string, @Res() res) {
+  @Delete(':_id')
+  async remove(@Param('_id') _id: string, @Res() res) {
 
-    const data = await this.messagesService.remove(id);
+    const data = await this.messagesService.remove(_id);
 
     return res.status(HttpStatus).json(data);
   }

@@ -7,7 +7,7 @@ export declare class NewslettersController {
     constructor(newslettersService: NewslettersService);
     create(createNewsletterDto: CreateNewsletterDto, res: any): Promise<any>;
     findAll(params: FilterNewsLetterDto, res: any): Promise<any>;
-    findOne(id: string, res: any): Promise<any>;
-    update(id: string, updateNewsletterDto: UpdateNewsletterDto, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, res: any): Promise<any>;
+    update(_id: string, updateNewsletterDto: UpdateNewsletterDto, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

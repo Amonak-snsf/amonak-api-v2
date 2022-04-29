@@ -14,7 +14,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const status_friend_dto_1 = require("../dto/status-friend.dto");
 const user_entity_1 = require("../../users/entities/user.entity");
-let Friend = class Friend {
+const default_model_1 = require("../../utils/default-model");
+let Friend = class Friend extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
@@ -28,14 +29,6 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, enum: status_friend_dto_1.Status }),
     __metadata("design:type", Number)
 ], Friend.prototype, "status", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
-    __metadata("design:type", Date)
-], Friend.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
-    __metadata("design:type", Date)
-], Friend.prototype, "updated_at", void 0);
 Friend = __decorate([
     (0, mongoose_1.Schema)()
 ], Friend);

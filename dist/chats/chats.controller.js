@@ -28,13 +28,13 @@ let ChatsController = class ChatsController {
     findAll() {
         return this.chatsService.findAll();
     }
-    findOne(id) {
+    findOne(_id) {
         return this.chatsService.findOne(+id);
     }
-    update(id, updateChatDto) {
-        return this.chatsService.update(+id, updateChatDto);
+    update(_id, updateChatDto) {
+        return this.chatsService.update(+_id, updateChatDto);
     }
-    remove(id) {
+    remove(_id) {
         return this.chatsService.remove(+id);
     }
 };
@@ -52,23 +52,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ChatsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ChatsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_chat_dto_1.UpdateChatDto]),
     __metadata("design:returntype", void 0)
 ], ChatsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

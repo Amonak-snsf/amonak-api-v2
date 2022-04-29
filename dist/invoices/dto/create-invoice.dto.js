@@ -17,7 +17,7 @@ class CreateInvoiceDto extends (0, swagger_1.PartialType)(create_cart_dto_1.Crea
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateInvoiceDto.prototype, "cart_id", void 0);
+], CreateInvoiceDto.prototype, "cart", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
@@ -25,18 +25,18 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreateInvoiceDto.prototype, "payment_type", void 0);
+], CreateInvoiceDto.prototype, "paymentType", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreateInvoiceDto.prototype, "payment_method", void 0);
+], CreateInvoiceDto.prototype, "paymentMethod", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Date }),
     __metadata("design:type", Date)
-], CreateInvoiceDto.prototype, "payment_date", void 0);
+], CreateInvoiceDto.prototype, "paymentDate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreateInvoiceDto.prototype, "payment_reference", void 0);
+], CreateInvoiceDto.prototype, "paymentReference", void 0);
 exports.CreateInvoiceDto = CreateInvoiceDto;
 //# sourceMappingURL=create-invoice.dto.js.map

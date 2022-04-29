@@ -28,11 +28,11 @@ let PublicationManagementsController = class PublicationManagementsController {
     findAll(params, res) {
         return this.publicationManagementsService.findAll(params, res);
     }
-    findOne(publication_id, params, res) {
-        return this.publicationManagementsService.findOne(publication_id, params, res);
+    findOne(publication, params, res) {
+        return this.publicationManagementsService.findOne(publication, params, res);
     }
-    remove(publication_id, params, res) {
-        return this.publicationManagementsService.remove(publication_id, params, res);
+    remove(publication, params, res) {
+        return this.publicationManagementsService.remove(publication, params, res);
     }
 };
 __decorate([
@@ -52,8 +52,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PublicationManagementsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':publication_id'),
-    __param(0, (0, common_1.Param)('publication_id')),
+    (0, common_1.Get)(':publication'),
+    __param(0, (0, common_1.Param)('publication')),
     __param(1, (0, common_1.Query)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -61,8 +61,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PublicationManagementsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Delete)(':publication_id'),
-    __param(0, (0, common_1.Param)('publication_id')),
+    (0, common_1.Delete)(':publication'),
+    __param(0, (0, common_1.Param)('publication')),
     __param(1, (0, common_1.Query)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),

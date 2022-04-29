@@ -7,7 +7,7 @@ export declare class NotificationsController {
     constructor(notificationsService: NotificationsService);
     create(createNotificationDto: CreateNotificationDto, res: any): Promise<any>;
     findAll(params: FilterNotification, res: any): Promise<any>;
-    findOne(id: string, params: FilterNotification, res: any): Promise<any>;
-    update(id: string, updateNotificationDto: UpdateNotificationDto, res: any): Promise<any>;
-    remove(id: string, res: any): Promise<any>;
+    findOne(_id: string, params: FilterNotification, res: any): Promise<any>;
+    update(_id: string, updateNotificationDto: UpdateNotificationDto, res: any): Promise<any>;
+    remove(_id: string, res: any): Promise<any>;
 }

@@ -23,28 +23,28 @@ export class CategoriesService {
 
   async findAll(params, res) {
     
-    const data = await all(this.categoryModel, params, null, { created_at: -1 }, params.limit);
+    const data = await all(this.categoryModel, params, null, { createdAt: -1 }, params.limit);
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(id: string, res) {
+  async findOne(_id: string, res) {
     
-    const data = await one(this.categoryModel, { _id: id });
+    const data = await one(this.categoryModel, { _id: _id });
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(id: string, updateCategoryDto: UpdateCategoryDto, res) {
+  async update(_id: string, updateCategoryDto: UpdateCategoryDto, res) {
     
-    const data = await put(this.categoryModel, updateCategoryDto, { _id: id } );
+    const data = await put(this.categoryModel, updateCategoryDto, { _id: _id } );
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(id: string, res) {
+  async remove(_id: string, res) {
     
-    const data = await destroy(this.categoryModel, { _id: id });
+    const data = await destroy(this.categoryModel, { _id: _id });
 
     return res.status(HttpStatus.OK).json(data);
   }

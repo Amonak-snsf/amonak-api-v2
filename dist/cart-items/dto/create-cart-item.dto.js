@@ -12,16 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCartItemDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const create_cart_dto_1 = require("../../carts/dto/create-cart.dto");
-class CreateCartItemDto extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_cart_dto_1.CreateCartDto, ['amount', 'is_completed', 'is_waiting', 'status', 'user_id'])) {
+class CreateCartItemDto extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_cart_dto_1.CreateCartDto, ['amount', 'isCompleted', 'isWaiting', 'status', 'user'])) {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateCartItemDto.prototype, "cart_id", void 0);
+], CreateCartItemDto.prototype, "cart", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateCartItemDto.prototype, "product_id", void 0);
+], CreateCartItemDto.prototype, "product", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: Number, default: 1 }),
     __metadata("design:type", Number)

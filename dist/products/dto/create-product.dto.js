@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Number, default: 1 }),
     __metadata("design:type", Number)
-], CreateProductDto.prototype, "max_weight", void 0);
+], CreateProductDto.prototype, "maxWeight", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Number, default: 0 }),
     __metadata("design:type", Number)
@@ -52,11 +52,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
-], CreateProductDto.prototype, "category_id", void 0);
+], CreateProductDto.prototype, "category", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
-], CreateProductDto.prototype, "user_id", void 0);
+], CreateProductDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)

@@ -12,12 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateSellerStatusDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-const status_seller_info_1 = require("./status-seller-info");
+const status_sellerInfo_1 = require("./status-seller-info");
 class UpdateSellerStatusDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ enum: status_seller_info_1.Status }),
-    (0, class_validator_1.IsIn)([status_seller_info_1.Status.read, status_seller_info_1.Status.accepted, status_seller_info_1.Status.refused, status_seller_info_1.Status.cancelled, status_seller_info_1.Status.created]),
+    (0, swagger_1.ApiProperty)({ enum: status_sellerInfo_1.Status }),
+    (0, class_validator_1.IsIn)([status_sellerInfo_1.Status.read, status_sellerInfo_1.Status.accepted, status_sellerInfo_1.Status.refused, status_sellerInfo_1.Status.cancelled, status_sellerInfo_1.Status.created]),
     __metadata("design:type", Number)
 ], UpdateSellerStatusDto.prototype, "status", void 0);
 exports.UpdateSellerStatusDto = UpdateSellerStatusDto;

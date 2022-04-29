@@ -19,21 +19,21 @@ export class PublicationManagementsService {
 
   async findAll(params, res) {
 
-    const data = await all(this.pubmanegementModel, params, null, { created_at: -1 }, params.limit, 'user_id', userDataPopulateWithTopten());
+    const data = await all(this.pubmanegementModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(publication_id: string, params, res) {
-    params.publication_id = publication_id;
+  async findOne(publication: string, params, res) {
+    params.publication = publication;
 
     const data = await one(this.pubmanegementModel, params);
 
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(publication_id: string, params, res) {
-    params.publication_id = publication_id;
+  async remove(publication: string, params, res) {
+    params.publication = publication;
 
     const data = await destroy(this.pubmanegementModel, params);
 

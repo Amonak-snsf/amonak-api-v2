@@ -1,7 +1,7 @@
 export declare class CreateNewsletterDto {
     email: String;
     name: String;
-    full_address: String;
+    fullAddress: String;
     subject: String;
     message: String;
     type: String;

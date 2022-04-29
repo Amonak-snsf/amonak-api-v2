@@ -47,9 +47,9 @@ export class AuthController {
    * @param res 
    * @returns  
    */
-  @Get('check-token/:token_id')
-  checkToken(@Param('token_id') token_id: string, @Res() res) {
-    return this.authService.checkToken(token_id, res);
+  @Get('check-token/:token')
+  checkToken(@Param('token') token: string, @Res() res) {
+    return this.authService.checkToken(token, res);
   }
 
   /**

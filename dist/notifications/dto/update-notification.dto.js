@@ -17,10 +17,10 @@ class UpdateNotificationDto extends (0, swagger_1.PartialType)(create_notificati
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: Date }),
     __metadata("design:type", Date)
-], UpdateNotificationDto.prototype, "seen_at", void 0);
+], UpdateNotificationDto.prototype, "seenAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: Date }),
     __metadata("design:type", Date)
-], UpdateNotificationDto.prototype, "read_at", void 0);
+], UpdateNotificationDto.prototype, "readAt", void 0);
 exports.UpdateNotificationDto = UpdateNotificationDto;
 //# sourceMappingURL=update-notification.dto.js.map

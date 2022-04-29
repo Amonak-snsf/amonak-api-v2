@@ -14,12 +14,13 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
 const topten_status_interface_1 = require("../dto/topten-status-interface");
-let Topten = class Topten {
+const default_model_1 = require("../../utils/default-model");
+let Topten = class Topten extends default_model_1.DefaultModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
-], Topten.prototype, "user_id", void 0);
+], Topten.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
     __metadata("design:type", Array)
@@ -46,7 +47,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], Topten.prototype, "website", void 0);
+], Topten.prototype, "webSites", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: String }),
     __metadata("design:type", String)
@@ -60,17 +61,9 @@ __decorate([
     __metadata("design:type", String)
 ], Topten.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: 2 }),
+    (0, mongoose_1.Prop)({ required: false, default: 2 }),
     __metadata("design:type", Number)
-], Topten.prototype, "end_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
-    __metadata("design:type", Date)
-], Topten.prototype, "created_at", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, default: Date.now }),
-    __metadata("design:type", Date)
-], Topten.prototype, "updated_at", void 0);
+], Topten.prototype, "endAt", void 0);
 Topten = __decorate([
     (0, mongoose_1.Schema)()
 ], Topten);

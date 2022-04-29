@@ -3,14 +3,15 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from 'src/users/entities/user.entity';
 import { Status } from '../dto/topten-status-interface';
+import { DefaultModel } from 'src/utils/default-model';
 
 export type ToptenDocument = Topten & Document;
 
 @Schema()
-export class Topten {
+export class Topten extends DefaultModel {
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user_id: User
+  user: User
 
   @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   followers: User[]
@@ -31,7 +32,7 @@ export class Topten {
   duration: Number;
 
   @Prop({ required: false, trim: true, type: String })
-  website: String;
+  webSites: String;
 
   @Prop({ type: String})
   name: String;
@@ -42,14 +43,8 @@ export class Topten {
   @Prop({ required: true, enum: Status, default: 'disabled' })
   status: String;
   
-  @Prop({ required: true, default: 2})
-  end_at: Number;
-
-  @Prop({ required: true, default: Date.now })
-  created_at: Date;
-
-  @Prop({ required: true, default: Date.now })
-  updated_at: Date;
+  @Prop({ required: false, default: 2})
+  endAt: Number;
 
 }
 

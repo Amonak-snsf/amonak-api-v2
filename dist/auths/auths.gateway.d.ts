@@ -16,7 +16,7 @@ export declare class AuthsGateway implements OnGatewayInit, OnGatewayConnection,
         data: string;
     };
     findAll(): string;
-    findOne(id: number): string;
+    findOne(_id: number): string;
     update(updateAuthDto: UpdateAuthDto): string;
-    remove(id: number): string;
+    remove(_id: number): string;
 }

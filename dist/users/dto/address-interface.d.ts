@@ -1,10 +1,10 @@
 export interface Address {
-    country_name: {
+    countryName: {
         required: false;
         trim: true;
         type: String;
     };
-    country_code: {
+    countryCode: {
         required: false;
         trim: true;
         type: String;
@@ -19,7 +19,7 @@ export interface Address {
         trim: true;
         type: String;
     };
-    postal_code: {
+    postalCode: {
         required: false;
         trim: true;
         type: String;
@@ -29,7 +29,7 @@ export interface Address {
         trim: true;
         type: String;
     };
-    full_address: {
+    fullAddress: {
         required: false;
         trim: true;
         type: String;

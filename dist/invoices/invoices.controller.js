@@ -29,17 +29,17 @@ let InvoicesController = class InvoicesController {
     findAll(params, res) {
         return this.invoicesService.findAll(params, res);
     }
-    findOne(id, res) {
-        return this.invoicesService.findOne(id, res);
+    findOne(_id, res) {
+        return this.invoicesService.findOne(_id, res);
     }
-    update(id, updateInvoiceDto, res) {
-        return this.invoicesService.update(id, updateInvoiceDto, res);
+    update(_id, updateInvoiceDto, res) {
+        return this.invoicesService.update(_id, updateInvoiceDto, res);
     }
     success(params, res) {
         return this.invoicesService.success(params, res);
     }
-    remove(id, res) {
-        return this.invoicesService.remove(id, res);
+    remove(_id, res) {
+        return this.invoicesService.remove(_id, res);
     }
 };
 __decorate([
@@ -59,16 +59,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], InvoicesController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], InvoicesController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -84,8 +84,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], InvoicesController.prototype, "success", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

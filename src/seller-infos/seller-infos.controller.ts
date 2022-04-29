@@ -23,14 +23,14 @@ export class SellerInfosController {
     return this.sellerInfosService.findAll(params, res);
   }
 
-  @Get('seller-infos/:user_id')
-  findOne(@Param('user_id') user_id: string, @Res() res) {
-    return this.sellerInfosService.findOne(user_id, res);
+  @Get('seller-infos/:user')
+  findOne(@Param('user') user: string, @Res() res) {
+    return this.sellerInfosService.findOne(user, res);
   }
 
 
 @UseInterceptors(
-  FileInterceptor('identity_card', {
+  FileInterceptor('identityCard', {
     storage: diskStorage({
       destination: fileDestination,
       filename: editFileName,
@@ -45,13 +45,13 @@ export class SellerInfosController {
     fileFilter: imageFileFilter3,
   }),
 )
-  @Patch('seller-requests/:user_id')
-  update(@Param('user_id') user_id: string, @Body() updateSellerInfoDto: UpdateSellerInfoDto, @UploadedFile() file, @UploadedFiles() files, @Res() res) {
-    return this.sellerInfosService.update(user_id, updateSellerInfoDto, file, files, res);
+  @Patch('seller-requests/:user')
+  update(@Param('user') user: string, @Body() updateSellerInfoDto: UpdateSellerInfoDto, @UploadedFile() file, @UploadedFiles() files, @Res() res) {
+    return this.sellerInfosService.update(user, updateSellerInfoDto, file, files, res);
   }
 
-  @Put('seller-managments/:user_id/status')
-  manageSellerInfoStatus(@Param('user_id') user_id: string, @Body() upDto: UpdateSellerStatusDto, @Res() res) {
-    return this.sellerInfosService.manageSellerInfoStatus(user_id, upDto.status, res);
+  @Put('seller-managments/:user/status')
+  manageSellerInfoStatus(@Param('user') user: string, @Body() upDto: UpdateSellerStatusDto, @Res() res) {
+    return this.sellerInfosService.manageSellerInfoStatus(user, upDto.status, res);
   }
 }

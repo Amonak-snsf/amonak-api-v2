@@ -18,11 +18,11 @@ class CreateUserDto {
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "firstname", void 0);
+], CreateUserDto.prototype, "firstName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "lastname", void 0);
+], CreateUserDto.prototype, "lastName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 'aikpeachille55@gmail.com' }),
     (0, class_validator_1.IsEmail)(),
@@ -38,11 +38,11 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "username", void 0);
+], CreateUserDto.prototype, "userName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "dial_code", void 0);
+], CreateUserDto.prototype, "dialCode", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
@@ -55,11 +55,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: Date }),
     __metadata("design:type", Date)
-], CreateUserDto.prototype, "birth_day", void 0);
+], CreateUserDto.prototype, "birthDay", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "birth_place", void 0);
+], CreateUserDto.prototype, "birthPlace", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
@@ -79,7 +79,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: {} }),
     __metadata("design:type", Object)
-], CreateUserDto.prototype, "bank_card", void 0);
+], CreateUserDto.prototype, "bankCard", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
@@ -97,7 +97,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({ enum: [true, false] }),
     (0, class_validator_1.IsIn)([true, false]),
     __metadata("design:type", Boolean)
-], CreateUserDto.prototype, "is_log", void 0);
+], CreateUserDto.prototype, "isLog", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ enum: [true, false] }),
     (0, class_validator_1.IsIn)([true, false]),
@@ -111,6 +111,6 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "account_type", void 0);
+], CreateUserDto.prototype, "accountType", void 0);
 exports.CreateUserDto = CreateUserDto;
 //# sourceMappingURL=create-user.dto.js.map

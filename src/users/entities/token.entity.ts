@@ -9,13 +9,13 @@ export type TokenDocument = Token & Document;
 export class Token {
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user_id: User
+  user: User
 
   @Prop({ required: true })
   token: string;
 
   @Prop({ required: true, default: Date.now, expires: 86400 })
-  created_at: Date;
+  createdAt: Date;
 
 }
 

@@ -1,6 +1,6 @@
 declare const _default: () => {
     name: string;
-    static_url: string;
+    staticUrl: string;
     api_url: string;
     front_url: string;
     port: number;

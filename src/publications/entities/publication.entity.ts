@@ -3,12 +3,13 @@ import { IsIn } from "class-validator";
 import * as mongoose from 'mongoose';
 import { Product } from "src/products/entities/product.entity";
 import { User } from "src/users/entities/user.entity";
+import { DefaultModel } from "src/utils/default-model";
 import { AlerteType, PublicationType, SaleType } from "../dto/publication-type.dto";
 
 export type PublicationDocument = Publication & Document;
 
 @Schema()
-export class Publication {
+export class Publication extends DefaultModel{
 
     @Prop({ required: false, type: String, trim: true })
     content: String;
@@ -20,10 +21,10 @@ export class Publication {
     files: Record<string, any>[];
       
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Product' })
-    product_id: Product
+    product: Product
 
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    user_id: User
+    user: User
 
     @Prop({ required: true, type: Boolean, default: true })
     status: Boolean
@@ -34,26 +35,20 @@ export class Publication {
 
     @Prop({ required: false, type: String, trim: true })
     @IsIn([SaleType.default])
-    sale_type: String;
+    saleType: String;
 
     @Prop({ required: false, type: String, trim: true })
-    alerte_name: String;
+    alerteName: String;
 
     @Prop({ required: false, type: String, trim: true })
     @IsIn([AlerteType.default])
-    alerte_type: String;
+    alerteType: String;
 
     @Prop({ required: false, type: String, trim: true })
-    alerte_duration: String;
+    alerteDuration: String;
 
     @Prop({ required: false, type: String, trim: true })
     publicity: String;
-
-    @Prop({ required: false, default: Date.now })
-    created_at: Date;
-
-    @Prop({ required: false, default: Date.now })
-    updated_at: Date;
 }
 
 export const PublicationSchema = SchemaFactory.createForClass(Publication);

@@ -30,19 +30,19 @@ let CategoriesService = class CategoriesService {
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.categoryModel, params, null, { created_at: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.categoryModel, params, null, { createdAt: -1 }, params.limit);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.categoryModel, { _id: id });
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.categoryModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, updateCategoryDto, res) {
-        const data = await (0, query_1.put)(this.categoryModel, updateCategoryDto, { _id: id });
+    async update(_id, updateCategoryDto, res) {
+        const data = await (0, query_1.put)(this.categoryModel, updateCategoryDto, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.categoryModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.categoryModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };

@@ -24,18 +24,18 @@ export class CartsController {
     return this.cartsService.findAll(params, res);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() res) {
-    return this.cartsService.findOne(id, res);
+  @Get(':_id')
+  findOne(@Param('_id') _id: string, @Res() res) {
+    return this.cartsService.findOne(_id, res);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto, @Res() res) {
-    return this.cartsService.update(id, updateCartDto, res);
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateCartDto: UpdateCartDto, @Res() res) {
+    return this.cartsService.update(_id, updateCartDto, res);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res()res) {
-    return this.cartsService.remove(id, res);
+  @Delete(':_id')
+  remove(@Param('_id') _id: string, @Res()res) {
+    return this.cartsService.remove(_id, res);
   }
 }

@@ -16,39 +16,35 @@ exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
-const config_1 = require("@nestjs/config");
 const user_entity_1 = require("./entities/user.entity");
-const mail_service_1 = require("../mail/mail.service");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 let UsersService = class UsersService {
-    constructor(userModel, configService, mailService) {
+    constructor(userModel) {
         this.userModel = userModel;
-        this.configService = configService;
-        this.mailService = mailService;
     }
     async findAll(params, res) {
         if (params.search) {
-            params = { status: true, $or: [{ username: { $regex: new RegExp(params.search, 'i') } }, { email: { $regex: new RegExp(params.search, 'i') } }, { firstname: { $regex: new RegExp(params.search, 'i') } }, { lastname: { $regex: new RegExp(params.search, 'i') } }] };
+            params = { status: true, $or: [{ userName: { $regex: new RegExp(params.search, 'i') } }, { email: { $regex: new RegExp(params.search, 'i') } }, { firstName: { $regex: new RegExp(params.search, 'i') } }, { lastName: { $regex: new RegExp(params.search, 'i') } }] };
         }
-        const data = await (0, query_1.all)(this.userModel, params, null, { created_at: -1 }, params.limit, null, null);
+        const data = await (0, query_1.all)(this.userModel, params, null, { createdAt: -1 }, params.limit, null, null);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(id, res) {
-        const data = await (0, query_1.one)(this.userModel, { _id: id });
+    async findOne(_id, res) {
+        const data = await (0, query_1.one)(this.userModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(id, upDto, file, res) {
-        const user = await (0, query_1.exist)(this.userModel, { _id: id });
+    async update(_id, upDto, file, res) {
+        const user = await (0, query_1.exist)(this.userModel, { _id: _id });
         delete upDto.friends;
         this.data = upDto;
         if (file && file.path) {
             this.data.avatar = `/${file.path}`;
         }
-        const bank_card = (0, helpers_1.bankCard)(upDto.bank_card);
+        const bankCard = (0, helpers_1.CustomBankCard)(upDto.bankCard);
         const address = (0, helpers_1.userAddress)(upDto.address);
-        if (bank_card) {
-            this.data.bank_card = bank_card;
+        if (bankCard) {
+            this.data.bankCard = bankCard;
         }
         if (address) {
             this.data.address = address;
@@ -59,19 +55,18 @@ let UsersService = class UsersService {
                 this.data.sectors.push(sector);
             });
         }
-        const data = await (0, query_1.put)(this.userModel, this.data, { _id: id });
+        const data = await (0, query_1.put)(this.userModel, this.data, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(id, res) {
-        const data = await (0, query_1.destroy)(this.userModel, { _id: id });
+    async remove(_id, res) {
+        const data = await (0, query_1.destroy)(this.userModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model,
-        config_1.ConfigService, mail_service_1.MailService])
+    __metadata("design:paramtypes", [mongoose_1.Model])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

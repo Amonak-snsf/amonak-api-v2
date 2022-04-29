@@ -12,14 +12,14 @@ import { UpdateBiographyDto } from './dto/update-biography.dto';
 export class BiographiesController {
   constructor(private readonly biographiesService: BiographiesService) {}
 
-  @Get(':user_id')
-  findOne(@Param('user_id') user_id: string, @Res() res) {
-    return this.biographiesService.findOne(user_id, res);
+  @Get(':user')
+  findOne(@Param('user') user: string, @Res() res) {
+    return this.biographiesService.findOne(user, res);
   }
 
-  @Patch(':user_id')
-  update(@Param('user_id') user_id: string, @Body() updateBiographyDto: UpdateBiographyDto, @Res() res) {
-    return this.biographiesService.update(user_id, updateBiographyDto, res);
+  @Patch(':user')
+  update(@Param('user') user: string, @Body() updateBiographyDto: UpdateBiographyDto, @Res() res) {
+    return this.biographiesService.update(user, updateBiographyDto, res);
   }
 
 }
