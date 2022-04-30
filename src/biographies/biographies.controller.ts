@@ -1,5 +1,6 @@
 import { Controller, Get, Body, Patch, Param, Res } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { userInfo } from 'os';
 import { BiographiesService } from './biographies.service';
 import { UpdateBiographyDto } from './dto/update-biography.dto';
 

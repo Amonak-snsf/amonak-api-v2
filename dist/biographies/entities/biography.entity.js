@@ -57,7 +57,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Biography.prototype, "networks", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, trim: true, type: String, default: 'Public' }),
+    (0, mongoose_1.Prop)({ required: true, trim: true, type: String, default: 'public' }),
     __metadata("design:type", String)
 ], Biography.prototype, "status", void 0);
 Biography = __decorate([

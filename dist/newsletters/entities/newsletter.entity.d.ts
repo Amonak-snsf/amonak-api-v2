@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 import { DefaultModel } from "src/utils/default-model";
+import { ContactType } from "./newsletter-type.dto";
 export declare type NewsletterDocument = Newsletter & Document;
 export declare class Newsletter extends DefaultModel {
     email: String;
@@ -7,7 +8,7 @@ export declare class Newsletter extends DefaultModel {
     fullAddress: String;
     subject: String;
     message: String;
-    type: String;
+    type: ContactType;
     status: Boolean;
 }
 export declare const NewsletterSchema: import("mongoose").Schema<Document<Newsletter, any, any>, import("mongoose").Model<Document<Newsletter, any, any>, any, any, any>, any, any>;

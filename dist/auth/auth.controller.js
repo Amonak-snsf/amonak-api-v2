@@ -37,7 +37,7 @@ let AuthController = class AuthController {
         return this.authService.resentActivationEmail(emailAuth.email, res);
     }
     activate(token, res) {
-        return this.authService.activate(+token, res);
+        return this.authService.activate(token, res);
     }
     sendResetPasswordRequest(email, res) {
         return this.authService.sendResetPasswordRequest(email, res);
@@ -69,8 +69,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, common_1.Get)('check-token/:token'),
-    __param(0, (0, common_1.Param)('token')),
+    (0, common_1.Get)('check-token/:tokenId'),
+    __param(0, (0, common_1.Param)('tokenId')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),

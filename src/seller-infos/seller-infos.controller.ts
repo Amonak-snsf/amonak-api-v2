@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, UseInterceptors, UploadedFile, UploadedFiles, Put, Query } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Res, UseInterceptors, UploadedFile, UploadedFiles, Put, Query, Body } from '@nestjs/common';
 import { SellerInfosService } from './seller-infos.service';
 import { UpdateSellerInfoDto } from './dto/update-seller-info.dto';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
@@ -27,7 +27,6 @@ export class SellerInfosController {
   findOne(@Param('user') user: string, @Res() res) {
     return this.sellerInfosService.findOne(user, res);
   }
-
 
 @UseInterceptors(
   FileInterceptor('identityCard', {

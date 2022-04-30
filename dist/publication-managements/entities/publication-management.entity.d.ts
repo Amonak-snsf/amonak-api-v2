@@ -8,6 +8,6 @@ export declare class PublicationManagement extends DefaultModel {
     user: User;
     type: String;
     reason: String;
-    status: String;
+    status: Boolean;
 }
 export declare const PubManagementSchema: mongoose.Schema<mongoose.Document<PublicationManagement, any, any>, mongoose.Model<mongoose.Document<PublicationManagement, any, any>, any, any, any>, any, any>;

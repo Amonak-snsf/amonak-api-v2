@@ -35,7 +35,7 @@ __decorate([
 ], PublicationManagement.prototype, "reason", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Boolean, default: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Boolean)
 ], PublicationManagement.prototype, "status", void 0);
 exports.PublicationManagement = PublicationManagement;
 exports.PubManagementSchema = mongoose_1.SchemaFactory.createForClass(PublicationManagement);
