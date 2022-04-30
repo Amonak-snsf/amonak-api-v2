@@ -13,7 +13,7 @@ exports.SellerInfoSchema = exports.SellerInfo = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
-const status_sellerInfo_1 = require("../dto/status-seller-info");
+const status_seller_info_1 = require("../dto/status-seller-info");
 const default_model_1 = require("../../utils/default-model");
 let SellerInfo = class SellerInfo extends default_model_1.DefaultModel {
 };
@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], SellerInfo.prototype, "user", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, enum: status_sellerInfo_1.Status }),
+    (0, mongoose_1.Prop)({ required: true, enum: status_seller_info_1.Status }),
     __metadata("design:type", Number)
 ], SellerInfo.prototype, "status", void 0);
 __decorate([

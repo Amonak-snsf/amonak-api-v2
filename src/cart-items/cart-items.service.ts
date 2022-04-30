@@ -38,7 +38,7 @@ export class CartItemsService {
         this.data.tax = item.tax ? item.tax : data.body.tax ;
         this.data.shipping =  item.shipping ? item.shipping : data.body.shipping;
         this.data.percentage = item.percentage ? item.percentage : data.body.percentage;
-        await put(this.cartItemModel, this.data, { _id: data.body.__id });
+        await put(this.cartItemModel, this.data, { _id: data.body._id });
       }
     }
     

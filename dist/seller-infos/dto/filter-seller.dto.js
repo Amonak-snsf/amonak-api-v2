@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilterSeller = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-const create_sellerInfo_dto_1 = require("./create-seller-info.dto");
-const status_sellerInfo_1 = require("./status-seller-info");
-class FilterSeller extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_sellerInfo_dto_1.CreateSellerInfoDto, ['identityCard', 'files', 'address', 'message'])) {
+const create_seller_info_dto_1 = require("./create-seller-info.dto");
+const status_seller_info_1 = require("./status-seller-info");
+class FilterSeller extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_seller_info_dto_1.CreateSellerInfoDto, ['identityCard', 'files', 'address', 'message'])) {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ enum: status_sellerInfo_1.Status }),
-    (0, class_validator_1.IsIn)([status_sellerInfo_1.Status.read, status_sellerInfo_1.Status.accepted, status_sellerInfo_1.Status.refused, status_sellerInfo_1.Status.cancelled, status_sellerInfo_1.Status.created]),
+    (0, swagger_1.ApiProperty)({ enum: status_seller_info_1.Status }),
+    (0, class_validator_1.IsIn)([status_seller_info_1.Status.read, status_seller_info_1.Status.accepted, status_seller_info_1.Status.refused, status_seller_info_1.Status.cancelled, status_seller_info_1.Status.created]),
     __metadata("design:type", Number)
 ], FilterSeller.prototype, "status", void 0);
 __decorate([

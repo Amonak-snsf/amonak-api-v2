@@ -14,7 +14,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const class_transformer_1 = require("class-transformer");
 const mongoose = require("mongoose");
 const default_model_1 = require("../../utils/default-model");
-const user_accountType_enum_1 = require("../dto/user-account-type.enum");
+const user_account_type_enum_1 = require("../dto/user-account-type.enum");
 let User = class User extends default_model_1.DefaultModel {
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
@@ -108,7 +108,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, trim: true, type: String, default: user_accountType_enum_1.AccountType.default }),
+    (0, mongoose_1.Prop)({ required: false, trim: true, type: String, default: user_account_type_enum_1.AccountType.default }),
     __metadata("design:type", String)
 ], User.prototype, "accountType", void 0);
 __decorate([

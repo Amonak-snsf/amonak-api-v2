@@ -21,7 +21,7 @@ export class PublicationManagement extends DefaultModel {
     reason: String
 
     @Prop({ required: false, type: Boolean, default: true })
-    status: String
+    status: Boolean
 }
 
 export const PubManagementSchema = SchemaFactory.createForClass(PublicationManagement);

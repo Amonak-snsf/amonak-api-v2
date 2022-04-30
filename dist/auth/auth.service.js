@@ -158,7 +158,7 @@ let AuthService = class AuthService {
         this.mailService.resetPassword(user, url);
     }
     async logUser(user) {
-        const payload = { email: user.email, sub: user.__id };
+        const payload = { email: user.email, sub: user._id };
         const access_token = this.jwtService.sign(payload);
         return {
             access_token: access_token,

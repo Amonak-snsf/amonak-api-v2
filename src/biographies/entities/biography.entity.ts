@@ -39,7 +39,7 @@ export class Biography extends DefaultModel{
   @Prop([String])
   networks: string[];
 
-  @Prop({ required: true, trim: true, type: String, default: 'Public' })
+  @Prop({ required: true, trim: true, type: String, default: 'public' })
   status: string;
 }
 

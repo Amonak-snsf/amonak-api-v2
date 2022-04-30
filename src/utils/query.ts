@@ -76,7 +76,7 @@ export const put = async (model: Model<any>, body: Object, filter: Object, popul
         return error('Model not found', HttpStatus.NOT_FOUND);
     }
     
-    return await one(model, { _id: data.__id }, null, populate, populateFields);
+    return await one(model, { _id: data._id }, null, populate, populateFields);
 }
 
 export const destroy = async (model: Model<any>, filter: Object)=> {

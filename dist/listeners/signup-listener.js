@@ -34,18 +34,18 @@ let SignupListener = class SignupListener {
     handleSignupEvent(user) {
         console.log(user);
         this.sendUserConfirmation(user);
-        new this.biographyModel({ user: user.__id }).save();
+        new this.biographyModel({ user: user._id }).save();
         new this.sellerInfoModel({ user: user._id, status: status_seller_info_1.Status.accepted }).save();
     }
     saveSignup(data) {
         this.sendUserConfirmation(data);
-        new this.biographyModel({ user: data.__id }).save();
+        new this.biographyModel({ user: data._id }).save();
         new this.sellerInfoModel({ user: data._id, status: status_seller_info_1.Status.accepted }).save();
     }
     sendUserConfirmation(user) {
         const token = Math.floor(1000 + Math.random() * 9000).toString();
         const url = `${this.configService.get('front_url')}/auth/activation`;
-        new this.tokenModel({ token: token, user: user.__id }).save();
+        new this.tokenModel({ token: token, user: user._id }).save();
         this.mailService.sendUserConfirmation(user, token, url);
     }
 };

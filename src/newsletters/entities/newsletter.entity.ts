@@ -24,7 +24,7 @@ export class Newsletter extends DefaultModel{
     message: String;
 
     @Prop({ required: true, type: String, trim: true, default: ContactType.newsletter })
-    type: String;
+    type: ContactType;
 
     @Prop({ required: true, type: Boolean , default: false })
     status: Boolean;
