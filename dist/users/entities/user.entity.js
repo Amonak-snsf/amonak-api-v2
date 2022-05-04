@@ -116,6 +116,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "isLog", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false, trim: true, type: Date }),
+    __metadata("design:type", Date)
+], User.prototype, "lastConnectedTime", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isFirstTime", void 0);

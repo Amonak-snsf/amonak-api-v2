@@ -1,22 +1,11 @@
-/// <reference types="node" />
 import { OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
-import { Socket } from 'dgram';
-import { Server } from 'http';
-import { AuthsService } from './auths.service';
+import { Socket, Server } from 'socket.io';
 import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 export declare class AuthsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
-    private readonly authsService;
-    constructor(authsService: AuthsService);
+    server: Server;
+    constructor();
+    afterInit(): void;
     handleConnection(client: Socket, ...args: any[]): void;
-    afterInit(server: Server): void;
     handleDisconnect(client: Socket): void;
-    create(createAuthDto: CreateAuthDto): {
-        event: string;
-        data: string;
-    };
-    findAll(): string;
-    findOne(_id: number): string;
-    update(updateAuthDto: UpdateAuthDto): string;
-    remove(_id: number): string;
+    create(createAuthDto: CreateAuthDto, client: Socket): void;
 }

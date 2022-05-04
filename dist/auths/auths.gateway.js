@@ -14,75 +14,41 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthsGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
-const auths_service_1 = require("./auths.service");
+const socket_io_1 = require("socket.io");
 const create_auth_dto_1 = require("./dto/create-auth.dto");
-const update_auth_dto_1 = require("./dto/update-auth.dto");
 let AuthsGateway = class AuthsGateway {
-    constructor(authsService) {
-        this.authsService = authsService;
+    constructor() { }
+    afterInit() {
+        console.log("server socket.io server init");
     }
     handleConnection(client, ...args) {
-        console.log("socket.io connected");
-    }
-    afterInit(server) {
-        console.log("socket.io server init");
+        client.on('client', (data) => {
+            console.log(data, ' client id: ' + client.id);
+            client.emit('server', 'server socket is started');
+        });
     }
     handleDisconnect(client) {
-        console.log(`socket.io disconnected${client}`);
+        console.log(`socket.io disconnected ${client.id}`);
     }
-    create(createAuthDto) {
-        return { event: 'createAuth', data: this.authsService.create(createAuthDto) };
-    }
-    findAll() {
-        return this.authsService.findAll();
-    }
-    findOne(_id) {
-        return this.authsService.findOne(_id);
-    }
-    update(updateAuthDto) {
-        return this.authsService.update(updateAuthDto._id, updateAuthDto);
-    }
-    remove(_id) {
-        return this.authsService.remove(_id);
+    create(createAuthDto, client) {
+        this.server.emit('login', { username: "bestman", password: client.handshake.headers.authorization });
     }
 };
 __decorate([
-    (0, websockets_1.SubscribeMessage)('createAuth'),
+    (0, websockets_1.WebSocketServer)(),
+    __metadata("design:type", socket_io_1.Server)
+], AuthsGateway.prototype, "server", void 0);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('loginRequest'),
     __param(0, (0, websockets_1.MessageBody)()),
+    __param(1, (0, websockets_1.ConnectedSocket)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto]),
+    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto, socket_io_1.Socket]),
     __metadata("design:returntype", void 0)
 ], AuthsGateway.prototype, "create", null);
-__decorate([
-    (0, websockets_1.SubscribeMessage)('findAllAuths'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthsGateway.prototype, "findAll", null);
-__decorate([
-    (0, websockets_1.SubscribeMessage)('findOneAuth'),
-    __param(0, (0, websockets_1.MessageBody)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], AuthsGateway.prototype, "findOne", null);
-__decorate([
-    (0, websockets_1.SubscribeMessage)('updateAuth'),
-    __param(0, (0, websockets_1.MessageBody)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_auth_dto_1.UpdateAuthDto]),
-    __metadata("design:returntype", void 0)
-], AuthsGateway.prototype, "update", null);
-__decorate([
-    (0, websockets_1.SubscribeMessage)('removeAuth'),
-    __param(0, (0, websockets_1.MessageBody)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], AuthsGateway.prototype, "remove", null);
 AuthsGateway = __decorate([
-    (0, websockets_1.WebSocketGateway)(),
-    __metadata("design:paramtypes", [auths_service_1.AuthsService])
+    (0, websockets_1.WebSocketGateway)({ cors: true, path: '/amonak-api', namespace: 'api/auth' }),
+    __metadata("design:paramtypes", [])
 ], AuthsGateway);
 exports.AuthsGateway = AuthsGateway;
 //# sourceMappingURL=auths.gateway.js.map

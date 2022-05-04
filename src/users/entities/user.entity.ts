@@ -86,6 +86,9 @@ export class User extends DefaultModel {
   @Prop({ required: false, trim: true, type: Boolean, default: false })
   isLog: boolean;
 
+  @Prop({ required: false, trim: true, type: Date })
+  lastConnectedTime: Date
+
   @Prop({ required: false, trim: true, type: Boolean, default: true })
   isFirstTime: boolean;
 

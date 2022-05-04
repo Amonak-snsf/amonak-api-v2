@@ -23,6 +23,7 @@ export declare class User extends DefaultModel {
     status: boolean;
     accountType: string;
     isLog: boolean;
+    lastConnectedTime: Date;
     isFirstTime: boolean;
     isNewFeed: boolean;
 }
