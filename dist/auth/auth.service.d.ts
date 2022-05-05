@@ -28,7 +28,7 @@ export declare class AuthService {
     sendUserConfirmation(user: any): Promise<void>;
     sendResetPassswordRequestEmail(user: any): Promise<void>;
     logUser(user: any): Promise<{
-        access_token: string;
+        accessToken: string;
         expiresIn: any;
         user: any;
     }>;

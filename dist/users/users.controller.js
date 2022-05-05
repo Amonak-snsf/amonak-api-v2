@@ -21,6 +21,7 @@ const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const file_uploading_1 = require("../utils/file-uploading");
 const filter_user_dto_1 = require("./dto/filter-user.dto");
+const jwt_guard_1 = require("../auth/guards/jwt.guard");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -39,6 +40,8 @@ let UsersController = class UsersController {
     }
 };
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBearerAuth)('accessToken'),
     (0, common_1.Get)('users'),
     __param(0, (0, common_1.Query)()),
     __param(1, (0, common_1.Res)()),
@@ -81,10 +84,9 @@ __decorate([
 ], UsersController.prototype, "remove", null);
 UsersController = __decorate([
     (0, swagger_1.ApiTags)('users'),
-    (0, swagger_1.ApiHeader)({
-        name: 'lang',
-        description: 'language',
-    }),
+    (0, swagger_1.ApiHeaders)([
+        { name: 'lang', description: 'language' }
+    ]),
     (0, common_1.Controller)('api/'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

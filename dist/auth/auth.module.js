@@ -18,6 +18,8 @@ const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const biography_entity_1 = require("../biographies/entities/biography.entity");
 const seller_info_entity_1 = require("../seller-infos/entities/seller-info.entity");
+const jwt_strategy_1 = require("./strategies/jwt.strategy");
+const jwt_guard_1 = require("./guards/jwt.guard");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -38,7 +40,7 @@ AuthModule = __decorate([
             }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, jwt_guard_1.JwtAuthGuard],
         exports: [auth_service_1.AuthService],
     })
 ], AuthModule);

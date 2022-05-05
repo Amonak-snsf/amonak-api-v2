@@ -1,21 +1,23 @@
-import { Controller, Get, Body, Patch, Param, Delete, Res, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, Res, Query, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiHeaders, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading';
 import { FilterUserDto } from './dto/filter-user.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 @ApiTags('users')
-@ApiHeader({
-  name: 'lang',
-  description: 'language',
-})
+@ApiHeaders([
+  {name: 'lang', description: 'language'}
+])
 @Controller('api/')
 export class UsersController {
 
   constructor(private readonly usersService: UsersService) { }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('accessToken')
   @Get('users')
   findAll(@Query() body: FilterUserDto, @Res() res) {
 

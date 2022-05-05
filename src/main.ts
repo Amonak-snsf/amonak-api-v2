@@ -15,6 +15,14 @@ async function bootstrap() {
     .setTitle('Amonak API')
     .setDescription('API for amonak project')
     .setVersion('1.0')
+    .addBearerAuth({ 
+      description: `Please enter token in following format: Bearer <JWT>`,
+      name: 'Authorization',
+      bearerFormat: 'Bearer',
+      scheme: 'Bearer',
+      type: 'http',
+      in: 'Header'
+    }, 'accessToken')
     .addTag('amonak-home')
     .build();
   const document = SwaggerModule.createDocument(app, config);

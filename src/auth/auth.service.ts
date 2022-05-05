@@ -8,7 +8,6 @@ import { Token, TokenDocument } from 'src/users/entities/token.entity';
 import { User, UserDocument } from 'src/users/entities/user.entity';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { JwtService } from '@nestjs/jwt';
-import { imagePerform } from 'src/utils/image-perform-url';
 import { Biography, BiographyDocument } from 'src/biographies/entities/biography.entity';
 import { SellerInfo, SellerInfoDocument } from 'src/seller-infos/entities/seller-info.entity';
 import { Status } from 'src/seller-infos/dto/status-seller-info';
@@ -143,21 +142,21 @@ export class AuthService {
 
   async login(body, res){
 
-    const check_userName = await checkUsername(body);
-    const user = await this.userModel.findOne(check_userName).exec();
+    const checkUserName = await checkUsername(body);
+    const user = await this.userModel.findOne(checkUserName).exec();
     if(!user){
       return res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found !'});
     }
     
     if(!bcrypt.compareSync(body.password, user.password)){
-      return res.status(HttpStatus.NOT_ACCEPTABLE).json({ message: 'Invalid password provided !'});
+      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'Invalid password provided !'});
     }
     if(user.status === false){
       return res.status(HttpStatus.NOT_ACCEPTABLE).json({ message: 'Your account has not been verified !'});
     }
 
-    const log_user = await this.logUser(user);
-    return res.status(HttpStatus.OK).json(log_user);
+    const logUser = await this.logUser(user);
+    return res.status(HttpStatus.OK).json(logUser);
   }
 
   async checkEmail(email, res) {
@@ -190,12 +189,12 @@ export class AuthService {
 
   async logUser(user){
     const payload = { email: user.email, sub: user._id };
-    const access_token = this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload);
 
     return {
-      access_token: access_token,
+      accessToken: accessToken,
       expiresIn: this.configService.get('expire'),
-      user: imagePerform(user, this.configService.get('staticUrl'))
+      user: user
     };
   }
 

@@ -22,7 +22,6 @@ const mail_service_1 = require("../mail/mail.service");
 const token_entity_1 = require("../users/entities/token.entity");
 const user_entity_1 = require("../users/entities/user.entity");
 const jwt_1 = require("@nestjs/jwt");
-const image_perform_url_1 = require("../utils/image-perform-url");
 const biography_entity_1 = require("../biographies/entities/biography.entity");
 const seller_info_entity_1 = require("../seller-infos/entities/seller-info.entity");
 const status_seller_info_1 = require("../seller-infos/dto/status-seller-info");
@@ -124,19 +123,19 @@ let AuthService = class AuthService {
         return res.status(common_1.HttpStatus.OK).json(log_user);
     }
     async login(body, res) {
-        const check_userName = await (0, helpers_1.checkUsername)(body);
-        const user = await this.userModel.findOne(check_userName).exec();
+        const checkUserName = await (0, helpers_1.checkUsername)(body);
+        const user = await this.userModel.findOne(checkUserName).exec();
         if (!user) {
             return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'User not found !' });
         }
         if (!bcrypt.compareSync(body.password, user.password)) {
-            return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'Invalid password provided !' });
+            return res.status(common_1.HttpStatus.UNAUTHORIZED).json({ message: 'Invalid password provided !' });
         }
         if (user.status === false) {
             return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'Your account has not been verified !' });
         }
-        const log_user = await this.logUser(user);
-        return res.status(common_1.HttpStatus.OK).json(log_user);
+        const logUser = await this.logUser(user);
+        return res.status(common_1.HttpStatus.OK).json(logUser);
     }
     async checkEmail(email, res) {
         const user = await this.userModel.findOne({ email: email }).exec();
@@ -159,11 +158,11 @@ let AuthService = class AuthService {
     }
     async logUser(user) {
         const payload = { email: user.email, sub: user._id };
-        const access_token = this.jwtService.sign(payload);
+        const accessToken = this.jwtService.sign(payload);
         return {
-            access_token: access_token,
+            accessToken: accessToken,
             expiresIn: this.configService.get('expire'),
-            user: (0, image_perform_url_1.imagePerform)(user, this.configService.get('staticUrl'))
+            user: user
         };
     }
 };

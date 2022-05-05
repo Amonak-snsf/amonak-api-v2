@@ -9,6 +9,8 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { Biography, BiographySchema } from 'src/biographies/entities/biography.entity';
 import { SellerInfo, SellerInfoSchema } from 'src/seller-infos/entities/seller-info.entity';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { JwtAuthGuard } from './guards/jwt.guard';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Token.name, schema: TokenSchema }, 
@@ -27,7 +29,7 @@ import { SellerInfo, SellerInfoSchema } from 'src/seller-infos/entities/seller-i
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard],
   exports: [AuthService],
 })
 export class AuthModule {}
