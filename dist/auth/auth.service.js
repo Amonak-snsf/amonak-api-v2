@@ -90,7 +90,10 @@ let AuthService = class AuthService {
         throw (0, error_1.error)({ statusCode: common_1.HttpStatus.FORBIDDEN, message: 'Veuillez vérifier votre connexion internet!', display: true }, common_1.HttpStatus.FORBIDDEN);
     }
     async resetPassword(body, res) {
-        const fetchToken = await (0, query_1.one)(this.tokenModel, { token: body.token });
+        const fetchToken = await (0, query_1.one)(this.tokenModel, { _id: body.token });
+        if (!fetchToken) {
+            throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Le lien de réinitialisation de mot de passe que vous avez fourni est invalid.', display: true }, common_1.HttpStatus.NOT_FOUND);
+        }
         const password = await (0, helpers_1.hashPassword)(body.password);
         const updateUser = await (0, query_1.put)(this.userModel, { password: password }, { _id: fetchToken.user });
         const logUser = await this.logUser(updateUser);

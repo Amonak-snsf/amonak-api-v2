@@ -99,14 +99,16 @@ export class AuthService {
 
   async resetPassword(body, res){
 
-   const fetchToken = await one(this.tokenModel, {token: body.token});
+   const fetchToken = await one(this.tokenModel, {_id: body.token});
+   if(!fetchToken){
+    throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Le lien de réinitialisation de mot de passe que vous avez fourni est invalid.', display: true}, HttpStatus.NOT_FOUND);
+  }
    const password = await hashPassword(body.password);
 
    const updateUser = await put(this.userModel, {password: password}, {_id: fetchToken.user});
 
    const logUser = await this.logUser(updateUser);
    return res.status(HttpStatus.OK).json(logUser);
-
   }
 
   async login(body, res){
