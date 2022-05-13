@@ -32,9 +32,9 @@ export class AuthsGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     console.log(`socket.io disconnected ${client.handshake.headers.authorization}`, client.handshake.headers.userid)
   }
 
-  @SubscribeMessage('loginRequest')
-  create(@MessageBody() createAuthDto: CreateAuthDto, @ConnectedSocket() client: Socket){
-    this.server.emit('login', {username: "bestman", password: client.handshake.headers})
+  @SubscribeMessage('login')
+  login(@ConnectedSocket() client: Socket){
+    this.disconnected(client, true);
   }
 
   async disconnected(client: Socket, status: Boolean){

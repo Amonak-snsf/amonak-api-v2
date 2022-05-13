@@ -105,7 +105,7 @@ export class AuthService {
   }
    const password = await hashPassword(body.password);
 
-   const updateUser = await put(this.userModel, {password: password}, {_id: fetchToken.user});
+   const updateUser = await put(this.userModel, {password: password, isLog: true}, {_id: fetchToken.user});
 
    const logUser = await this.logUser(updateUser);
    return res.status(HttpStatus.OK).json(logUser);
