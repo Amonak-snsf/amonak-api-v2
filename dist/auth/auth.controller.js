@@ -30,8 +30,8 @@ let AuthController = class AuthController {
     register(createAuthDto, file, res) {
         return this.authService.register(createAuthDto, file, res);
     }
-    checkToken(token, res) {
-        return this.authService.checkToken(token, res);
+    checkToken(tokenId, res) {
+        return this.authService.checkToken(tokenId, res);
     }
     resentActivationEmail(emailAuth, res) {
         return this.authService.resentActivationEmail(emailAuth.email, res);
@@ -50,6 +50,9 @@ let AuthController = class AuthController {
     }
     checkEmail(emailAuth, res) {
         return this.authService.checkEmail(emailAuth.email, res);
+    }
+    auth(userId, res) {
+        return this.authService.auth(userId, res);
     }
 };
 __decorate([
@@ -124,13 +127,21 @@ __decorate([
     __metadata("design:paramtypes", [email_auth_dto_1.EmailAuthDto, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "checkEmail", null);
+__decorate([
+    (0, common_1.Get)('check-auth/:userId'),
+    __param(0, (0, common_1.Param)('userId')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "auth", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
     (0, swagger_1.ApiHeader)({
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.Controller)('api/auth'),
+    (0, common_1.Controller)('api/auths'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 exports.AuthController = AuthController;

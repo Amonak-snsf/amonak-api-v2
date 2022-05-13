@@ -37,7 +37,7 @@ export class User extends DefaultModel {
   @Prop({ required: false, trim: true, type: String })
   phone: string;
 
-  @Prop({ required: true, trim: true, type: String, default: 'M' })
+  @Prop({ required: false, trim: true, type: String, default: 'M' })
   gender: string;
 
   @Prop({ required: false, trim: true, type: Date })
@@ -64,7 +64,7 @@ export class User extends DefaultModel {
     street: { required: false, trim: true, type: String },
     fullAddress: { required: false, trim: true, type: String }
   }))
-  address: Record<string, any>;
+  address: Record<string, any>[];
 
   @Prop(raw({
     number: { required: false, trim: true, type: String, select: false },
@@ -87,7 +87,7 @@ export class User extends DefaultModel {
   isLog: boolean;
 
   @Prop({ required: false, trim: true, type: Date })
-  lastConnectedTime: Date
+  lastConnected: Date
 
   @Prop({ required: false, trim: true, type: Boolean, default: true })
   isFirstTime: boolean;

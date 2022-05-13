@@ -30,7 +30,6 @@ export class UsersService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-
   async update(_id: string, upDto: UpdateUserDto, file, res) {
 
     const user = await exist(this.userModel, {_id: _id});

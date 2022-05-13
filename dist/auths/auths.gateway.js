@@ -16,22 +16,38 @@ exports.AuthsGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const create_auth_dto_1 = require("./dto/create-auth.dto");
+const mongoose_1 = require("@nestjs/mongoose");
+const user_entity_1 = require("../users/entities/user.entity");
+const mongoose_2 = require("mongoose");
+const query_1 = require("../utils/query");
 let AuthsGateway = class AuthsGateway {
-    constructor() { }
+    constructor(userModel) {
+        this.userModel = userModel;
+    }
     afterInit() {
         console.log("server socket.io server init");
     }
     handleConnection(client, ...args) {
         client.on('client', (data) => {
             console.log(data, ' client id: ' + client.id);
+            this.disconnected(client, true);
             client.emit('server', 'server socket is started');
         });
     }
     handleDisconnect(client) {
-        console.log(`socket.io disconnected ${client.id}`);
+        this.disconnected(client, false);
+        console.log(`socket.io disconnected ${client.handshake.headers.authorization}`, client.handshake.headers.userid);
     }
     create(createAuthDto, client) {
-        this.server.emit('login', { username: "bestman", password: client.handshake.headers.authorization });
+        this.server.emit('login', { username: "bestman", password: client.handshake.headers });
+    }
+    async disconnected(client, status) {
+        const userId = client.handshake.headers.userid ? client.handshake.headers.userid.toString() : '';
+        if (userId) {
+            await (0, query_1.put)(this.userModel, { isLog: status }, { _id: userId });
+            return true;
+        }
+        return false;
     }
 };
 __decorate([
@@ -48,7 +64,8 @@ __decorate([
 ], AuthsGateway.prototype, "create", null);
 AuthsGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: true, path: '/amonak-api', namespace: 'api/auth' }),
-    __metadata("design:paramtypes", [])
+    __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model])
 ], AuthsGateway);
 exports.AuthsGateway = AuthsGateway;
 //# sourceMappingURL=auths.gateway.js.map

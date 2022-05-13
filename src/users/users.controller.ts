@@ -24,6 +24,8 @@ export class UsersController {
     return this.usersService.findAll(body, res);
   }
 
+  // @UseGuards(JwtAuthGuard)
+  // @ApiBearerAuth('accessToken')
   @Get('users/:_id')
   findOne(@Param('_id') _id: string, @Res() res) {
 

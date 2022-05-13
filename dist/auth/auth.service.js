@@ -26,6 +26,8 @@ const biography_entity_1 = require("../biographies/entities/biography.entity");
 const seller_info_entity_1 = require("../seller-infos/entities/seller-info.entity");
 const status_seller_info_1 = require("../seller-infos/dto/status-seller-info");
 const helpers_1 = require("../utils/helpers");
+const query_1 = require("../utils/query");
+const error_1 = require("../utils/error");
 const isOnline = require('is-online');
 let AuthService = class AuthService {
     constructor(userModel, tokenModel, biographyModel, sellerInfoModel, configService, mailService, jwtService) {
@@ -46,114 +48,87 @@ let AuthService = class AuthService {
         else {
             this.data.avatar = `/${file.path}`;
         }
-        const user = await new this.userModel(this.data).save().catch(err => {
-            return err;
-        });
-        if (user.keyPattern && user.keyPattern.email === 1) {
-            return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ statusCode: 400, message: ['email address is already use'], error: "Bad Request" });
-        }
+        this.data.address = (0, helpers_1.userAddress)(Array.isArray(this.data.address) ? this.data.address[0] : this.data.address);
+        const user = await (0, query_1.create)(this.userModel, this.data);
         this.sendUserConfirmation(user);
         await new this.biographyModel({ user: user._id }).save();
         await new this.sellerInfoModel({ user: user._id, status: status_seller_info_1.Status.created }).save();
-        return res.status(common_1.HttpStatus.CREATED).json({ message: 'Your are registered with success, Please check your mail to confirm your account !' });
+        return res.status(common_1.HttpStatus.CREATED).json({ status: true, message: 'Votre inscription a été faite avec succès. Veuillez vérifier votre boite e-mail pour confirmer votre compte!' });
     }
-    async checkToken(token, res) {
-        const fetch_token = await this.tokenModel.findOne({ _id: token }).exec()
-            .catch(err => {
-            return err;
-        });
-        if (!fetch_token.token) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'Invalid token !' });
-        }
-        return await res.status(common_1.HttpStatus.OK).json({ message: 'Valid token !', token: fetch_token.token });
+    async checkToken(tokenId, res) {
+        await (0, query_1.one)(this.tokenModel, { _id: tokenId });
+        return await res.status(common_1.HttpStatus.OK).json({ status: true, message: 'Valid token.' });
     }
     async resentActivationEmail(email, res) {
-        const user = await this.userModel.findOne({ email: email }).exec();
-        if (!user) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'email not found' });
-        }
-        const is_online = await isOnline({ timeout: 1000 });
-        if (is_online) {
+        const user = await (0, query_1.one)(this.userModel, { email: email });
+        const online = await isOnline({ timeout: 1000 });
+        if (online) {
             this.sendUserConfirmation(user);
-            return res.status(common_1.HttpStatus.OK).json({ message: 'Email send with success!' });
+            return res.status(common_1.HttpStatus.OK).json({ status: true, message: 'Email send with success!' });
         }
-        return res.status(common_1.HttpStatus.FORBIDDEN).json({ message: 'Email not send. Please check your network!' });
+        throw (0, error_1.error)({ statusCode: common_1.HttpStatus.FORBIDDEN, message: 'Email not send. Please check your network!' }, common_1.HttpStatus.FORBIDDEN);
     }
     async activate(token, res) {
-        let fetch_token = await this.tokenModel.findOne({ token: token }).exec();
-        if (!fetch_token) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({
-                type: 'token-error',
-                message: 'We were unable to find a valid token. Your token may have expired.'
-            });
+        let fetchToken = await (0, query_1.one)(this.tokenModel, { token: token });
+        if (!fetchToken) {
+            throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Le code de confirmation que vous avez fourni est invalid.', display: true }, common_1.HttpStatus.NOT_FOUND);
         }
-        let user = await this.userModel.findOneAndUpdate({ _id: fetch_token.user, status: false }, { status: true, isLog: true }).exec();
-        if (!user) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({
-                type: 'user-error',
-                message: 'This user\'s account is already activated'
-            });
-        }
-        const log_user = await this.logUser(user);
-        return res.status(common_1.HttpStatus.OK).json(log_user);
+        let user = await (0, query_1.put)(this.userModel, { status: true, isLog: true }, { _id: fetchToken.user, status: false });
+        const logUser = await this.logUser(user);
+        return res.status(common_1.HttpStatus.OK).json(logUser);
     }
     async sendResetPasswordRequest(email, res) {
-        const user = await this.userModel.findOne({ email: email }).exec();
+        const user = await (0, query_1.exist)(this.userModel, { email: email });
         if (!user) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'email not found' });
+            throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Ce compte n\'existe pas.', display: true }, common_1.HttpStatus.NOT_FOUND);
         }
-        const is_online = await isOnline({ timeout: 1000 });
-        if (is_online) {
+        const online = await isOnline({ timeout: 1000 });
+        if (online) {
             this.sendResetPassswordRequestEmail(user);
-            return res.status(common_1.HttpStatus.OK).json({ message: 'Email send with success!' });
+            return res.status(common_1.HttpStatus.OK).json({ status: true, message: 'Votre demande a été traité avec succès! Veuillez vérifier votre boite e-mail pour rénitialiser votre mot de passe.', display: true });
         }
-        return res.status(common_1.HttpStatus.FORBIDDEN).json({ message: 'Email not send. Please check your network!' });
+        throw (0, error_1.error)({ statusCode: common_1.HttpStatus.FORBIDDEN, message: 'Veuillez vérifier votre connexion internet!', display: true }, common_1.HttpStatus.FORBIDDEN);
     }
     async resetPassword(body, res) {
-        const fetch_token = await this.tokenModel.findOne({ token: body.token }).exec();
-        if (!fetch_token) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'Invalid token !' });
-        }
+        const fetchToken = await (0, query_1.one)(this.tokenModel, { token: body.token });
         const password = await (0, helpers_1.hashPassword)(body.password);
-        const update_user = await this.userModel.findByIdAndUpdate(fetch_token.user, { password: password }).exec();
-        if (!update_user) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'User not found !' });
-        }
-        const log_user = await this.logUser(update_user);
-        return res.status(common_1.HttpStatus.OK).json(log_user);
+        const updateUser = await (0, query_1.put)(this.userModel, { password: password }, { _id: fetchToken.user });
+        const logUser = await this.logUser(updateUser);
+        return res.status(common_1.HttpStatus.OK).json(logUser);
     }
     async login(body, res) {
         const checkUserName = await (0, helpers_1.checkUsername)(body);
-        const user = await this.userModel.findOne(checkUserName).exec();
+        const user = await (0, query_1.exist)(this.userModel, checkUserName);
         if (!user) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json({ message: 'User not found !' });
+            throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Votre nom d\'utilisateur est incorrecte.', display: true }, common_1.HttpStatus.NOT_FOUND);
         }
         if (!bcrypt.compareSync(body.password, user.password)) {
-            return res.status(common_1.HttpStatus.UNAUTHORIZED).json({ message: 'Invalid password provided !' });
+            throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Votre mot de passe est incorrecte.', display: true }, common_1.HttpStatus.NOT_FOUND);
         }
         if (user.status === false) {
-            return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'Your account has not been verified !' });
+            throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Votre compte n\'est pas encore activé.', display: true }, common_1.HttpStatus.NOT_FOUND);
         }
         const logUser = await this.logUser(user);
         return res.status(common_1.HttpStatus.OK).json(logUser);
     }
     async checkEmail(email, res) {
-        const user = await this.userModel.findOne({ email: email }).exec();
-        if (!user) {
-            return res.status(common_1.HttpStatus.NOT_FOUND).json(false);
-        }
-        return res.status(common_1.HttpStatus.OK).json(true);
+        await (0, query_1.one)(this.userModel, { email: email });
+        return res.status(common_1.HttpStatus.OK).json({ status: true });
+    }
+    async auth(userId, res) {
+        const data = await (0, query_1.one)(this.userModel, { _id: userId });
+        return res.status(common_1.HttpStatus.OK).json(data);
     }
     async sendUserConfirmation(user) {
         const token = Math.floor(1000 + Math.random() * 9000).toString();
-        const url = `${this.configService.get('front_url')}/auth/activation`;
-        await new this.tokenModel({ token: token, user: user._id }).save();
+        const url = `${this.configService.get('front_url')}/account-activation`;
+        await (0, query_1.create)(this.tokenModel, { token: token, user: user._id });
         this.mailService.sendUserConfirmation(user, token, url);
     }
     async sendResetPassswordRequestEmail(user) {
         const token = Math.floor(1000 + Math.random() * 9000).toString();
-        const token_save = await new this.tokenModel({ token: token, user: user._id }).save();
-        const url = `${this.configService.get('front_url')}/auth/reset-password/${token_save._id}`;
+        const tokenSave = await new this.tokenModel({ token: token, user: user._id }).save();
+        const url = `${this.configService.get('front_url')}/reset-password/${tokenSave._id}`;
         this.mailService.resetPassword(user, url);
     }
     async logUser(user) {

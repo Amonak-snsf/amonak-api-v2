@@ -11,7 +11,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Biography, BiographyDocument } from 'src/biographies/entities/biography.entity';
 import { SellerInfo, SellerInfoDocument } from 'src/seller-infos/entities/seller-info.entity';
 import { Status } from 'src/seller-infos/dto/status-seller-info';
-import { checkUsername, hashPassword } from 'src/utils/helpers';
+import { checkUsername, hashPassword, userAddress } from 'src/utils/helpers';
+import { one, put, create, exist } from 'src/utils/query';
+import { error } from 'src/utils/error';
 const isOnline = require('is-online');
 
 @Injectable()
@@ -34,125 +36,94 @@ export class AuthService {
     }else{
       this.data.avatar = `/${file.path}`;
     }
-    
-    const user = await new this.userModel(this.data).save().catch(err => {
-      return err;
-    });
 
-    if(user.keyPattern && user.keyPattern.email === 1){
-      return res.status(HttpStatus.NOT_ACCEPTABLE).json({statusCode: 400, message: ['email address is already use'], error: "Bad Request"});
-    }
-    
+    this.data.address = userAddress(Array.isArray(this.data.address)? this.data.address[0] : this.data.address);
+    const user = await create(this.userModel, this.data);
+
     this.sendUserConfirmation(user);
     await new this.biographyModel({ user: user._id}).save();
     await new this.sellerInfoModel({ user: user._id, status: Status.created }).save();
     
-    return res.status(HttpStatus.CREATED).json({ message: 'Your are registered with success, Please check your mail to confirm your account !'});
+    return res.status(HttpStatus.CREATED).json({status: true, message: 'Votre inscription a été faite avec succès. Veuillez vérifier votre boite e-mail pour confirmer votre compte!'});
 }
 
-  async checkToken(token: string, res){
+  async checkToken(tokenId: string, res){
 
-    const fetch_token = await this.tokenModel.findOne({ _id: token}).exec()
-    .catch(err => {
-      return err;
-    });
-
-    if(!fetch_token.token){
-      return res.status(HttpStatus.NOT_FOUND).json({ message: 'Invalid token !'});
-    }
-
-    return await res.status(HttpStatus.OK).json({ message: 'Valid token !', token: fetch_token.token });
+    await one(this.tokenModel, {  _id: tokenId });
+    return await res.status(HttpStatus.OK).json({status: true, message: 'Valid token.'});
   }
 
   async resentActivationEmail(email: string, res){
 
-    const user = await this.userModel.findOne({ email: email }).exec();
-    if(!user){
-      return res.status(HttpStatus.NOT_FOUND).json({ message: 'email not found' });
-    }
-
-    const is_online = await isOnline({ timeout: 1000 });
-    if(is_online){
+    const user = await one(this.userModel, {email: email});
+    const online = await isOnline({ timeout: 1000 });
+    if(online){
       this.sendUserConfirmation(user);
-      return res.status(HttpStatus.OK).json({ message: 'Email send with success!' })
+      return res.status(HttpStatus.OK).json({status: true, message: 'Email send with success!'})
     }
 
-    return res.status(HttpStatus.FORBIDDEN).json({ message: 'Email not send. Please check your network!'});
-
+    throw error({statusCode: HttpStatus.FORBIDDEN, message: 'Email not send. Please check your network!'}, HttpStatus.FORBIDDEN);
   }
 
   async activate(token: number, res){
 
-    let fetch_token = await this.tokenModel.findOne({token: token}).exec();
-    if(!fetch_token){
-      return res.status(HttpStatus.NOT_FOUND).json({
-        type: 'token-error',
-        message: 'We were unable to find a valid token. Your token may have expired.'
-      });
+    let fetchToken = await one(this.tokenModel, {token: token});
+
+    if(!fetchToken){
+      throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Le code de confirmation que vous avez fourni est invalid.', display: true}, HttpStatus.NOT_FOUND);
     }
 
-    let user = await this.userModel.findOneAndUpdate({ _id: fetch_token.user, status: false }, { status: true, isLog: true }).exec();
+    let user = await put(this.userModel, {status: true, isLog: true}, { _id: fetchToken.user, status: false})
 
-    if(!user){
-      return res.status(HttpStatus.NOT_FOUND).json({
-        type: 'user-error',
-        message: 'This user\'s account is already activated'
-      });
-    }
-
-    const log_user = await this.logUser(user);
-    return res.status(HttpStatus.OK).json(log_user);
+    const logUser = await this.logUser(user);
+    return res.status(HttpStatus.OK).json(logUser);
 
   }
 
   async sendResetPasswordRequest(email: string, res){
 
-    const user = await this.userModel.findOne({ email: email }).exec();
+    const user = await exist(this.userModel, { email: email });
+
     if(!user){
-      return res.status(HttpStatus.NOT_FOUND).json({ message: 'email not found' });
+      throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Ce compte n\'existe pas.', display: true}, HttpStatus.NOT_FOUND);
     }
 
-    const is_online = await isOnline({ timeout: 1000 });
-    if(is_online){
+    const online = await isOnline({ timeout: 1000 });
+    if(online){
       this.sendResetPassswordRequestEmail(user);
-      return res.status(HttpStatus.OK).json({ message: 'Email send with success!' })
+      return res.status(HttpStatus.OK).json({status: true, message: 'Votre demande a été traité avec succès! Veuillez vérifier votre boite e-mail pour rénitialiser votre mot de passe.', display: true})
     }
 
-    return res.status(HttpStatus.FORBIDDEN).json({ message: 'Email not send. Please check your network!'});
+    throw error({statusCode: HttpStatus.FORBIDDEN, message: 'Veuillez vérifier votre connexion internet!', display: true}, HttpStatus.FORBIDDEN);
   }
 
   async resetPassword(body, res){
 
-    const fetch_token = await this.tokenModel.findOne({ token: body.token }).exec();
-    if(!fetch_token){
-      return res.status(HttpStatus.NOT_FOUND).json({ message: 'Invalid token !'});
-    }
-
+   const fetchToken = await one(this.tokenModel, {token: body.token});
    const password = await hashPassword(body.password);
 
-   const update_user = await this.userModel.findByIdAndUpdate(fetch_token.user, { password: password}).exec();
-   if(!update_user){
-    return res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found !'});
-   }
+   const updateUser = await put(this.userModel, {password: password}, {_id: fetchToken.user});
 
-   const log_user = await this.logUser(update_user);
-   return res.status(HttpStatus.OK).json(log_user);
+   const logUser = await this.logUser(updateUser);
+   return res.status(HttpStatus.OK).json(logUser);
 
   }
 
   async login(body, res){
 
     const checkUserName = await checkUsername(body);
-    const user = await this.userModel.findOne(checkUserName).exec();
+
+    const user = await exist(this.userModel, checkUserName);
+
     if(!user){
-      return res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found !'});
-    }
-    
+      throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Votre nom d\'utilisateur est incorrecte.', display: true}, HttpStatus.NOT_FOUND);
+    } 
+
     if(!bcrypt.compareSync(body.password, user.password)){
-      return res.status(HttpStatus.UNAUTHORIZED).json({ message: 'Invalid password provided !'});
+      throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Votre mot de passe est incorrecte.', display: true}, HttpStatus.NOT_FOUND);
     }
     if(user.status === false){
-      return res.status(HttpStatus.NOT_ACCEPTABLE).json({ message: 'Your account has not been verified !'});
+      throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Votre compte n\'est pas encore activé.', display: true}, HttpStatus.NOT_FOUND);
     }
 
     const logUser = await this.logUser(user);
@@ -161,19 +132,23 @@ export class AuthService {
 
   async checkEmail(email, res) {
 
-    const user = await this.userModel.findOne({ email: email }).exec();
-    if(!user){
-      return res.status(HttpStatus.NOT_FOUND).json(false);
-    }
-    
-    return res.status(HttpStatus.OK).json(true);
+    await one(this.userModel, { email: email });
+
+    return res.status(HttpStatus.OK).json({status: true});
+  }
+
+  async auth(userId: string, res){
+
+    const data = await one(this.userModel, {_id: userId});
+
+    return res.status(HttpStatus.OK).json(data);
   }
 
   async sendUserConfirmation(user){
 
     const token = Math.floor(1000 + Math.random() * 9000).toString();
-    const url = `${this.configService.get('front_url')}/auth/activation`;
-    await new this.tokenModel({ token: token, user: user._id}).save();
+    const url = `${this.configService.get('front_url')}/account-activation`;
+    await create(this.tokenModel, { token: token, user: user._id}) 
 
     this.mailService.sendUserConfirmation(user, token, url);
   }
@@ -181,8 +156,8 @@ export class AuthService {
   async sendResetPassswordRequestEmail(user){
 
     const token = Math.floor(1000 + Math.random() * 9000).toString();
-    const token_save = await new this.tokenModel({ token: token, user: user._id}).save();
-    const url = `${this.configService.get('front_url')}/auth/reset-password/${token_save._id}`;
+    const tokenSave = await new this.tokenModel({ token: token, user: user._id}).save();
+    const url = `${this.configService.get('front_url')}/reset-password/${tokenSave._id}`;
 
     this.mailService.resetPassword(user, url);
   }

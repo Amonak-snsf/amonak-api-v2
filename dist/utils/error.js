@@ -10,12 +10,14 @@ const error = (data, httpCode) => {
             if (data.name == 'ValidationError' || data.name == 'CastError') {
                 throw new common_1.HttpException({
                     statusCode: common_1.HttpStatus.BAD_REQUEST,
+                    message: data.message,
                     errors: errorMessage,
                 }, common_1.HttpStatus.BAD_REQUEST);
             }
             else {
                 throw new common_1.HttpException({
                     statusCode: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                    message: data.message,
                     errors: data,
                 }, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -23,18 +25,21 @@ const error = (data, httpCode) => {
         if (data.name == 'CastError' || data.name == 'ValidationError') {
             throw new common_1.HttpException({
                 statusCode: httpCode !== null && httpCode !== void 0 ? httpCode : common_1.HttpStatus.BAD_REQUEST,
+                message: data.message,
                 errors: errorMessage,
             }, httpCode !== null && httpCode !== void 0 ? httpCode : common_1.HttpStatus.BAD_REQUEST);
         }
         if (httpCode) {
             throw new common_1.HttpException({
                 statusCode: httpCode,
+                message: data.message,
                 errors: data,
             }, httpCode);
         }
         else {
             throw new common_1.HttpException({
                 statusCode: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                message: data.message,
                 errors: data,
             }, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
