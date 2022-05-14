@@ -96,7 +96,7 @@ export class AuthService {
 
     throw error({statusCode: HttpStatus.FORBIDDEN, message: 'Veuillez vérifier votre connexion internet!', display: true}, HttpStatus.FORBIDDEN);
   }
-
+ 
   async resetPassword(body, res){
 
    const fetchToken = await one(this.tokenModel, {_id: body.token});

@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthsGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
-const create_auth_dto_1 = require("./dto/create-auth.dto");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("../users/entities/user.entity");
 const mongoose_2 = require("mongoose");
@@ -27,19 +26,17 @@ let AuthsGateway = class AuthsGateway {
     afterInit() {
         console.log("server socket.io server init");
     }
-    handleConnection(client, ...args) {
+    async handleConnection(client, ...args) {
+        const user = await this.user(client);
         client.on('client', (data) => {
             console.log(data, ' client id: ' + client.id);
             this.disconnected(client, true);
-            client.emit('server', 'server socket is started');
+            client.emit('server', { message: 'server socket is started', client: client.handshake.headers, auth: user });
         });
     }
     handleDisconnect(client) {
         this.disconnected(client, false);
         console.log(`socket.io disconnected ${client.handshake.headers.authorization}`, client.handshake.headers.userid);
-    }
-    create(createAuthDto, client) {
-        this.server.emit('login', { username: "bestman", password: client.handshake.headers });
     }
     async disconnected(client, status) {
         const userId = client.handshake.headers.userid ? client.handshake.headers.userid.toString() : '';
@@ -49,19 +46,29 @@ let AuthsGateway = class AuthsGateway {
         }
         return false;
     }
+    async auth(client) {
+        const user = await this.user(client);
+        client.emit('authResponse', user);
+    }
+    async user(client) {
+        let auth = {};
+        const userId = client.handshake.headers.userid ? client.handshake.headers.userid.toString() : '';
+        if (userId) {
+            auth = await (0, query_1.one)(this.userModel, { _id: userId });
+        }
+        return auth;
+    }
 };
 __decorate([
     (0, websockets_1.WebSocketServer)(),
     __metadata("design:type", socket_io_1.Server)
 ], AuthsGateway.prototype, "server", void 0);
 __decorate([
-    (0, websockets_1.SubscribeMessage)('loginRequest'),
-    __param(0, (0, websockets_1.MessageBody)()),
-    __param(1, (0, websockets_1.ConnectedSocket)()),
+    (0, websockets_1.SubscribeMessage)('authRequest'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto, socket_io_1.Socket]),
-    __metadata("design:returntype", void 0)
-], AuthsGateway.prototype, "create", null);
+    __metadata("design:paramtypes", [socket_io_1.Socket]),
+    __metadata("design:returntype", Promise)
+], AuthsGateway.prototype, "auth", null);
 AuthsGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: true, path: '/amonak-api', namespace: 'api/auth' }),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
