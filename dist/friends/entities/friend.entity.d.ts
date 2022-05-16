@@ -8,4 +8,4 @@ export declare class Friend extends DefaultModel {
     to: User;
     status: Number;
 }
-export declare const FriendSchema: mongoose.Schema<Document<Friend, any, any>, mongoose.Model<Document<Friend, any, any>, any, any, any>, any, any>;
+export declare const FriendSchema: mongoose.Schema<Document<Friend, any, any>, mongoose.Model<Document<Friend, any, any>, any, any, any>, {}, {}>;

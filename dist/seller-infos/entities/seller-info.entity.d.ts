@@ -16,4 +16,4 @@ export declare class SellerInfo extends DefaultModel {
     productNature: String[];
     type: String;
 }
-export declare const SellerInfoSchema: mongoose.Schema<Document<SellerInfo, any, any>, mongoose.Model<Document<SellerInfo, any, any>, any, any, any>, any, any>;
+export declare const SellerInfoSchema: mongoose.Schema<Document<SellerInfo, any, any>, mongoose.Model<Document<SellerInfo, any, any>, any, any, any>, {}, {}>;

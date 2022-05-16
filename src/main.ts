@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';

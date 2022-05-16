@@ -16,4 +16,4 @@ export declare class Publication extends DefaultModel {
     alerteDuration: String;
     publicity: String;
 }
-export declare const PublicationSchema: mongoose.Schema<mongoose.Document<Publication, any, any>, mongoose.Model<mongoose.Document<Publication, any, any>, any, any, any>, any, any>;
+export declare const PublicationSchema: mongoose.Schema<mongoose.Document<Publication, any, any>, mongoose.Model<mongoose.Document<Publication, any, any>, any, any, any>, {}, {}>;

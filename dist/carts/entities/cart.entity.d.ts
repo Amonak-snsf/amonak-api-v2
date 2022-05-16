@@ -12,4 +12,4 @@ export declare class Cart extends DefaultModel {
     isWaiting: Boolean;
     isCompleted: Boolean;
 }
-export declare const CartSchema: mongoose.Schema<mongoose.Document<Cart, any, any>, mongoose.Model<mongoose.Document<Cart, any, any>, any, any, any>, any, any>;
+export declare const CartSchema: mongoose.Schema<mongoose.Document<Cart, any, any>, mongoose.Model<mongoose.Document<Cart, any, any>, any, any, any>, {}, {}>;

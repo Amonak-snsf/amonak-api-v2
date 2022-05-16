@@ -69,11 +69,11 @@ let AuthService = class AuthService {
         throw (0, error_1.error)({ statusCode: common_1.HttpStatus.FORBIDDEN, message: 'Email not send. Please check your network!' }, common_1.HttpStatus.FORBIDDEN);
     }
     async activate(token, res) {
-        let fetchToken = await (0, query_1.one)(this.tokenModel, { token: token });
+        const fetchToken = await (0, query_1.one)(this.tokenModel, { token: token });
         if (!fetchToken) {
             throw (0, error_1.error)({ statusCode: common_1.HttpStatus.NOT_FOUND, message: 'Le code de confirmation que vous avez fourni est invalid.', display: true }, common_1.HttpStatus.NOT_FOUND);
         }
-        let user = await (0, query_1.put)(this.userModel, { status: true, isLog: true }, { _id: fetchToken.user, status: false });
+        const user = await (0, query_1.put)(this.userModel, { status: true, isLog: true }, { _id: fetchToken.user, status: false });
         const logUser = await this.logUser(user);
         return res.status(common_1.HttpStatus.OK).json(logUser);
     }

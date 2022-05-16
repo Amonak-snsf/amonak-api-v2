@@ -14,4 +14,4 @@ export declare class Notification extends DefaultModel {
     seenAt: Date;
     readAt: Date;
 }
-export declare const NotificationSchema: mongoose.Schema<mongoose.Document<Notification, any, any>, mongoose.Model<mongoose.Document<Notification, any, any>, any, any, any>, any, any>;
+export declare const NotificationSchema: mongoose.Schema<mongoose.Document<Notification, any, any>, mongoose.Model<mongoose.Document<Notification, any, any>, any, any, any>, {}, {}>;

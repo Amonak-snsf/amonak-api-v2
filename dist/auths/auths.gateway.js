@@ -19,9 +19,11 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("../users/entities/user.entity");
 const mongoose_2 = require("mongoose");
 const query_1 = require("../utils/query");
+const jwt_1 = require("@nestjs/jwt");
 let AuthsGateway = class AuthsGateway {
-    constructor(userModel) {
+    constructor(userModel, jwtService) {
         this.userModel = userModel;
+        this.jwtService = jwtService;
     }
     afterInit() {
         console.log("server socket.io server init");
@@ -53,7 +55,14 @@ let AuthsGateway = class AuthsGateway {
     async user(client) {
         let auth = {};
         const userId = client.handshake.headers.userid ? client.handshake.headers.userid.toString() : '';
-        if (userId) {
+        let verifyJwt;
+        try {
+            verifyJwt = this.jwtService.verify(client.handshake.headers.authorization.toString().replace('Bearer ', ''));
+        }
+        catch (error) {
+            console.log('invalid token');
+        }
+        if (userId && verifyJwt && verifyJwt.email && verifyJwt.iat) {
             auth = await (0, query_1.one)(this.userModel, { _id: userId });
         }
         return auth;
@@ -72,7 +81,7 @@ __decorate([
 AuthsGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: true, path: '/amonak-api', namespace: 'api/auth' }),
     __param(0, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model, jwt_1.JwtService])
 ], AuthsGateway);
 exports.AuthsGateway = AuthsGateway;
 //# sourceMappingURL=auths.gateway.js.map

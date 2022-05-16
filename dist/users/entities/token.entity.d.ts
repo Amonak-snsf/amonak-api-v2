@@ -7,4 +7,4 @@ export declare class Token {
     token: string;
     createdAt: Date;
 }
-export declare const TokenSchema: mongoose.Schema<Document<Token, any, any>, mongoose.Model<Document<Token, any, any>, any, any, any>, any, any>;
+export declare const TokenSchema: mongoose.Schema<Document<Token, any, any>, mongoose.Model<Document<Token, any, any>, any, any, any>, {}, {}>;

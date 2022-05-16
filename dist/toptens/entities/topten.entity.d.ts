@@ -16,4 +16,4 @@ export declare class Topten extends DefaultModel {
     status: String;
     endAt: Number;
 }
-export declare const ToptenSchema: mongoose.Schema<Document<Topten, any, any>, mongoose.Model<Document<Topten, any, any>, any, any, any>, any, any>;
+export declare const ToptenSchema: mongoose.Schema<Document<Topten, any, any>, mongoose.Model<Document<Topten, any, any>, any, any, any>, {}, {}>;

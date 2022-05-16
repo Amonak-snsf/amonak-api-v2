@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Body, Patch, Param, Delete, Res, Query, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -7,6 +8,7 @@ import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+
 @ApiTags('users')
 @ApiHeaders([
   {name: 'lang', description: 'language'}

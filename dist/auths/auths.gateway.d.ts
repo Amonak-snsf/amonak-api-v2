@@ -2,14 +2,16 @@ import { OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs
 import { Socket, Server } from 'socket.io';
 import { UserDocument } from 'src/users/entities/user.entity';
 import { Model } from 'mongoose';
+import { JwtService } from '@nestjs/jwt';
 export declare class AuthsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     private userModel;
+    private jwtService;
     server: Server;
-    constructor(userModel: Model<UserDocument>);
+    constructor(userModel: Model<UserDocument>, jwtService: JwtService);
     afterInit(): void;
     handleConnection(client: Socket, ...args: any[]): Promise<void>;
     handleDisconnect(client: Socket): void;
-    disconnected(client: Socket, status: Boolean): Promise<boolean>;
+    disconnected(client: Socket, status: boolean): Promise<boolean>;
     auth(client: Socket): Promise<void>;
     user(client: Socket): Promise<{}>;
 }

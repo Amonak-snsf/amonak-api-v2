@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
@@ -67,13 +68,13 @@ export class AuthService {
 
   async activate(token: number, res){
 
-    let fetchToken = await one(this.tokenModel, {token: token});
+    const fetchToken = await one(this.tokenModel, {token: token});
 
     if(!fetchToken){
       throw error({statusCode: HttpStatus.NOT_FOUND, message: 'Le code de confirmation que vous avez fourni est invalid.', display: true}, HttpStatus.NOT_FOUND);
     }
 
-    let user = await put(this.userModel, {status: true, isLog: true}, { _id: fetchToken.user, status: false})
+    const user = await put(this.userModel, {status: true, isLog: true}, { _id: fetchToken.user, status: false})
 
     const logUser = await this.logUser(user);
     return res.status(HttpStatus.OK).json(logUser);

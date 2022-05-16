@@ -7,4 +7,4 @@ export declare class CommentLike extends DefaultModel {
     comment: Comment;
     user: User;
 }
-export declare const CommentLikeSchema: mongoose.Schema<mongoose.Document<CommentLike, any, any>, mongoose.Model<mongoose.Document<CommentLike, any, any>, any, any, any>, any, any>;
+export declare const CommentLikeSchema: mongoose.Schema<mongoose.Document<CommentLike, any, any>, mongoose.Model<mongoose.Document<CommentLike, any, any>, any, any, any>, {}, {}>;
