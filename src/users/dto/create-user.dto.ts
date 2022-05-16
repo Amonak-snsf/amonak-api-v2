@@ -51,14 +51,11 @@ export class CreateUserDto {
   @ApiProperty()
   country_infos: string;
 
-  @ApiProperty({ type: {}})
-  address: Address;
+  @ApiProperty({ type: [Object]})
+  address: Address[];
 
   @ApiProperty({ type: {}})
   bankCard: BankCard;
-
-  @ApiProperty()
-  data: string;
 
   @ApiProperty({ type: [String] })
   friends: Friend[];
@@ -82,5 +79,7 @@ export class CreateUserDto {
   @ApiProperty()
   accountType: string;
 
+  @ApiProperty()
+  lastConnected: Date;
+
 }
-   

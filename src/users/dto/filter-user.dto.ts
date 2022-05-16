@@ -2,7 +2,7 @@ import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 
 export class FilterUserDto extends PartialType(OmitType(CreateUserDto, 
-    ['country_infos', 'data', 'status', 'password'] as const)) 
+    ['status', 'password'] as const)) 
 {
   @ApiProperty({type: Boolean, required: false})
   is_new_feed: Boolean;

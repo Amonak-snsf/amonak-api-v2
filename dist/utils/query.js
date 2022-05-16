@@ -6,7 +6,7 @@ const error_1 = require("./error");
 const helpers_1 = require("./helpers");
 const exist = async (model, filter) => {
     const takeData = await model.findOne(filter).exec().catch(err => {
-        throw (0, error_1.error)(err, common_1.HttpStatus.NOT_FOUND);
+        return error_1.error;
     });
     if (!takeData) {
         return false;

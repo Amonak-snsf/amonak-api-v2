@@ -55,7 +55,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "phone", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, trim: true, type: String, default: 'M' }),
+    (0, mongoose_1.Prop)({ required: false, trim: true, type: String, default: 'M' }),
     __metadata("design:type", String)
 ], User.prototype, "gender", void 0);
 __decorate([
@@ -88,7 +88,7 @@ __decorate([
         street: { required: false, trim: true, type: String },
         fullAddress: { required: false, trim: true, type: String }
     })),
-    __metadata("design:type", Object)
+    __metadata("design:type", Array)
 ], User.prototype, "address", void 0);
 __decorate([
     (0, mongoose_1.Prop)((0, mongoose_1.raw)({
@@ -118,7 +118,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Date }),
     __metadata("design:type", Date)
-], User.prototype, "lastConnectedTime", void 0);
+], User.prototype, "lastConnected", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)

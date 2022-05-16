@@ -16,13 +16,13 @@ export declare class CreateUserDto {
     profession: string;
     sectors: string[];
     country_infos: string;
-    address: Address;
+    address: Address[];
     bankCard: BankCard;
-    data: string;
     friends: Friend[];
     status: Boolean;
     isLog: Boolean;
     is_first_time: Boolean;
     is_new_feed: Boolean;
     accountType: string;
+    lastConnected: Date;
 }

@@ -17,13 +17,13 @@ export declare class User extends DefaultModel {
     avatar: string;
     profession: string;
     sectors: string[];
-    address: Record<string, any>;
+    address: Record<string, any>[];
     bankCard: Record<string, any>;
     friends: Friend[];
     status: boolean;
     accountType: string;
     isLog: boolean;
-    lastConnectedTime: Date;
+    lastConnected: Date;
     isFirstTime: boolean;
     isNewFeed: boolean;
 }

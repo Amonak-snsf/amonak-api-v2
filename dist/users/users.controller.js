@@ -50,6 +50,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBearerAuth)('accessToken'),
     (0, common_1.Get)('users/:_id'),
     __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),
@@ -66,6 +68,8 @@ __decorate([
         }),
         fileFilter: file_uploading_1.imageFileFilter,
     })),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBearerAuth)('accessToken'),
     __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.UploadedFile)()),
@@ -75,6 +79,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "update", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBearerAuth)('accessToken'),
     (0, common_1.Delete)('users/:_id'),
     __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Res)()),

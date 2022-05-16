@@ -73,17 +73,13 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "country_infos", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: {} }),
-    __metadata("design:type", Object)
+    (0, swagger_1.ApiProperty)({ type: [Object] }),
+    __metadata("design:type", Array)
 ], CreateUserDto.prototype, "address", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: {} }),
     __metadata("design:type", Object)
 ], CreateUserDto.prototype, "bankCard", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "data", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
@@ -112,5 +108,9 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "accountType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Date)
+], CreateUserDto.prototype, "lastConnected", void 0);
 exports.CreateUserDto = CreateUserDto;
 //# sourceMappingURL=create-user.dto.js.map

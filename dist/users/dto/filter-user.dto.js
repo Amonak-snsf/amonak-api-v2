@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilterUserDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const create_user_dto_1 = require("./create-user.dto");
-class FilterUserDto extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_user_dto_1.CreateUserDto, ['country_infos', 'data', 'status', 'password'])) {
+class FilterUserDto extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_user_dto_1.CreateUserDto, ['status', 'password'])) {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ type: Boolean, required: false }),

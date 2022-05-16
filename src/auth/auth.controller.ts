@@ -14,7 +14,7 @@ import { UsernamePasswordAuthDto } from './dto/username-password-auth.dto';
   name: 'lang',
   description: 'language',
 })
-@Controller('api/auth')
+@Controller('api/auths')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
@@ -34,8 +34,8 @@ export class AuthController {
   }
   
   @Get('check-token/:tokenId')
-  checkToken(@Param('tokenId') token: string, @Res() res) {
-    return this.authService.checkToken(token, res);
+  checkToken(@Param('tokenId') tokenId: string, @Res() res) {
+    return this.authService.checkToken(tokenId, res);
   }
 
   @Post('resend-activation-email')
@@ -66,5 +66,10 @@ export class AuthController {
   @Post('check-email')
   checkEmail(@Body() emailAuth: EmailAuthDto, @Res() res) {
     return this.authService.checkEmail(emailAuth.email, res);
+  }
+
+  @Get('check-auth/:userId')
+  auth(@Param('userId') userId: string, @Res() res) {
+    return this.authService.auth(userId, res);
   }
 }

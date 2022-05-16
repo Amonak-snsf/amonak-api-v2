@@ -7,7 +7,7 @@ import { arrayToString, limitData } from "./helpers";
 export const exist = async (model: Model<any>, filter: Object) =>{
 
     const takeData = await model.findOne(filter).exec().catch(err =>{
-        throw error(err, HttpStatus.NOT_FOUND);
+        return error;
     });
 
     if(!takeData){

@@ -46,11 +46,11 @@ const CustomBankCard = (bankCard) => {
 exports.CustomBankCard = CustomBankCard;
 const checkUsername = (body) => {
     const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    if (emailRegexp.test(body.userName)) {
-        return { email: body.userName };
+    if (emailRegexp.test(body.email)) {
+        return { email: body.email };
     }
     else {
-        return { userName: body.userName };
+        return { userName: body.email };
     }
 };
 exports.checkUsername = checkUsername;
