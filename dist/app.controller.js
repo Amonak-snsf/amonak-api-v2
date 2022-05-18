@@ -18,9 +18,11 @@ const app_service_1 = require("./app.service");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const file_uploading_1 = require("./utils/file-uploading");
+const config_1 = require("@nestjs/config");
 let AppController = class AppController {
-    constructor(appService) {
+    constructor(appService, config) {
         this.appService = appService;
+        this.config = config;
     }
     getHello() {
         return this.appService.getHello();
@@ -36,7 +38,8 @@ let AppController = class AppController {
                     originalname: file.originalname,
                     filename: file.filename,
                     size: file.size,
-                    url: `${file.destination.replace('./static/', '')}/${file.filename}`
+                    url: `${file.destination.replace('./static/', '')}/${file.filename}`,
+                    serverUrl: `${this.config.get('staticUrl')}`
                 });
             }
         }
@@ -77,7 +80,7 @@ __decorate([
 ], AppController.prototype, "staticVideossUploads", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
+    __metadata("design:paramtypes", [app_service_1.AppService, config_1.ConfigService])
 ], AppController);
 exports.AppController = AppController;
 //# sourceMappingURL=app.controller.js.map

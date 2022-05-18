@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, fileDestination, allImageFileFilter } from 'src/utils/file-uploading';
+import { ConfigService } from '@nestjs/config';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService, private config: ConfigService) {}
 
   @Get()
   getHello(): string {
@@ -36,7 +37,8 @@ export class AppController {
           originalname: file.originalname,
           filename: file.filename,
           size: file.size,
-          url: `${file.destination.replace('./static/', '')}/${file.filename}`
+          url: `${file.destination.replace('./static/', '')}/${file.filename}`,
+          serverUrl: `${this.config.get('staticUrl')}`
         })
       }
     }
