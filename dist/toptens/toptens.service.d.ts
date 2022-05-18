@@ -12,7 +12,7 @@ export declare class ToptensService {
     private mailService;
     private data;
     constructor(toptenModel: Model<ToptenDocument>, userModel: Model<UserDocument>, configService: ConfigService, mailService: MailService);
-    create(cTdo: CreateToptenDto, files: any, res: any): Promise<any>;
+    create(cTdo: CreateToptenDto, res: any): Promise<any>;
     findAll(body: any, res: any): Promise<any>;
     findOne(_id: string, res: any): Promise<any>;
     update(_id: string, updateToptenDto: UpdateToptenDto, res: any): Promise<any>;

@@ -6,6 +6,6 @@ export declare type FriendDocument = Friend & Document;
 export declare class Friend extends DefaultModel {
     from: User;
     to: User;
-    status: Number;
+    status: number;
 }
 export declare const FriendSchema: mongoose.Schema<Document<Friend, any, any>, mongoose.Model<Document<Friend, any, any>, any, any, any>, {}, {}>;

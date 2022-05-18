@@ -39,19 +39,8 @@ let SellerInfosService = class SellerInfosService {
         const data = await (0, query_1.one)(this.sellerInforModel, { user: user }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(user, upDto, file, files, res) {
+    async update(user, upDto, res) {
         this.data = upDto;
-        if (file && file.path) {
-            const fileReponse = {
-                url: `/${file.path}`,
-                type: file.mimetype
-            };
-            this.data.identityCard = fileReponse;
-        }
-        const custom_files = (0, helpers_1.customFiles)(files);
-        if (custom_files) {
-            this.data.files = custom_files;
-        }
         const address = (0, helpers_1.userAddress)(upDto.address);
         if (address) {
             this.data.address = address;

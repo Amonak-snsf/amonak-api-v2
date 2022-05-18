@@ -17,7 +17,7 @@ export declare class AuthService {
     private jwtService;
     private data;
     constructor(userModel: Model<UserDocument>, tokenModel: Model<TokenDocument>, biographyModel: Model<BiographyDocument>, sellerInfoModel: Model<SellerInfoDocument>, configService: ConfigService, mailService: MailService, jwtService: JwtService);
-    register(createAuthDto: CreateAuthDto, file: any, res: any): Promise<any>;
+    register(createAuthDto: CreateAuthDto, res: any): Promise<any>;
     checkToken(tokenId: string, res: any): Promise<any>;
     resentActivationEmail(email: string, res: any): Promise<any>;
     activate(token: number, res: any): Promise<any>;

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Cart } from 'src/carts/entities/cart.entity';
@@ -16,19 +17,19 @@ export class CartItem extends DefaultModel{
     product: Product
 
     @Prop({ required: true, type: Number, default: 1 })
-    quantity: Number
+    quantity: number
 
     @Prop({ required: true, type: Number, default: 1 })
-    price: Number
+    price: number
 
     @Prop({ required: false, type: Number, default: 0 })
-    percentage: Number
+    percentage: number
 
     @Prop({ required: false, type: Number, default: 0 })
-    tax: Number
+    tax: number
 
     @Prop({ required: false, type: Number, default: 0 })
-    shipping: Number
+    shipping: number
 }
 
 export const CartItemSchema = SchemaFactory.createForClass(CartItem);

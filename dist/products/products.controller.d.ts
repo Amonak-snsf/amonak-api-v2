@@ -5,9 +5,9 @@ import { FilterProductDto } from './dto/filter-product.dto';
 export declare class ProductsController {
     private readonly productsService;
     constructor(productsService: ProductsService);
-    create(createProductDto: CreateProductDto, files: any, res: any): Promise<any>;
+    create(createProductDto: CreateProductDto, res: any): Promise<any>;
     findAll(params: FilterProductDto, res: any): Promise<any>;
     findOne(_id: string, res: any): Promise<any>;
-    update(_id: string, updateProductDto: UpdateProductDto, files: any, res: any): Promise<any>;
+    update(_id: string, updateProductDto: UpdateProductDto, res: any): Promise<any>;
     remove(_id: string, res: any): Promise<any>;
 }

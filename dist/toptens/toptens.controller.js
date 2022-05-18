@@ -18,16 +18,13 @@ const toptens_service_1 = require("./toptens.service");
 const create_topten_dto_1 = require("./dto/create-topten.dto");
 const update_topten_dto_1 = require("./dto/update-topten.dto");
 const swagger_1 = require("@nestjs/swagger");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const filter_topten_dto_1 = require("./dto/filter-topten.dto");
 let ToptensController = class ToptensController {
     constructor(toptensService) {
         this.toptensService = toptensService;
     }
-    create(createToptenDto, files, res) {
-        return this.toptensService.create(createToptenDto, files, res);
+    create(createToptenDto, res) {
+        return this.toptensService.create(createToptenDto, res);
     }
     findAll(body, res) {
         return this.toptensService.findAll(body, res);
@@ -43,19 +40,11 @@ let ToptensController = class ToptensController {
     }
 };
 __decorate([
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter,
-    })),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFiles)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_topten_dto_1.CreateToptenDto, Object, Object]),
+    __metadata("design:paramtypes", [create_topten_dto_1.CreateToptenDto, Object]),
     __metadata("design:returntype", void 0)
 ], ToptensController.prototype, "create", null);
 __decorate([

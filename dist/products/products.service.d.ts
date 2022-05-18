@@ -6,9 +6,9 @@ export declare class ProductsService {
     private readonly productModel;
     private data;
     constructor(productModel: Model<ProductDocument>);
-    create(createProductDto: CreateProductDto, files: any, res: any): Promise<any>;
+    create(createProductDto: CreateProductDto, res: any): Promise<any>;
     findAll(params: any, res: any): Promise<any>;
     findOne(_id: string, res: any): Promise<any>;
-    update(_id: string, updateProductDto: UpdateProductDto, files: any, res: any): Promise<any>;
+    update(_id: string, updateProductDto: UpdateProductDto, res: any): Promise<any>;
     remove(_id: string, res: any): Promise<any>;
 }

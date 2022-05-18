@@ -4,10 +4,10 @@ import * as mongoose from 'mongoose';
 import { DefaultModel } from "src/utils/default-model";
 export declare type CommentDocument = Comment & Document;
 export declare class Comment extends DefaultModel {
-    content: String;
+    content: string;
     files: Record<string, any>[];
     publication: Publication;
     user: User;
-    status: Boolean;
+    status: boolean;
 }
 export declare const CommentSchema: mongoose.Schema<mongoose.Document<Comment, any, any>, mongoose.Model<mongoose.Document<Comment, any, any>, any, any, any>, {}, {}>;

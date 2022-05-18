@@ -6,10 +6,10 @@ export declare type CartItemDocument = CartItem & Document;
 export declare class CartItem extends DefaultModel {
     cart: Cart;
     product: Product;
-    quantity: Number;
-    price: Number;
-    percentage: Number;
-    tax: Number;
-    shipping: Number;
+    quantity: number;
+    price: number;
+    percentage: number;
+    tax: number;
+    shipping: number;
 }
 export declare const CartItemSchema: mongoose.Schema<mongoose.Document<CartItem, any, any>, mongoose.Model<mongoose.Document<CartItem, any, any>, any, any, any>, {}, {}>;

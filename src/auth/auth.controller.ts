@@ -1,8 +1,6 @@
-import { Controller, Get, Post, Body, Param, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { diskStorage } from 'multer';
-import { editFileName, imageFileFilter } from 'src/utils/file-uploading';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { EmailAuthDto } from './dto/email-auth.dto';
@@ -18,19 +16,8 @@ import { UsernamePasswordAuthDto } from './dto/username-password-auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
-  @Post('register')
-  @UseInterceptors(
-    FileInterceptor('avatar', {
-      storage: diskStorage({
-        destination: './static/images/avatar',
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter,
-    }),
-  )
-
-  register(@Body() createAuthDto: CreateAuthDto, @UploadedFile() file, @Res() res) {
-    return this.authService.register(createAuthDto, file, res);
+  register(@Body() createAuthDto: CreateAuthDto, @Res() res) {
+    return this.authService.register(createAuthDto, res);
   }
   
   @Get('check-token/:tokenId')

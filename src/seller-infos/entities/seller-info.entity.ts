@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
@@ -14,31 +15,41 @@ export class SellerInfo extends DefaultModel{
   user: User
 
   @Prop({ required: true, enum: Status })
-  status: Number;
+  status: number;
 
   @Prop(raw({
+    destination: { required: false, trim: true, type: String, select: true },
+    type: { required: false, trim: true, type: String, select: true },
+    extension: { required: false, trim: true, type: String, select: true },
+    originalname: { required: false, trim: true, type: String, select: true },
+    filename: { required: false, trim: true, type: String, select: true },
+    size: { required: false, trim: true, type: Number, select: true},
     url: { required: false, trim: true, type: String, select: true },
-    type: { required: false, trim: true, type: String, select: true }
   }))
   files: Record<string, any>[];
 
   @Prop(raw({
+    destination: { required: false, trim: true, type: String, select: true },
+    type: { required: false, trim: true, type: String, select: true },
+    extension: { required: false, trim: true, type: String, select: true },
+    originalname: { required: false, trim: true, type: String, select: true },
+    filename: { required: false, trim: true, type: String, select: true },
+    size: { required: false, trim: true, type: Number, select: true},
     url: { required: false, trim: true, type: String, select: true },
-    type: { required: false, trim: true, type: String, select: true }
   }))
-  identityCard: Record<string, any>;
+  identityCard: Record<string, any>[];
 
   @Prop({ required: false, trim: true, type: String })
-  message: String
+  message: string
 
   @Prop({ required: false, trim: true, type: String })
-  email: String;
+  email: string;
 
   @Prop({ required: false, trim: true, type: String })
-  phone: String;
+  phone: string;
 
   @Prop({ required: false, trim: true, type: String })
-  registerNumber: String;
+  registerNumber: string;
   
   @Prop(raw({
     countryName: { required: false, trim: true, type: String },
@@ -52,10 +63,10 @@ export class SellerInfo extends DefaultModel{
   address: Record<string, any>;
 
   @Prop({ type: [String]})
-  productNature: String[];
+  productNature: string[];
 
   @Prop({ required: false, trim: true, type: String })
-  type: String;
+  type: string;
 }
 
 export const SellerInfoSchema = SchemaFactory.createForClass(SellerInfo);

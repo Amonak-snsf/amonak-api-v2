@@ -17,17 +17,14 @@ const common_1 = require("@nestjs/common");
 const products_service_1 = require("./products.service");
 const create_product_dto_1 = require("./dto/create-product.dto");
 const update_product_dto_1 = require("./dto/update-product.dto");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const filter_product_dto_1 = require("./dto/filter-product.dto");
 const swagger_1 = require("@nestjs/swagger");
 let ProductsController = class ProductsController {
     constructor(productsService) {
         this.productsService = productsService;
     }
-    create(createProductDto, files, res) {
-        return this.productsService.create(createProductDto, files, res);
+    create(createProductDto, res) {
+        return this.productsService.create(createProductDto, res);
     }
     findAll(params, res) {
         return this.productsService.findAll(params, res);
@@ -35,8 +32,8 @@ let ProductsController = class ProductsController {
     findOne(_id, res) {
         return this.productsService.findOne(_id, res);
     }
-    update(_id, updateProductDto, files, res) {
-        return this.productsService.update(_id, updateProductDto, files, res);
+    update(_id, updateProductDto, res) {
+        return this.productsService.update(_id, updateProductDto, res);
     }
     remove(_id, res) {
         return this.productsService.remove(_id, res);
@@ -45,10 +42,9 @@ let ProductsController = class ProductsController {
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFiles)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_product_dto_1.CreateProductDto, Object, Object]),
+    __metadata("design:paramtypes", [create_product_dto_1.CreateProductDto, Object]),
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "create", null);
 __decorate([
@@ -71,10 +67,9 @@ __decorate([
     (0, common_1.Patch)(':_id'),
     __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.UploadedFiles)()),
-    __param(3, (0, common_1.Res)()),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_product_dto_1.UpdateProductDto, Object, Object]),
+    __metadata("design:paramtypes", [String, update_product_dto_1.UpdateProductDto, Object]),
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "update", null);
 __decorate([
@@ -91,13 +86,6 @@ ProductsController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter3,
-    })),
     (0, common_1.Controller)('api/products'),
     __metadata("design:paramtypes", [products_service_1.ProductsService])
 ], ProductsController);

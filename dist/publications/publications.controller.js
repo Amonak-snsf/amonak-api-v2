@@ -18,16 +18,13 @@ const publications_service_1 = require("./publications.service");
 const create_publication_dto_1 = require("./dto/create-publication.dto");
 const update_publication_dto_1 = require("./dto/update-publication.dto");
 const swagger_1 = require("@nestjs/swagger");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const filter_publication_dto_1 = require("./dto/filter-publication.dto");
 let PublicationsController = class PublicationsController {
     constructor(publicationsService) {
         this.publicationsService = publicationsService;
     }
-    create(body, files, res) {
-        return this.publicationsService.create(body, files, res);
+    create(body, res) {
+        return this.publicationsService.create(body, res);
     }
     findAll(params, res) {
         return this.publicationsService.findAll(params, res);
@@ -45,10 +42,9 @@ let PublicationsController = class PublicationsController {
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFiles)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_publication_dto_1.CreatePublicationDto, Object, Object]),
+    __metadata("design:paramtypes", [create_publication_dto_1.CreatePublicationDto, Object]),
     __metadata("design:returntype", void 0)
 ], PublicationsController.prototype, "create", null);
 __decorate([
@@ -90,13 +86,6 @@ PublicationsController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter,
-    })),
     (0, common_1.Controller)('api/publications'),
     __metadata("design:paramtypes", [publications_service_1.PublicationsService])
 ], PublicationsController);

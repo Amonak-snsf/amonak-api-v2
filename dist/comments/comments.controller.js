@@ -14,10 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentsController = void 0;
 const common_1 = require("@nestjs/common");
-const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const comments_service_1 = require("./comments.service");
 const create_comment_dto_1 = require("./dto/create-comment.dto");
 const filter_comment_dto_1 = require("./dto/filter-comment.dto");
@@ -26,8 +23,8 @@ let CommentsController = class CommentsController {
     constructor(commentsService) {
         this.commentsService = commentsService;
     }
-    create(createCommentDto, files, res) {
-        return this.commentsService.create(createCommentDto, files, res);
+    create(createCommentDto, res) {
+        return this.commentsService.create(createCommentDto, res);
     }
     findAll(params, res) {
         return this.commentsService.findAll(params, res);
@@ -45,10 +42,9 @@ let CommentsController = class CommentsController {
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFiles)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_comment_dto_1.CreateCommentDto, Object, Object]),
+    __metadata("design:paramtypes", [create_comment_dto_1.CreateCommentDto, Object]),
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "create", null);
 __decorate([
@@ -90,13 +86,6 @@ CommentsController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter3,
-    })),
     (0, common_1.Controller)('api/comments'),
     __metadata("design:paramtypes", [comments_service_1.CommentsService])
 ], CommentsController);

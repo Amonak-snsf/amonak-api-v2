@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export default () => ({
     name: process.env.APP_NAME || 'AMONAK-API',
     staticUrl: process.env.STATIC_URL || 'http://localhost:3000',

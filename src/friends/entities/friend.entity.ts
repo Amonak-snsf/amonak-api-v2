@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
@@ -18,7 +19,7 @@ export class Friend extends DefaultModel{
   to: User
 
   @Prop({ required: true, enum: Status })
-  status: Number;
+  status: number;
 }
 
 export const FriendSchema = SchemaFactory.createForClass(Friend);

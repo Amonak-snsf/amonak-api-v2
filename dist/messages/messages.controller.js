@@ -18,16 +18,13 @@ const messages_service_1 = require("./messages.service");
 const create_message_dto_1 = require("./dto/create-message.dto");
 const update_message_dto_1 = require("./dto/update-message.dto");
 const swagger_1 = require("@nestjs/swagger");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const filter_message_dto_1 = require("./dto/filter-message.dto");
 let MessagesController = class MessagesController {
     constructor(messagesService) {
         this.messagesService = messagesService;
     }
-    async create(createMessageDto, files, res) {
-        const data = await this.messagesService.create(createMessageDto, files);
+    async create(createMessageDto, res) {
+        const data = await this.messagesService.create(createMessageDto);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
@@ -50,10 +47,9 @@ let MessagesController = class MessagesController {
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFiles)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_message_dto_1.CreateMessageDto, Object, Object]),
+    __metadata("design:paramtypes", [create_message_dto_1.CreateMessageDto, Object]),
     __metadata("design:returntype", Promise)
 ], MessagesController.prototype, "create", null);
 __decorate([
@@ -95,13 +91,6 @@ MessagesController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter3,
-    })),
     (0, common_1.Controller)('api/messages'),
     __metadata("design:paramtypes", [messages_service_1.MessagesService])
 ], MessagesController);

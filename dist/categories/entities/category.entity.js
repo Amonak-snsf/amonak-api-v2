@@ -23,9 +23,17 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: String, required: false, trim: true }),
-    __metadata("design:type", String)
-], Category.prototype, "image", void 0);
+    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
+        destination: { required: false, trim: true, type: String, select: true },
+        type: { required: false, trim: true, type: String, select: true },
+        extension: { required: false, trim: true, type: String, select: true },
+        originalname: { required: false, trim: true, type: String, select: true },
+        filename: { required: false, trim: true, type: String, select: true },
+        size: { required: false, trim: true, type: Number, select: true },
+        url: { required: false, trim: true, type: String, select: true },
+    })),
+    __metadata("design:type", Array)
+], Category.prototype, "files", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: Boolean, required: true, default: false }),
     __metadata("design:type", Boolean)

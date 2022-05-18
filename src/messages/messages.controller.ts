@@ -1,11 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFiles, Res, HttpStatus, Query } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus, Query } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { FilesInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { editFileName, fileDestination, imageFileFilter3 } from 'src/utils/file-uploading';
 import { FilterMessage } from './dto/filter-message.dto';
 
 @ApiTags('messages')
@@ -13,24 +11,15 @@ import { FilterMessage } from './dto/filter-message.dto';
   name: 'lang',
   description: 'language', 
 })
-@UseInterceptors(
-  FilesInterceptor('files', 5, {
-    storage: diskStorage({
-      destination: fileDestination,
-      filename: editFileName,
-    }),
-    fileFilter: imageFileFilter3,
-}),
-)
 
 @Controller('api/messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
   @Post()
-  async create(@Body() createMessageDto: CreateMessageDto, @UploadedFiles() files, @Res() res) {
+  async create(@Body() createMessageDto: CreateMessageDto, @Res() res) {
 
-    const data = await this.messagesService.create(createMessageDto, files);
+    const data = await this.messagesService.create(createMessageDto);
 
     return res.status(HttpStatus.OK).json(data);
   }

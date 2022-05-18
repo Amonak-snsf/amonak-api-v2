@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Exclude, Expose } from 'class-transformer';
 import * as mongoose from 'mongoose';
@@ -46,8 +47,16 @@ export class User extends DefaultModel {
   @Prop({ required: false, trim: true, type: String })
   birthPlace: string;
 
-  @Prop({ required: false, trim: true, type: String})
-  avatar: string;
+  @Prop(raw({
+    destination: { required: false, trim: true, type: String, select: true },
+    type: { required: false, trim: true, type: String, select: true },
+    extension: { required: false, trim: true, type: String, select: true },
+    originalname: { required: false, trim: true, type: String, select: true },
+    filename: { required: false, trim: true, type: String, select: true },
+    size: { required: false, trim: true, type: Number, select: true},
+    url: { required: false, trim: true, type: String, select: true },
+  }))
+  avatar: Record<string, any>[];
 
   @Prop({ required: false, trim: true, type: String })
   profession: string;

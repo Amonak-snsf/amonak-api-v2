@@ -1,13 +1,10 @@
-import { Controller, Get, Patch, Param, Res, UseInterceptors, UploadedFile, UploadedFiles, Put, Query, Body } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Patch, Param, Res, Put, Query, Body } from '@nestjs/common';
 import { SellerInfosService } from './seller-infos.service';
 import { UpdateSellerInfoDto } from './dto/update-seller-info.dto';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { editFileName, fileDestination, imageFileFilter2, imageFileFilter3 } from 'src/utils/file-uploading';
 import { UpdateSellerStatusDto } from './dto/update-seller-status.dto';
 import { FilterSeller } from './dto/filter-seller.dto';
-
 @ApiTags('sellerInfos')
 @ApiHeader({
   name: 'lang',
@@ -28,25 +25,10 @@ export class SellerInfosController {
     return this.sellerInfosService.findOne(user, res);
   }
 
-@UseInterceptors(
-  FileInterceptor('identityCard', {
-    storage: diskStorage({
-      destination: fileDestination,
-      filename: editFileName,
-    }),
-    fileFilter: imageFileFilter2,
-  }),
-  FilesInterceptor('files', 5, {
-    storage: diskStorage({
-      destination: fileDestination,
-      filename: editFileName,
-    }),
-    fileFilter: imageFileFilter3,
-  }),
-)
+
   @Patch('seller-requests/:user')
-  update(@Param('user') user: string, @Body() updateSellerInfoDto: UpdateSellerInfoDto, @UploadedFile() file, @UploadedFiles() files, @Res() res) {
-    return this.sellerInfosService.update(user, updateSellerInfoDto, file, files, res);
+  update(@Param('user') user: string, @Body() updateSellerInfoDto: UpdateSellerInfoDto, @Res() res) {
+    return this.sellerInfosService.update(user, updateSellerInfoDto, res);
   }
 
   @Put('seller-managments/:user/status')

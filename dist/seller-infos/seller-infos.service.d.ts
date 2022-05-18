@@ -14,7 +14,7 @@ export declare class SellerInfosService {
     constructor(sellerInforModel: Model<SellerInfoDocument>, userModel: Model<UserDocument>, configService: ConfigService, mailService: MailService);
     findAll(params: any, res: any): Promise<SellerInfo[]>;
     findOne(user: string, res: any): Promise<any>;
-    update(user: string, upDto: UpdateSellerInfoDto, file: any, files: any, res: any): Promise<any>;
+    update(user: string, upDto: UpdateSellerInfoDto, res: any): Promise<any>;
     manageSellerInfoStatus(user: string, status: any, res: any): Promise<any>;
     status(status: any): any;
 }

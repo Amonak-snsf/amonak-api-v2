@@ -15,13 +15,8 @@ export class ProductsService {
     @InjectModel(Product.name) private readonly productModel: Model<ProductDocument>
   ){}
 
-  async create(createProductDto: CreateProductDto, files, res) {
+  async create(createProductDto: CreateProductDto, res) {
 
-    const custom_files = customFiles(files);
-    if(custom_files){
-      createProductDto.files = custom_files;
-    }
-    
     const address = userAddress(createProductDto.address);
     if(address){
       createProductDto.address = address;
@@ -58,13 +53,8 @@ export class ProductsService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(_id: string, updateProductDto: UpdateProductDto, files, res) {
+  async update(_id: string, updateProductDto: UpdateProductDto, res) {
 
-    const custom_files = customFiles(files);
-    if(custom_files){
-      updateProductDto.files = custom_files;
-    }
-    
     const address = userAddress(updateProductDto.address);
     if(address){
       updateProductDto.address = address;

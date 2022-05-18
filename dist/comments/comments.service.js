@@ -28,10 +28,7 @@ let CommentsService = class CommentsService {
         this.pubmanegementModel = pubmanegementModel;
         this.notificationService = notificationService;
     }
-    async create(createCommentDto, files, res) {
-        if (files) {
-            createCommentDto.files = (0, helpers_1.customFiles)(files);
-        }
+    async create(createCommentDto, res) {
         const data = await (0, query_1.create)(this.commentModel, createCommentDto);
         await new this.pubmanegementModel({ user: data.user, publication: data.publication, type: publication_managements_type_dto_1.PubManagementType.follow });
         await this.notificationService.create({

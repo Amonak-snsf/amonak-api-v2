@@ -17,8 +17,13 @@ let Message = class Message extends notification_entity_1.Notification {
 };
 __decorate([
     (0, mongoose_1.Prop)((0, mongoose_1.raw)({
+        destination: { required: false, trim: true, type: String, select: true },
+        type: { required: false, trim: true, type: String, select: true },
+        extension: { required: false, trim: true, type: String, select: true },
+        originalname: { required: false, trim: true, type: String, select: true },
+        filename: { required: false, trim: true, type: String, select: true },
+        size: { required: false, trim: true, type: Number, select: true },
         url: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true }
     })),
     __metadata("design:type", Array)
 ], Message.prototype, "files", void 0);

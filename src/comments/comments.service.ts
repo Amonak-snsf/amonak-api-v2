@@ -17,11 +17,7 @@ export class CommentsService {
   private notificationService: NotificationsService
   ){}
 
-  async create(createCommentDto: CreateCommentDto, files, res) {
-
-    if(files){
-      createCommentDto.files = customFiles(files);
-    }
+  async create(createCommentDto: CreateCommentDto, res) {
 
     const data = await create(this.commentModel, createCommentDto);
 

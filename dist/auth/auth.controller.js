@@ -14,10 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const auth_service_1 = require("./auth.service");
 const create_auth_dto_1 = require("./dto/create-auth.dto");
 const email_auth_dto_1 = require("./dto/email-auth.dto");
@@ -27,8 +24,8 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    register(createAuthDto, file, res) {
-        return this.authService.register(createAuthDto, file, res);
+    register(createAuthDto, res) {
+        return this.authService.register(createAuthDto, res);
     }
     checkToken(tokenId, res) {
         return this.authService.checkToken(tokenId, res);
@@ -56,19 +53,10 @@ let AuthController = class AuthController {
     }
 };
 __decorate([
-    (0, common_1.Post)('register'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('avatar', {
-        storage: (0, multer_1.diskStorage)({
-            destination: './static/images/avatar',
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter,
-    })),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFile)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto, Object, Object]),
+    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
 __decorate([

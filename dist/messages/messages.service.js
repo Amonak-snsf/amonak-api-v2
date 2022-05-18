@@ -16,18 +16,13 @@ exports.MessagesService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const message_entity_1 = require("./entities/message.entity");
 let MessagesService = class MessagesService {
     constructor(messageModel) {
         this.messageModel = messageModel;
     }
-    async create(createMessageDto, files) {
-        const custom_files = (0, helpers_1.customFiles)(files);
-        if (custom_files) {
-            createMessageDto.files = custom_files;
-        }
+    async create(createMessageDto) {
         const data = await (0, query_1.create)(this.messageModel, createMessageDto);
         return data;
     }

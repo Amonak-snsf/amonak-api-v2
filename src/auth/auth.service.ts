@@ -28,15 +28,10 @@ export class AuthService {
   private jwtService: JwtService
   ) {}
 
-  async register(createAuthDto: CreateAuthDto, file, res): Promise<any>  {
+  async register(createAuthDto: CreateAuthDto, res): Promise<any>  {
 
     this.data = createAuthDto;
     this.data.password = await hashPassword(createAuthDto.password);
-    if(!file){
-      this.data.avatar = `/static/images/avatar/avatar.png`;
-    }else{
-      this.data.avatar = `/${file.path}`;
-    }
 
     this.data.address = userAddress(Array.isArray(this.data.address)? this.data.address[0] : this.data.address);
     const user = await create(this.userModel, this.data);

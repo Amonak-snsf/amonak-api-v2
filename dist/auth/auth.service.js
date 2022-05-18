@@ -39,15 +39,9 @@ let AuthService = class AuthService {
         this.mailService = mailService;
         this.jwtService = jwtService;
     }
-    async register(createAuthDto, file, res) {
+    async register(createAuthDto, res) {
         this.data = createAuthDto;
         this.data.password = await (0, helpers_1.hashPassword)(createAuthDto.password);
-        if (!file) {
-            this.data.avatar = `/static/images/avatar/avatar.png`;
-        }
-        else {
-            this.data.avatar = `/${file.path}`;
-        }
         this.data.address = (0, helpers_1.userAddress)(Array.isArray(this.data.address) ? this.data.address[0] : this.data.address);
         const user = await (0, query_1.create)(this.userModel, this.data);
         this.sendUserConfirmation(user);

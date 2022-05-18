@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
@@ -17,34 +18,39 @@ export class Topten extends DefaultModel {
   followers: User[]
 
   @Prop(raw({
+    destination: { required: false, trim: true, type: String, select: true },
+    type: { required: false, trim: true, type: String, select: true },
+    extension: { required: false, trim: true, type: String, select: true },
+    originalname: { required: false, trim: true, type: String, select: true },
+    filename: { required: false, trim: true, type: String, select: true },
+    size: { required: false, trim: true, type: Number, select: true},
     url: { required: false, trim: true, type: String, select: true },
-    type: { required: false, trim: true, type: String, select: true }
   }))
   files: Record<string, any>[];
 
   @Prop({ required: false, trim: true, type: String })
-  message: String
+  message: string
 
   @Prop({ required: false, trim: true, type: String })
-  company: String;
+  company: string;
 
   @Prop({ required: true, trim: true, type: Number })
-  duration: Number;
+  duration: number;
 
   @Prop({ required: false, trim: true, type: String })
-  webSites: String;
+  webSites: string;
 
   @Prop({ type: String})
-  name: String;
+  name: string;
 
   @Prop({ required: false, trim: true, type: String })
-  price: String;
+  price: string;
 
   @Prop({ required: true, enum: Status, default: 'disabled' })
-  status: String;
+  status: string;
   
   @Prop({ required: false, default: 2})
-  endAt: Number;
+  endAt: number;
 
 }
 

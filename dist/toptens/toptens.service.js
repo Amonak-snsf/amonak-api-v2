@@ -29,13 +29,9 @@ let ToptensService = class ToptensService {
         this.configService = configService;
         this.mailService = mailService;
     }
-    async create(cTdo, files, res) {
+    async create(cTdo, res) {
         this.data = cTdo;
-        const custom_files = (0, helpers_1.customFiles)(files);
-        if (custom_files) {
-            this.data.files = custom_files;
-        }
-        let d = new Date();
+        const d = new Date();
         this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
         const data = await (0, query_1.create)(this.toptenModel, this.data, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);

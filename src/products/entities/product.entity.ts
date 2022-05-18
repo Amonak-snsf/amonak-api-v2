@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose"
 import * as mongoose from 'mongoose';
 import { Category } from "src/categories/entities/category.entity";
@@ -10,29 +11,34 @@ export type ProductDocument = Product & Document;
 export class Product extends DefaultModel{
 
     @Prop({ required: true, type: String, trim: true })
-    name: String;
+    name: string;
 
     @Prop({ required: false, type: String, trim: true })
-    content: String;
+    content: string;
 
     @Prop({ required: true, type: Number, trim: true})
-    price: Number;
+    price: number;
 
     @Prop({ required: true, type: Number, trim: true, default: 1 })
-    quantity: Number;
+    quantity: number;
 
     @Prop({ required: false, type: Number, trim: true, default: 0 })
-    maxWeight: Number;
+    maxWeight: number;
 
     @Prop({ required: false, type: Number, trim: true, default: 0 })
-    purchase: Number;
+    purchase: number;
 
     @Prop({ required: true, type: String, trim: true, default: 'DTN' })
-    currency: String;
+    currency: string;
 
     @Prop(raw({
+        destination: { required: false, trim: true, type: String, select: true },
+        type: { required: false, trim: true, type: String, select: true },
+        extension: { required: false, trim: true, type: String, select: true },
+        originalname: { required: false, trim: true, type: String, select: true },
+        filename: { required: false, trim: true, type: String, select: true },
+        size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true }
     }))
     files: Record<string, any>[];
       
@@ -54,7 +60,7 @@ export class Product extends DefaultModel{
     user: User
 
     @Prop({ required: true, type: Boolean, default: false })
-    status: Boolean
+    status: boolean
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

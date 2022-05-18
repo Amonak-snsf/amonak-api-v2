@@ -4,16 +4,16 @@ import { User } from "src/users/entities/user.entity";
 import { DefaultModel } from "src/utils/default-model";
 export declare type PublicationDocument = Publication & Document;
 export declare class Publication extends DefaultModel {
-    content: String;
+    content: string;
     files: Record<string, any>[];
     product: Product;
     user: User;
-    status: Boolean;
-    type: String;
-    saleType: String;
-    alerteName: String;
-    alerteType: String;
-    alerteDuration: String;
-    publicity: String;
+    status: boolean;
+    type: string;
+    saleType: string;
+    alerteName: string;
+    alerteType: string;
+    alerteDuration: string;
+    publicity: string;
 }
 export declare const PublicationSchema: mongoose.Schema<mongoose.Document<Publication, any, any>, mongoose.Model<mongoose.Document<Publication, any, any>, any, any, any>, {}, {}>;

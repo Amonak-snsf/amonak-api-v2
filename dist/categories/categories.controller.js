@@ -19,15 +19,12 @@ const categories_service_1 = require("./categories.service");
 const create_category_dto_1 = require("./dto/create-category.dto");
 const filter_category_dto_1 = require("./dto/filter-category.dto");
 const update_category_dto_1 = require("./dto/update-category.dto");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
-const platform_express_1 = require("@nestjs/platform-express");
 let CategoriesController = class CategoriesController {
     constructor(categoriesService) {
         this.categoriesService = categoriesService;
     }
-    create(createCategoryDto, file, res) {
-        return this.categoriesService.create(createCategoryDto, file, res);
+    create(createCategoryDto, res) {
+        return this.categoriesService.create(createCategoryDto, res);
     }
     findAll(params, res) {
         return this.categoriesService.findAll(params, res);
@@ -45,10 +42,9 @@ let CategoriesController = class CategoriesController {
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFile)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto, Object, Object]),
+    __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto, Object]),
     __metadata("design:returntype", void 0)
 ], CategoriesController.prototype, "create", null);
 __decorate([
@@ -90,13 +86,6 @@ CategoriesController = __decorate([
         name: 'lang',
         description: 'language',
     }),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter,
-    })),
     (0, common_1.Controller)('api/categories'),
     __metadata("design:paramtypes", [categories_service_1.CategoriesService])
 ], CategoriesController);

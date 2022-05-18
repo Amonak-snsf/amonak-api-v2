@@ -1,10 +1,11 @@
+/* eslint-disable prettier/prettier */
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MailService } from 'src/mail/mail.service';
 import { User, UserDocument } from 'src/users/entities/user.entity';
-import { customFiles, userDataPopulateWithTopten } from 'src/utils/helpers';
+import { userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, create, destroy, one, put } from 'src/utils/query';
 import { CreateToptenDto } from './dto/create-topten.dto';
 import { UpdateToptenDto } from './dto/update-topten.dto';
@@ -19,15 +20,10 @@ export class ToptensService {
   private configService: ConfigService, private mailService: MailService,
   ) {}
 
-  async create(cTdo: CreateToptenDto, files, res) {
+  async create(cTdo: CreateToptenDto, res) {
     this.data = cTdo;
 
-    const custom_files = customFiles(files);
-    if(custom_files){
-      this.data.files = custom_files;
-    }
-
-    let d = new Date();
+    const d = new Date();
     this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
 
     const data = await create(this.toptenModel, this.data, 'user', userDataPopulateWithTopten());

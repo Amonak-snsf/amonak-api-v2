@@ -7,10 +7,10 @@ export declare class Notification extends DefaultModel {
     from: User;
     to: User;
     publication: Publication;
-    content: String;
-    comment: String;
-    type: String;
-    status: Boolean;
+    content: string;
+    comment: string;
+    type: string;
+    status: boolean;
     seenAt: Date;
     readAt: Date;
 }

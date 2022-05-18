@@ -5,7 +5,7 @@ import { FilterMessage } from './dto/filter-message.dto';
 export declare class MessagesController {
     private readonly messagesService;
     constructor(messagesService: MessagesService);
-    create(createMessageDto: CreateMessageDto, files: any, res: any): Promise<any>;
+    create(createMessageDto: CreateMessageDto, res: any): Promise<any>;
     findAll(params: FilterMessage, res: any): Promise<any>;
     findOne(_id: string, res: any): Promise<any>;
     update(_id: string, updateMessageDto: UpdateMessageDto, res: any): Promise<any>;

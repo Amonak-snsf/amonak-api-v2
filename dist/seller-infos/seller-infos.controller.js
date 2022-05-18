@@ -17,9 +17,6 @@ const common_1 = require("@nestjs/common");
 const seller_infos_service_1 = require("./seller-infos.service");
 const update_seller_info_dto_1 = require("./dto/update-seller-info.dto");
 const swagger_1 = require("@nestjs/swagger");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const update_seller_status_dto_1 = require("./dto/update-seller-status.dto");
 const filter_seller_dto_1 = require("./dto/filter-seller.dto");
 let SellerInfosController = class SellerInfosController {
@@ -32,8 +29,8 @@ let SellerInfosController = class SellerInfosController {
     findOne(user, res) {
         return this.sellerInfosService.findOne(user, res);
     }
-    update(user, updateSellerInfoDto, file, files, res) {
-        return this.sellerInfosService.update(user, updateSellerInfoDto, file, files, res);
+    update(user, updateSellerInfoDto, res) {
+        return this.sellerInfosService.update(user, updateSellerInfoDto, res);
     }
     manageSellerInfoStatus(user, upDto, res) {
         return this.sellerInfosService.manageSellerInfoStatus(user, upDto.status, res);
@@ -56,27 +53,12 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SellerInfosController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('identityCard', {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter2,
-    }), (0, platform_express_1.FilesInterceptor)('files', 5, {
-        storage: (0, multer_1.diskStorage)({
-            destination: file_uploading_1.fileDestination,
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter3,
-    })),
     (0, common_1.Patch)('seller-requests/:user'),
     __param(0, (0, common_1.Param)('user')),
     __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.UploadedFile)()),
-    __param(3, (0, common_1.UploadedFiles)()),
-    __param(4, (0, common_1.Res)()),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_seller_info_dto_1.UpdateSellerInfoDto, Object, Object, Object]),
+    __metadata("design:paramtypes", [String, update_seller_info_dto_1.UpdateSellerInfoDto, Object]),
     __metadata("design:returntype", void 0)
 ], SellerInfosController.prototype, "update", null);
 __decorate([

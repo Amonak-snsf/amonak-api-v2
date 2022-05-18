@@ -7,6 +7,6 @@ export declare class SellerInfosController {
     constructor(sellerInfosService: SellerInfosService);
     findAll(params: FilterSeller, res: any): Promise<import("./entities/seller-info.entity").SellerInfo[]>;
     findOne(user: string, res: any): Promise<any>;
-    update(user: string, updateSellerInfoDto: UpdateSellerInfoDto, file: any, files: any, res: any): Promise<any>;
+    update(user: string, updateSellerInfoDto: UpdateSellerInfoDto, res: any): Promise<any>;
     manageSellerInfoStatus(user: string, upDto: UpdateSellerStatusDto, res: any): Promise<any>;
 }

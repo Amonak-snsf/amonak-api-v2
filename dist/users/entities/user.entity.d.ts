@@ -14,7 +14,7 @@ export declare class User extends DefaultModel {
     gender: string;
     birthDay: string;
     birthPlace: string;
-    avatar: string;
+    avatar: Record<string, any>[];
     profession: string;
     sectors: string[];
     address: Record<string, any>[];

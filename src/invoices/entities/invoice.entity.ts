@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Cart } from 'src/carts/entities/cart.entity';
@@ -11,25 +12,25 @@ export class Invoice extends Cart {
     cart: Cart
 
     @Prop({ required: false, type: String, default: '' })
-    comment: String
+    comment: string
 
     @Prop({ required: false, type: String, default: '' })
-    paymentType: String
+    paymentType: string
 
     @Prop({ required: false, type: String, default: '' })
-    paymentMethod: String
+    paymentMethod: string
 
     @Prop({ required: false, type: Date, default: '' })
     paymentDate: Date
 
     @Prop({ required: false, type: String, default: '' })
-    paymentReference: String
+    paymentReference: string
 
     @Prop({ required: true, type: String })
-    invoiceUrl: String;
+    invoiceUrl: string;
 
     @Prop({ required: false, type: String })
-    transactionId: String;
+    transactionId: string;
 }
 
 export  const InvoiceSchema = SchemaFactory.createForClass(Invoice);

@@ -22,10 +22,7 @@ let CategoriesService = class CategoriesService {
     constructor(categoryModel) {
         this.categoryModel = categoryModel;
     }
-    async create(createCategoryDto, file, res) {
-        if (file) {
-            createCategoryDto.image = `/${file.path}`;
-        }
+    async create(createCategoryDto, res) {
         const data = await (0, query_1.createIfne)(this.categoryModel, createCategoryDto, { name: createCategoryDto.name });
         return res.status(common_1.HttpStatus.OK).json(data);
     }

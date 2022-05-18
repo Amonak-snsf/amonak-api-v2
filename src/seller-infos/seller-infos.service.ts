@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
@@ -5,7 +6,7 @@ import { Model } from 'mongoose';
 import { MailService } from 'src/mail/mail.service';
 import { AccountType } from 'src/users/dto/user-account-type.enum';
 import { User, UserDocument } from 'src/users/entities/user.entity';
-import { customFiles, userAddress, userDataPopulateWithTopten } from 'src/utils/helpers';
+import {  userAddress, userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, one, put } from 'src/utils/query';
 import { Status } from './dto/status-seller-info';
 import { UpdateSellerInfoDto } from './dto/update-seller-info.dto';
@@ -35,22 +36,9 @@ export class SellerInfosService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(user: string, upDto: UpdateSellerInfoDto, file, files, res) {
+  async update(user: string, upDto: UpdateSellerInfoDto, res) {
     this.data = upDto;
-    
-    if(file && file.path){
-      const fileReponse = {
-        url: `/${file.path}`,
-        type: file.mimetype
-      };
-      this.data.identityCard = fileReponse;
-    }
-    
-    const custom_files = customFiles(files);
-    if(custom_files){
-      this.data.files = custom_files;
-    }
-    
+
     const address = userAddress(upDto.address);
     if(address){
       this.data.address = address;

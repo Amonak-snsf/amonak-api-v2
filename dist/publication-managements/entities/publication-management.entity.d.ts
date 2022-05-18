@@ -6,8 +6,8 @@ export declare type PubManagementDocument = PublicationManagement & Document;
 export declare class PublicationManagement extends DefaultModel {
     publication: Publication;
     user: User;
-    type: String;
-    reason: String;
-    status: Boolean;
+    type: string;
+    reason: string;
+    status: boolean;
 }
 export declare const PubManagementSchema: mongoose.Schema<mongoose.Document<PublicationManagement, any, any>, mongoose.Model<mongoose.Document<PublicationManagement, any, any>, any, any, any>, {}, {}>;

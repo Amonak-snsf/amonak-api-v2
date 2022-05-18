@@ -5,7 +5,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 export declare class CommentsController {
     private readonly commentsService;
     constructor(commentsService: CommentsService);
-    create(createCommentDto: CreateCommentDto, files: any, res: any): Promise<any>;
+    create(createCommentDto: CreateCommentDto, res: any): Promise<any>;
     findAll(params: FilterComment, res: any): Promise<any>;
     findOne(_id: string, res: any): Promise<any>;
     update(_id: string, updateCommentDto: UpdateCommentDto, res: any): Promise<any>;

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IsIn } from "class-validator";
 import * as mongoose from 'mongoose';
@@ -14,26 +15,26 @@ export class Cart extends DefaultModel{
     user: User
 
     @Prop({ required: false, type: Number, default: 0 })
-    amount: Number;
+    amount: number;
 
     @Prop({ required: false, type: Number, default: 0 })
-    tax: Number;
+    tax: number;
 
     @Prop({ required: false, type: Number, default: 0 })
-    shipping: Number;
+    shipping: number;
 
     @Prop({ required: false, type: Number, default: 0 })
-    percentage: Number;
+    percentage: number;
 
     @Prop({ required: false, type: String, default: CartStatus.unpaid })
     @IsIn([CartStatus.cancelled, CartStatus.deleted, CartStatus.failed, CartStatus.shippingCost, CartStatus.shippingRequest, CartStatus.successfull, CartStatus.unpaid, CartStatus.booking])
-    status: String;
+    status: string;
 
     @Prop({ required: false, type: Boolean, default: true })
-    isWaiting: Boolean;
+    isWaiting: boolean;
 
     @Prop({ required: false, type: Boolean, default: false })
-    isCompleted: Boolean;
+    isCompleted: boolean;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

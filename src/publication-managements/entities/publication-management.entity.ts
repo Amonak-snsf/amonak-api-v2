@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, SchemaFactory } from "@nestjs/mongoose"
 import { Publication } from "src/publications/entities/publication.entity"
 import * as mongoose from 'mongoose';
@@ -15,13 +16,13 @@ export class PublicationManagement extends DefaultModel {
     user: User
 
     @Prop({ required: false, type: String })
-    type: String
+    type: string
 
     @Prop({ required: false, type: String })
-    reason: String
+    reason: string
 
     @Prop({ required: false, type: Boolean, default: true })
-    status: Boolean
+    status: boolean
 }
 
 export const PubManagementSchema = SchemaFactory.createForClass(PublicationManagement);

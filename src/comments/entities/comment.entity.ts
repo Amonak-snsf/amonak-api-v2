@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Publication } from "src/publications/entities/publication.entity";
 import { User } from "src/users/entities/user.entity";
@@ -10,11 +11,16 @@ export type CommentDocument = Comment & Document;
 export class Comment extends DefaultModel{
     
     @Prop({ required: false, type: String, trim: true })
-    content: String;
+    content: string;
 
     @Prop(raw({
+        destination: { required: false, trim: true, type: String, select: true },
+        type: { required: false, trim: true, type: String, select: true },
+        extension: { required: false, trim: true, type: String, select: true },
+        originalname: { required: false, trim: true, type: String, select: true },
+        filename: { required: false, trim: true, type: String, select: true },
+        size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true }
     }))
     files: Record<string, any>[];
       
@@ -25,7 +31,7 @@ export class Comment extends DefaultModel{
     user: User
 
     @Prop({ required: true, type: Boolean, default: true })
-    status: Boolean
+    status: boolean
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);

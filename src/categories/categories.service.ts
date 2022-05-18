@@ -10,11 +10,7 @@ import { Category, CategoryDocument } from './entities/category.entity';
 export class CategoriesService {
   constructor(@InjectModel(Category.name) private readonly categoryModel: Model<CategoryDocument>){}
 
-  async create(createCategoryDto: CreateCategoryDto, file, res) {
-
-    if(file){
-      createCategoryDto.image = `/${file.path}`;
-    }
+  async create(createCategoryDto: CreateCategoryDto, res) {
 
     const data = await createIfne(this.categoryModel, createCategoryDto, { name: createCategoryDto.name });
 

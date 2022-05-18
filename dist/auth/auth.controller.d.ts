@@ -6,7 +6,7 @@ import { UsernamePasswordAuthDto } from './dto/username-password-auth.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    register(createAuthDto: CreateAuthDto, file: any, res: any): Promise<any>;
+    register(createAuthDto: CreateAuthDto, res: any): Promise<any>;
     checkToken(tokenId: string, res: any): Promise<any>;
     resentActivationEmail(emailAuth: EmailAuthDto, res: any): Promise<any>;
     activate(token: number, res: any): Promise<any>;

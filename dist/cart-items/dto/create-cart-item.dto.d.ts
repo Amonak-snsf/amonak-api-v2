@@ -1,9 +1,9 @@
 import { CreateCartDto } from "src/carts/dto/create-cart.dto";
-declare const CreateCartItemDto_base: import("@nestjs/common").Type<Partial<Omit<CreateCartDto, "status" | "user" | "amount" | "isWaiting" | "isCompleted">>>;
+declare const CreateCartItemDto_base: import("@nestjs/common").Type<Partial<Omit<CreateCartDto, "amount" | "isCompleted" | "isWaiting" | "status" | "user">>>;
 export declare class CreateCartItemDto extends CreateCartItemDto_base {
-    cart: String;
-    product: String;
-    quantity: Number;
-    price: Number;
+    cart: string;
+    product: string;
+    quantity: number;
+    price: number;
 }
 export {};

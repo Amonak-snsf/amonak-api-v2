@@ -1,4 +1,5 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+/* eslint-disable prettier/prettier */
+import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from "mongoose"
 import { DefaultModel } from "src/utils/default-model";
 
@@ -8,16 +9,24 @@ export type CategoryDocument = Category & Document;
 export class Category extends DefaultModel{
 
     @Prop({ type: String, required: true, trim: true, unique: true })
-    name: String;
+    name: string;
 
     @Prop({ type: String, required: false, trim: true })
-    description: String;
+    description: string;
 
-    @Prop({ type: String, required: false, trim: true })
-    image: String;
+    @Prop(raw({
+        destination: { required: false, trim: true, type: String, select: true },
+        type: { required: false, trim: true, type: String, select: true },
+        extension: { required: false, trim: true, type: String, select: true },
+        originalname: { required: false, trim: true, type: String, select: true },
+        filename: { required: false, trim: true, type: String, select: true },
+        size: { required: false, trim: true, type: Number, select: true},
+        url: { required: false, trim: true, type: String, select: true },
+    }))
+    files: Record<string, any>[];
 
     @Prop({ type: Boolean, required: true, default: false })
-    status: Boolean;
+    status: boolean;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category)

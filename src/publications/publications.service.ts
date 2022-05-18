@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -8,7 +9,6 @@ import { CreatePublicationDto } from './dto/create-publication.dto';
 import { PublicationType } from './dto/publication-type.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
 import { Publication, PublicationDocument } from './entities/publication.entity';
-
 @Injectable()
 export class PublicationsService {
   constructor(
@@ -16,14 +16,10 @@ export class PublicationsService {
      private productService: ProductsService
   ){}
 
-  async create(body: CreatePublicationDto, files, res) {
-
-    if(files){
-      body.files = customFiles(files);
-    }
+  async create(body: CreatePublicationDto, res) {
 
     if(body.type == PublicationType.sale){
-      const product = await this.productService.create(saleBody(body), files, res);
+      const product = await this.productService.create(saleBody(body), res);
       body.product = product._id;
     }
 

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { User } from "src/users/entities/user.entity";
 import * as mongoose from 'mongoose';
@@ -21,17 +22,17 @@ export class Notification extends DefaultModel{
   publication: Publication
 
   @Prop({ required: false, type: String })
-  content: String;
+  content: string;
 
   @Prop({ required: false, type: String })
-  comment: String;
+  comment: string;
 
   @Prop({ required: true, type: String, default: NotificationType.all })
   @IsIn([NotificationType.all, NotificationType.comment, NotificationType.friendRequest, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])
-  type: String;
+  type: string;
 
   @Prop({ required: true, type: Boolean, default: true })
-  status: Boolean;
+  status: boolean;
 
   @Prop({ required: false })
   seenAt: Date;

@@ -5,15 +5,15 @@ import { DefaultModel } from 'src/utils/default-model';
 export declare type SellerInfoDocument = SellerInfo & Document;
 export declare class SellerInfo extends DefaultModel {
     user: User;
-    status: Number;
+    status: number;
     files: Record<string, any>[];
-    identityCard: Record<string, any>;
-    message: String;
-    email: String;
-    phone: String;
-    registerNumber: String;
+    identityCard: Record<string, any>[];
+    message: string;
+    email: string;
+    phone: string;
+    registerNumber: string;
     address: Record<string, any>;
-    productNature: String[];
-    type: String;
+    productNature: string[];
+    type: string;
 }
 export declare const SellerInfoSchema: mongoose.Schema<Document<SellerInfo, any, any>, mongoose.Model<Document<SellerInfo, any, any>, any, any, any>, {}, {}>;

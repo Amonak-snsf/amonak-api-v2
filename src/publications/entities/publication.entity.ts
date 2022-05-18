@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IsIn } from "class-validator";
 import * as mongoose from 'mongoose';
@@ -12,13 +13,18 @@ export type PublicationDocument = Publication & Document;
 export class Publication extends DefaultModel{
 
     @Prop({ required: false, type: String, trim: true })
-    content: String;
+    content: string;
 
     @Prop(raw({
+        destination: { required: false, trim: true, type: String, select: true },
+        type: { required: false, trim: true, type: String, select: true },
+        extension: { required: false, trim: true, type: String, select: true },
+        originalname: { required: false, trim: true, type: String, select: true },
+        filename: { required: false, trim: true, type: String, select: true },
+        size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true }
-    }))
-    files: Record<string, any>[];
+      }))
+      files: Record<string, any>[];
       
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Product' })
     product: Product
@@ -27,28 +33,28 @@ export class Publication extends DefaultModel{
     user: User
 
     @Prop({ required: true, type: Boolean, default: true })
-    status: Boolean
+    status: boolean
 
     @Prop({ required: true, type: String, trim: true, default: PublicationType.default })
     @IsIn([PublicationType.alerte, PublicationType.default, PublicationType.post, PublicationType.publicity, PublicationType.sale, PublicationType.share])
-    type: String;
+    type: string;
 
     @Prop({ required: false, type: String, trim: true })
     @IsIn([SaleType.default])
-    saleType: String;
+    saleType: string;
 
     @Prop({ required: false, type: String, trim: true })
-    alerteName: String;
+    alerteName: string;
 
     @Prop({ required: false, type: String, trim: true })
     @IsIn([AlerteType.default])
-    alerteType: String;
+    alerteType: string;
 
     @Prop({ required: false, type: String, trim: true })
-    alerteDuration: String;
+    alerteDuration: string;
 
     @Prop({ required: false, type: String, trim: true })
-    publicity: String;
+    publicity: string;
 }
 
 export const PublicationSchema = SchemaFactory.createForClass(Publication);

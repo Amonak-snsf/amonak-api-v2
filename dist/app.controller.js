@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
+const file_uploading_1 = require("./utils/file-uploading");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
@@ -22,14 +25,22 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    staticImagesAvatar(file_name, res) {
-        return res.sendFile(file_name, { root: './static/images/avatar' });
-    }
-    staticImagesUploads(file_name, res) {
-        return res.sendFile(file_name, { root: './static/images/uploads' });
-    }
-    staticVideosAvatar(file_name, res) {
-        return res.sendFile(file_name, { root: './static/videos/uploads' });
+    upload(files, res) {
+        const data = [];
+        if (files) {
+            for (const file of files) {
+                data.push({
+                    destination: file.destination.replace('./static/', ''),
+                    type: file.mimetype.split('/')[0],
+                    extension: file.mimetype.split('/')[1],
+                    originalname: file.originalname,
+                    filename: file.filename,
+                    size: file.size,
+                    url: `${file.destination.replace('./static/', '')}/${file.filename}`
+                });
+            }
+        }
+        return res.status(200).json(data);
     }
     staticVideossUploads(file_name, res) {
         return res.sendFile(file_name, { root: './static' });
@@ -42,29 +53,20 @@ __decorate([
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
 __decorate([
-    (0, common_1.Get)('static/images/avatar/:file_name'),
-    __param(0, (0, common_1.Param)('file_name')),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
+        storage: (0, multer_1.diskStorage)({
+            destination: file_uploading_1.fileDestination,
+            filename: file_uploading_1.editFileName,
+        }),
+        fileFilter: file_uploading_1.allImageFileFilter,
+    })),
+    (0, common_1.Post)('api/uploads'),
+    __param(0, (0, common_1.UploadedFiles)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
-], AppController.prototype, "staticImagesAvatar", null);
-__decorate([
-    (0, common_1.Get)('static/images/uploads/:file_name'),
-    __param(0, (0, common_1.Param)('file_name')),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "staticImagesUploads", null);
-__decorate([
-    (0, common_1.Get)('static/videos/uploads/:file_name'),
-    __param(0, (0, common_1.Param)('file_name')),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "staticVideosAvatar", null);
+], AppController.prototype, "upload", null);
 __decorate([
     (0, common_1.Get)('static/:file_name'),
     __param(0, (0, common_1.Param)('file_name')),

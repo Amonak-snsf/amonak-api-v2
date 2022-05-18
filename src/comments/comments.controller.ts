@@ -1,8 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, Res, UploadedFiles, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
-import { editFileName, fileDestination, imageFileFilter3 } from 'src/utils/file-uploading';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { FilterComment } from './dto/filter-comment.dto';
@@ -14,23 +13,13 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
   description: 'language', 
 })
 
-@UseInterceptors(
-  FilesInterceptor('files', 5, {
-    storage: diskStorage({
-      destination: fileDestination,
-      filename: editFileName,
-    }),
-    fileFilter: imageFileFilter3,
-}),
-)
-
 @Controller('api/comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto, @UploadedFiles() files, @Res() res) {
-    return this.commentsService.create(createCommentDto, files, res);
+  create(@Body() createCommentDto: CreateCommentDto, @Res() res) {
+    return this.commentsService.create(createCommentDto, res);
   }
 
   @Get()

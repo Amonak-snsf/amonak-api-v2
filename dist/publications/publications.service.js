@@ -26,12 +26,9 @@ let PublicationsService = class PublicationsService {
         this.publicationModel = publicationModel;
         this.productService = productService;
     }
-    async create(body, files, res) {
-        if (files) {
-            body.files = (0, helpers_1.customFiles)(files);
-        }
+    async create(body, res) {
         if (body.type == publication_type_dto_1.PublicationType.sale) {
-            const product = await this.productService.create((0, helpers_1.saleBody)(body), files, res);
+            const product = await this.productService.create((0, helpers_1.saleBody)(body), res);
             body.product = product._id;
         }
         const data = await (0, query_1.create)(this.publicationModel, body, 'user', (0, helpers_1.userDataPopulateWithTopten)());

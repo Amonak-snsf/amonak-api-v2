@@ -23,11 +23,7 @@ let ProductsService = class ProductsService {
     constructor(productModel) {
         this.productModel = productModel;
     }
-    async create(createProductDto, files, res) {
-        const custom_files = (0, helpers_1.customFiles)(files);
-        if (custom_files) {
-            createProductDto.files = custom_files;
-        }
+    async create(createProductDto, res) {
         const address = (0, helpers_1.userAddress)(createProductDto.address);
         if (address) {
             createProductDto.address = address;
@@ -52,11 +48,7 @@ let ProductsService = class ProductsService {
         const data = await (0, query_1.one)(this.productModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(_id, updateProductDto, files, res) {
-        const custom_files = (0, helpers_1.customFiles)(files);
-        if (custom_files) {
-            updateProductDto.files = custom_files;
-        }
+    async update(_id, updateProductDto, res) {
         const address = (0, helpers_1.userAddress)(updateProductDto.address);
         if (address) {
             updateProductDto.address = address;

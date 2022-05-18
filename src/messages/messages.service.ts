@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { customFiles } from 'src/utils/helpers';
 import { all, create, destroy, one, put } from 'src/utils/query';
 import { Message, MessageDocument } from './entities/message.entity';
 
@@ -9,12 +8,7 @@ import { Message, MessageDocument } from './entities/message.entity';
 export class MessagesService {
   constructor(@InjectModel(Message.name) private readonly messageModel: Model<MessageDocument>){}
 
-  async create(createMessageDto, files) {
-    
-    const custom_files = customFiles(files);
-    if(custom_files){
-      createMessageDto.files = custom_files;
-    }
+  async create(createMessageDto) {
     
     const data = await create(this.messageModel, createMessageDto);
 

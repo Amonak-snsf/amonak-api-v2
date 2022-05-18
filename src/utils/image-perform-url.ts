@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const imagePerform = (data, staticUrl: string) => {
     if (data.length) {
         return data.map(elt => {
