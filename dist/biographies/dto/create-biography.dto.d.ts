@@ -1,4 +1,4 @@
-import { User } from 'src/users/entities/user.entity';
+import { User } from "src/users/entities/user.entity";
 export declare class CreateBiographyDto {
     relationShip: string;
     familyMember: User[];
@@ -8,6 +8,6 @@ export declare class CreateBiographyDto {
     confessions: string[];
     languages: string[];
     webSites: string[];
-    networks: String;
+    networks: string;
     status: string;
 }

@@ -13,6 +13,7 @@ var PublicationType;
 var AlerteType;
 (function (AlerteType) {
     AlerteType["default"] = "default";
+    AlerteType["urgent"] = "urgent";
 })(AlerteType = exports.AlerteType || (exports.AlerteType = {}));
 var AlerteDuration;
 (function (AlerteDuration) {

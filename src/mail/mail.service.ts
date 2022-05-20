@@ -42,7 +42,7 @@ export class MailService {
     let date = new Date();
 
     await this.mailerService.sendMail({
-      to: this.config.get('admin_email'),
+      to: this.config.get('adminEmail'),
       subject: 'Contact',
       template: 'admin',
       context: { 
@@ -51,7 +51,7 @@ export class MailService {
         year: date.getFullYear(),
         message: data.message,
         subject: data.subject,
-        admin: this.config.get('admin_email')
+        admin: this.config.get('adminEmail')
       },
     });
   }

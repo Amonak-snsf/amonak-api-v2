@@ -26,15 +26,17 @@ __decorate([
     __metadata("design:type", Array)
 ], Topten.prototype, "followers", void 0);
 __decorate([
-    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        destination: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true },
-        extension: { required: false, trim: true, type: String, select: true },
-        originalname: { required: false, trim: true, type: String, select: true },
-        filename: { required: false, trim: true, type: String, select: true },
-        size: { required: false, trim: true, type: Number, select: true },
-        url: { required: false, trim: true, type: String, select: true },
-    })),
+    (0, mongoose_1.Prop)([
+        (0, mongoose_1.raw)({
+            destination: { required: false, trim: true, type: String, select: true },
+            type: { required: false, trim: true, type: String, select: true },
+            extension: { required: false, trim: true, type: String, select: true },
+            originalname: { required: false, trim: true, type: String, select: true },
+            filename: { required: false, trim: true, type: String, select: true },
+            size: { required: false, trim: true, type: Number, select: true },
+            url: { required: false, trim: true, type: String, select: true },
+        })
+    ]),
     __metadata("design:type", Array)
 ], Topten.prototype, "files", void 0);
 __decorate([

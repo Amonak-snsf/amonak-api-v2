@@ -4,6 +4,7 @@ import { Exclude, Expose } from 'class-transformer';
 import * as mongoose from 'mongoose';
 import { Friend } from 'src/friends/entities/friend.entity';
 import { DefaultModel } from 'src/utils/default-model';
+import { Files } from '../dto/file-interface';
 import { AccountType } from '../dto/user-account-type.enum';
 
 export type UserDocument = User & Document;
@@ -47,16 +48,18 @@ export class User extends DefaultModel {
   @Prop({ required: false, trim: true, type: String })
   birthPlace: string;
 
-  @Prop(raw({
-    destination: { required: false, trim: true, type: String, select: true },
-    type: { required: false, trim: true, type: String, select: true },
-    extension: { required: false, trim: true, type: String, select: true },
-    originalname: { required: false, trim: true, type: String, select: true },
-    filename: { required: false, trim: true, type: String, select: true },
-    size: { required: false, trim: true, type: Number, select: true},
-    url: { required: false, trim: true, type: String, select: true },
-  }))
-  avatar: Record<string, any>[];
+  @Prop([
+    raw({
+    destination: { required: false, trim: true, type: String },
+    type: { required: false, trim: true, type: String },
+    extension: { required: false, trim: true, type: String },
+    originalname: { required: false, trim: true, type: String },
+    filename: { required: false, trim: true, type: String },
+    size: { required: false, trim: true, type: Number },
+    url: { required: false, trim: true, type: String },
+    })
+  ])
+  avatar: [];
 
   @Prop({ required: false, trim: true, type: String })
   profession: string;
@@ -64,7 +67,7 @@ export class User extends DefaultModel {
   @Prop([String])
   sectors: string[];
 
-  @Prop(raw({
+  @Prop([raw({
     countryName: { required: false, trim: true, type: String },
     countryCode: { required: false, trim: true, type: String },
     state: { required: false, trim: true, type: String },
@@ -72,11 +75,11 @@ export class User extends DefaultModel {
     postalCode: { required: false, trim: true, type: String },
     street: { required: false, trim: true, type: String },
     fullAddress: { required: false, trim: true, type: String }
-  }))
-  address: Record<string, any>[];
+  })])
+  address: [];
 
   @Prop(raw({
-    number: { required: false, trim: true, type: String, select: false },
+    number: { required: false, trim: true, type: String },
     cvc: { required: false, trim: true, type: String, select: false },
     zip: { required: false, trim: true, type: String, select: false },
     address: { required: false, trim: true, type: String }

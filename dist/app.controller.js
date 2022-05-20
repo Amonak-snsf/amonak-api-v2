@@ -19,6 +19,7 @@ const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const file_uploading_1 = require("./utils/file-uploading");
 const config_1 = require("@nestjs/config");
+const fs = require("fs");
 let AppController = class AppController {
     constructor(appService, config) {
         this.appService = appService;
@@ -27,7 +28,7 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    upload(files, res) {
+    upload(files, res, req) {
         const data = [];
         if (files) {
             for (const file of files) {
@@ -45,8 +46,16 @@ let AppController = class AppController {
         }
         return res.status(200).json(data);
     }
-    staticVideossUploads(file_name, res) {
-        return res.sendFile(file_name, { root: './static' });
+    remove(path, res) {
+        let status = true;
+        try {
+            fs.unlinkSync(`./static/${path}`);
+        }
+        catch (err) {
+            status = false;
+            console.log(err.message);
+        }
+        return res.status(200).json(status);
     }
 };
 __decorate([
@@ -66,18 +75,19 @@ __decorate([
     (0, common_1.Post)('api/uploads'),
     __param(0, (0, common_1.UploadedFiles)()),
     __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "upload", null);
 __decorate([
-    (0, common_1.Get)('static/:file_name'),
-    __param(0, (0, common_1.Param)('file_name')),
+    (0, common_1.Post)('api/remove'),
+    __param(0, (0, common_1.Body)('path')),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
-], AppController.prototype, "staticVideossUploads", null);
+], AppController.prototype, "remove", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService, config_1.ConfigService])

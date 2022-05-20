@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors, Body } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, fileDestination, allImageFileFilter } from 'src/utils/file-uploading';
 import { ConfigService } from '@nestjs/config';
+import * as path from 'path';
+import * as fs from 'fs';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService, private config: ConfigService) {}
@@ -24,7 +26,7 @@ export class AppController {
   }),
   )
   @Post('api/uploads')
-  upload(@UploadedFiles() files, @Res() res) {
+  upload(@UploadedFiles() files, @Res() res, @Req() req) {
     
     const data: Array<Record<string, any>> = [];
 
@@ -42,11 +44,16 @@ export class AppController {
         })
       }
     }
+
     return res.status(200).json(data)
   }
 
-  @Get('static/:file_name')
-    staticVideossUploads(@Param('file_name') file_name: string, @Res() res) {
-      return res.sendFile(file_name, { root: './static' });
+  @Post('api/remove')
+    remove(@Body('path') path: string, @Res() res) {
+      
+      let status = true;
+      try{fs.unlinkSync(`./static/${path}`)}
+      catch(err){status = false; console.log(err.message)}
+      return res.status(200).json(status);
   }
 }

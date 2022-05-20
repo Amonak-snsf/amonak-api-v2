@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Category } from "src/categories/entities/category.entity";
+import { Files } from "src/users/dto/file-interface";
 import { User } from "src/users/entities/user.entity";
 import { DefaultModel } from "src/utils/default-model";
 export declare type ProductDocument = Product & Document;
@@ -9,10 +10,9 @@ export declare class Product extends DefaultModel {
     price: number;
     quantity: number;
     maxWeight: number;
-    purchase: number;
     currency: string;
-    files: Record<string, any>[];
-    address: Record<string, any>;
+    files: Files[];
+    address: [];
     category: Category;
     user: User;
     status: boolean;

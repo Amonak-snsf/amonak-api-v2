@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from "mongoose"
+import { Files } from "src/users/dto/file-interface";
 import { DefaultModel } from "src/utils/default-model";
 
 export type CategoryDocument = Category & Document;
@@ -14,7 +15,8 @@ export class Category extends DefaultModel{
     @Prop({ type: String, required: false, trim: true })
     description: string;
 
-    @Prop(raw({
+    @Prop([
+        raw({
         destination: { required: false, trim: true, type: String, select: true },
         type: { required: false, trim: true, type: String, select: true },
         extension: { required: false, trim: true, type: String, select: true },
@@ -22,8 +24,9 @@ export class Category extends DefaultModel{
         filename: { required: false, trim: true, type: String, select: true },
         size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-    }))
-    files: Record<string, any>[];
+        })
+    ])
+    files: Files[];
 
     @Prop({ type: Boolean, required: true, default: false })
     status: boolean;

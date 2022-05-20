@@ -4,6 +4,7 @@ import { IsIn } from "class-validator";
 import * as mongoose from 'mongoose';
 import { Product } from "src/products/entities/product.entity";
 import { User } from "src/users/entities/user.entity";
+import { Files } from "src/users/dto/file-interface";
 import { DefaultModel } from "src/utils/default-model";
 import { AlerteType, PublicationType, SaleType } from "../dto/publication-type.dto";
 
@@ -15,7 +16,8 @@ export class Publication extends DefaultModel{
     @Prop({ required: false, type: String, trim: true })
     content: string;
 
-    @Prop(raw({
+    @Prop([
+        raw({
         destination: { required: false, trim: true, type: String, select: true },
         type: { required: false, trim: true, type: String, select: true },
         extension: { required: false, trim: true, type: String, select: true },
@@ -23,9 +25,11 @@ export class Publication extends DefaultModel{
         filename: { required: false, trim: true, type: String, select: true },
         size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-      }))
-      files: Record<string, any>[];
-      
+        }
+       )
+    ])
+    files: Files[];
+
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Product' })
     product: Product
 

@@ -1,7 +1,7 @@
-import { Document } from 'mongoose';
-import * as mongoose from 'mongoose';
-import { User } from 'src/users/entities/user.entity';
-import { DefaultModel } from 'src/utils/default-model';
+import { Document } from "mongoose";
+import * as mongoose from "mongoose";
+import { User } from "src/users/entities/user.entity";
+import { DefaultModel } from "src/utils/default-model";
 export declare type BiographyDocument = Biography & Document;
 export declare class Biography extends DefaultModel {
     user: User;

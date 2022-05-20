@@ -1,16 +1,15 @@
 import { Address } from 'src/users/dto/address-interface';
 import { File } from 'src/seller-infos/dto/files-seller-info-interface';
 export declare class CreateProductDto {
-    name: String;
-    content: String;
-    price: Number;
+    name: string;
+    content: string;
+    price: number;
     quantity: Number;
-    maxWeight: Number;
-    purchase: Number;
-    currency: String;
+    maxWeight: number;
+    currency: string;
     files: File[];
     address: Address;
-    category: String;
-    user: String;
-    status: Boolean;
+    category: string;
+    user: string;
+    status: boolean;
 }

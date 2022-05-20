@@ -7,12 +7,13 @@
 /// <reference types="mongoose/types/pipelinestage" />
 /// <reference types="mongoose/types/schemaoptions" />
 import { Document } from "mongoose";
+import { Files } from "src/users/dto/file-interface";
 import { DefaultModel } from "src/utils/default-model";
 export declare type CategoryDocument = Category & Document;
 export declare class Category extends DefaultModel {
     name: string;
     description: string;
-    files: Record<string, any>[];
+    files: Files[];
     status: boolean;
 }
 export declare const CategorySchema: import("mongoose").Schema<Document<Category, any, any>, import("mongoose").Model<Document<Category, any, any>, any, any, any>, {}, {}>;

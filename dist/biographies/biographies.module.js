@@ -18,11 +18,15 @@ let BiographiesModule = class BiographiesModule {
 };
 BiographiesModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserSchema }, { name: biography_entity_1.Biography.name, schema: biography_entity_1.BiographySchema }]),
-            config_1.ConfigModule
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: user_entity_1.User.name, schema: user_entity_1.UserSchema },
+                { name: biography_entity_1.Biography.name, schema: biography_entity_1.BiographySchema },
+            ]),
+            config_1.ConfigModule,
         ],
         controllers: [biographies_controller_1.BiographiesController],
-        providers: [biographies_service_1.BiographiesService]
+        providers: [biographies_service_1.BiographiesService],
     })
 ], BiographiesModule);
 exports.BiographiesModule = BiographiesModule;

@@ -67,15 +67,17 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "birthPlace", void 0);
 __decorate([
-    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        destination: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true },
-        extension: { required: false, trim: true, type: String, select: true },
-        originalname: { required: false, trim: true, type: String, select: true },
-        filename: { required: false, trim: true, type: String, select: true },
-        size: { required: false, trim: true, type: Number, select: true },
-        url: { required: false, trim: true, type: String, select: true },
-    })),
+    (0, mongoose_1.Prop)([
+        (0, mongoose_1.raw)({
+            destination: { required: false, trim: true, type: String },
+            type: { required: false, trim: true, type: String },
+            extension: { required: false, trim: true, type: String },
+            originalname: { required: false, trim: true, type: String },
+            filename: { required: false, trim: true, type: String },
+            size: { required: false, trim: true, type: Number },
+            url: { required: false, trim: true, type: String },
+        })
+    ]),
     __metadata("design:type", Array)
 ], User.prototype, "avatar", void 0);
 __decorate([
@@ -87,20 +89,20 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "sectors", void 0);
 __decorate([
-    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        countryName: { required: false, trim: true, type: String },
-        countryCode: { required: false, trim: true, type: String },
-        state: { required: false, trim: true, type: String },
-        city: { required: false, trim: true, type: String },
-        postalCode: { required: false, trim: true, type: String },
-        street: { required: false, trim: true, type: String },
-        fullAddress: { required: false, trim: true, type: String }
-    })),
+    (0, mongoose_1.Prop)([(0, mongoose_1.raw)({
+            countryName: { required: false, trim: true, type: String },
+            countryCode: { required: false, trim: true, type: String },
+            state: { required: false, trim: true, type: String },
+            city: { required: false, trim: true, type: String },
+            postalCode: { required: false, trim: true, type: String },
+            street: { required: false, trim: true, type: String },
+            fullAddress: { required: false, trim: true, type: String }
+        })]),
     __metadata("design:type", Array)
 ], User.prototype, "address", void 0);
 __decorate([
     (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        number: { required: false, trim: true, type: String, select: false },
+        number: { required: false, trim: true, type: String },
         cvc: { required: false, trim: true, type: String, select: false },
         zip: { required: false, trim: true, type: String, select: false },
         address: { required: false, trim: true, type: String }

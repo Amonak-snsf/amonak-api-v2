@@ -17,7 +17,7 @@ const default_model_1 = require("../../utils/default-model");
 let Biography = class Biography extends default_model_1.DefaultModel {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
+    (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: "User" }),
     __metadata("design:type", user_entity_1.User)
 ], Biography.prototype, "user", void 0);
 __decorate([
@@ -25,7 +25,11 @@ __decorate([
     __metadata("design:type", String)
 ], Biography.prototype, "relationShip", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, trim: true, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
+    (0, mongoose_1.Prop)({
+        required: false,
+        trim: true,
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    }),
     __metadata("design:type", Array)
 ], Biography.prototype, "familyMember", void 0);
 __decorate([
@@ -57,7 +61,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Biography.prototype, "networks", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, trim: true, type: String, default: 'public' }),
+    (0, mongoose_1.Prop)({ required: true, trim: true, type: String, default: "public" }),
     __metadata("design:type", String)
 ], Biography.prototype, "status", void 0);
 Biography = __decorate([

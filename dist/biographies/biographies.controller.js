@@ -29,16 +29,16 @@ let BiographiesController = class BiographiesController {
     }
 };
 __decorate([
-    (0, common_1.Get)(':user'),
-    __param(0, (0, common_1.Param)('user')),
+    (0, common_1.Get)(":user"),
+    __param(0, (0, common_1.Param)("user")),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], BiographiesController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':user'),
-    __param(0, (0, common_1.Param)('user')),
+    (0, common_1.Patch)(":user"),
+    __param(0, (0, common_1.Param)("user")),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -46,12 +46,12 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BiographiesController.prototype, "update", null);
 BiographiesController = __decorate([
-    (0, swagger_1.ApiTags)('biography'),
+    (0, swagger_1.ApiTags)("biography"),
     (0, swagger_1.ApiHeader)({
-        name: 'lang',
-        description: 'language',
+        name: "lang",
+        description: "language",
     }),
-    (0, common_1.Controller)('api/biographies'),
+    (0, common_1.Controller)("api/biographies"),
     __metadata("design:paramtypes", [biographies_service_1.BiographiesService])
 ], BiographiesController);
 exports.BiographiesController = BiographiesController;

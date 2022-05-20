@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import { User } from 'src/users/entities/user.entity';
 import { Status } from '../dto/topten-status-interface';
 import { DefaultModel } from 'src/utils/default-model';
+import { Files } from 'src/users/dto/file-interface';
 
 export type ToptenDocument = Topten & Document;
 
@@ -17,7 +18,8 @@ export class Topten extends DefaultModel {
   @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   followers: User[]
 
-  @Prop(raw({
+  @Prop([
+    raw({
     destination: { required: false, trim: true, type: String, select: true },
     type: { required: false, trim: true, type: String, select: true },
     extension: { required: false, trim: true, type: String, select: true },
@@ -25,8 +27,9 @@ export class Topten extends DefaultModel {
     filename: { required: false, trim: true, type: String, select: true },
     size: { required: false, trim: true, type: Number, select: true},
     url: { required: false, trim: true, type: String, select: true },
-  }))
-  files: Record<string, any>[];
+    })
+  ])
+  files: Files[];
 
   @Prop({ required: false, trim: true, type: String })
   message: string

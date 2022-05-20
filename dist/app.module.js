@@ -57,7 +57,7 @@ AppModule = __decorate([
             platform_express_1.MulterModule.registerAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (configService) => ({
-                    dest: configService.get('file_directory'),
+                    dest: configService.get('fileDirectory'),
                 }),
                 inject: [config_1.ConfigService],
             }),

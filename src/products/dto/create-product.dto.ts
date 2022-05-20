@@ -5,25 +5,22 @@ import { File } from 'src/seller-infos/dto/files-seller-info-interface';
 export class CreateProductDto {
 
     @ApiProperty({ required: true, type: String })
-    name: String;
+    name: string;
 
     @ApiProperty({ required: false, type: String })
-    content: String;
+    content: string;
 
     @ApiProperty({ required: true, type: Number })
-    price: Number;
+    price: number;
 
     @ApiProperty({ required: true, type: Number, default: 1 })
     quantity: Number;
 
     @ApiProperty({ required: false, type: Number, default: 1 })
-    maxWeight: Number;
-
-    @ApiProperty({ required: false, type: Number, default: 0 })
-    purchase: Number;
+    maxWeight: number;
 
     @ApiProperty({ required: false, type: String })
-    currency: String;
+    currency: string;
 
     @ApiProperty({ type: [String]})
     files: File[];
@@ -32,11 +29,11 @@ export class CreateProductDto {
     address: Address;
 
     @ApiProperty({ required: false, type: String })
-    category: String;
+    category: string;
 
     @ApiProperty({ required: true, type: String })
-    user: String;
+    user: string;
 
     @ApiProperty({ required: false, type: Boolean, default: false })
-    status: Boolean;
+    status: boolean;
 }

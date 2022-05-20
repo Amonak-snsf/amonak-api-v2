@@ -1,11 +1,12 @@
 import * as mongoose from 'mongoose';
 import { Product } from "src/products/entities/product.entity";
 import { User } from "src/users/entities/user.entity";
+import { Files } from "src/users/dto/file-interface";
 import { DefaultModel } from "src/utils/default-model";
 export declare type PublicationDocument = Publication & Document;
 export declare class Publication extends DefaultModel {
     content: string;
-    files: Record<string, any>[];
+    files: Files[];
     product: Product;
     user: User;
     status: boolean;

@@ -15,14 +15,13 @@ export declare class CreateUserDto {
     birthPlace: String;
     profession: string;
     sectors: string[];
-    country_infos: string;
     address: Address[];
     bankCard: BankCard;
     friends: Friend[];
     status: Boolean;
     isLog: Boolean;
-    is_first_time: Boolean;
-    is_new_feed: Boolean;
+    isFirstTime: Boolean;
+    isNewFeed: Boolean;
     accountType: string;
     lastConnected: Date;
 }

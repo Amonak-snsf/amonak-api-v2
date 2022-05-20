@@ -1,6 +1,7 @@
+import { Files } from "src/users/dto/file-interface";
 export declare class CreatePublicationDto {
     content: String;
-    files: File[];
+    files: Files[];
     user: String;
     product: String;
     status: Boolean;
@@ -11,4 +12,5 @@ export declare class CreatePublicationDto {
     alerteName: String;
     alerteDuration: String;
     publicity: String;
+    phone: String;
 }

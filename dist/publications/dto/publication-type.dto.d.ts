@@ -7,7 +7,8 @@ export declare enum PublicationType {
     default = "default"
 }
 export declare enum AlerteType {
-    default = "default"
+    default = "default",
+    urgent = "urgent"
 }
 export declare enum AlerteDuration {
     default = "short"

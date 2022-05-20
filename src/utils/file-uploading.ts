@@ -47,7 +47,7 @@ export const fileDestination = async (req, file, callBack) => {
   } catch(err) {
     console.log(err.message);
     username = `/unknowuser`;
-  } 
+  }
 
   let dest;
   if(file.mimetype.match('video/*')) {

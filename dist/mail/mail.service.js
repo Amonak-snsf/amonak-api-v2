@@ -48,7 +48,7 @@ let MailService = class MailService {
     async contact(data, url) {
         let date = new Date();
         await this.mailerService.sendMail({
-            to: this.config.get('admin_email'),
+            to: this.config.get('adminEmail'),
             subject: 'Contact',
             template: 'admin',
             context: {
@@ -57,7 +57,7 @@ let MailService = class MailService {
                 year: date.getFullYear(),
                 message: data.message,
                 subject: data.subject,
-                admin: this.config.get('admin_email')
+                admin: this.config.get('adminEmail')
             },
         });
     }

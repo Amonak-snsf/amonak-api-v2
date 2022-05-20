@@ -24,17 +24,19 @@ let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: token_entity_1.Token.name, schema: token_entity_1.TokenSchema },
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: token_entity_1.Token.name, schema: token_entity_1.TokenSchema },
                 { name: user_entity_1.User.name, schema: user_entity_1.UserSchema },
                 { name: seller_info_entity_1.SellerInfo.name, schema: seller_info_entity_1.SellerInfoSchema },
-                { name: biography_entity_1.Biography.name, schema: biography_entity_1.BiographySchema }
+                { name: biography_entity_1.Biography.name, schema: biography_entity_1.BiographySchema },
             ]),
             config_1.ConfigModule,
             passport_1.PassportModule,
             jwt_1.JwtModule.registerAsync({
                 useFactory: async (config) => ({
-                    secret: config.get('secret'),
-                    signOptions: { expiresIn: `${config.get('expire')}s` },
+                    secret: config.get("secret"),
+                    signOptions: { expiresIn: `${config.get("expire")}s` },
                 }),
                 inject: [config_1.ConfigService],
             }),

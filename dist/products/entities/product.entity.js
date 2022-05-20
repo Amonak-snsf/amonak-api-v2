@@ -38,36 +38,34 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "maxWeight", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, type: Number, trim: true, default: 0 }),
-    __metadata("design:type", Number)
-], Product.prototype, "purchase", void 0);
-__decorate([
     (0, mongoose_1.Prop)({ required: true, type: String, trim: true, default: 'DTN' }),
     __metadata("design:type", String)
 ], Product.prototype, "currency", void 0);
 __decorate([
-    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        destination: { required: false, trim: true, type: String, select: true },
-        type: { required: false, trim: true, type: String, select: true },
-        extension: { required: false, trim: true, type: String, select: true },
-        originalname: { required: false, trim: true, type: String, select: true },
-        filename: { required: false, trim: true, type: String, select: true },
-        size: { required: false, trim: true, type: Number, select: true },
-        url: { required: false, trim: true, type: String, select: true },
-    })),
+    (0, mongoose_1.Prop)([
+        (0, mongoose_1.raw)({
+            destination: { required: false, trim: true, type: String, select: true },
+            type: { required: false, trim: true, type: String, select: true },
+            extension: { required: false, trim: true, type: String, select: true },
+            originalname: { required: false, trim: true, type: String, select: true },
+            filename: { required: false, trim: true, type: String, select: true },
+            size: { required: false, trim: true, type: Number, select: true },
+            url: { required: false, trim: true, type: String, select: true },
+        })
+    ]),
     __metadata("design:type", Array)
 ], Product.prototype, "files", void 0);
 __decorate([
-    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
-        countryName: { required: false, trim: true, type: String },
-        countryCode: { required: false, trim: true, type: String },
-        state: { required: false, trim: true, type: String },
-        city: { required: false, trim: true, type: String },
-        postalCode: { required: false, trim: true, type: String },
-        street: { required: false, trim: true, type: String },
-        fullAddress: { required: false, trim: true, type: String }
-    })),
-    __metadata("design:type", Object)
+    (0, mongoose_1.Prop)([(0, mongoose_1.raw)({
+            countryName: { required: false, trim: true, type: String },
+            countryCode: { required: false, trim: true, type: String },
+            state: { required: false, trim: true, type: String },
+            city: { required: false, trim: true, type: String },
+            postalCode: { required: false, trim: true, type: String },
+            street: { required: false, trim: true, type: String },
+            fullAddress: { required: false, trim: true, type: String }
+        })]),
+    __metadata("design:type", Array)
 ], Product.prototype, "address", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Category' }),

@@ -2,11 +2,12 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from 'src/users/entities/user.entity';
 import { DefaultModel } from 'src/utils/default-model';
+import { Files } from 'src/users/dto/file-interface';
 export declare type ToptenDocument = Topten & Document;
 export declare class Topten extends DefaultModel {
     user: User;
     followers: User[];
-    files: Record<string, any>[];
+    files: Files[];
     message: string;
     company: string;
     duration: number;

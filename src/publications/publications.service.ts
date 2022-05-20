@@ -19,7 +19,7 @@ export class PublicationsService {
   async create(body: CreatePublicationDto, res) {
 
     if(body.type == PublicationType.sale){
-      const product = await this.productService.create(saleBody(body), res);
+      const product = await this.productService.create(saleBody({...body, from: 'publication'}), res);
       body.product = product._id;
     }
 
@@ -27,7 +27,7 @@ export class PublicationsService {
 
     return res.status(HttpStatus.OK).json(data);
 
-  }
+  } 
 
   async findAll(params, res) {
     

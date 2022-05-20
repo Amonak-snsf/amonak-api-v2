@@ -2,6 +2,7 @@
 import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose"
 import * as mongoose from 'mongoose';
 import { Category } from "src/categories/entities/category.entity";
+import { Files } from "src/users/dto/file-interface";
 import { User } from "src/users/entities/user.entity";
 import { DefaultModel } from "src/utils/default-model";
 
@@ -25,13 +26,11 @@ export class Product extends DefaultModel{
     @Prop({ required: false, type: Number, trim: true, default: 0 })
     maxWeight: number;
 
-    @Prop({ required: false, type: Number, trim: true, default: 0 })
-    purchase: number;
-
     @Prop({ required: true, type: String, trim: true, default: 'DTN' })
     currency: string;
 
-    @Prop(raw({
+    @Prop([
+        raw({
         destination: { required: false, trim: true, type: String, select: true },
         type: { required: false, trim: true, type: String, select: true },
         extension: { required: false, trim: true, type: String, select: true },
@@ -39,10 +38,11 @@ export class Product extends DefaultModel{
         filename: { required: false, trim: true, type: String, select: true },
         size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-    }))
-    files: Record<string, any>[];
+        })
+      ])
+      files: Files[];
       
-    @Prop(raw({
+    @Prop([raw({
         countryName: { required: false, trim: true, type: String },
         countryCode: { required: false, trim: true, type: String },
         state: { required: false, trim: true, type: String },
@@ -50,8 +50,8 @@ export class Product extends DefaultModel{
         postalCode: { required: false, trim: true, type: String },
         street: { required: false, trim: true, type: String },
         fullAddress: { required: false, trim: true, type: String }
-    }))
-    address: Record<string, any>;
+    })])
+    address: [];
 
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
     category: Category

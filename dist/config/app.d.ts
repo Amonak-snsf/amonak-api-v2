@@ -1,10 +1,10 @@
 declare const _default: () => {
     name: string;
     staticUrl: string;
-    api_url: string;
-    front_url: string;
+    apiUrl: string;
+    frontUrl: string;
     port: number;
-    file_directory: string;
-    admin_email: string;
+    fileDirectory: string;
+    adminEmail: string;
 };
 export default _default;

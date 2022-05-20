@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import { User } from 'src/users/entities/user.entity';
 import { Status } from '../dto/status-seller-info';
 import { DefaultModel } from 'src/utils/default-model';
+import { Files } from 'src/users/dto/file-interface';
 
 export type SellerInfoDocument = SellerInfo & Document;
 
@@ -17,7 +18,8 @@ export class SellerInfo extends DefaultModel{
   @Prop({ required: true, enum: Status })
   status: number;
 
-  @Prop(raw({
+  @Prop([
+    raw({
     destination: { required: false, trim: true, type: String, select: true },
     type: { required: false, trim: true, type: String, select: true },
     extension: { required: false, trim: true, type: String, select: true },
@@ -25,10 +27,12 @@ export class SellerInfo extends DefaultModel{
     filename: { required: false, trim: true, type: String, select: true },
     size: { required: false, trim: true, type: Number, select: true},
     url: { required: false, trim: true, type: String, select: true },
-  }))
-  files: Record<string, any>[];
+    })
+  ])
+  files: Files[];
 
-  @Prop(raw({
+  @Prop([
+    raw({
     destination: { required: false, trim: true, type: String, select: true },
     type: { required: false, trim: true, type: String, select: true },
     extension: { required: false, trim: true, type: String, select: true },
@@ -36,8 +40,9 @@ export class SellerInfo extends DefaultModel{
     filename: { required: false, trim: true, type: String, select: true },
     size: { required: false, trim: true, type: Number, select: true},
     url: { required: false, trim: true, type: String, select: true },
-  }))
-  identityCard: Record<string, any>[];
+    })
+  ])
+  identityCard: Files[];
 
   @Prop({ required: false, trim: true, type: String })
   message: string
@@ -51,7 +56,7 @@ export class SellerInfo extends DefaultModel{
   @Prop({ required: false, trim: true, type: String })
   registerNumber: string;
   
-  @Prop(raw({
+  @Prop([raw({
     countryName: { required: false, trim: true, type: String },
     countryCode: { required: false, trim: true, type: String },
     state: { required: false, trim: true, type: String },
@@ -59,8 +64,8 @@ export class SellerInfo extends DefaultModel{
     postalCode: { required: false, trim: true, type: String },
     street: { required: false, trim: true, type: String },
     fullAddress: { required: false, trim: true, type: String }
-  }))
-  address: Record<string, any>;
+  })])
+  address: [];
 
   @Prop({ type: [String]})
   productNature: string[];

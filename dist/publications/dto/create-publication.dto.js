@@ -18,7 +18,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreatePublicationDto.prototype, "content", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [String] }),
+    (0, swagger_1.ApiProperty)({ type: [] }),
     __metadata("design:type", Array)
 ], CreatePublicationDto.prototype, "files", void 0);
 __decorate([
@@ -61,5 +61,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], CreatePublicationDto.prototype, "publicity", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreatePublicationDto.prototype, "phone", void 0);
 exports.CreatePublicationDto = CreatePublicationDto;
 //# sourceMappingURL=create-publication.dto.js.map

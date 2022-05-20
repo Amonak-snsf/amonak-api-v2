@@ -1,8 +1,8 @@
-import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { EmailAuthDto } from './dto/email-auth.dto';
-import { TokenPasswordAuthDto } from './dto/token-password-auth.dto';
-import { UsernamePasswordAuthDto } from './dto/username-password-auth.dto';
+import { AuthService } from "./auth.service";
+import { CreateAuthDto } from "./dto/create-auth.dto";
+import { EmailAuthDto } from "./dto/email-auth.dto";
+import { TokenPasswordAuthDto } from "./dto/token-password-auth.dto";
+import { UsernamePasswordAuthDto } from "./dto/username-password-auth.dto";
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);

@@ -47,7 +47,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     MulterModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        dest: configService.get('file_directory'),
+        dest: configService.get('fileDirectory'),
       }),
       inject: [ConfigService],
     }),

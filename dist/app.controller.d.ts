@@ -5,6 +5,6 @@ export declare class AppController {
     private config;
     constructor(appService: AppService, config: ConfigService);
     getHello(): string;
-    upload(files: any, res: any): any;
-    staticVideossUploads(file_name: string, res: any): any;
+    upload(files: any, res: any, req: any): any;
+    remove(path: string, res: any): any;
 }

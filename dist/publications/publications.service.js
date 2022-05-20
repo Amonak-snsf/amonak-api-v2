@@ -28,7 +28,7 @@ let PublicationsService = class PublicationsService {
     }
     async create(body, res) {
         if (body.type == publication_type_dto_1.PublicationType.sale) {
-            const product = await this.productService.create((0, helpers_1.saleBody)(body), res);
+            const product = await this.productService.create((0, helpers_1.saleBody)(Object.assign(Object.assign({}, body), { from: 'publication' })), res);
             body.product = product._id;
         }
         const data = await (0, query_1.create)(this.publicationModel, body, 'user', (0, helpers_1.userDataPopulateWithTopten)());

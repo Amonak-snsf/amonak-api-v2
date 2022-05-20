@@ -1,15 +1,19 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    else
+        for (var i = decorators.length - 1; i >= 0; i--)
+            if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
+var __metadata = (this && this.__metadata) || function(k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
+var __param = (this && this.__param) || function(paramIndex, decorator) {
+    return function(target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SignupListener = void 0;
@@ -44,7 +48,7 @@ let SignupListener = class SignupListener {
     }
     sendUserConfirmation(user) {
         const token = Math.floor(1000 + Math.random() * 9000).toString();
-        const url = `${this.configService.get('front_url')}/auth/activation`;
+        const url = `${this.configService.get('frontUrl')}/auth/activation`;
         new this.tokenModel({ token: token, user: user._id }).save();
         this.mailService.sendUserConfirmation(user, token, url);
     }
@@ -63,7 +67,8 @@ SignupListener = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model,
         config_1.ConfigService, mail_service_1.MailService,
-        mongoose_2.Model])
+        mongoose_2.Model
+    ])
 ], SignupListener);
 exports.SignupListener = SignupListener;
 //# sourceMappingURL=signup-listener.js.map

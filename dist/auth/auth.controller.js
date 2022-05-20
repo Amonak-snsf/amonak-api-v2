@@ -53,6 +53,7 @@ let AuthController = class AuthController {
     }
 };
 __decorate([
+    (0, common_1.Post)("register"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -60,15 +61,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, common_1.Get)('check-token/:tokenId'),
-    __param(0, (0, common_1.Param)('tokenId')),
+    (0, common_1.Get)("check-token/:tokenId"),
+    __param(0, (0, common_1.Param)("tokenId")),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "checkToken", null);
 __decorate([
-    (0, common_1.Post)('resend-activation-email'),
+    (0, common_1.Post)("resend-activation-email"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -76,23 +77,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "resentActivationEmail", null);
 __decorate([
-    (0, common_1.Get)('activate/:token'),
-    __param(0, (0, common_1.Param)('token')),
+    (0, common_1.Get)("activate/:token"),
+    __param(0, (0, common_1.Param)("token")),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "activate", null);
 __decorate([
-    (0, common_1.Get)('send-reset-password-request/:email'),
-    __param(0, (0, common_1.Param)('email')),
+    (0, common_1.Get)("send-reset-password-request/:email"),
+    __param(0, (0, common_1.Param)("email")),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "sendResetPasswordRequest", null);
 __decorate([
-    (0, common_1.Post)('reset-password'),
+    (0, common_1.Post)("reset-password"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -100,7 +101,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "resetPassword", null);
 __decorate([
-    (0, common_1.Post)('login'),
+    (0, common_1.Post)("login"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -108,7 +109,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
 __decorate([
-    (0, common_1.Post)('check-email'),
+    (0, common_1.Post)("check-email"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -116,20 +117,20 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "checkEmail", null);
 __decorate([
-    (0, common_1.Get)('check-auth/:userId'),
-    __param(0, (0, common_1.Param)('userId')),
+    (0, common_1.Get)("check-auth/:userId"),
+    __param(0, (0, common_1.Param)("userId")),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "auth", null);
 AuthController = __decorate([
-    (0, swagger_1.ApiTags)('auth'),
+    (0, swagger_1.ApiTags)("auth"),
     (0, swagger_1.ApiHeader)({
-        name: 'lang',
-        description: 'language',
+        name: "lang",
+        description: "language",
     }),
-    (0, common_1.Controller)('api/auths'),
+    (0, common_1.Controller)("api/auths"),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 exports.AuthController = AuthController;

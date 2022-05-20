@@ -69,10 +69,6 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateUserDto.prototype, "sectors", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "country_infos", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)({ type: [Object] }),
     __metadata("design:type", Array)
 ], CreateUserDto.prototype, "address", void 0);
@@ -98,12 +94,12 @@ __decorate([
     (0, swagger_1.ApiProperty)({ enum: [true, false] }),
     (0, class_validator_1.IsIn)([true, false]),
     __metadata("design:type", Boolean)
-], CreateUserDto.prototype, "is_first_time", void 0);
+], CreateUserDto.prototype, "isFirstTime", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ enum: [true, false] }),
     (0, class_validator_1.IsIn)([true, false]),
     __metadata("design:type", Boolean)
-], CreateUserDto.prototype, "is_new_feed", void 0);
+], CreateUserDto.prototype, "isNewFeed", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

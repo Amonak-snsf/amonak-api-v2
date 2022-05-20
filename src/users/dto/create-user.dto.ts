@@ -48,9 +48,6 @@ export class CreateUserDto {
   @ApiProperty({ type: [String] })
   sectors: string[];
 
-  @ApiProperty()
-  country_infos: string;
-
   @ApiProperty({ type: [Object]})
   address: Address[];
 
@@ -70,11 +67,11 @@ export class CreateUserDto {
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  is_first_time: Boolean;
+  isFirstTime: Boolean;
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  is_new_feed: Boolean;
+  isNewFeed: Boolean;
 
   @ApiProperty()
   accountType: string;

@@ -1,12 +1,12 @@
-import { ConfigService } from '@nestjs/config';
-import { Model } from 'mongoose';
-import { MailService } from 'src/mail/mail.service';
-import { TokenDocument } from 'src/users/entities/token.entity';
-import { UserDocument } from 'src/users/entities/user.entity';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { JwtService } from '@nestjs/jwt';
-import { BiographyDocument } from 'src/biographies/entities/biography.entity';
-import { SellerInfoDocument } from 'src/seller-infos/entities/seller-info.entity';
+import { ConfigService } from "@nestjs/config";
+import { Model } from "mongoose";
+import { MailService } from "src/mail/mail.service";
+import { TokenDocument } from "src/users/entities/token.entity";
+import { UserDocument } from "src/users/entities/user.entity";
+import { CreateAuthDto } from "./dto/create-auth.dto";
+import { JwtService } from "@nestjs/jwt";
+import { BiographyDocument } from "src/biographies/entities/biography.entity";
+import { SellerInfoDocument } from "src/seller-infos/entities/seller-info.entity";
 export declare class AuthService {
     private userModel;
     private tokenModel;

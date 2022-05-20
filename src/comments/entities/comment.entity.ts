@@ -4,6 +4,7 @@ import { Publication } from "src/publications/entities/publication.entity";
 import { User } from "src/users/entities/user.entity";
 import * as mongoose from 'mongoose';
 import { DefaultModel } from "src/utils/default-model";
+import { Files } from "src/users/dto/file-interface";
 
 export type CommentDocument = Comment & Document;
 
@@ -13,7 +14,8 @@ export class Comment extends DefaultModel{
     @Prop({ required: false, type: String, trim: true })
     content: string;
 
-    @Prop(raw({
+    @Prop([
+        raw({
         destination: { required: false, trim: true, type: String, select: true },
         type: { required: false, trim: true, type: String, select: true },
         extension: { required: false, trim: true, type: String, select: true },
@@ -21,8 +23,9 @@ export class Comment extends DefaultModel{
         filename: { required: false, trim: true, type: String, select: true },
         size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
-    }))
-    files: Record<string, any>[];
+        })
+    ])
+    files: Files[];
       
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' })
     publication: Publication

@@ -17,7 +17,7 @@ export class NewslettersService {
 
   async create(createNewsletterDto: CreateNewsletterDto, res) {
 
-    const url = this.config.get('front_url');
+    const url = this.config.get('frontUrl');
     const data = await createIfne(this.newsModel, createNewsletterDto, { email: createNewsletterDto.email, type: createNewsletterDto.type == ContactType.newsletter ? ContactType.newsletter : null });
 
     if(data.type == ContactType.contact){

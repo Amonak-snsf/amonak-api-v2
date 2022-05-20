@@ -14,10 +14,10 @@ export declare class User extends DefaultModel {
     gender: string;
     birthDay: string;
     birthPlace: string;
-    avatar: Record<string, any>[];
+    avatar: [];
     profession: string;
     sectors: string[];
-    address: Record<string, any>[];
+    address: [];
     bankCard: Record<string, any>;
     friends: Friend[];
     status: boolean;

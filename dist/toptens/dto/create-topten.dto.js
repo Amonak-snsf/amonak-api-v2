@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateToptenDto.prototype, "company", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [String] }),
+    (0, swagger_1.ApiProperty)({ type: [] }),
     __metadata("design:type", Array)
 ], CreateToptenDto.prototype, "files", void 0);
 __decorate([

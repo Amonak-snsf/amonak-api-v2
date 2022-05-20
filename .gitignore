@@ -48,6 +48,8 @@ bower_components
 # Dependency directories
 node_modules/
 jspm_packages/
+dist/
+static/
 
 # TypeScript v1 declaration files
 typings/

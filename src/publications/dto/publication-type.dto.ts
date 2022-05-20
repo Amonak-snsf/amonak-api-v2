@@ -10,7 +10,8 @@ export enum PublicationType {
 
 export enum AlerteType {
 
-    default = 'default'
+    default = 'default',
+    urgent = 'urgent'
 }
 
 export enum AlerteDuration {

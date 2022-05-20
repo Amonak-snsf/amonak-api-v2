@@ -16,7 +16,7 @@ export class CreateToptenDto {
   @ApiProperty()
   company: string;
 
-  @ApiProperty({ type: [String]})
+  @ApiProperty({ type: []})
   files: File[];
 
   @ApiProperty({ type: String})

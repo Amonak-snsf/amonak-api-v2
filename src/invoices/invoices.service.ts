@@ -19,7 +19,7 @@ export class InvoicesService {
   async create(createInvoiceDto: CreateInvoiceDto, res) {
     this.data = createInvoiceDto;
 
-    this.data.invoice_url = `${this.configServe.get('front_url')}/invoice/${createInvoiceDto.paymentReference}`;
+    this.data.invoice_url = `${this.configServe.get('frontUrl')}/invoice/${createInvoiceDto.paymentReference}`;
     const data = await createIfne(this.invoiceModel, this.data, { cart: createInvoiceDto.cart, user: createInvoiceDto.user, amount: createInvoiceDto.amount, status: createInvoiceDto.status })
 
     res.status(HttpStatus.OK).json(data);

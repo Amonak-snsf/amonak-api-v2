@@ -34,10 +34,6 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "maxWeight", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: false, type: Number, default: 0 }),
-    __metadata("design:type", Number)
-], CreateProductDto.prototype, "purchase", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "currency", void 0);

@@ -1,13 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsIn } from "class-validator";
+import { Files } from "src/users/dto/file-interface";
 
 export class CreatePublicationDto {
 
     @ApiProperty({ required: false, type: String })
     content: String;
 
-    @ApiProperty({ type: [String]})
-    files: File[];
+    @ApiProperty({ type: []})
+    files: Files[];
 
     @ApiProperty({ required: false, type: String })
     user: String;
@@ -38,4 +39,7 @@ export class CreatePublicationDto {
 
     @ApiProperty({ required: false, type: String })
     publicity: String;
+
+    @ApiProperty({ required: false, type: String })
+    phone: String;
 }

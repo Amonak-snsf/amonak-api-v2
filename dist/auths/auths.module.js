@@ -17,11 +17,12 @@ let AuthsModule = class AuthsModule {
 };
 AuthsModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserSchema }]),
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserSchema }]),
             jwt_1.JwtModule.registerAsync({
                 useFactory: async (config) => ({
-                    secret: config.get('secret'),
-                    signOptions: { expiresIn: `${config.get('expire')}s` },
+                    secret: config.get("secret"),
+                    signOptions: { expiresIn: `${config.get("expire")}s` },
                 }),
                 inject: [config_1.ConfigService],
             }),
