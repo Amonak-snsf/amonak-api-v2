@@ -19,7 +19,7 @@ export class NotificationsService {
 
   async findAll(params) {
     
-    const data = await all(this.notificationModel, params, null, { createdAt: -1 }, params.limit);
+    const data = await all(this.notificationModel, params, null, { _id: -1 }, params.limit);
 
     return data;
   }
@@ -27,7 +27,7 @@ export class NotificationsService {
   async findOne(from: string, params) {
 
     let query = { $or: [{from: from}, {to: from}], params };
-    const data = await all(this.notificationModel, query, null, { createdAt: -1 }, params.limit);
+    const data = await all(this.notificationModel, query, null, { _id: -1 }, params.limit);
 
     return data;
   }

@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "quantity", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, type: Number, trim: true, default: 0 }),
+    (0, mongoose_1.Prop)({ required: false, type: Number, trim: true, default: 1 }),
     __metadata("design:type", Number)
 ], Product.prototype, "maxWeight", void 0);
 __decorate([

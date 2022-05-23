@@ -43,7 +43,7 @@ let CommentsService = class CommentsService {
         if (params.search) {
             params = { content: { $regex: new RegExp(params.search, 'i') } };
         }
-        const data = await (0, query_1.all)(this.commentModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithComment)());
+        const data = await (0, query_1.all)(this.commentModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithComment)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(_id, res) {

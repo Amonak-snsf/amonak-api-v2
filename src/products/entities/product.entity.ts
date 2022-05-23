@@ -23,7 +23,7 @@ export class Product extends DefaultModel{
     @Prop({ required: true, type: Number, trim: true, default: 1 })
     quantity: number;
 
-    @Prop({ required: false, type: Number, trim: true, default: 0 })
+    @Prop({ required: false, type: Number, trim: true, default: 1 })
     maxWeight: number;
 
     @Prop({ required: true, type: String, trim: true, default: 'DTN' })

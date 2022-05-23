@@ -8,6 +8,7 @@ export declare class Publication extends DefaultModel {
     content: string;
     files: Files[];
     product: Product;
+    share: Publication;
     user: User;
     status: boolean;
     type: string;
@@ -16,5 +17,6 @@ export declare class Publication extends DefaultModel {
     alerteType: string;
     alerteDuration: string;
     publicity: string;
+    shareMessage: string;
 }
 export declare const PublicationSchema: mongoose.Schema<mongoose.Document<Publication, any, any>, mongoose.Model<mongoose.Document<Publication, any, any>, any, any, any>, {}, {}>;

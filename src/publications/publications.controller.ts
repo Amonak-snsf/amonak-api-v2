@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, HttpStatus } from '@nestjs/common';
 import { PublicationsService } from './publications.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
@@ -26,8 +26,9 @@ export class PublicationsController {
   }
 
   @Get(':_id')
-  findOne(@Param('_id') _id: string, @Res() res) {
-    return this.publicationsService.findOne(_id, res);
+  async findOne(@Param('_id') _id: string, @Res() res) {
+    const data = await this.publicationsService.findOne(_id);
+    res.status(HttpStatus.OK).json(data);
   }
 
   @Patch(':_id')

@@ -27,7 +27,7 @@ let UsersService = class UsersService {
         if (params.search) {
             params = { status: true, $or: [{ userName: { $regex: new RegExp(params.search, 'i') } }, { email: { $regex: new RegExp(params.search, 'i') } }, { firstName: { $regex: new RegExp(params.search, 'i') } }, { lastName: { $regex: new RegExp(params.search, 'i') } }] };
         }
-        const data = await (0, query_1.all)(this.userModel, params, null, { createdAt: -1 }, params.limit, null, null);
+        const data = await (0, query_1.all)(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(_id, res) {

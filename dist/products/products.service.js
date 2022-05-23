@@ -31,6 +31,8 @@ let ProductsService = class ProductsService {
         this.data = createProductDto;
         const from = this.data.from;
         delete this.data.from;
+        if (!this.data.maxWeight)
+            this.data.maxWeight = 0;
         const data = await (0, query_1.create)(this.productModel, this.data, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         if (from == 'publication') {
             return data;
@@ -41,7 +43,7 @@ let ProductsService = class ProductsService {
         if (params.search) {
             params = { $or: [{ name: { $regex: new RegExp(params.search, 'i') } }, { content: { $regex: new RegExp(params.search, 'i') } }, { price: { $regex: new RegExp(params.search, 'i') } }] };
         }
-        const data = await (0, query_1.all)(this.productModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.productModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(_id, res) {

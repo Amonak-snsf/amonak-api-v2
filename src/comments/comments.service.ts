@@ -38,7 +38,7 @@ export class CommentsService {
       params = { content: { $regex: new RegExp(params.search, 'i') } };
     }
 
-    const data = await all(this.commentModel, params, null, { createdAt: -1 }, params.limit, 'user',userDataPopulateWithComment());
+    const data = await all(this.commentModel, params, null, { _id: -1 }, params.limit, 'user',userDataPopulateWithComment());
 
     return res.status(HttpStatus.OK).json(data);
   }

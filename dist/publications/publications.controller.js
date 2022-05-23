@@ -29,8 +29,9 @@ let PublicationsController = class PublicationsController {
     findAll(params, res) {
         return this.publicationsService.findAll(params, res);
     }
-    findOne(_id, res) {
-        return this.publicationsService.findOne(_id, res);
+    async findOne(_id, res) {
+        const data = await this.publicationsService.findOne(_id);
+        res.status(common_1.HttpStatus.OK).json(data);
     }
     update(_id, body, res) {
         return this.publicationsService.update(_id, body, res);
@@ -61,7 +62,7 @@ __decorate([
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], PublicationsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':_id'),

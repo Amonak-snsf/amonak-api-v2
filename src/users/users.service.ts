@@ -19,7 +19,7 @@ export class UsersService {
       params = {status: true, $or: [{userName: {$regex: new RegExp(params.search, 'i')}}, {email: {$regex: new RegExp(params.search, 'i')}}, {firstName: {$regex: new RegExp(params.search, 'i')}}, {lastName: {$regex: new RegExp(params.search, 'i')}}]};
     }
     
-    const data = await all(this.userModel, params, null, { createdAt: -1 }, params.limit, null, null);
+    const data = await all(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
 
     return res.status(HttpStatus.OK).json(data);
   }

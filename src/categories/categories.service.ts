@@ -19,7 +19,7 @@ export class CategoriesService {
 
   async findAll(params, res) {
     
-    const data = await all(this.categoryModel, params, null, { createdAt: -1 }, params.limit);
+    const data = await all(this.categoryModel, params, null, { _id: -1 }, params.limit);
 
     return res.status(HttpStatus.OK).json(data);
   }

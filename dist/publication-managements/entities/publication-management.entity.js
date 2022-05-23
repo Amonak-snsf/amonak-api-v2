@@ -15,8 +15,8 @@ const publication_entity_1 = require("../../publications/entities/publication.en
 const mongoose = require("mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
 const default_model_1 = require("../../utils/default-model");
-class PublicationManagement extends default_model_1.DefaultModel {
-}
+let PublicationManagement = class PublicationManagement extends default_model_1.DefaultModel {
+};
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' }),
     __metadata("design:type", publication_entity_1.Publication)
@@ -37,6 +37,9 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
 ], PublicationManagement.prototype, "status", void 0);
+PublicationManagement = __decorate([
+    (0, mongoose_1.Schema)()
+], PublicationManagement);
 exports.PublicationManagement = PublicationManagement;
 exports.PubManagementSchema = mongoose_1.SchemaFactory.createForClass(PublicationManagement);
 //# sourceMappingURL=publication-management.entity.js.map

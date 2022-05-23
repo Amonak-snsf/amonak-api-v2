@@ -28,6 +28,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
+], CreatePublicationDto.prototype, "share", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
 ], CreatePublicationDto.prototype, "product", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
@@ -65,5 +69,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], CreatePublicationDto.prototype, "phone", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreatePublicationDto.prototype, "shareMessage", void 0);
 exports.CreatePublicationDto = CreatePublicationDto;
 //# sourceMappingURL=create-publication.dto.js.map

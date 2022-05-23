@@ -26,7 +26,7 @@ export class CartsService {
 
   async findAll(params, res) {
     
-    const data = await all(this.cartModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
+    const data = await all(this.cartModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);
   }

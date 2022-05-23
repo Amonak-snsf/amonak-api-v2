@@ -39,7 +39,7 @@ let NewslettersService = class NewslettersService {
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.newsModel, params, null, { createdAt: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.newsModel, params, null, { _id: -1 }, params.limit);
         return await res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(_id, res) {

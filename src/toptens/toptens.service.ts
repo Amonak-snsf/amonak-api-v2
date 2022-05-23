@@ -34,7 +34,7 @@ export class ToptensService {
 
   async findAll(body, res) {
 
-    const data = await all(this.toptenModel, body, null, { createdAt: -1 }, body.limit, 'user', userDataPopulateWithTopten());
+    const data = await all(this.toptenModel, body, null, { _id: -1 }, body.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }

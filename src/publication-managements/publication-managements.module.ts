@@ -6,9 +6,10 @@ import { PublicationManagement, PubManagementSchema } from './entities/publicati
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: PublicationManagement.name, schema: PubManagementSchema}])
+    MongooseModule.forFeature([{ name: PublicationManagement.name, schema: PubManagementSchema}]),
   ],
   controllers: [PublicationManagementsController],
-  providers: [PublicationManagementsService]
+  providers: [PublicationManagementsService],
+  exports: [PublicationManagementsService],
 })
 export class PublicationManagementsModule {}

@@ -42,6 +42,10 @@ __decorate([
     __metadata("design:type", product_entity_1.Product)
 ], Publication.prototype, "product", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' }),
+    __metadata("design:type", Publication)
+], Publication.prototype, "share", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
 ], Publication.prototype, "user", void 0);
@@ -76,6 +80,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
     __metadata("design:type", String)
 ], Publication.prototype, "publicity", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: String, trim: true }),
+    __metadata("design:type", String)
+], Publication.prototype, "shareMessage", void 0);
 Publication = __decorate([
     (0, mongoose_1.Schema)()
 ], Publication);

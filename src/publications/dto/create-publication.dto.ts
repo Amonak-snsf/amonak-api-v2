@@ -5,41 +5,47 @@ import { Files } from "src/users/dto/file-interface";
 export class CreatePublicationDto {
 
     @ApiProperty({ required: false, type: String })
-    content: String;
+    content: string;
 
     @ApiProperty({ type: []})
     files: Files[];
 
     @ApiProperty({ required: false, type: String })
-    user: String;
+    user: string;
 
     @ApiProperty({ required: false, type: String })
-    product: String;
+    share:string
+
+    @ApiProperty({ required: false, type: String })
+    product: string;
 
     @ApiProperty({ required: false, type: Boolean, default: false })
-    status: Boolean;
+    status: boolean;
 
     @ApiProperty({ required: true, type: String })  
-    type: String;
+    type: string;
 
     @ApiProperty({ required: false, type: String })
-    saleContent: String;
+    saleContent: string;
 
     @ApiProperty({ required: false, type: String })
-    saleType: String;
+    saleType: string;
 
     @ApiProperty({ required: false, type: String })
-    alerteType: String;
+    alerteType: string;
 
     @ApiProperty({ required: false, type: String })
-    alerteName: String;
+    alerteName: string;
 
     @ApiProperty({ required: false, type: String })
-    alerteDuration: String;
+    alerteDuration: string;
 
     @ApiProperty({ required: false, type: String })
-    publicity: String;
+    publicity: string;
 
     @ApiProperty({ required: false, type: String })
-    phone: String;
+    phone: string;
+
+    @ApiProperty({ required: false, type: String })
+    shareMessage: string;
 }

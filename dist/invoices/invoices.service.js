@@ -32,7 +32,7 @@ let InvoicesService = class InvoicesService {
         res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.invoiceModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.invoiceModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(_id, res) {

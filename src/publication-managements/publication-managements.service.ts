@@ -12,14 +12,12 @@ export class PublicationManagementsService {
 
   async create(body: CreatePublicationManagementDto, res) {
     
-    const data = await create(this.pubmanegementModel, body);
-
-    return res.status(HttpStatus.OK).json(data);
+    return await create(this.pubmanegementModel, body);
   }
 
   async findAll(params, res) {
 
-    const data = await all(this.pubmanegementModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
+    const data = await all(this.pubmanegementModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }

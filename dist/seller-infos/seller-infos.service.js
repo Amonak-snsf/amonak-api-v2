@@ -32,7 +32,7 @@ let SellerInfosService = class SellerInfosService {
         this.mailService = mailService;
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.sellerInforModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.sellerInforModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(user, res) {

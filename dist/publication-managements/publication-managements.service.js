@@ -24,11 +24,10 @@ let PublicationManagementsService = class PublicationManagementsService {
         this.pubmanegementModel = pubmanegementModel;
     }
     async create(body, res) {
-        const data = await (0, query_1.create)(this.pubmanegementModel, body);
-        return res.status(common_1.HttpStatus.OK).json(data);
+        return await (0, query_1.create)(this.pubmanegementModel, body);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.pubmanegementModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.pubmanegementModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(publication, params, res) {

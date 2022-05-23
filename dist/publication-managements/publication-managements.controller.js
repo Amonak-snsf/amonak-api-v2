@@ -22,8 +22,9 @@ let PublicationManagementsController = class PublicationManagementsController {
     constructor(publicationManagementsService) {
         this.publicationManagementsService = publicationManagementsService;
     }
-    create(body, res) {
-        return this.publicationManagementsService.create(body, res);
+    async create(body, res) {
+        const data = await this.publicationManagementsService.create(body, res);
+        return res.status(common_1.HttpStatus.OK).json(data);
     }
     findAll(params, res) {
         return this.publicationManagementsService.findAll(params, res);
@@ -41,7 +42,7 @@ __decorate([
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_publication_management_dto_1.CreatePublicationManagementDto, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], PublicationManagementsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

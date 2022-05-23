@@ -57,7 +57,7 @@ let AuthsGateway = class AuthsGateway {
     }
     async auth(client) {
         const user = await this.user(client);
-        client.emit("authResponse", user);
+        this.server.emit("authResponse", user);
     }
     async user(client) {
         let auth = {};

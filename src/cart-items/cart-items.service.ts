@@ -49,7 +49,7 @@ export class CartItemsService {
 
   async findAll(params, res) {
     
-    const data = await all(this.cartItemModel, params, null, { createdAt: -1 }, params.limit, 'product');
+    const data = await all(this.cartItemModel, params, null, { _id: -1 }, params.limit, 'product');
 
     res.status(HttpStatus.OK).json(data);
   }

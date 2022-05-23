@@ -29,12 +29,12 @@ let NotificationsService = class NotificationsService {
         return data;
     }
     async findAll(params) {
-        const data = await (0, query_1.all)(this.notificationModel, params, null, { createdAt: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.notificationModel, params, null, { _id: -1 }, params.limit);
         return data;
     }
     async findOne(from, params) {
         let query = { $or: [{ from: from }, { to: from }], params };
-        const data = await (0, query_1.all)(this.notificationModel, query, null, { createdAt: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.notificationModel, query, null, { _id: -1 }, params.limit);
         return data;
     }
     async update(_id, updateNotificationDto) {

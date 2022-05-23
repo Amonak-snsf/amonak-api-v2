@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, HttpStatus } from '@nestjs/common';
 import { PublicationManagementsService } from './publication-managements.service';
 import { CreatePublicationManagementDto } from './dto/create-publication-management.dto';
 import { UpdatePublicationManagementDto } from './dto/update-publication-management.dto';
@@ -15,8 +15,10 @@ export class PublicationManagementsController {
   constructor(private readonly publicationManagementsService: PublicationManagementsService) {}
 
   @Post()
-  create(@Body() body: CreatePublicationManagementDto, @Res() res) {
-    return this.publicationManagementsService.create(body, res);
+  async create(@Body() body: CreatePublicationManagementDto, @Res() res) {
+    const data = await this.publicationManagementsService.create(body, res);
+
+    return res.status(HttpStatus.OK).json(data);
   }
 
   @Get()

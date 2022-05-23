@@ -35,7 +35,7 @@ let MessagesService = class MessagesService {
             query = { $or: [{ from: params.from }, { to: params.to }] };
         }
         query = { query, params };
-        const data = await (0, query_1.all)(this.messageModel, query, null, { createdAt: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.messageModel, query, null, { _id: -1 }, params.limit);
         return data;
     }
     async findOne(_id) {

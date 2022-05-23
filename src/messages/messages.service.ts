@@ -27,7 +27,7 @@ export class MessagesService {
 
     query = { query, params };
 
-    const data = await all(this.messageModel, query, null, { createdAt: -1 }, params.limit);
+    const data = await all(this.messageModel, query, null, { _id: -1 }, params.limit);
 
     return data;
   }

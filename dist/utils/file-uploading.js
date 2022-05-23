@@ -19,7 +19,7 @@ const imageFileFilter2 = (req, file, callback) => {
 };
 exports.imageFileFilter2 = imageFileFilter2;
 const allImageFileFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|bmp|ico|aac|midi|wav|3gp|3g2|avi|mpeg|ogv|webm|gz|ggp|doc|docx|pdf|xls|xlsx|ppt|mp4|avi|mp3|wma|wmv|kine|swf)$/)) {
+    if (!file.originalname.match(/\.(apng|bmp|pjpeg|webp|jpg|jpeg|png|gif|bmp|ico|aac|midi|wav|3gp|3g2|avi|mpeg|ogv|webm|gz|ggp|doc|docx|pdf|xls|xlsx|ppt|mp4|avi|mp3|wma|wmv|kine|swf)$/)) {
         return callback(new Error('Only image files are allowed!'), false);
     }
     callback(null, true);

@@ -1,16 +1,18 @@
 import { Files } from "src/users/dto/file-interface";
 export declare class CreatePublicationDto {
-    content: String;
+    content: string;
     files: Files[];
-    user: String;
-    product: String;
-    status: Boolean;
-    type: String;
-    saleContent: String;
-    saleType: String;
-    alerteType: String;
-    alerteName: String;
-    alerteDuration: String;
-    publicity: String;
-    phone: String;
+    user: string;
+    share: string;
+    product: string;
+    status: boolean;
+    type: string;
+    saleContent: string;
+    saleType: string;
+    alerteType: string;
+    alerteName: string;
+    alerteDuration: string;
+    publicity: string;
+    phone: string;
+    shareMessage: string;
 }

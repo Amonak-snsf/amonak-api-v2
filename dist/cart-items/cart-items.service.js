@@ -49,7 +49,7 @@ let CartItemsService = class CartItemsService {
         await res.status(common_1.HttpStatus.OK).json(cart_data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.cartItemModel, params, null, { createdAt: -1 }, params.limit, 'product');
+        const data = await (0, query_1.all)(this.cartItemModel, params, null, { _id: -1 }, params.limit, 'product');
         res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(cart, res) {

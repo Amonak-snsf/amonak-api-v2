@@ -17,10 +17,11 @@ let PublicationManagementsModule = class PublicationManagementsModule {
 PublicationManagementsModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: publication_management_entity_1.PublicationManagement.name, schema: publication_management_entity_1.PubManagementSchema }])
+            mongoose_1.MongooseModule.forFeature([{ name: publication_management_entity_1.PublicationManagement.name, schema: publication_management_entity_1.PubManagementSchema }]),
         ],
         controllers: [publication_managements_controller_1.PublicationManagementsController],
-        providers: [publication_managements_service_1.PublicationManagementsService]
+        providers: [publication_managements_service_1.PublicationManagementsService],
+        exports: [publication_managements_service_1.PublicationManagementsService],
     })
 ], PublicationManagementsModule);
 exports.PublicationManagementsModule = PublicationManagementsModule;

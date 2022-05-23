@@ -33,7 +33,7 @@ export class NewslettersService {
 
   async findAll(params, res) {
     
-    const data = await all(this.newsModel, params, null, { createdAt: -1}, params.limit)
+    const data = await all(this.newsModel, params, null, { _id: -1}, params.limit)
 
     return await res.status(HttpStatus.OK).json(data);
   }

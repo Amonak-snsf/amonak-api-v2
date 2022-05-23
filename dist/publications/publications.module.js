@@ -13,15 +13,19 @@ const publications_controller_1 = require("./publications.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const publication_entity_1 = require("./entities/publication.entity");
 const products_module_1 = require("../products/products.module");
+const publication_gateway_1 = require("./publication.gateway");
+const publication_managements_module_1 = require("../publication-managements/publication-managements.module");
 let PublicationsModule = class PublicationsModule {
 };
 PublicationsModule = __decorate([
     (0, common_1.Module)({
         imports: [mongoose_1.MongooseModule.forFeature([{ name: publication_entity_1.Publication.name, schema: publication_entity_1.PublicationSchema }]),
-            products_module_1.ProductsModule
+            products_module_1.ProductsModule,
+            publication_managements_module_1.PublicationManagementsModule
         ],
         controllers: [publications_controller_1.PublicationsController],
-        providers: [publications_service_1.PublicationsService]
+        providers: [publications_service_1.PublicationsService, publication_gateway_1.PublicationGateway],
+        exports: []
     })
 ], PublicationsModule);
 exports.PublicationsModule = PublicationsModule;

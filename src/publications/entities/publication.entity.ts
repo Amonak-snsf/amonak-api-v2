@@ -33,6 +33,9 @@ export class Publication extends DefaultModel{
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Product' })
     product: Product
 
+    @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' })
+    share: Publication
+
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     user: User
 
@@ -59,6 +62,9 @@ export class Publication extends DefaultModel{
 
     @Prop({ required: false, type: String, trim: true })
     publicity: string;
+
+    @Prop({ required: false, type: String, trim: true })
+    shareMessage: string;
 }
 
 export const PublicationSchema = SchemaFactory.createForClass(Publication);

@@ -37,7 +37,7 @@ let ToptensService = class ToptensService {
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(body, res) {
-        const data = await (0, query_1.all)(this.toptenModel, body, null, { createdAt: -1 }, body.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.toptenModel, body, null, { _id: -1 }, body.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(_id, res) {

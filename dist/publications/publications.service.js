@@ -21,29 +21,37 @@ const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const publication_type_dto_1 = require("./dto/publication-type.dto");
 const publication_entity_1 = require("./entities/publication.entity");
+const publication_managements_service_1 = require("../publication-managements/publication-managements.service");
 let PublicationsService = class PublicationsService {
-    constructor(publicationModel, productService) {
+    constructor(publicationModel, productService, pubManagementService) {
         this.publicationModel = publicationModel;
         this.productService = productService;
+        this.pubManagementService = pubManagementService;
     }
     async create(body, res) {
-        if (body.type == publication_type_dto_1.PublicationType.sale) {
+        if ((body.type == publication_type_dto_1.PublicationType.sale) && !body.share) {
             const product = await this.productService.create((0, helpers_1.saleBody)(Object.assign(Object.assign({}, body), { from: 'publication' })), res);
             body.product = product._id;
         }
+        if (body.share && (body.type !== publication_type_dto_1.PublicationType.sale)) {
+            delete body.product;
+        }
         const data = await (0, query_1.create)(this.publicationModel, body, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        if (body.share) {
+            const pubManagement = { user: body.user, publication: data._id, type: publication_type_dto_1.PublicationType.share, status: true, reason: '' };
+            await this.pubManagementService.create(pubManagement, res);
+        }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
         if (params.search) {
             params = { status: true, content: { $regex: new RegExp(params.search, 'i') } };
         }
-        const data = (0, query_1.all)(this.publicationModel, params, null, { createdAt: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        const data = await (0, query_1.all)(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(_id, res) {
-        const data = await (0, query_1.one)(this.publicationModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
-        res.status(common_1.HttpStatus.OK).json(data);
+    async findOne(_id) {
+        return await (0, query_1.one)(this.publicationModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
     }
     async update(_id, body, res) {
         const data = await (0, query_1.put)(this.publicationModel, body, { _id: _id }, 'user', (0, helpers_1.userDataPopulateWithTopten)());
@@ -58,7 +66,8 @@ PublicationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(publication_entity_1.Publication.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        products_service_1.ProductsService])
+        products_service_1.ProductsService,
+        publication_managements_service_1.PublicationManagementsService])
 ], PublicationsService);
 exports.PublicationsService = PublicationsService;
 //# sourceMappingURL=publications.service.js.map

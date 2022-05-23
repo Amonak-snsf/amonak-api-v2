@@ -26,6 +26,7 @@ export class ProductsService {
     const from = this.data.from;
     delete this.data.from;
     
+    if(!this.data.maxWeight) this.data.maxWeight = 0
     const data = await create(this.productModel, this.data, 'user', userDataPopulateWithTopten());
 
     if(from == 'publication'){
@@ -41,7 +42,7 @@ export class ProductsService {
       params = {$or: [{name: {$regex: new RegExp(params.search, 'i')}}, {content: {$regex: new RegExp(params.search, 'i')}}, {price: {$regex: new RegExp(params.search, 'i')}}]}
     }
 
-    const data = await all(this.productModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
+    const data = await all(this.productModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }

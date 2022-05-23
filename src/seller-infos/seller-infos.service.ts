@@ -24,7 +24,7 @@ export class SellerInfosService {
 
   async findAll(params, res): Promise<SellerInfo[]>  {
     
-    const data = await all(this.sellerInforModel, params, null, { createdAt: -1 }, params.limit, 'user', userDataPopulateWithTopten());
+    const data = await all(this.sellerInforModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);
   }

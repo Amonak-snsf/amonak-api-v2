@@ -5,6 +5,7 @@ import {
   OnGatewayDisconnect,
   WebSocketServer,
   SubscribeMessage,
+  MessageBody
 } from "@nestjs/websockets";
 import { Socket, Server } from "socket.io";
 import { InjectModel } from "@nestjs/mongoose";
@@ -66,7 +67,7 @@ export class AuthsGateway
   @SubscribeMessage("authRequest")
   async auth(client: Socket) {
     const user = await this.user(client);
-    client.emit("authResponse", user);
+    this.server.emit("authResponse", user);
   }
 
   async user(client: Socket) {
