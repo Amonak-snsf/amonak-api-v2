@@ -43,12 +43,12 @@ let PublicationsService = class PublicationsService {
         }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findAll(params, res) {
+    async findAll(params, res = {}) {
         if (params.search) {
             params = { status: true, content: { $regex: new RegExp(params.search, 'i') } };
         }
         const data = await (0, query_1.all)(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
-        return res.status(common_1.HttpStatus.OK).json(data);
+        return data;
     }
     async findOne(_id) {
         return await (0, query_1.one)(this.publicationModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());

@@ -5,6 +5,7 @@ export declare enum NotificationType {
     friendRequest = "friendRequest",
     welcome = "welcome",
     like = "like",
+    follow = "follow",
     share = "share",
     seen = "seen",
     read = "read"

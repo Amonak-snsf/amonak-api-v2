@@ -4,4 +4,5 @@ export declare class CreatePublicationManagementDto {
     status: Boolean;
     type: String;
     reason: String;
+    to?: String;
 }

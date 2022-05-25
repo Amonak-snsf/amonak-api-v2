@@ -19,11 +19,30 @@ const mongoose_2 = require("mongoose");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const publication_management_entity_1 = require("./entities/publication-management.entity");
+const notifications_service_1 = require("../notifications/notifications.service");
 let PublicationManagementsService = class PublicationManagementsService {
-    constructor(pubmanegementModel) {
+    constructor(pubmanegementModel, notificationsService) {
         this.pubmanegementModel = pubmanegementModel;
+        this.notificationsService = notificationsService;
     }
     async create(body, res) {
+        if (body.type === 'follow' || body.type === 'share' || body.type === 'save' || body.type === 'like' || body.type === 'signal') {
+            let content = (body.type === 'share') ? 'a partagé votre publication' : 'vous suive.';
+            if (body.type === 'save')
+                content = 'a enrégistré votre publication';
+            if (body.type === 'like')
+                content = 'a aimé votre publication';
+            if (body.type === 'signal')
+                content = 'a signalé votre publication';
+            const notificationBody = {
+                from: body.user,
+                to: body.to,
+                publication: body.publication,
+                content: content,
+                type: body.type,
+            };
+            await this.notificationsService.create(notificationBody);
+        }
         return await (0, query_1.create)(this.pubmanegementModel, body);
     }
     async findAll(params, res) {
@@ -32,7 +51,7 @@ let PublicationManagementsService = class PublicationManagementsService {
     }
     async findOne(publication, params, res) {
         params.publication = publication;
-        const data = await (0, query_1.one)(this.pubmanegementModel, params);
+        const data = await (0, query_1.all)(this.pubmanegementModel, params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async remove(publication, params, res) {
@@ -44,7 +63,8 @@ let PublicationManagementsService = class PublicationManagementsService {
 PublicationManagementsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(publication_management_entity_1.PublicationManagement.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        notifications_service_1.NotificationsService])
 ], PublicationManagementsService);
 exports.PublicationManagementsService = PublicationManagementsService;
 //# sourceMappingURL=publication-managements.service.js.map

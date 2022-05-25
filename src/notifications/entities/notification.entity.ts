@@ -28,7 +28,7 @@ export class Notification extends DefaultModel{
   comment: string;
 
   @Prop({ required: true, type: String, default: NotificationType.all })
-  @IsIn([NotificationType.all, NotificationType.comment, NotificationType.friendRequest, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])
+  @IsIn([NotificationType.all, NotificationType.follow, NotificationType.comment, NotificationType.friendRequest, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])
   type: string;
 
   @Prop({ required: true, type: Boolean, default: true })
@@ -40,5 +40,5 @@ export class Notification extends DefaultModel{
   @Prop({ required: false })
   readAt: Date;
 }
-
+  
 export const NotificationSchema = SchemaFactory.createForClass(Notification);

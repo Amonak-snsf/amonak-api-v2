@@ -12,12 +12,14 @@ const publication_managements_service_1 = require("./publication-managements.ser
 const publication_managements_controller_1 = require("./publication-managements.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const publication_management_entity_1 = require("./entities/publication-management.entity");
+const notifications_module_1 = require("../notifications/notifications.module");
 let PublicationManagementsModule = class PublicationManagementsModule {
 };
 PublicationManagementsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: publication_management_entity_1.PublicationManagement.name, schema: publication_management_entity_1.PubManagementSchema }]),
+            notifications_module_1.NotificationsModule
         ],
         controllers: [publication_managements_controller_1.PublicationManagementsController],
         providers: [publication_managements_service_1.PublicationManagementsService],

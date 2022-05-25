@@ -9,6 +9,7 @@ var NotificationType;
     NotificationType["friendRequest"] = "friendRequest";
     NotificationType["welcome"] = "welcome";
     NotificationType["like"] = "like";
+    NotificationType["follow"] = "follow";
     NotificationType["share"] = "share";
     NotificationType["seen"] = "seen";
     NotificationType["read"] = "read";

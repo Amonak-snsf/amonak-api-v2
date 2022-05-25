@@ -40,7 +40,7 @@ export class PublicationsService {
 
   } 
  
-  async findAll(params, res) {
+  async findAll(params, res = {}) {
     
     if(params.search){
       params = { status: true, content: {$regex: new RegExp(params.search, 'i')}};
@@ -48,7 +48,7 @@ export class PublicationsService {
 
     const data = await all(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
-    return res.status(HttpStatus.OK).json(data);
+    return data;
   }
 
   async findOne(_id: string) {

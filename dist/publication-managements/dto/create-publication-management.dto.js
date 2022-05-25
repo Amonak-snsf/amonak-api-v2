@@ -29,12 +29,19 @@ __decorate([
 ], CreatePublicationManagementDto.prototype, "status", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
-    (0, class_validator_1.IsIn)([publication_managements_type_dto_1.PubManagementType.delete, publication_managements_type_dto_1.PubManagementType.follow, publication_managements_type_dto_1.PubManagementType.like, publication_managements_type_dto_1.PubManagementType.reporte, publication_managements_type_dto_1.PubManagementType.save, publication_managements_type_dto_1.PubManagementType.share, publication_managements_type_dto_1.PubManagementType.sideburn, publication_managements_type_dto_1.PubManagementType.signale]),
+    (0, class_validator_1.IsIn)([publication_managements_type_dto_1.PubManagementType.delete, publication_managements_type_dto_1.PubManagementType.softDelete, publication_managements_type_dto_1.PubManagementType.softDeleteAll,
+        publication_managements_type_dto_1.PubManagementType.follow, publication_managements_type_dto_1.PubManagementType.like, publication_managements_type_dto_1.PubManagementType.reporte, publication_managements_type_dto_1.PubManagementType.save,
+        publication_managements_type_dto_1.PubManagementType.share, publication_managements_type_dto_1.PubManagementType.sideburn, publication_managements_type_dto_1.PubManagementType.signale,
+        publication_managements_type_dto_1.PubManagementType.buy, publication_managements_type_dto_1.PubManagementType.comment, publication_managements_type_dto_1.PubManagementType.alerteResponse]),
     __metadata("design:type", String)
 ], CreatePublicationManagementDto.prototype, "type", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], CreatePublicationManagementDto.prototype, "reason", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreatePublicationManagementDto.prototype, "to", void 0);
 exports.CreatePublicationManagementDto = CreatePublicationManagementDto;
 //# sourceMappingURL=create-publication-management.dto.js.map

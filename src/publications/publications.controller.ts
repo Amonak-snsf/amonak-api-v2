@@ -21,8 +21,9 @@ export class PublicationsController {
   }
 
   @Get()
-  findAll(@Query() params: FilterPublicationDto, @Res() res) {
-    return this.publicationsService.findAll(params, res);
+  async findAll(@Query() params: FilterPublicationDto, @Res() res) {
+    const data = await this.publicationsService.findAll(params, res);
+    res.status(HttpStatus.OK).json(data);
   }
 
   @Get(':_id')

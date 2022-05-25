@@ -14,9 +14,15 @@ export class CreatePublicationManagementDto {
     status: Boolean;
 
     @ApiProperty({ required: true, type: String })
-    @IsIn([PubManagementType.delete, PubManagementType.follow, PubManagementType.like, PubManagementType.reporte, PubManagementType.save, PubManagementType.share, PubManagementType.sideburn, PubManagementType.signale])
+    @IsIn([PubManagementType.delete, PubManagementType.softDelete, PubManagementType.softDeleteAll,
+     PubManagementType.follow, PubManagementType.like, PubManagementType.reporte, PubManagementType.save,
+      PubManagementType.share, PubManagementType.sideburn, PubManagementType.signale,
+       PubManagementType.buy, PubManagementType.comment, PubManagementType.alerteResponse])
     type: String;
 
     @ApiProperty({ required: false, type: String })
     reason: String;
+
+    @ApiProperty({ required: false, type: String })
+    to?: String;
 }

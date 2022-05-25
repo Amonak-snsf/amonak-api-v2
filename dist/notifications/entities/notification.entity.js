@@ -41,7 +41,7 @@ __decorate([
 ], Notification.prototype, "comment", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String, default: notification_type_dto_1.NotificationType.all }),
-    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friendRequest, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
+    (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.follow, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friendRequest, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),
     __metadata("design:type", String)
 ], Notification.prototype, "type", void 0);
 __decorate([

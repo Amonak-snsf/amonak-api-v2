@@ -10,7 +10,7 @@ export declare class PublicationsService {
     private pubManagementService;
     constructor(publicationModel: Model<PublicationDocument>, productService: ProductsService, pubManagementService: PublicationManagementsService);
     create(body: CreatePublicationDto, res: any): Promise<any>;
-    findAll(params: any, res: any): Promise<any>;
+    findAll(params: any, res?: {}): Promise<Omit<any, never>[]>;
     findOne(_id: string): Promise<any>;
     update(_id: string, body: UpdatePublicationDto, res: any): Promise<any>;
     remove(_id: string, res: any): Promise<any>;

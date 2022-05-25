@@ -6,7 +6,7 @@ export declare class PublicationsController {
     private readonly publicationsService;
     constructor(publicationsService: PublicationsService);
     create(body: CreatePublicationDto, res: any): Promise<any>;
-    findAll(params: FilterPublicationDto, res: any): Promise<any>;
+    findAll(params: FilterPublicationDto, res: any): Promise<void>;
     findOne(_id: string, res: any): Promise<void>;
     update(_id: string, body: UpdatePublicationDto, res: any): Promise<any>;
     remove(_id: string, res: any): Promise<any>;
