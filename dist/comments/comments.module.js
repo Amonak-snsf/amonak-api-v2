@@ -14,6 +14,7 @@ const comment_entity_1 = require("./entities/comment.entity");
 const mongoose_1 = require("@nestjs/mongoose");
 const publication_management_entity_1 = require("../publication-managements/entities/publication-management.entity");
 const notifications_module_1 = require("../notifications/notifications.module");
+const comment_gateway_1 = require("./comment.gateway");
 let CommentsModule = class CommentsModule {
 };
 CommentsModule = __decorate([
@@ -26,7 +27,7 @@ CommentsModule = __decorate([
             notifications_module_1.NotificationsModule
         ],
         controllers: [comments_controller_1.CommentsController],
-        providers: [comments_service_1.CommentsService]
+        providers: [comments_service_1.CommentsService, comment_gateway_1.CommentGateway]
     })
 ], CommentsModule);
 exports.CommentsModule = CommentsModule;

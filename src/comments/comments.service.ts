@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { PubManagementType } from 'src/publication-managements/dto/publication-managements-type.dto';
 import { PublicationManagement, PubManagementDocument } from 'src/publication-managements/entities/publication-management.entity';
-import { customFiles, userDataPopulateWithComment } from 'src/utils/helpers';
+import { customFiles, userDataPopulateWithComment, userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, create, destroy, one, put } from 'src/utils/query';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -19,7 +19,7 @@ export class CommentsService {
 
   async create(createCommentDto: CreateCommentDto, res) {
 
-    const data = await create(this.commentModel, createCommentDto);
+    const data = await create(this.commentModel, createCommentDto, 'user', userDataPopulateWithTopten());
 
     await new this.pubmanegementModel({ user: data.user, publication: data.publication, type: PubManagementType.follow })
     await this.notificationService.create({

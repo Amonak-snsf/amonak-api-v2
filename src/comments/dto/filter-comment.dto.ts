@@ -4,8 +4,11 @@ import { CreateCommentDto } from "./create-comment.dto";
 export class FilterComment extends PartialType(OmitType(CreateCommentDto, ['files'] as const)){
     
     @ApiProperty({ required: false, type: Number })
-    limit: Number;
+    limit: number;
 
     @ApiProperty({ required: false, type: String })
-    search: String;
+    search: string;
+
+    @ApiProperty({ required: false, type: String })
+    publication: string;
 }

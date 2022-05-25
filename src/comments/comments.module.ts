@@ -5,6 +5,7 @@ import { Comment, CommentSchema } from './entities/comment.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PublicationManagement, PubManagementSchema } from 'src/publication-managements/entities/publication-management.entity';
 import { NotificationsModule } from 'src/notifications/notifications.module';
+import { CommentGateway } from './comment.gateway';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
     NotificationsModule
   ],
   controllers: [CommentsController],
-  providers: [CommentsService]
+  providers: [CommentsService, CommentGateway]
 })
 export class CommentsModule {}

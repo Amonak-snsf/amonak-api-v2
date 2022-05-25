@@ -22,5 +22,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
 ], FilterComment.prototype, "search", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], FilterComment.prototype, "publication", void 0);
 exports.FilterComment = FilterComment;
 //# sourceMappingURL=filter-comment.dto.js.map
