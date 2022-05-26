@@ -26,7 +26,7 @@ export class CommentLikesService {
 
   async findOne(comment: string, res) {
 
-    const data = await one(this.commentModel, { comment: comment });
+    const data = await all(this.commentModel, { comment: comment });
 
     return res.status(HttpStatus.OK).json(data);
   }

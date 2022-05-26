@@ -15,7 +15,13 @@ export class CommentGateway {
 
   @SubscribeMessage('newCommentEvent')
   async newCommentEvent(@ConnectedSocket() client: Socket, @MessageBody() newComment: {publicationId: string, comment: any}) {
-  	console.log("new commen", newComment.publicationId)
+  	console.log("new comment", newComment.publicationId)
   	client.broadcast.emit("newCommentEventListener", newComment);
+  }
+
+  @SubscribeMessage('likeCommentEvent')
+  async likeCommentEvent(@ConnectedSocket() client: Socket, @MessageBody() commentId: {commentId: string}) {
+  	console.log("like comment", commentId.commentId)
+  	client.broadcast.emit("likeCommentListener", commentId);
   }
 }
