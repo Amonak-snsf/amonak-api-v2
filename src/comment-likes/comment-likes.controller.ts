@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, HttpStatus } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { CommentLikesService } from './comment-likes.service';
 import { CreateCommentLikeDto } from './dto/create-comment-like.dto';
@@ -26,7 +26,8 @@ export class CommentLikesController {
 
   @Get(':comment')
   findOne(@Param('comment') comment: string, @Res() res) {
-    return this.commentLikesService.findOne(comment, res);
+    const data = this.commentLikesService.findOne(comment);
+    return res.status(HttpStatus.OK).json(data);
   }
 
   @Patch(':comment')

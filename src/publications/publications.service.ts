@@ -32,7 +32,7 @@ export class PublicationsService {
     const data = await create(this.publicationModel, body, 'user', userDataPopulateWithTopten());
 
     if(body.share){
-      const pubManagement = {user: body.user, publication: data._id, type: PublicationType.share, status: true, reason: ''}
+      const pubManagement = {user: body.user, publication: body.share, type: PublicationType.share, status: true, reason: ''}
       await this.pubManagementService.create(pubManagement, res)
     }
 

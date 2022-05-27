@@ -30,9 +30,8 @@ let CommentLikesService = class CommentLikesService {
         const data = await (0, query_1.all)(this.commentModel, params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(comment, res) {
-        const data = await (0, query_1.all)(this.commentModel, { comment: comment });
-        return res.status(common_1.HttpStatus.OK).json(data);
+    async findOne(comment) {
+        return await (0, query_1.all)(this.commentModel, { comment: comment });
     }
     async update(comment, updateCommentLikeDto, res) {
         const data = await (0, query_1.put)(this.commentModel, updateCommentLikeDto, { comment: comment });

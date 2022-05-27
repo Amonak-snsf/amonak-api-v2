@@ -47,6 +47,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
 ], Comment.prototype, "status", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: [], default: true }),
+    __metadata("design:type", Array)
+], Comment.prototype, "likes", void 0);
 Comment = __decorate([
     (0, mongoose_1.Schema)()
 ], Comment);

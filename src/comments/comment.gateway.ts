@@ -14,14 +14,15 @@ export class CommentGateway {
   }
 
   @SubscribeMessage('newCommentEvent')
-  async newCommentEvent(@ConnectedSocket() client: Socket, @MessageBody() newComment: {publicationId: string, comment: any}) {
-  	console.log("new comment", newComment.publicationId)
-  	client.broadcast.emit("newCommentEventListener", newComment);
+  async newCommentEvent(@ConnectedSocket() client: Socket, @MessageBody() newComment: {comment: any}) {
+  	console.log("new publication comment", newComment.comment.publication)
+  	client.broadcast.emit("newCommentEventListener", newComment.comment);
+  	client.emit("newCommentLocalEventListener", newComment.comment);
   }
 
   @SubscribeMessage('likeCommentEvent')
-  async likeCommentEvent(@ConnectedSocket() client: Socket, @MessageBody() commentId: {commentId: string}) {
-  	console.log("like comment", commentId.commentId)
-  	client.broadcast.emit("likeCommentListener", commentId);
+  async likeCommentEvent(@ConnectedSocket() client: Socket, @MessageBody() newLike: {comment: string, publication: string}) {
+  	console.log("new publication like", newLike.comment, newLike.publication)
+  	client.broadcast.emit("likeCommentListener", newLike);
   }
 }

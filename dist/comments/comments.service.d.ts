@@ -4,11 +4,13 @@ import { PubManagementDocument } from 'src/publication-managements/entities/publ
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentDocument } from './entities/comment.entity';
+import { CommentLikesService } from 'src/comment-likes/comment-likes.service';
 export declare class CommentsService {
     private readonly commentModel;
     private readonly pubmanegementModel;
     private notificationService;
-    constructor(commentModel: Model<CommentDocument>, pubmanegementModel: Model<PubManagementDocument>, notificationService: NotificationsService);
+    private commentLikeService;
+    constructor(commentModel: Model<CommentDocument>, pubmanegementModel: Model<PubManagementDocument>, notificationService: NotificationsService, commentLikeService: CommentLikesService);
     create(createCommentDto: CreateCommentDto, res: any): Promise<any>;
     findAll(params: any, res: any): Promise<any>;
     findOne(_id: string, res: any): Promise<any>;

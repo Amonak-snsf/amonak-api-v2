@@ -24,11 +24,9 @@ export class CommentLikesService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(comment: string, res) {
+  async findOne(comment: string) {
 
-    const data = await all(this.commentModel, { comment: comment });
-
-    return res.status(HttpStatus.OK).json(data);
+    return await all(this.commentModel, { comment: comment });
   }
 
   async update(comment: string, updateCommentLikeDto: UpdateCommentLikeDto, res) {

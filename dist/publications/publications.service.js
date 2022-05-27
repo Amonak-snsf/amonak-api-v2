@@ -38,7 +38,7 @@ let PublicationsService = class PublicationsService {
         }
         const data = await (0, query_1.create)(this.publicationModel, body, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         if (body.share) {
-            const pubManagement = { user: body.user, publication: data._id, type: publication_type_dto_1.PublicationType.share, status: true, reason: '' };
+            const pubManagement = { user: body.user, publication: body.share, type: publication_type_dto_1.PublicationType.share, status: true, reason: '' };
             await this.pubManagementService.create(pubManagement, res);
         }
         return res.status(common_1.HttpStatus.OK).json(data);

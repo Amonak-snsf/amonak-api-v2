@@ -29,7 +29,8 @@ let CommentLikesController = class CommentLikesController {
         return this.commentLikesService.findAll(params, res);
     }
     findOne(comment, res) {
-        return this.commentLikesService.findOne(comment, res);
+        const data = this.commentLikesService.findOne(comment);
+        return res.status(common_1.HttpStatus.OK).json(data);
     }
     update(comment, updateCommentLikeDto, res) {
         return this.commentLikesService.update(comment, updateCommentLikeDto, res);

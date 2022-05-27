@@ -18,6 +18,10 @@ export class PublicationGateway {
   	if(newPublication.type === 'mobile'){
   		client.broadcast.emit("newPublicationListener", newPublication.data);
   	}
+
+    if(newPublication.data.share && newPublication.data.share !==''){
+      this.server.emit('updatePublicationShareStatistiqueListener', newPublication.data)
+    }
     
     console.log("form client publication id after create it", newPublication.data._id, newPublication.type)
   }

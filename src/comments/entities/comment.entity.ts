@@ -35,6 +35,9 @@ export class Comment extends DefaultModel{
 
     @Prop({ required: true, type: Boolean, default: true })
     status: boolean
+
+    @Prop({ required: false, type: [], default: true })
+    likes: []
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);

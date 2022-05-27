@@ -20,7 +20,8 @@ CommentLikesModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: comment_like_entity_1.CommentLike.name, schema: comment_like_entity_1.CommentLikeSchema }])
         ],
         controllers: [comment_likes_controller_1.CommentLikesController],
-        providers: [comment_likes_service_1.CommentLikesService]
+        providers: [comment_likes_service_1.CommentLikesService],
+        exports: [comment_likes_service_1.CommentLikesService]
     })
 ], CommentLikesModule);
 exports.CommentLikesModule = CommentLikesModule;

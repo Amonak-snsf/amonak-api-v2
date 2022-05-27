@@ -9,6 +9,7 @@ import { CommentLike, CommentLikeSchema } from './entities/comment-like.entity';
     MongooseModule.forFeature([{ name: CommentLike.name, schema: CommentLikeSchema }])
   ],
   controllers: [CommentLikesController],
-  providers: [CommentLikesService]
+  providers: [CommentLikesService],
+  exports: [CommentLikesService]
 })
 export class CommentLikesModule {}
