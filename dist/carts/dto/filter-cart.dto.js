@@ -12,11 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilterCart = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const create_cart_dto_1 = require("./create-cart.dto");
+const cart_status_dto_1 = require("./cart-status.dto");
 class FilterCart extends (0, swagger_1.PartialType)((0, swagger_1.OmitType)(create_cart_dto_1.CreateCartDto, [])) {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Number }),
     __metadata("design:type", Number)
 ], FilterCart.prototype, "limit", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], FilterCart.prototype, "user", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
+    __metadata("design:type", String)
+], FilterCart.prototype, "status", void 0);
 exports.FilterCart = FilterCart;
 //# sourceMappingURL=filter-cart.dto.js.map

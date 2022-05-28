@@ -16,4 +16,7 @@ export class CreateCartItemDto extends PartialType(OmitType(CreateCartDto, ['amo
     @ApiProperty({ required: true, type: Number, default: 1 })
     price: number
 
+    @ApiProperty({ required: true, type: String })
+    user?: string
+
 }

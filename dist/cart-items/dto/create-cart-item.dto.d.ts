@@ -5,5 +5,6 @@ export declare class CreateCartItemDto extends CreateCartItemDto_base {
     product: string;
     quantity: number;
     price: number;
+    user?: string;
 }
 export {};

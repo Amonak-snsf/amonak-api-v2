@@ -30,5 +30,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: Number, default: 1 }),
     __metadata("design:type", Number)
 ], CreateCartItemDto.prototype, "price", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: true, type: String }),
+    __metadata("design:type", String)
+], CreateCartItemDto.prototype, "user", void 0);
 exports.CreateCartItemDto = CreateCartItemDto;
 //# sourceMappingURL=create-cart-item.dto.js.map

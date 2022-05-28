@@ -27,7 +27,7 @@ exports.create = create;
 const createIfne = async (model, body, filter, populate, populateFields) => {
     const dataExist = await (0, exports.exist)(model, filter);
     if (dataExist) {
-        throw (0, error_1.error)({ message: "data already exist !", body: dataExist }, common_1.HttpStatus.BAD_REQUEST);
+        return { message: "data already exist !", body: dataExist };
     }
     let data = await new model(body).save().catch(err => {
         throw (0, error_1.error)(err, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
@@ -53,13 +53,13 @@ const all = async (model, filter, fields, sort, limit, populate, populateFields)
 };
 exports.all = all;
 const put = async (model, body, filter, populate, populateFields) => {
-    const data = await model.findOneAndUpdate(filter, body).populate(populate, (0, helpers_1.arrayToString)(populateFields)).catch(err => {
+    const data = await model.findOneAndUpdate(filter, body).catch(err => {
         throw (0, error_1.error)(err, common_1.HttpStatus.NOT_FOUND);
     });
     if (!data) {
         return (0, error_1.error)('Model not found', common_1.HttpStatus.NOT_FOUND);
     }
-    return await (0, exports.one)(model, { _id: data._id }, null, populate, populateFields);
+    return await (0, exports.one)(model, { _id: data._id }, null, populate, (0, helpers_1.arrayToString)(populateFields));
 };
 exports.put = put;
 const destroy = async (model, filter) => {

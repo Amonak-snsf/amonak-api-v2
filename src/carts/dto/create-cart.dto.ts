@@ -6,7 +6,7 @@ export class CreateCartDto {
     @ApiProperty({ required: true, type: String })
     user: String
     
-    @ApiProperty({ required: true, type: Number, default: 1 })
+    @ApiProperty({ required: false, type: Number, default: 1 })
     amount: Number;
 
     @ApiProperty({ required: false, type: Number, default: 0 })
@@ -18,7 +18,7 @@ export class CreateCartDto {
     @ApiProperty({ required: false, type: Number, default: 0 })
     percentage: Number;
 
-    @ApiProperty({ required: false, type: String, default: CartStatus.unpaid })
+    @ApiProperty({ required: true, type: String, default: CartStatus.unpaid })
     status: CartStatus;
 
     @ApiProperty({ required: false, type: Boolean, default: true })

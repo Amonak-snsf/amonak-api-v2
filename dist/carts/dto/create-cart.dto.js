@@ -19,7 +19,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCartDto.prototype, "user", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: true, type: Number, default: 1 }),
+    (0, swagger_1.ApiProperty)({ required: false, type: Number, default: 1 }),
     __metadata("design:type", Number)
 ], CreateCartDto.prototype, "amount", void 0);
 __decorate([
@@ -35,7 +35,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateCartDto.prototype, "percentage", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: false, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
+    (0, swagger_1.ApiProperty)({ required: true, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
     __metadata("design:type", String)
 ], CreateCartDto.prototype, "status", void 0);
 __decorate([

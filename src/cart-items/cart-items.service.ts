@@ -33,18 +33,18 @@ export class CartItemsService {
 
       const data = await createIfne(this.cartItemModel, item, { cart: this.cart, product: item.product, price: item.price });
       if(data && data.message == 'data already exist !'){
-        this.data = null;
-        this.data.quantity = data.body.quantity + item.quantity;
-        this.data.tax = item.tax ? item.tax : data.body.tax ;
-        this.data.shipping =  item.shipping ? item.shipping : data.body.shipping;
-        this.data.percentage = item.percentage ? item.percentage : data.body.percentage;
+
+        this.data = {};
+        this.data['quantity'] = data.body.quantity + item.quantity;
+        this.data['tax'] = item.tax ? item.tax : data.body.tax ;
+        this.data['shipping'] =  item.shipping ? item.shipping : data.body.shipping;
+        this.data['percentage'] = item.percentage ? item.percentage : data.body.percentage;
         await put(this.cartItemModel, this.data, { _id: data.body._id });
       }
     }
     
-   const cart_data = await this.findOne(this.cart, res); 
-
-   await res.status(HttpStatus.OK).json(cart_data);
+   const cartData = await one(this.cartItemModel, { cart: this.cart }, null, 'product'); 
+   await res.status(HttpStatus.OK).json(cartData);
   }
 
   async findAll(params, res) {
@@ -56,10 +56,9 @@ export class CartItemsService {
 
   async findOne(cart: string, res) {
 
-    await one(this.cartItemModel, { cart: cart }, null, 'product').then(data =>{
-      res.status(HttpStatus.OK).json(data.populate('user', userDataPopulateWithTopten()));
-    });
+    const data = await one(this.cartItemModel, { cart: cart }, null, 'product');
     
+    res.status(HttpStatus.OK).json(data);
   }
 
 

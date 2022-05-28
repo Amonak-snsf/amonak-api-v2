@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const carts_service_1 = require("../carts/carts.service");
-const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const cart_item_entity_1 = require("./entities/cart-item.entity");
 let CartItemsService = class CartItemsService {
@@ -37,25 +36,24 @@ let CartItemsService = class CartItemsService {
         for (const item of this.data) {
             const data = await (0, query_1.createIfne)(this.cartItemModel, item, { cart: this.cart, product: item.product, price: item.price });
             if (data && data.message == 'data already exist !') {
-                this.data = null;
-                this.data.quantity = data.body.quantity + item.quantity;
-                this.data.tax = item.tax ? item.tax : data.body.tax;
-                this.data.shipping = item.shipping ? item.shipping : data.body.shipping;
-                this.data.percentage = item.percentage ? item.percentage : data.body.percentage;
+                this.data = {};
+                this.data['quantity'] = data.body.quantity + item.quantity;
+                this.data['tax'] = item.tax ? item.tax : data.body.tax;
+                this.data['shipping'] = item.shipping ? item.shipping : data.body.shipping;
+                this.data['percentage'] = item.percentage ? item.percentage : data.body.percentage;
                 await (0, query_1.put)(this.cartItemModel, this.data, { _id: data.body._id });
             }
         }
-        const cart_data = await this.findOne(this.cart, res);
-        await res.status(common_1.HttpStatus.OK).json(cart_data);
+        const cartData = await (0, query_1.one)(this.cartItemModel, { cart: this.cart }, null, 'product');
+        await res.status(common_1.HttpStatus.OK).json(cartData);
     }
     async findAll(params, res) {
         const data = await (0, query_1.all)(this.cartItemModel, params, null, { _id: -1 }, params.limit, 'product');
         res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(cart, res) {
-        await (0, query_1.one)(this.cartItemModel, { cart: cart }, null, 'product').then(data => {
-            res.status(common_1.HttpStatus.OK).json(data.populate('user', (0, helpers_1.userDataPopulateWithTopten)()));
-        });
+        const data = await (0, query_1.one)(this.cartItemModel, { cart: cart }, null, 'product');
+        res.status(common_1.HttpStatus.OK).json(data);
     }
     async remove(_id, res) {
         const data = await (0, query_1.destroy)(this.cartItemModel, { _id: _id });

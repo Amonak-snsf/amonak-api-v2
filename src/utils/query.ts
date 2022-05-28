@@ -35,7 +35,7 @@ export const createIfne = async (model: Model<any>, body: Record<string, any>, f
 
     const dataExist = await exist(model, filter);
     if(dataExist){
-        throw error({ message: "data already exist !", body: dataExist }, HttpStatus.BAD_REQUEST);
+        return { message: "data already exist !", body: dataExist };
     }
 
     let data = await new model(body).save().catch(err =>{
@@ -68,8 +68,8 @@ export const all = async (model: Model<any>, filter: Record<string, any>, fields
 }
 
 export const put = async (model: Model<any>, body: Record<string, any>, filter: Record<string, any>, populate?: string, populateFields?: string | string[]) => {
-    
-    const data = await model.findOneAndUpdate(filter, body).populate(populate, arrayToString(populateFields)).catch(err =>{
+
+    const data = await model.findOneAndUpdate(filter, body).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
     });
 
@@ -77,7 +77,7 @@ export const put = async (model: Model<any>, body: Record<string, any>, filter: 
         return error('Model not found', HttpStatus.NOT_FOUND);
     }
     
-    return await one(model, { _id: data._id }, null, populate, populateFields);
+    return await one(model, { _id: data._id }, null, populate, arrayToString(populateFields));
 }
 
 export const destroy = async (model: Model<any>, filter: Record<string, any>)=> {
