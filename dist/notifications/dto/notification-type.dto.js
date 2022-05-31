@@ -12,6 +12,7 @@ var NotificationType;
     NotificationType["follow"] = "follow";
     NotificationType["share"] = "share";
     NotificationType["seen"] = "seen";
+    NotificationType["save"] = "save";
     NotificationType["read"] = "read";
 })(NotificationType = exports.NotificationType || (exports.NotificationType = {}));
 //# sourceMappingURL=notification-type.dto.js.map

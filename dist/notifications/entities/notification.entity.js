@@ -14,6 +14,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_entity_1 = require("../../users/entities/user.entity");
 const mongoose = require("mongoose");
 const publication_entity_1 = require("../../publications/entities/publication.entity");
+const comment_entity_1 = require("../../comments/entities/comment.entity");
 const notification_type_dto_1 = require("../dto/notification-type.dto");
 const class_validator_1 = require("class-validator");
 const default_model_1 = require("../../utils/default-model");
@@ -32,13 +33,13 @@ __decorate([
     __metadata("design:type", publication_entity_1.Publication)
 ], Notification.prototype, "publication", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, type: String }),
-    __metadata("design:type", String)
-], Notification.prototype, "content", void 0);
+    (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }),
+    __metadata("design:type", comment_entity_1.Comment)
+], Notification.prototype, "comment", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: String }),
     __metadata("design:type", String)
-], Notification.prototype, "comment", void 0);
+], Notification.prototype, "content", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String, default: notification_type_dto_1.NotificationType.all }),
     (0, class_validator_1.IsIn)([notification_type_dto_1.NotificationType.all, notification_type_dto_1.NotificationType.follow, notification_type_dto_1.NotificationType.comment, notification_type_dto_1.NotificationType.friendRequest, notification_type_dto_1.NotificationType.like, notification_type_dto_1.NotificationType.publication, notification_type_dto_1.NotificationType.share, notification_type_dto_1.NotificationType.welcome]),

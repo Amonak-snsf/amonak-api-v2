@@ -3,6 +3,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { User } from "src/users/entities/user.entity";
 import * as mongoose from 'mongoose';
 import { Publication } from "src/publications/entities/publication.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 import { NotificationType } from "../dto/notification-type.dto";
 import { IsIn } from "class-validator";
 import { DefaultModel } from "src/utils/default-model";
@@ -21,11 +22,11 @@ export class Notification extends DefaultModel{
   @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Publication' })
   publication: Publication
 
-  @Prop({ required: false, type: String })
-  content: string;
+  @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'Comment' })
+  comment: Comment
 
   @Prop({ required: false, type: String })
-  comment: string;
+  content: string;
 
   @Prop({ required: true, type: String, default: NotificationType.all })
   @IsIn([NotificationType.all, NotificationType.follow, NotificationType.comment, NotificationType.friendRequest, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])

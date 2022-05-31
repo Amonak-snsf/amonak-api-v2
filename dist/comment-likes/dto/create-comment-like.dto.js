@@ -21,5 +21,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String }),
     __metadata("design:type", String)
 ], CreateCommentLikeDto.prototype, "comment", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreateCommentLikeDto.prototype, "commentCreator", void 0);
 exports.CreateCommentLikeDto = CreateCommentLikeDto;
 //# sourceMappingURL=create-comment-like.dto.js.map

@@ -9,5 +9,6 @@ export enum NotificationType{
     follow = 'follow',
     share = 'share',
     seen = 'seen',
+    save = 'save',
     read = 'read'
 }

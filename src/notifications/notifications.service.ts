@@ -5,6 +5,7 @@ import { userDataPopulateWithComment, userDataPopulateWithTopten } from 'src/uti
 import { all, create, destroy, put } from 'src/utils/query';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { Notification, NotificationDocument } from './entities/notification.entity';
+import { NotificationType } from "./dto/notification-type.dto";
 
 @Injectable()
 export class NotificationsService {
@@ -19,7 +20,16 @@ export class NotificationsService {
 
   async findAll(params) {
     
-    const data = await all(this.notificationModel, params, null, { _id: -1 }, params.limit);
+    let filter = {}
+    if(params){
+
+      filter = {...params, readAt : {'$exists' : false }, from: {'$ne' : params.user}, 
+      '$or' : [{to: params.user}, {type: NotificationType.all}] };
+      delete filter['user'];
+      delete filter['type'];
+    }
+
+    const data = await all(this.notificationModel, filter, null, { _id: -1 }, params.limit, 'from', userDataPopulateWithTopten());
 
     return data;
   }

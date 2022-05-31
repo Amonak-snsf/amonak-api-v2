@@ -5,11 +5,12 @@ import { NotificationsService } from 'src/notifications/notifications.service';
 import { PubManagementType } from 'src/publication-managements/dto/publication-managements-type.dto';
 import { PublicationManagement, PubManagementDocument } from 'src/publication-managements/entities/publication-management.entity';
 import { customFiles, userDataPopulateWithComment, userDataPopulateWithTopten } from 'src/utils/helpers';
-import { all, create, destroy, one, put } from 'src/utils/query';
+import { all, create, destroy, one, put, allDistinct } from 'src/utils/query';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment, CommentDocument } from './entities/comment.entity';
 import { CommentLikesService } from 'src/comment-likes/comment-likes.service';
+import { NotificationType } from "src/notifications/dto/notification-type.dto";
 
 @Injectable()
 export class CommentsService {
@@ -23,14 +24,37 @@ export class CommentsService {
 
     const data = await create(this.commentModel, createCommentDto, 'user', userDataPopulateWithTopten());
 
-    await new this.pubmanegementModel({ user: data.user, publication: data.publication, type: PubManagementType.follow })
-    await this.notificationService.create({
-      from: data.user,
-      content: "publicationComment",
-      to: data.to,
-      publication: data.publication
-    })
-    
+    let content = 'a commenté votre publication';
+
+    const allCommentOfThisPublication = await allDistinct(this.commentModel, 'user', {publication: data.publication});
+
+    if(allCommentOfThisPublication){
+      for(let value of allCommentOfThisPublication){
+
+          content = 'a commenté une publication que vous avez aussi commenté';
+          if(value && `${value}` !== createCommentDto.publicationCreator && `${value}` !==''){
+            await this.notificationService.create({
+              from: data.user,
+              content: content,
+              to: value,
+              publication: data.publication,
+              type: NotificationType.comment
+            })
+         }
+      }
+    }
+
+    if(createCommentDto.publicationCreator !== `${data.user._id}`){
+
+        await this.notificationService.create({
+        from: data.user,
+        content: content,
+        to: createCommentDto.publicationCreator,
+        publication: data.publication,
+        type: NotificationType.comment
+      })
+    }
+
     return res.status(HttpStatus.OK).json(data);
   }
 

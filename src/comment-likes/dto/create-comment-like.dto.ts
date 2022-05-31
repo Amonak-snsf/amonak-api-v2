@@ -7,4 +7,7 @@ export class CreateCommentLikeDto {
 
     @ApiProperty({ required: true, type: String })
     comment: String;
+
+    @ApiProperty({ required: false, type: String })
+    commentCreator?: String;
 }

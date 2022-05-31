@@ -17,12 +17,12 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const notifications_service_1 = require("../notifications/notifications.service");
-const publication_managements_type_dto_1 = require("../publication-managements/dto/publication-managements-type.dto");
 const publication_management_entity_1 = require("../publication-managements/entities/publication-management.entity");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const comment_entity_1 = require("./entities/comment.entity");
 const comment_likes_service_1 = require("../comment-likes/comment-likes.service");
+const notification_type_dto_1 = require("../notifications/dto/notification-type.dto");
 let CommentsService = class CommentsService {
     constructor(commentModel, pubmanegementModel, notificationService, commentLikeService) {
         this.commentModel = commentModel;
@@ -32,13 +32,31 @@ let CommentsService = class CommentsService {
     }
     async create(createCommentDto, res) {
         const data = await (0, query_1.create)(this.commentModel, createCommentDto, 'user', (0, helpers_1.userDataPopulateWithTopten)());
-        await new this.pubmanegementModel({ user: data.user, publication: data.publication, type: publication_managements_type_dto_1.PubManagementType.follow });
-        await this.notificationService.create({
-            from: data.user,
-            content: "publicationComment",
-            to: data.to,
-            publication: data.publication
-        });
+        let content = 'a commenté votre publication';
+        const allCommentOfThisPublication = await (0, query_1.allDistinct)(this.commentModel, 'user', { publication: data.publication });
+        if (allCommentOfThisPublication) {
+            for (let value of allCommentOfThisPublication) {
+                content = 'a commenté une publication que vous avez aussi commenté';
+                if (value && `${value}` !== createCommentDto.publicationCreator && `${value}` !== '') {
+                    await this.notificationService.create({
+                        from: data.user,
+                        content: content,
+                        to: value,
+                        publication: data.publication,
+                        type: notification_type_dto_1.NotificationType.comment
+                    });
+                }
+            }
+        }
+        if (createCommentDto.publicationCreator !== `${data.user._id}`) {
+            await this.notificationService.create({
+                from: data.user,
+                content: content,
+                to: createCommentDto.publicationCreator,
+                publication: data.publication,
+                type: notification_type_dto_1.NotificationType.comment
+            });
+        }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {

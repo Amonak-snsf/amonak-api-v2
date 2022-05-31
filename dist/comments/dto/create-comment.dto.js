@@ -30,6 +30,10 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCommentDto.prototype, "publication", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreateCommentDto.prototype, "publicationCreator", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
 ], CreateCommentDto.prototype, "status", void 0);

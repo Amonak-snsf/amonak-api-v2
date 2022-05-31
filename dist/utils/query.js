@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.destroy = exports.put = exports.all = exports.one = exports.createIfne = exports.create = exports.exist = void 0;
+exports.destroy = exports.put = exports.allDistinct = exports.all = exports.one = exports.createIfne = exports.create = exports.exist = void 0;
 const common_1 = require("@nestjs/common");
 const error_1 = require("./error");
 const helpers_1 = require("./helpers");
@@ -52,6 +52,13 @@ const all = async (model, filter, fields, sort, limit, populate, populateFields)
     return data;
 };
 exports.all = all;
+const allDistinct = async (model, field, filter, sort, limit, populate, populateFields) => {
+    const data = await model.distinct(field, filter).populate(populate, (0, helpers_1.arrayToString)(populateFields)).sort(sort).catch(err => {
+        throw (0, error_1.error)(err, common_1.HttpStatus.NOT_FOUND);
+    });
+    return data;
+};
+exports.allDistinct = allDistinct;
 const put = async (model, body, filter, populate, populateFields) => {
     const data = await model.findOneAndUpdate(filter, body).catch(err => {
         throw (0, error_1.error)(err, common_1.HttpStatus.NOT_FOUND);

@@ -12,12 +12,17 @@ const comment_likes_service_1 = require("./comment-likes.service");
 const comment_likes_controller_1 = require("./comment-likes.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const comment_like_entity_1 = require("./entities/comment-like.entity");
+const comment_entity_1 = require("../comments/entities/comment.entity");
+const notifications_module_1 = require("../notifications/notifications.module");
 let CommentLikesModule = class CommentLikesModule {
 };
 CommentLikesModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: comment_like_entity_1.CommentLike.name, schema: comment_like_entity_1.CommentLikeSchema }])
+            mongoose_1.MongooseModule.forFeature([{ name: comment_like_entity_1.CommentLike.name, schema: comment_like_entity_1.CommentLikeSchema },
+                { name: comment_entity_1.Comment.name, schema: comment_entity_1.CommentSchema },
+            ]),
+            notifications_module_1.NotificationsModule
         ],
         controllers: [comment_likes_controller_1.CommentLikesController],
         providers: [comment_likes_service_1.CommentLikesService],

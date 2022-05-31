@@ -20,6 +20,7 @@ const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const update_notification_dto_1 = require("./dto/update-notification.dto");
 const notification_entity_1 = require("./entities/notification.entity");
+const notification_type_dto_1 = require("./dto/notification-type.dto");
 let NotificationsService = class NotificationsService {
     constructor(notificationModel) {
         this.notificationModel = notificationModel;
@@ -29,7 +30,13 @@ let NotificationsService = class NotificationsService {
         return data;
     }
     async findAll(params) {
-        const data = await (0, query_1.all)(this.notificationModel, params, null, { _id: -1 }, params.limit);
+        let filter = {};
+        if (params) {
+            filter = Object.assign(Object.assign({}, params), { readAt: { '$exists': false }, from: { '$ne': params.user }, '$or': [{ to: params.user }, { type: notification_type_dto_1.NotificationType.all }] });
+            delete filter['user'];
+            delete filter['type'];
+        }
+        const data = await (0, query_1.all)(this.notificationModel, filter, null, { _id: -1 }, params.limit, 'from', (0, helpers_1.userDataPopulateWithTopten)());
         return data;
     }
     async findOne(from, params) {

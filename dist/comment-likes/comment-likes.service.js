@@ -18,35 +18,68 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const query_1 = require("../utils/query");
 const comment_like_entity_1 = require("./entities/comment-like.entity");
+const comment_entity_1 = require("../comments/entities/comment.entity");
+const notifications_service_1 = require("../notifications/notifications.service");
+const notification_type_dto_1 = require("../notifications/dto/notification-type.dto");
 let CommentLikesService = class CommentLikesService {
-    constructor(commentModel) {
+    constructor(commentLikeModel, commentModel, notificationService) {
+        this.commentLikeModel = commentLikeModel;
         this.commentModel = commentModel;
+        this.notificationService = notificationService;
     }
     async create(createCommentLikeDto, res) {
-        const data = await (0, query_1.create)(this.commentModel, createCommentLikeDto);
+        const data = await (0, query_1.create)(this.commentLikeModel, createCommentLikeDto);
+        let content = 'a aimé votre commentaire sur une publication';
+        const allLikeOfThisComment = await (0, query_1.allDistinct)(this.commentLikeModel, 'user', { comment: data.comment });
+        if (allLikeOfThisComment) {
+            for (let value of allLikeOfThisComment) {
+                content = 'a aimé le commentaire d\'une publication que vous avez aussi aimé';
+                if (value && `${value}` !== '' && `${value}` !== createCommentLikeDto.commentCreator) {
+                    await this.notificationService.create({
+                        from: data.user,
+                        content: content,
+                        to: value,
+                        comment: data.comment,
+                        type: notification_type_dto_1.NotificationType.like
+                    });
+                }
+            }
+        }
+        if (createCommentLikeDto.commentCreator !== `${data.user}`) {
+            await this.notificationService.create({
+                from: data.user,
+                content: content,
+                to: createCommentLikeDto.commentCreator,
+                comment: data.comment,
+                type: notification_type_dto_1.NotificationType.like
+            });
+        }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findAll(params, res) {
-        const data = await (0, query_1.all)(this.commentModel, params);
+        const data = await (0, query_1.all)(this.commentLikeModel, params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async findOne(comment) {
-        return await (0, query_1.all)(this.commentModel, { comment: comment });
+        return await (0, query_1.all)(this.commentLikeModel, { comment: comment });
     }
     async update(comment, updateCommentLikeDto, res) {
-        const data = await (0, query_1.put)(this.commentModel, updateCommentLikeDto, { comment: comment });
+        const data = await (0, query_1.put)(this.commentLikeModel, updateCommentLikeDto, { comment: comment });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async remove(comment, params, res) {
         params.comment = comment;
-        const data = await (0, query_1.destroy)(this.commentModel, params);
+        const data = await (0, query_1.destroy)(this.commentLikeModel, params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
 };
 CommentLikesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(comment_like_entity_1.CommentLike.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(comment_entity_1.Comment.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        notifications_service_1.NotificationsService])
 ], CommentLikesService);
 exports.CommentLikesService = CommentLikesService;
 //# sourceMappingURL=comment-likes.service.js.map

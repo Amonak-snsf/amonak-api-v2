@@ -18,5 +18,25 @@ __decorate([
     (0, swagger_1.ApiProperty)({ type: Number, required: false }),
     __metadata("design:type", Number)
 ], FilterNotification.prototype, "limit", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: true }),
+    __metadata("design:type", Boolean)
+], FilterNotification.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false }),
+    __metadata("design:type", Date)
+], FilterNotification.prototype, "seenAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false }),
+    __metadata("design:type", Date)
+], FilterNotification.prototype, "readAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], FilterNotification.prototype, "to", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], FilterNotification.prototype, "type", void 0);
 exports.FilterNotification = FilterNotification;
 //# sourceMappingURL=filter-notification.dto.js.map

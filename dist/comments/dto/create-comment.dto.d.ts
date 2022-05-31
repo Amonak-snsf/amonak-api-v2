@@ -1,7 +1,8 @@
 export declare class CreateCommentDto {
-    content: String;
+    content: string;
     files: File[];
-    user: String;
-    publication: String;
+    user: string;
+    publication: string;
+    publicationCreator?: string;
     status: Boolean;
 }

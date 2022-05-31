@@ -67,6 +67,15 @@ export const all = async (model: Model<any>, filter: Record<string, any>, fields
     return data;
 }
 
+export const allDistinct = async (model: Model<any>, field: string, filter: Record<string, any>, sort?: Object, limit?: Number, populate?: string, populateFields?: String | String[]) => {
+   
+    const data = await model.distinct(field, filter).populate(populate, arrayToString(populateFields)).sort(sort).catch(err =>{
+        throw error(err, HttpStatus.NOT_FOUND);
+    });
+    
+    return data;
+}
+
 export const put = async (model: Model<any>, body: Record<string, any>, filter: Record<string, any>, populate?: string, populateFields?: string | string[]) => {
 
     const data = await model.findOneAndUpdate(filter, body).catch(err =>{
