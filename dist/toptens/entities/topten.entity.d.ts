@@ -8,7 +8,7 @@ export declare class Topten extends DefaultModel {
     user: User;
     followers: User[];
     files: Files[];
-    message: string;
+    content: string;
     company: string;
     duration: number;
     webSites: string;

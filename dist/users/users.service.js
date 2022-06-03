@@ -27,6 +27,9 @@ let UsersService = class UsersService {
         if (params.search) {
             params = { status: true, $or: [{ userName: { $regex: new RegExp(params.search, 'i') } }, { email: { $regex: new RegExp(params.search, 'i') } }, { firstName: { $regex: new RegExp(params.search, 'i') } }, { lastName: { $regex: new RegExp(params.search, 'i') } }] };
         }
+        if (params.followers) {
+            params = { '$in': params.followers };
+        }
         const data = await (0, query_1.all)(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
@@ -51,8 +54,10 @@ let UsersService = class UsersService {
         }
         this.data.sectors = Array.isArray(upDto.sectors) ? upDto.sectors : [upDto.sectors];
         if (user.sectors) {
+            console.log(user.sectors);
             user.sectors.forEach(sector => {
-                this.data.sectors.push(sector);
+                if (sector)
+                    this.data.sectors.push(sector);
             });
         }
         const data = await (0, query_1.put)(this.userModel, this.data, { _id: _id });

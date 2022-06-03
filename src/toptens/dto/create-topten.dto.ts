@@ -20,7 +20,7 @@ export class CreateToptenDto {
   files: File[];
 
   @ApiProperty({ type: String})
-  message: String;
+  content: String;
 
   @ApiProperty({ type: String})
   webSites: String;

@@ -36,7 +36,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     __metadata("design:type", String)
-], CreateToptenDto.prototype, "message", void 0);
+], CreateToptenDto.prototype, "content", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     __metadata("design:type", String)

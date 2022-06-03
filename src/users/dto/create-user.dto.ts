@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsIn, IsMongoId, IsNotEmpty, MinLength } from 'class-validator';
 import { Friend } from 'src/friends/entities/friend.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Address } from './address-interface';
 import { BankCard } from './bank-card-interface';
 import { Gender } from './gender';
@@ -42,11 +43,14 @@ export class CreateUserDto {
   @ApiProperty({ type: String })
   birthPlace: String;
 
-  @ApiProperty()
-  profession: string;
+  @ApiProperty({ type: [String] })
+  profession: string[];
 
   @ApiProperty({ type: [String] })
   sectors: string[];
+
+  @ApiProperty({type: [String]})
+  webSites: string[];
 
   @ApiProperty({ type: [Object]})
   address: Address[];
@@ -57,6 +61,9 @@ export class CreateUserDto {
   @ApiProperty({ type: [String] })
   friends: Friend[];
 
+  @ApiProperty({ type: [String] })
+  followers: User[];
+  
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
   status: Boolean;

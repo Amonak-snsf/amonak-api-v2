@@ -61,11 +61,14 @@ export class User extends DefaultModel {
   ])
   avatar: [];
 
-  @Prop({ required: false, trim: true, type: String })
-  profession: string;
+  @Prop([String])
+  profession: string[];
 
   @Prop([String])
   sectors: string[];
+
+  @Prop([String])
+  webSites: string[];
 
   @Prop([raw({
     countryName: { required: false, trim: true, type: String },
@@ -88,6 +91,9 @@ export class User extends DefaultModel {
 
   @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }] })
   friends: Friend[]
+
+  @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  followers: User[]
 
   @Prop({ required: false, trim: true, type: Boolean, default: false })
   status: boolean;

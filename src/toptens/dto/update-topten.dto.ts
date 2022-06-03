@@ -5,7 +5,7 @@ import { CreateToptenDto } from './create-topten.dto';
 import { Status } from './topten-status-interface';
 
 export class UpdateToptenDto extends PartialType(OmitType(CreateToptenDto, 
-    ['files', 'name', 'productNature', 'company', 'duration', 'user', 'price', 'webSites', 'message'] as const)) 
+    ['files', 'name', 'productNature', 'company', 'duration', 'user', 'price', 'webSites', 'content'] as const)) 
 {
     @ApiProperty({ type: [String], required: false })
     followers: User[];

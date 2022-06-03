@@ -1,4 +1,5 @@
 import { Friend } from 'src/friends/entities/friend.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Address } from './address-interface';
 import { BankCard } from './bank-card-interface';
 import { Gender } from './gender';
@@ -13,11 +14,13 @@ export declare class CreateUserDto {
     gender: Gender;
     birthDay: Date;
     birthPlace: String;
-    profession: string;
+    profession: string[];
     sectors: string[];
+    webSites: string[];
     address: Address[];
     bankCard: BankCard;
     friends: Friend[];
+    followers: User[];
     status: Boolean;
     isLog: Boolean;
     isFirstTime: Boolean;

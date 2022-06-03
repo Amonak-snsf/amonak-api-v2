@@ -15,11 +15,13 @@ export declare class User extends DefaultModel {
     birthDay: string;
     birthPlace: string;
     avatar: [];
-    profession: string;
+    profession: string[];
     sectors: string[];
+    webSites: string[];
     address: [];
     bankCard: Record<string, any>;
     friends: Friend[];
+    followers: User[];
     status: boolean;
     accountType: string;
     isLog: boolean;

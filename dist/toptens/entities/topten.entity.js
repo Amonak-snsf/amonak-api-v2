@@ -42,13 +42,13 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
-], Topten.prototype, "message", void 0);
+], Topten.prototype, "content", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
     __metadata("design:type", String)
 ], Topten.prototype, "company", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, trim: true, type: Number }),
+    (0, mongoose_1.Prop)({ required: false, trim: true, type: Number }),
     __metadata("design:type", Number)
 ], Topten.prototype, "duration", void 0);
 __decorate([

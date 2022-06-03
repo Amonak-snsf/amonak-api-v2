@@ -18,6 +18,10 @@ export class UsersService {
     if(params.search){
       params = {status: true, $or: [{userName: {$regex: new RegExp(params.search, 'i')}}, {email: {$regex: new RegExp(params.search, 'i')}}, {firstName: {$regex: new RegExp(params.search, 'i')}}, {lastName: {$regex: new RegExp(params.search, 'i')}}]};
     }
+
+    if(params.followers){
+        params = {'$in': params.followers};
+    }
     
     const data = await all(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
 
@@ -53,8 +57,9 @@ export class UsersService {
     
     this.data.sectors =  Array.isArray(upDto.sectors) ? upDto.sectors : [upDto.sectors];
     if(user.sectors){
+      console.log(user.sectors);
       user.sectors.forEach(sector => {
-        this.data.sectors.push(sector);
+        if(sector) this.data.sectors.push(sector);
       });
     }
 

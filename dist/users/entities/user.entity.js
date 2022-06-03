@@ -81,13 +81,17 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "avatar", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false, trim: true, type: String }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)([String]),
+    __metadata("design:type", Array)
 ], User.prototype, "profession", void 0);
 __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
 ], User.prototype, "sectors", void 0);
+__decorate([
+    (0, mongoose_1.Prop)([String]),
+    __metadata("design:type", Array)
+], User.prototype, "webSites", void 0);
 __decorate([
     (0, mongoose_1.Prop)([(0, mongoose_1.raw)({
             countryName: { required: false, trim: true, type: String },
@@ -113,6 +117,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }] }),
     __metadata("design:type", Array)
 ], User.prototype, "friends", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
+    __metadata("design:type", Array)
+], User.prototype, "followers", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, trim: true, type: Boolean, default: false }),
     __metadata("design:type", Boolean)

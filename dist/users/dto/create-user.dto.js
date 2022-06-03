@@ -61,13 +61,17 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "birthPlace", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
+    (0, swagger_1.ApiProperty)({ type: [String] }),
+    __metadata("design:type", Array)
 ], CreateUserDto.prototype, "profession", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
 ], CreateUserDto.prototype, "sectors", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [String] }),
+    __metadata("design:type", Array)
+], CreateUserDto.prototype, "webSites", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [Object] }),
     __metadata("design:type", Array)
@@ -80,6 +84,10 @@ __decorate([
     (0, swagger_1.ApiProperty)({ type: [String] }),
     __metadata("design:type", Array)
 ], CreateUserDto.prototype, "friends", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [String] }),
+    __metadata("design:type", Array)
+], CreateUserDto.prototype, "followers", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ enum: [true, false] }),
     (0, class_validator_1.IsIn)([true, false]),

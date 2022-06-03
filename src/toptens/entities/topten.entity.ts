@@ -32,12 +32,12 @@ export class Topten extends DefaultModel {
   files: Files[];
 
   @Prop({ required: false, trim: true, type: String })
-  message: string
+  content: string
 
   @Prop({ required: false, trim: true, type: String })
   company: string;
 
-  @Prop({ required: true, trim: true, type: Number })
+  @Prop({ required: false, trim: true, type: Number })
   duration: number;
 
   @Prop({ required: false, trim: true, type: String })
