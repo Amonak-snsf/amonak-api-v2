@@ -57,5 +57,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
 ], CreateProductDto.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: Number, default: false }),
+    __metadata("design:type", Number)
+], CreateProductDto.prototype, "buys", void 0);
 exports.CreateProductDto = CreateProductDto;
 //# sourceMappingURL=create-product.dto.js.map

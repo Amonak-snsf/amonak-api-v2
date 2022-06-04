@@ -61,6 +61,9 @@ export class Product extends DefaultModel{
 
     @Prop({ required: true, type: Boolean, default: false })
     status: boolean
+
+    @Prop({ required: false, type: Number, default: 0 })
+    buys: number
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

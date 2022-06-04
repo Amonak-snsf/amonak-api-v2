@@ -36,4 +36,7 @@ export class CreateProductDto {
 
     @ApiProperty({ required: false, type: Boolean, default: false })
     status: boolean;
+
+    @ApiProperty({ required: false, type: Number, default: false })
+    buys: number
 }

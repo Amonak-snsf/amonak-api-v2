@@ -12,4 +12,5 @@ export declare class CreateProductDto {
     category: string;
     user: string;
     status: boolean;
+    buys: number;
 }
