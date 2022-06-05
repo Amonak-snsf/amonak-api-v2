@@ -38,5 +38,5 @@ export class CreateProductDto {
     status: boolean;
 
     @ApiProperty({ required: false, type: Number, default: false })
-    buys: number
+    buys?: number
 }
