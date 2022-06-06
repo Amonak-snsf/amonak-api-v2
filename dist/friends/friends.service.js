@@ -33,76 +33,31 @@ let FriendsService = class FriendsService {
         const query1 = [{ from: cfDto.from, to: cfDto.to }, { from: cfDto.to, to: cfDto.from }];
         const friend = await (0, query_1.one)(this.friendModel, { $or: query1 });
         if (friend) {
-            return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'This friendship request already exist !' });
+            const query1 = { from: cfDto.from, to: cfDto.to };
+            await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.requested }, query1);
+            return res.status(common_1.HttpStatus.OK).json({ message: 'friendship request send with success !' });
         }
         const from_request = await new this.friendModel({
             from: cfDto.from,
             to: cfDto.to,
             status: status_friend_dto_1.Status.requested
         }).save();
-        if (from_request) {
-            this.to_request = await new this.friendModel({
-                from: cfDto.to,
-                to: cfDto.from,
-                status: status_friend_dto_1.Status.pending
-            }).save();
-        }
-        if (this.to_request) {
-            const query1 = { status: true, $push: { friends: from_request._id } };
-            this.user = await (0, query_1.put)(this.userModel, query1, { _id: cfDto.from });
-        }
-        if (this.user) {
-            const query2 = { status: true, $push: { friends: this.to_request._id } };
-            this.friend = await await (0, query_1.put)(this.userModel, query2, { _id: cfDto.to });
-        }
-        if (this.friend) {
-            return res.status(common_1.HttpStatus.OK).json({ message: 'friendship request send with success !' });
-        }
-        return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'friendship request failed !' });
+        return res.status(common_1.HttpStatus.OK).json({ message: 'friendship request send with success !' });
     }
     async reject(cfDto, res) {
         const query1 = { from: cfDto.from, to: cfDto.to };
         const user = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.reject }, query1);
-        if (user) {
-            const query2 = { from: cfDto.to, to: cfDto.from };
-            this.friend = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.reject }, query2);
-        }
-        if (this.friend) {
-            const query1 = { status: true, $pull: { friends: user._id } };
-            this.user = await (0, query_1.put)(this.userModel, query1, { _id: cfDto.from });
-        }
-        if (this.user) {
-            const query2 = { status: true, $pull: { friends: this.friend._id } };
-            this.to_request = await (0, query_1.put)(this.userModel, query2, { _id: cfDto.to });
-        }
-        if (this.to_request) {
-            return res.status(common_1.HttpStatus.OK).json({ message: 'friend reject request is done with success !' });
-        }
-        return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'friend reject request failed !' });
+        return res.status(common_1.HttpStatus.OK).json({ message: 'friend reject request is done with success !' });
     }
     async accept(cfDto, res) {
         const query1 = { from: cfDto.from, to: cfDto.to };
         const user = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.friends }, query1);
-        if (user) {
-            const query2 = { from: cfDto.to, to: cfDto.from };
-            this.friend = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.friends }, query2);
-        }
-        if (this.friend) {
-            return await res.status(common_1.HttpStatus.OK).json({ message: 'friend accept request is done with success !' });
-        }
-        return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'friend accept request failed !' });
+        return await res.status(common_1.HttpStatus.OK).json({ message: 'friend accept request is done with success !' });
     }
     async block(cfDto, res) {
         const query1 = { from: cfDto.from, to: cfDto.to };
         const user = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.block }, query1);
-        if (user) {
-            const query2 = { from: cfDto.to, to: cfDto.from };
-            this.friend = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.block }, query2);
-        }
-        if (this.friend) {
-            return await res.status(common_1.HttpStatus.OK).json({ message: 'friend block request is done with success !' });
-        }
-        return res.status(common_1.HttpStatus.NOT_ACCEPTABLE).json({ message: 'friend block request failed !' });
+        return await res.status(common_1.HttpStatus.OK).json({ message: 'friend block request is done with success !' });
     }
 };
 FriendsService = __decorate([
