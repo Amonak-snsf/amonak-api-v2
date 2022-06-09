@@ -4,8 +4,8 @@ import { CreatePublicationDto } from "./create-publication.dto";
 export class FilterPublicationDto extends PartialType(OmitType(CreatePublicationDto, ['files'])){
 
     @ApiProperty({ type: Number, required: false })
-    limit: Number
+    limit: number
 
     @ApiProperty({ type: String, required: false})
-    search: String;
+    search: string;
 }

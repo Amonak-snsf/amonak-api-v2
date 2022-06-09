@@ -4,20 +4,20 @@ import { CreateCartDto } from "src/carts/dto/create-cart.dto";
 export class CreateInvoiceDto  extends PartialType(CreateCartDto){
 
     @ApiProperty({ required: true, type: String })
-    cart: String
+    cart: string
 
     @ApiProperty({ required: false, type: String })
-    comment: String
+    comment: string
 
     @ApiProperty({ required: false, type: String })
-    paymentType: String
+    paymentType: string
 
     @ApiProperty({ required: false, type: String })
-    paymentMethod: String
+    paymentMethod: string
 
     @ApiProperty({ required: false, type: Date })
     paymentDate: Date
 
     @ApiProperty({ required: false, type: String })
-    paymentReference: String
+    paymentReference: string
 }

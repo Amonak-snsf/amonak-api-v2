@@ -7,24 +7,24 @@ export class CreateNewsletterDto {
     @ApiProperty({ type: String, required: true })
     @IsEmail()
     @IsNotEmpty()
-    email: String;
+    email: string;
 
     @ApiProperty({ type: String, required: false })
-    name: String;
+    name: string;
 
     @ApiProperty({ type: String, required: false })
-    fullAddress: String;
+    fullAddress: string;
 
     @ApiProperty({ required: false, type: String })
-    subject: String;
+    subject: string;
 
     @ApiProperty({ required: false, type: String })
-    message: String;
+    message: string;
 
     @ApiProperty({ required: true, type: String, default: ContactType.newsletter })
-    type: String;
+    type: string;
 
     @ApiProperty({ type: Boolean, required: false, default: false })
     @IsIn([true, false])
-    status: Boolean;
+    status: boolean;
 }

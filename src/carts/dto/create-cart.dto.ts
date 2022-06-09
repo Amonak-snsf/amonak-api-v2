@@ -4,26 +4,26 @@ import { CartStatus } from "./cart-status.dto";
 export class CreateCartDto {
 
     @ApiProperty({ required: true, type: String })
-    user: String
+    user: string
     
     @ApiProperty({ required: false, type: Number, default: 1 })
-    amount: Number;
+    amount: number;
 
     @ApiProperty({ required: false, type: Number, default: 0 })
-    tax: Number;
+    tax: number;
 
     @ApiProperty({ required: false, type: Number, default: 0 })
-    shipping: Number;
+    shipping: number;
 
     @ApiProperty({ required: false, type: Number, default: 0 })
-    percentage: Number;
+    percentage: number;
 
     @ApiProperty({ required: true, type: String, default: CartStatus.unpaid })
     status: CartStatus;
 
     @ApiProperty({ required: false, type: Boolean, default: true })
-    isWaiting: Boolean;
+    isWaiting: boolean;
 
     @ApiProperty({ required: false, type: Boolean, default: false })
-    isCompleted: Boolean;
+    isCompleted: boolean;
 }

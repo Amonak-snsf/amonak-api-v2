@@ -9,25 +9,25 @@ export type NewsletterDocument = Newsletter & Document;
 export class Newsletter extends DefaultModel{
 
     @Prop({ required: true, type: String, trim: true, lowercase: true })
-    email: String;
+    email: string;
 
     @Prop({ required: false, type: String, trim: true })
-    name: String;
+    name: string;
 
     @Prop({ required: false, type: String, trim: true })
-    fullAddress: String;
+    fullAddress: string;
 
     @Prop({ required: false, type: String, trim: true })
-    subject: String;
+    subject: string;
 
     @Prop({ required: false, type: String, trim: true })
-    message: String;
+    message: string;
 
     @Prop({ required: true, type: String, trim: true, default: ContactType.newsletter })
     type: ContactType;
 
     @Prop({ required: true, type: Boolean , default: false })
-    status: Boolean;
+    status: boolean;
 }
 
 export const NewsletterSchema = SchemaFactory.createForClass(Newsletter);

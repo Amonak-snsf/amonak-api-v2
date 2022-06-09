@@ -41,7 +41,7 @@ export class CreateUserDto {
   birthDay: Date;
 
   @ApiProperty({ type: String })
-  birthPlace: String;
+  birthPlace: string;
 
   @ApiProperty({ type: [String] })
   profession: string[];
@@ -66,19 +66,19 @@ export class CreateUserDto {
   
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  status: Boolean;
+  status: boolean;
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  isLog: Boolean;
+  isLog: boolean;
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  isFirstTime: Boolean;
+  isFirstTime: boolean;
 
   @ApiProperty({ enum: [true, false]})
   @IsIn([true, false])
-  isNewFeed: Boolean;
+  isNewFeed: boolean;
 
   @ApiProperty()
   accountType: string;

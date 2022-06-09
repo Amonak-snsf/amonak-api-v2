@@ -18,5 +18,5 @@ export class CreateCommentDto {
     publicationCreator?: string;
 
     @ApiProperty({ required: false, type: Boolean, default: true })
-    status: Boolean;
+    status: boolean;
 }

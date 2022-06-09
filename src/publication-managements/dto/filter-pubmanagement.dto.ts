@@ -4,5 +4,5 @@ import { CreatePublicationManagementDto } from "./create-publication-management.
 export class FilterPubManagment extends PartialType(OmitType(CreatePublicationManagementDto, ['reason'] as const)){
 
     @ApiProperty({ type: Number, required: false })
-    limit: Number
+    limit: number
 }

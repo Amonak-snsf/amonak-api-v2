@@ -13,5 +13,5 @@ export class FilterToptenDto extends PartialType(OmitType(CreateToptenDto,
   followers: User[];
 
   @ApiProperty({ type: Number, required: false})
-  limit: Number;
+  limit: number;
 }

@@ -10,5 +10,5 @@ export class FilterSeller extends PartialType(OmitType(CreateSellerInfoDto, ['id
     status: Status;
 
     @ApiProperty({ type: Number, required: false })
-    limit: Number;
+    limit: number;
 }

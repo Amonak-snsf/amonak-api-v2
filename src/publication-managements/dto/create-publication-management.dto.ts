@@ -5,24 +5,24 @@ import { PubManagementType } from "./publication-managements-type.dto";
 export class CreatePublicationManagementDto {
 
     @ApiProperty({ required: true, type: String })
-    user: String;
+    user: string;
 
     @ApiProperty({ required: true, type: String })
-    publication: String;
+    publication: string;
 
     @ApiProperty({ required: false, type: Boolean, default: true })
-    status: Boolean;
+    status: boolean;
 
     @ApiProperty({ required: true, type: String })
     @IsIn([PubManagementType.delete, PubManagementType.softDelete, PubManagementType.softDeleteAll,
      PubManagementType.follow, PubManagementType.like, PubManagementType.reporte, PubManagementType.save,
       PubManagementType.share, PubManagementType.sideburn, PubManagementType.signale,
        PubManagementType.buy, PubManagementType.comment, PubManagementType.alerteResponse])
-    type: String;
+    type: string;
 
     @ApiProperty({ required: false, type: String })
-    reason: String;
+    reason: string;
 
     @ApiProperty({ required: false, type: String })
-    to?: String;
+    to?: string;
 }

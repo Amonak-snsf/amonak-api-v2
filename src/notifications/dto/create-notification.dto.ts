@@ -5,25 +5,25 @@ import { NotificationType } from "./notification-type.dto";
 export class CreateNotificationDto {
 
   @ApiProperty({ required: true, type: String })
-  from: String
+  from: string
 
   @ApiProperty({ required: false, type: String })
-  to: String
+  to: string
 
   @ApiProperty({ required: false, type: String })
-  publication: String
+  publication: string
 
   @ApiProperty({ required: false, type: String })
-  content: String;
+  content: string;
 
   @ApiProperty({ required: false, type: String })
-  comment: String;
+  comment: string;
 
   @ApiProperty({ required: true, type: String  })
   @IsIn([NotificationType.all, NotificationType.comment, NotificationType.friendRequest, NotificationType.like, NotificationType.publication, NotificationType.share, NotificationType.welcome])
-  type: String;
+  type: string;
 
   @ApiProperty({ required: true, type: Boolean, default: true })
-  status: Boolean;
+  status: boolean;
 
 }

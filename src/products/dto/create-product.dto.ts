@@ -14,7 +14,7 @@ export class CreateProductDto {
     price: number;
 
     @ApiProperty({ required: true, type: Number, default: 1 })
-    quantity: Number;
+    quantity: number;
 
     @ApiProperty({ required: false, type: Number, default: 1 })
     maxWeight: number;

@@ -4,15 +4,15 @@ import { IsIn } from "class-validator";
 export class CreateCategoryDto {
 
     @ApiProperty({ type: String, required: true })
-    name: String;
+    name: string;
 
     @ApiProperty({ type: String, required: false })
-    description:String;
+    description: string;
 
     @ApiProperty({ type: String, required: false })
-    image: String;
+    image: string;
 
     @ApiProperty({ type: Boolean, required: false, default: false })
     @IsIn([true, false])
-    status: Boolean;
+    status: boolean;
 }

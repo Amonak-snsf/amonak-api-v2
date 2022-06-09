@@ -14,7 +14,7 @@ export class CreatePublicationDto {
     user: string;
 
     @ApiProperty({ required: false, type: String })
-    share:string
+    share: string
 
     @ApiProperty({ required: false, type: String })
     product: string;

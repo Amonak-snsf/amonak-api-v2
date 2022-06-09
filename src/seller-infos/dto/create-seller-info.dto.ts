@@ -25,7 +25,7 @@ export class CreateSellerInfoDto {
   productNature: String[];
 
   @ApiProperty({ type: String})
-  type: String;
+  type: string;
 
   @ApiProperty()
   message: string;

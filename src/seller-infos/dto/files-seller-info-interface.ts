@@ -1,4 +1,4 @@
 export interface File{
-    url: String,
-    type: String
+    url: string,
+    type: string
 }

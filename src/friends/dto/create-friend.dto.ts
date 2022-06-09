@@ -3,8 +3,8 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateFriendDto {
 
   @ApiProperty({ type: String })
-  from: String;
+  from: string;
 
   @ApiProperty({ type: String})
-  to: String;
+  to: string;
 }

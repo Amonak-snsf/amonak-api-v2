@@ -3,11 +3,11 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateCommentLikeDto {
 
     @ApiProperty({ required: true, type: String })
-    user: String;
+    user: string;
 
     @ApiProperty({ required: true, type: String })
-    comment: String;
+    comment: string;
 
     @ApiProperty({ required: false, type: String })
-    commentCreator?: String;
+    commentCreator?: string;
 }

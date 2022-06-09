@@ -20,14 +20,14 @@ export class CreateToptenDto {
   files: File[];
 
   @ApiProperty({ type: String})
-  content: String;
+  content: string;
 
   @ApiProperty({ type: String})
-  webSites: String;
+  webSites: string;
 
   @ApiProperty({ type: [String] })
   @IsNotEmpty()
-  productNature: String[];
+  productNature: string[];
 
   @ApiProperty()
   @IsNotEmpty()
