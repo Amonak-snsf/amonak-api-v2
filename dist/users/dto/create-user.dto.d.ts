@@ -13,7 +13,7 @@ export declare class CreateUserDto {
     phone: string;
     gender: Gender;
     birthDay: Date;
-    birthPlace: String;
+    birthPlace: string;
     profession: string[];
     sectors: string[];
     webSites: string[];
@@ -21,10 +21,10 @@ export declare class CreateUserDto {
     bankCard: BankCard;
     friends: Friend[];
     followers: User[];
-    status: Boolean;
-    isLog: Boolean;
-    isFirstTime: Boolean;
-    isNewFeed: Boolean;
+    status: boolean;
+    isLog: boolean;
+    isFirstTime: boolean;
+    isNewFeed: boolean;
     accountType: string;
     lastConnected: Date;
 }

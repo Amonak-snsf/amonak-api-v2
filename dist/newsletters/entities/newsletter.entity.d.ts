@@ -11,12 +11,12 @@ import { DefaultModel } from "src/utils/default-model";
 import { ContactType } from "./newsletter-type.dto";
 export declare type NewsletterDocument = Newsletter & Document;
 export declare class Newsletter extends DefaultModel {
-    email: String;
-    name: String;
-    fullAddress: String;
-    subject: String;
-    message: String;
+    email: string;
+    name: string;
+    fullAddress: string;
+    subject: string;
+    message: string;
     type: ContactType;
-    status: Boolean;
+    status: boolean;
 }
 export declare const NewsletterSchema: import("mongoose").Schema<Document<Newsletter, any, any>, import("mongoose").Model<Document<Newsletter, any, any>, any, any, any>, {}, {}>;

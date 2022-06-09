@@ -1,11 +1,11 @@
 import { CartStatus } from "./cart-status.dto";
 export declare class CreateCartDto {
-    user: String;
-    amount: Number;
-    tax: Number;
-    shipping: Number;
-    percentage: Number;
+    user: string;
+    amount: number;
+    tax: number;
+    shipping: number;
+    percentage: number;
     status: CartStatus;
-    isWaiting: Boolean;
-    isCompleted: Boolean;
+    isWaiting: boolean;
+    isCompleted: boolean;
 }

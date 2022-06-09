@@ -1,6 +1,6 @@
 export interface BankCard {
-    number: String;
-    cvc: String;
-    zip: String;
-    fullAddress: String;
+    number: string;
+    cvc: string;
+    zip: string;
+    fullAddress: string;
 }

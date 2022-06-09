@@ -1,6 +1,6 @@
 export declare class CreateCategoryDto {
-    name: String;
-    description: String;
-    image: String;
-    status: Boolean;
+    name: string;
+    description: string;
+    image: string;
+    status: boolean;
 }

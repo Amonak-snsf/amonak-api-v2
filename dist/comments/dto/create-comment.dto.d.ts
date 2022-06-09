@@ -4,5 +4,5 @@ export declare class CreateCommentDto {
     user: string;
     publication: string;
     publicationCreator?: string;
-    status: Boolean;
+    status: boolean;
 }

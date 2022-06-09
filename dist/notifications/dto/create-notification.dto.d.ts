@@ -1,9 +1,9 @@
 export declare class CreateNotificationDto {
-    from: String;
-    to: String;
-    publication: String;
-    content: String;
-    comment: String;
-    type: String;
-    status: Boolean;
+    from: string;
+    to: string;
+    publication: string;
+    content: string;
+    comment: string;
+    type: string;
+    status: boolean;
 }

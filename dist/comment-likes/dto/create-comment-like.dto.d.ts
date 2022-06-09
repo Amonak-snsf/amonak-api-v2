@@ -1,5 +1,5 @@
 export declare class CreateCommentLikeDto {
-    user: String;
-    comment: String;
-    commentCreator?: String;
+    user: string;
+    comment: string;
+    commentCreator?: string;
 }

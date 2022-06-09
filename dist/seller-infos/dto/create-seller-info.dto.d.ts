@@ -7,6 +7,6 @@ export declare class CreateSellerInfoDto {
     identityCard: File;
     address: Address;
     productNature: String[];
-    type: String;
+    type: string;
     message: string;
 }

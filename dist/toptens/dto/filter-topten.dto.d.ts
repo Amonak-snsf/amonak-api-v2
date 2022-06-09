@@ -5,6 +5,6 @@ declare const FilterToptenDto_base: import("@nestjs/common").Type<Partial<Omit<C
 export declare class FilterToptenDto extends FilterToptenDto_base {
     status: Status;
     followers: User[];
-    limit: Number;
+    limit: number;
 }
 export {};

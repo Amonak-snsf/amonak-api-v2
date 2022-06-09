@@ -5,9 +5,9 @@ export declare class CreateToptenDto {
     name: string;
     company: string;
     files: File[];
-    content: String;
-    webSites: String;
-    productNature: String[];
+    content: string;
+    webSites: string;
+    productNature: string[];
     duration: string;
     price: string;
 }

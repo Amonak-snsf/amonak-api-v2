@@ -1,9 +1,9 @@
 export declare class CreateNewsletterDto {
-    email: String;
-    name: String;
-    fullAddress: String;
-    subject: String;
-    message: String;
-    type: String;
-    status: Boolean;
+    email: string;
+    name: string;
+    fullAddress: string;
+    subject: string;
+    message: string;
+    type: string;
+    status: boolean;
 }

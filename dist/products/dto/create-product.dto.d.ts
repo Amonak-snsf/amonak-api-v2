@@ -4,7 +4,7 @@ export declare class CreateProductDto {
     name: string;
     content: string;
     price: number;
-    quantity: Number;
+    quantity: number;
     maxWeight: number;
     currency: string;
     files: File[];
