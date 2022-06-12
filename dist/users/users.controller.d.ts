@@ -6,6 +6,6 @@ export declare class UsersController {
     constructor(usersService: UsersService);
     findAll(body: FilterUserDto, res: any): Promise<import("./entities/user.entity").User[]>;
     findOne(_id: string, res: any): Promise<any>;
-    update(_id: string, updateUserDto: UpdateUserDto, file: any, res: any): Promise<any>;
+    update(_id: string, updateUserDto: UpdateUserDto, res: any): Promise<any>;
     remove(_id: string, res: any): Promise<any>;
 }

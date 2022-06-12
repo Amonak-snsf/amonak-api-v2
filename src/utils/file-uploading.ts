@@ -3,23 +3,10 @@ import { extname } from "path";
 import * as jwt from "jsonwebtoken";
 import * as fs from "fs";
 
-export const imageFileFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return callback(new Error('Only image files are allowed!'), false);
-    }
-    callback(null, true);
-};
-
-export const imageFileFilter2 = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|pdf|docx|doc)$/)) {
-      return callback(new Error('Only image files are allowed!'), false);
-    }
-    callback(null, true);
-};
-
 export const allImageFileFilter = (req, file, callback) => {
-  if (!file.originalname.match(/\.(apng|bmp|pjpeg|webp|jpg|jpeg|png|gif|bmp|ico|aac|midi|wav|3gp|3g2|avi|mpeg|ogv|webm|gz|ggp|doc|docx|pdf|xls|xlsx|ppt|mp4|avi|mp3|wma|wmv|kine|swf)$/)) {
-    return callback(new Error('Only image files are allowed!'), false);
+  if (!file.mimetype.match('video/*') && 
+  !file.mimetype.match('image/*') && !file.mimetype.match('application/pdf')) {
+    return callback(new Error('Only image, video and pdf files are allowed!'), false);
   }
   callback(null, true);
 };

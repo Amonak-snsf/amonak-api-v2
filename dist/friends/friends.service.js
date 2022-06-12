@@ -14,20 +14,74 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendsService = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const mail_service_1 = require("../mail/mail.service");
-const user_entity_1 = require("../users/entities/user.entity");
 const query_1 = require("../utils/query");
 const status_friend_dto_1 = require("./dto/status-friend.dto");
 const friend_entity_1 = require("./entities/friend.entity");
 let FriendsService = class FriendsService {
-    constructor(friendModel, userModel, configService, mailService) {
+    constructor(friendModel) {
         this.friendModel = friendModel;
-        this.userModel = userModel;
-        this.configService = configService;
-        this.mailService = mailService;
+    }
+    async listFriendRequest(user) {
+        const userList = [];
+        const friends = await (0, query_1.all)(this.friendModel, { to: user, status: status_friend_dto_1.Status.requested });
+        if (friends && friends.length) {
+            for (let friend of friends) {
+                userList.push(friend.from);
+            }
+        }
+        return userList;
+    }
+    async listFriend(user) {
+        const userList = [];
+        const query = [{ from: user, status: status_friend_dto_1.Status.friend }, { to: user, status: status_friend_dto_1.Status.friend }];
+        const friends = await (0, query_1.all)(this.friendModel, { $or: query });
+        if (friends && friends.length) {
+            for (let friend of friends) {
+                if (`${friend.from}` === user) {
+                    userList.push(friend.to);
+                }
+                if (`${friend.to}` === user) {
+                    userList.push(friend.from);
+                }
+            }
+        }
+        return userList;
+    }
+    async listSugestions(user) {
+        const userList = [];
+        const query = [{ from: user }, { to: user }];
+        const friends = await (0, query_1.all)(this.friendModel, { $or: query });
+        userList.push(user);
+        if (friends && friends.length) {
+            for (let friend of friends) {
+                if (`${friend.from}` === user) {
+                    userList.push(friend.to);
+                }
+                if (`${friend.to}` === user) {
+                    userList.push(friend.from);
+                }
+            }
+        }
+        return userList;
+    }
+    async listUsers(user) {
+        const userList = [];
+        const query = [{ from: user }, { to: user }];
+        const friends = await (0, query_1.all)(this.friendModel, { $or: query });
+        userList.push(user);
+        if (friends && friends.length) {
+            for (let friend of friends) {
+                if (`${friend.from}` === user) {
+                    userList.push(friend.to);
+                }
+                if (`${friend.to}` === user) {
+                    userList.push(friend.from);
+                }
+            }
+        }
+        return userList;
     }
     async send(cfDto, res) {
         const query1 = [{ from: cfDto.from, to: cfDto.to }, { from: cfDto.to, to: cfDto.from }];
@@ -51,7 +105,7 @@ let FriendsService = class FriendsService {
     }
     async accept(cfDto, res) {
         const query1 = { from: cfDto.from, to: cfDto.to };
-        const user = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.friends }, query1);
+        const user = await (0, query_1.put)(this.friendModel, { status: status_friend_dto_1.Status.friend }, query1);
         return await res.status(common_1.HttpStatus.OK).json({ message: 'friend accept request is done with success !' });
     }
     async block(cfDto, res) {
@@ -63,10 +117,7 @@ let FriendsService = class FriendsService {
 FriendsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(friend_entity_1.Friend.name)),
-    __param(1, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model,
-        config_1.ConfigService, mail_service_1.MailService])
+    __metadata("design:paramtypes", [mongoose_2.Model])
 ], FriendsService);
 exports.FriendsService = FriendsService;
 //# sourceMappingURL=friends.service.js.map

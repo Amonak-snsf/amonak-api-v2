@@ -11,6 +11,7 @@ import { Friend, FriendSchema } from './entities/friend.entity';
     ConfigModule
   ],
   controllers: [FriendsController],
-  providers: [FriendsService]
+  providers: [FriendsService],
+  exports: [FriendsService]
 })
 export class FriendsModule {}

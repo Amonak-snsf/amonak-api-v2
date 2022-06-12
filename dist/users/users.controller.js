@@ -17,9 +17,6 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const swagger_1 = require("@nestjs/swagger");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const file_uploading_1 = require("../utils/file-uploading");
 const filter_user_dto_1 = require("./dto/filter-user.dto");
 const jwt_guard_1 = require("../auth/guards/jwt.guard");
 let UsersController = class UsersController {
@@ -32,8 +29,8 @@ let UsersController = class UsersController {
     findOne(_id, res) {
         return this.usersService.findOne(_id, res);
     }
-    update(_id, updateUserDto, file, res) {
-        return this.usersService.update(_id, updateUserDto, file, res);
+    update(_id, updateUserDto, res) {
+        return this.usersService.update(_id, updateUserDto, res);
     }
     remove(_id, res) {
         return this.usersService.remove(_id, res);
@@ -60,22 +57,13 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)('users/:_id'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('avatar', {
-        storage: (0, multer_1.diskStorage)({
-            destination: './static/images/avatar',
-            filename: file_uploading_1.editFileName,
-        }),
-        fileFilter: file_uploading_1.imageFileFilter,
-    })),
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)('accessToken'),
     __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.UploadedFile)()),
-    __param(3, (0, common_1.Res)()),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto, Object, Object]),
+    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto, Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "update", null);
 __decorate([

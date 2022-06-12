@@ -1,26 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fileDestination = exports.editFileName = exports.allImageFileFilter = exports.imageFileFilter2 = exports.imageFileFilter = void 0;
+exports.fileDestination = exports.editFileName = exports.allImageFileFilter = void 0;
 const path_1 = require("path");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
-const imageFileFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-        return callback(new Error('Only image files are allowed!'), false);
-    }
-    callback(null, true);
-};
-exports.imageFileFilter = imageFileFilter;
-const imageFileFilter2 = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|pdf|docx|doc)$/)) {
-        return callback(new Error('Only image files are allowed!'), false);
-    }
-    callback(null, true);
-};
-exports.imageFileFilter2 = imageFileFilter2;
 const allImageFileFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(apng|bmp|pjpeg|webp|jpg|jpeg|png|gif|bmp|ico|aac|midi|wav|3gp|3g2|avi|mpeg|ogv|webm|gz|ggp|doc|docx|pdf|xls|xlsx|ppt|mp4|avi|mp3|wma|wmv|kine|swf)$/)) {
-        return callback(new Error('Only image files are allowed!'), false);
+    if (!file.mimetype.match('video/*') &&
+        !file.mimetype.match('image/*') && !file.mimetype.match('application/pdf')) {
+        return callback(new Error('Only image, video and pdf files are allowed!'), false);
     }
     callback(null, true);
 };

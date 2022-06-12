@@ -1,10 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MailService } from 'src/mail/mail.service';
-import { User, UserDocument } from 'src/users/entities/user.entity';
-import { one, put } from 'src/utils/query';
+import { all, one, put } from 'src/utils/query';
 import { CreateFriendDto } from './dto/create-friend.dto';
 import { Status } from './dto/status-friend.dto';
 import { Friend, FriendDocument } from './entities/friend.entity';
@@ -12,14 +9,88 @@ import { Friend, FriendDocument } from './entities/friend.entity';
 @Injectable()
 export class FriendsService {
 
-  private to_request;
-  private user;
-  private friend;
+  constructor(@InjectModel(Friend.name) private friendModel: Model<FriendDocument>) {}
 
-  constructor(@InjectModel(Friend.name) private friendModel: Model<FriendDocument>,
-  @InjectModel(User.name) private userModel: Model<UserDocument>,
-  private configService: ConfigService, private mailService: MailService
-  ) {}
+  async listFriendRequest(user: string){
+
+    const userList: Array<string> = [];
+
+    const friends = await all(this.friendModel, { to: user, status: Status.requested });
+
+    if(friends && friends.length){
+
+      for(let friend of friends){
+        userList.push(friend.from)
+      }
+    }
+    
+    return userList;
+  }
+
+  async listFriend(user: string){
+    
+    const userList: Array<string> = [];
+    const query = [{ from: user, status: Status.friend }, { to: user, status: Status.friend }];
+    const friends = await all(this.friendModel, { $or: query });
+
+    if(friends && friends.length){
+
+      for(let friend of friends){
+        if(`${friend.from}` === user){
+          userList.push(friend.to)
+        }
+        if(`${friend.to}` === user){
+          userList.push(friend.from)
+        }
+      }
+    }
+    
+    return userList;
+  }
+
+  async listSugestions(user: string){
+
+    const userList: Array<string> = [];
+
+    const query = [{ from: user}, { to: user }];
+    
+    const friends = await all(this.friendModel, { $or: query });
+    userList.push(user)
+    if(friends && friends.length){
+
+      for(let friend of friends){
+        if(`${friend.from}` === user){
+          userList.push(friend.to)
+        }
+        if(`${friend.to}` === user){
+          userList.push(friend.from)
+        }
+      }
+    }
+    return userList;
+  }
+
+  async listUsers(user: string){
+
+    const userList: Array<string> = [];
+
+    const query = [{ from: user}, { to: user }];
+    
+    const friends = await all(this.friendModel, { $or: query });
+    userList.push(user)
+    if(friends && friends.length){
+
+      for(let friend of friends){
+        if(`${friend.from}` === user){
+          userList.push(friend.to)
+        }
+        if(`${friend.to}` === user){
+          userList.push(friend.from)
+        }
+      }
+    }
+    return userList;
+  }
 
   async send(cfDto: CreateFriendDto, res) {
     
@@ -55,7 +126,7 @@ export class FriendsService {
   async accept(cfDto: CreateFriendDto, res) {
 
     const query1 = { from: cfDto.from, to: cfDto.to };
-    const user = await put(this.friendModel, { status: Status.friends }, query1);
+    const user = await put(this.friendModel, { status: Status.friend }, query1);
 
     return await res.status(HttpStatus.OK).json({ message: 'friend accept request is done with success !'});
   }
