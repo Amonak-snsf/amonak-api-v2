@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 import { Body, Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FilesInterceptor } from '@nestjs/platform-express';

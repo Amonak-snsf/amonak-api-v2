@@ -22,7 +22,8 @@ FriendsModule = __decorate([
             config_1.ConfigModule
         ],
         controllers: [friends_controller_1.FriendsController],
-        providers: [friends_service_1.FriendsService]
+        providers: [friends_service_1.FriendsService],
+        exports: [friends_service_1.FriendsService]
     })
 ], FriendsModule);
 exports.FriendsModule = FriendsModule;

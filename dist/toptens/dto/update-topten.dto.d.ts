@@ -1,7 +1,7 @@
 import { User } from 'src/users/entities/user.entity';
 import { CreateToptenDto } from './create-topten.dto';
 import { Status } from './topten-status-interface';
-declare const UpdateToptenDto_base: import("@nestjs/common").Type<Partial<Omit<CreateToptenDto, "name" | "webSites" | "content" | "price" | "files" | "user" | "productNature" | "company" | "duration">>>;
+declare const UpdateToptenDto_base: import("@nestjs/common").Type<Partial<Omit<CreateToptenDto, "name" | "webSites" | "content" | "files" | "user" | "price" | "productNature" | "company" | "duration">>>;
 export declare class UpdateToptenDto extends UpdateToptenDto_base {
     followers: User[];
     status: Status;

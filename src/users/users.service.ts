@@ -6,23 +6,18 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
 import { CustomBankCard, userAddress } from 'src/utils/helpers';
 import { all, destroy, exist, one, put } from 'src/utils/query';
+import { FriendsService } from '../friends/friends.service';
 
 @Injectable()
 export class UsersService {
   private data;
 
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>
+  ,private friendsService: FriendsService) {}
 
   async findAll(params, res): Promise<User[]>  {
 
-    if(params.search){
-      params = {status: true, $or: [{userName: {$regex: new RegExp(params.search, 'i')}}, {email: {$regex: new RegExp(params.search, 'i')}}, {firstName: {$regex: new RegExp(params.search, 'i')}}, {lastName: {$regex: new RegExp(params.search, 'i')}}]};
-    }
-
-    if(params.followers){
-        params = {'$in': params.followers};
-    }
-    
+    params = await this.searchParams(params);
     const data = await all(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
 
     return res.status(HttpStatus.OK).json(data);
@@ -35,17 +30,13 @@ export class UsersService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async update(_id: string, upDto: UpdateUserDto, file, res) {
+  async update(_id: string, upDto: UpdateUserDto, res) {
 
     const user = await exist(this.userModel, {_id: _id});
 
     delete upDto.friends;
     this.data = upDto;
-    
-    if(file && file.path){
-      this.data.avatar = `/${file.path}`;
-    }
-    
+
     const bankCard = CustomBankCard(upDto.bankCard)
     const address = userAddress(upDto.address);
     if(bankCard){
@@ -74,6 +65,41 @@ export class UsersService {
     const data = await destroy(this.userModel, {_id: _id});
 
     return res.status(HttpStatus.OK).json(data);
+  }
+
+  async searchParams(params){
+
+    if(params.search){
+      params = {status: true, $or: [{userName: {$regex: new RegExp(params.search, 'i')}}, {email: {$regex: new RegExp(params.search, 'i')}}, {firstName: {$regex: new RegExp(params.search, 'i')}}, {lastName: {$regex: new RegExp(params.search, 'i')}}]};
+    }
+
+    if(params.followers){
+        params = {followers: {'$in': params.followers}};
+    }
+
+    if(params.sugestion && params.sugestion === 'true'){
+      const userList = await this.friendsService.listSugestions(params.user);
+      params = {_id: {'$nin': userList}}
+    }
+
+    if(params.friendRequest && params.friendRequest === 'true'){
+      
+      const userList = await this.friendsService.listFriendRequest(params.user);
+      params = {_id: {'$in': userList}}
+    }
+
+    if(params.friend && params.friend === 'true'){
+      
+      const userList = await this.friendsService.listFriend(params.user);
+      params = {_id: {'$in': userList}}
+    }
+
+    if(params.all && params.all === 'true'){
+      const userList = await this.friendsService.listUsers(params.user);
+      params = {_id: {'$nin': userList}}
+    }
+
+    return params;
   }
   
 }

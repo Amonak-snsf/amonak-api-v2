@@ -30,5 +30,21 @@ __decorate([
     (0, swagger_1.ApiProperty)({ type: String, required: false }),
     __metadata("design:type", String)
 ], FilterUserDto.prototype, "search", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: Boolean, required: false }),
+    __metadata("design:type", Boolean)
+], FilterUserDto.prototype, "sugestion", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: Boolean, required: false }),
+    __metadata("design:type", Boolean)
+], FilterUserDto.prototype, "friend", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: Boolean, required: false }),
+    __metadata("design:type", Boolean)
+], FilterUserDto.prototype, "friendRequest", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String, required: false }),
+    __metadata("design:type", String)
+], FilterUserDto.prototype, "user", void 0);
 exports.FilterUserDto = FilterUserDto;
 //# sourceMappingURL=filter-user.dto.js.map

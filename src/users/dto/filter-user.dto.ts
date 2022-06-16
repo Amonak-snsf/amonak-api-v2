@@ -15,4 +15,16 @@ export class FilterUserDto extends PartialType(OmitType(CreateUserDto,
 
   @ApiProperty({ type: String, required: false})
   search: string;
+
+  @ApiProperty({ type: Boolean, required: false})
+  sugestion: boolean;
+
+  @ApiProperty({ type: Boolean, required: false})
+  friend: boolean;
+
+  @ApiProperty({ type: Boolean, required: false})
+  friendRequest: boolean;
+
+  @ApiProperty({ type: String, required: false})
+  user: string;
 }

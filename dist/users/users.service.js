@@ -19,17 +19,14 @@ const mongoose_2 = require("@nestjs/mongoose");
 const user_entity_1 = require("./entities/user.entity");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
+const friends_service_1 = require("../friends/friends.service");
 let UsersService = class UsersService {
-    constructor(userModel) {
+    constructor(userModel, friendsService) {
         this.userModel = userModel;
+        this.friendsService = friendsService;
     }
     async findAll(params, res) {
-        if (params.search) {
-            params = { status: true, $or: [{ userName: { $regex: new RegExp(params.search, 'i') } }, { email: { $regex: new RegExp(params.search, 'i') } }, { firstName: { $regex: new RegExp(params.search, 'i') } }, { lastName: { $regex: new RegExp(params.search, 'i') } }] };
-        }
-        if (params.followers) {
-            params = { '$in': params.followers };
-        }
+        params = await this.searchParams(params);
         const data = await (0, query_1.all)(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
@@ -37,13 +34,10 @@ let UsersService = class UsersService {
         const data = await (0, query_1.one)(this.userModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async update(_id, upDto, file, res) {
+    async update(_id, upDto, res) {
         const user = await (0, query_1.exist)(this.userModel, { _id: _id });
         delete upDto.friends;
         this.data = upDto;
-        if (file && file.path) {
-            this.data.avatar = `/${file.path}`;
-        }
         const bankCard = (0, helpers_1.CustomBankCard)(upDto.bankCard);
         const address = (0, helpers_1.userAddress)(upDto.address);
         if (bankCard) {
@@ -67,11 +61,37 @@ let UsersService = class UsersService {
         const data = await (0, query_1.destroy)(this.userModel, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
+    async searchParams(params) {
+        if (params.search) {
+            params = { status: true, $or: [{ userName: { $regex: new RegExp(params.search, 'i') } }, { email: { $regex: new RegExp(params.search, 'i') } }, { firstName: { $regex: new RegExp(params.search, 'i') } }, { lastName: { $regex: new RegExp(params.search, 'i') } }] };
+        }
+        if (params.followers) {
+            params = { followers: { '$in': params.followers } };
+        }
+        if (params.sugestion && params.sugestion === 'true') {
+            const userList = await this.friendsService.listSugestions(params.user);
+            params = { _id: { '$nin': userList } };
+        }
+        if (params.friendRequest && params.friendRequest === 'true') {
+            const userList = await this.friendsService.listFriendRequest(params.user);
+            params = { _id: { '$in': userList } };
+        }
+        if (params.friend && params.friend === 'true') {
+            const userList = await this.friendsService.listFriend(params.user);
+            params = { _id: { '$in': userList } };
+        }
+        if (params.all && params.all === 'true') {
+            const userList = await this.friendsService.listUsers(params.user);
+            params = { _id: { '$nin': userList } };
+        }
+        return params;
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_entity_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model])
+    __metadata("design:paramtypes", [mongoose_1.Model,
+        friends_service_1.FriendsService])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

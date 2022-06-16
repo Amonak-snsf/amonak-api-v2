@@ -4,7 +4,6 @@ import { Res } from '@nestjs/common';
 import { PubManagementType } from 'src/publication-managements/dto/publication-managements-type.dto'
 
 @WebSocketGateway({ cors: true, path: "/amonak-api", namespace: "api/comment" })
-@WebSocketGateway()
 export class CommentGateway {
 	@WebSocketServer() server: Server;
 
