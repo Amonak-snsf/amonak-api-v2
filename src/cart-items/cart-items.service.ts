@@ -2,7 +2,6 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CartsService } from 'src/carts/carts.service';
-import { userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, createIfne, destroy, one, put } from 'src/utils/query';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
 import { CartItem, CartItemDocument } from './entities/cart-item.entity';

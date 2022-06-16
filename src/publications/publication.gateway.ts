@@ -70,24 +70,12 @@ export class PublicationGateway {
     console.log("form client publication list after update the list")
   }
  
- 	@SubscribeMessage("joinPublicationRoom")
- 	async joinPublicationRoom(@ConnectedSocket() client: Socket, room: string){
- 		client.join(room);
- 		client.emit("joinedPublicationRoom", room);
- 	}
+	@SubscribeMessage("commentPublication")
+	async commentPublication(@ConnectedSocket() client: Socket, @MessageBody() newPublicationComment: {room: string|string[], data: any}){
 
- 	@SubscribeMessage("leavePublicationRoom")
- 	async leavePublicationRoom(@ConnectedSocket() client: Socket, room: string){
- 		client.leave(room);
- 		client.emit("leftPublicationRoom", room);
- 	}
-
- 	@SubscribeMessage("commentPublication")
- 	async commentPublication(@ConnectedSocket() client: Socket, @MessageBody() newPublicationComment: {room: string|string[], data: any}){
-
- 		let room: string|string[] = newPublicationComment.room;
- 		if(!Array.isArray(room)) room = [room];
- 		this.server.to(room).emit('newPublicationComment', newPublicationComment.data)
- 	}
+	let room: string|string[] = newPublicationComment.room;
+	if(!Array.isArray(room)) room = [room];
+	this.server.to(room).emit('newPublicationComment', newPublicationComment.data)
+	}
 } 
 

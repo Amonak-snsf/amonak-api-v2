@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, create, destroy, one, put } from 'src/utils/query';
 import { Message, MessageDocument } from './entities/message.entity';
 
@@ -10,7 +11,7 @@ export class MessagesService {
 
   async create(createMessageDto) {
     
-    const data = await create(this.messageModel, createMessageDto);
+    const data = await create(this.messageModel, createMessageDto, 'to', userDataPopulateWithTopten());
 
     return data;
   }
@@ -19,15 +20,11 @@ export class MessagesService {
     
     let query
 
-    if(params.to) {
+    if(params.to && params.from) {
       query = { $or: [{ from: params.from, to: params.to }, { from: params.to, to: params.from }] };
-    } else {
-        query = { $or: [{ from: params.from }, { to: params.to }] };
     }
-
-    query = { query, params };
-
-    const data = await all(this.messageModel, query, null, { _id: -1 }, params.limit);
+    
+    const data = await all(this.messageModel, query, null, { _id: -1 }, params.limit, 'to', userDataPopulateWithTopten());
 
     return data;
   }

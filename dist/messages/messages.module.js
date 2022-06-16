@@ -12,15 +12,18 @@ const messages_service_1 = require("./messages.service");
 const messages_controller_1 = require("./messages.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const message_entity_1 = require("./entities/message.entity");
+const message_gateway_1 = require("./message.gateway");
+const friends_module_1 = require("../friends/friends.module");
 let MessagesModule = class MessagesModule {
 };
 MessagesModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: message_entity_1.Message.name, schema: message_entity_1.MessageSchema }])
+            mongoose_1.MongooseModule.forFeature([{ name: message_entity_1.Message.name, schema: message_entity_1.MessageSchema }]),
+            friends_module_1.FriendsModule
         ],
         controllers: [messages_controller_1.MessagesController],
-        providers: [messages_service_1.MessagesService]
+        providers: [messages_service_1.MessagesService, message_gateway_1.MessageGateway]
     })
 ], MessagesModule);
 exports.MessagesModule = MessagesModule;

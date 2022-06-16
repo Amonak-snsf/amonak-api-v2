@@ -27,6 +27,14 @@ export class FriendsService {
     return userList;
   }
 
+  async one(data: {from: string, to: string}){
+
+    const query = [{ from: data.from, to: data.to, status: Status.friend }, 
+      { from: data.to, to: data.from, status: Status.friend }];
+    const friend = await one(this.friendModel, { $or: query });
+    return friend;
+  }
+
   async listFriend(user: string){
     
     const userList: Array<string> = [];

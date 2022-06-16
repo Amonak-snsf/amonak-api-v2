@@ -5,6 +5,10 @@ export declare class FriendsService {
     private friendModel;
     constructor(friendModel: Model<FriendDocument>);
     listFriendRequest(user: string): Promise<string[]>;
+    one(data: {
+        from: string;
+        to: string;
+    }): Promise<any>;
     listFriend(user: string): Promise<string[]>;
     listSugestions(user: string): Promise<string[]>;
     listUsers(user: string): Promise<string[]>;

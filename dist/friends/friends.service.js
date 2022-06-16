@@ -33,6 +33,12 @@ let FriendsService = class FriendsService {
         }
         return userList;
     }
+    async one(data) {
+        const query = [{ from: data.from, to: data.to, status: status_friend_dto_1.Status.friend },
+            { from: data.to, to: data.from, status: status_friend_dto_1.Status.friend }];
+        const friend = await (0, query_1.one)(this.friendModel, { $or: query });
+        return friend;
+    }
     async listFriend(user) {
         const userList = [];
         const query = [{ from: user, status: status_friend_dto_1.Status.friend }, { to: user, status: status_friend_dto_1.Status.friend }];

@@ -16,6 +16,7 @@ exports.MessagesService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const message_entity_1 = require("./entities/message.entity");
 let MessagesService = class MessagesService {
@@ -23,19 +24,15 @@ let MessagesService = class MessagesService {
         this.messageModel = messageModel;
     }
     async create(createMessageDto) {
-        const data = await (0, query_1.create)(this.messageModel, createMessageDto);
+        const data = await (0, query_1.create)(this.messageModel, createMessageDto, 'to', (0, helpers_1.userDataPopulateWithTopten)());
         return data;
     }
     async findAll(params) {
         let query;
-        if (params.to) {
+        if (params.to && params.from) {
             query = { $or: [{ from: params.from, to: params.to }, { from: params.to, to: params.from }] };
         }
-        else {
-            query = { $or: [{ from: params.from }, { to: params.to }] };
-        }
-        query = { query, params };
-        const data = await (0, query_1.all)(this.messageModel, query, null, { _id: -1 }, params.limit);
+        const data = await (0, query_1.all)(this.messageModel, query, null, { _id: -1 }, params.limit, 'to', (0, helpers_1.userDataPopulateWithTopten)());
         return data;
     }
     async findOne(_id) {
