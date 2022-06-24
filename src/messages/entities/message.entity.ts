@@ -23,6 +23,9 @@ export class Message extends Notification{
     ])
     files: Files[];
 
+    @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+    fromPoulate?: User;
+
     @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
     deleters: User[]
 }

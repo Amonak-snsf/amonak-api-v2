@@ -7,10 +7,11 @@ import { User, UserSchema } from './entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { Friend, FriendSchema } from 'src/friends/entities/friend.entity';
 import { FriendsModule } from '../friends/friends.module';
+import { MessagesModule } from 'src/messages/messages.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }, { name: Friend.name, schema: FriendSchema }]), 
-    ConfigModule, FriendsModule
+    ConfigModule, FriendsModule, MessagesModule
   ],
   controllers: [UsersController],
   providers: [UsersService],

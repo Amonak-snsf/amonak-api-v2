@@ -19,7 +19,7 @@ let FriendsModule = class FriendsModule {
 FriendsModule = __decorate([
     (0, common_1.Module)({
         imports: [mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserSchema }, { name: friend_entity_1.Friend.name, schema: friend_entity_1.FriendSchema }]),
-            config_1.ConfigModule
+            config_1.ConfigModule,
         ],
         controllers: [friends_controller_1.FriendsController],
         providers: [friends_service_1.FriendsService],
