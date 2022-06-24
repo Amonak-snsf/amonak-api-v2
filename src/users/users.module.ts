@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { User, UserSchema } from './entities/user.entity';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { Friend, FriendSchema } from 'src/friends/entities/friend.entity';
 import { FriendsModule } from '../friends/friends.module';
 
@@ -13,6 +13,7 @@ import { FriendsModule } from '../friends/friends.module';
     ConfigModule, FriendsModule
   ],
   controllers: [UsersController],
-  providers: [UsersService]
+  providers: [UsersService],
+  exports: [UsersService]
 })
 export class UsersModule {}

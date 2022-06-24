@@ -26,7 +26,9 @@ let PublicationsController = class PublicationsController {
     create(body, res) {
         return this.publicationsService.create(body, res);
     }
-    async findAll(params, res) {
+    async findAll(params, res, req) {
+        var _a;
+        res.accountid = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.accountid;
         const data = await this.publicationsService.findAll(params, res);
         res.status(common_1.HttpStatus.OK).json(data);
     }
@@ -53,8 +55,9 @@ __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)()),
     __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [filter_publication_dto_1.FilterPublicationDto, Object]),
+    __metadata("design:paramtypes", [filter_publication_dto_1.FilterPublicationDto, Object, Object]),
     __metadata("design:returntype", Promise)
 ], PublicationsController.prototype, "findAll", null);
 __decorate([

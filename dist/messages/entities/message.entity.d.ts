@@ -7,4 +7,4 @@ export declare class Message extends Notification {
     files: Files[];
     deleters: User[];
 }
-export declare const MessageSchema: mongoose.Schema<mongoose.Document<Message, any, any>, mongoose.Model<mongoose.Document<Message, any, any>, any, any, any>, {}, {}>;
+export declare const MessageSchema: mongoose.Schema<mongoose.Document<Message, any, any>, mongoose.Model<mongoose.Document<Message, any, any>, any, any, any>, {}, {}, any>;

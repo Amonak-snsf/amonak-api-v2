@@ -16,4 +16,4 @@ export declare class Biography extends DefaultModel {
     networks: string[];
     status: string;
 }
-export declare const BiographySchema: mongoose.Schema<Document<Biography, any, any>, mongoose.Model<Document<Biography, any, any>, any, any, any>, {}, {}>;
+export declare const BiographySchema: mongoose.Schema<Document<Biography, any, any>, mongoose.Model<Document<Biography, any, any>, any, any, any>, {}, {}, any>;

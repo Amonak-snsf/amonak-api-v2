@@ -44,7 +44,7 @@ export class ProductsService {
 
     const data = await all(this.productModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
-    return res.status(HttpStatus.OK).json(data);
+    return res.status(HttpStatus.OK).json(data); 
   }
 
   async findOne(_id: string, res) {

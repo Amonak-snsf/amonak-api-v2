@@ -8,7 +8,7 @@ export declare class UsersService {
     private data;
     constructor(userModel: Model<UserDocument>, friendsService: FriendsService);
     findAll(params: any, res: any): Promise<User[]>;
-    findOne(_id: string, res: any): Promise<any>;
+    findOne(_id: string, res?: any): Promise<any>;
     update(_id: string, upDto: UpdateUserDto, res: any): Promise<any>;
     remove(_id: string, res: any): Promise<any>;
     searchParams(params: any): Promise<any>;

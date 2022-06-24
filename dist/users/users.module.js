@@ -23,7 +23,8 @@ UsersModule = __decorate([
             config_1.ConfigModule, friends_module_1.FriendsModule
         ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService]
+        providers: [users_service_1.UsersService],
+        exports: [users_service_1.UsersService]
     })
 ], UsersModule);
 exports.UsersModule = UsersModule;

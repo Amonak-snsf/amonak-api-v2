@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Req, Query, HttpStatus } from '@nestjs/common';
 import { PublicationsService } from './publications.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
@@ -21,7 +21,8 @@ export class PublicationsController {
   }
 
   @Get()
-  async findAll(@Query() params: FilterPublicationDto, @Res() res) {
+  async findAll(@Query() params: FilterPublicationDto, @Res() res, @Req() req) {
+    res.accountid = req.headers?.accountid;
     const data = await this.publicationsService.findAll(params, res);
     res.status(HttpStatus.OK).json(data);
   }

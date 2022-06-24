@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProductsService } from 'src/products/products.service';
@@ -9,17 +9,44 @@ import { CreatePublicationDto } from './dto/create-publication.dto';
 import { PublicationType } from './dto/publication-type.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
 import { Publication, PublicationDocument } from './entities/publication.entity';
+import { PubManagementType as type } from 'src/publication-managements/dto/publication-managements-type.dto';
 import { PublicationManagementsService } from 'src/publication-managements/publication-managements.service'
+import { MailService } from 'src/mail/mail.service';
+import { ConfigService } from '@nestjs/config';
+import { UsersService } from 'src/users/users.service';
+const isOnline = require("is-online");
+
 @Injectable()
 export class PublicationsService {
+
   constructor(
     @InjectModel(Publication.name) private readonly publicationModel: Model<PublicationDocument>,
      private productService: ProductsService,
-     private pubManagementService: PublicationManagementsService
+     private mailService: MailService,
+     private pubManagementService: PublicationManagementsService,
+     private configService: ConfigService,
+     private userService: UsersService
   ){}
 
   async create(body: CreatePublicationDto, res) {
 
+    if(body.type === PublicationType.sendAlerte){
+      const userId = body.user;
+      const sender = await this.userService.findOne(userId);
+      
+      if(isOnline){
+        const url = `${this.configService.get("frontUrl")}/home`;
+        const publication = await this.findOne(body._id);
+        this.mailService.alerte({
+          publication: publication, 
+          message: body.content, 
+          map: body.map,
+          sender: sender,
+          staticUrl: this.configService.get("staticUrl")
+        }, url)
+      }
+      return res.status(HttpStatus.OK).json({message: "Alerte send with success"});
+    }
     if((body.type == PublicationType.sale) && !body.share){
       const product = await this.productService.create(saleBody({...body, from: 'publication'}), res);
       body.product = product._id;
@@ -49,10 +76,21 @@ export class PublicationsService {
  
   async findAll(params, res = {}) {
     
+    const userId = res['accountid'];
+
     if(params.search){
       params = { status: true, content: {$regex: new RegExp(params.search, 'i')}};
     }
 
+    if(userId){
+      const publicationIdArray = [];
+      let query = {$or: [{user: userId, type: type.softDelete}, {type: type.softDeleteAll}]}
+      const states = await this.pubManagementService.findAll(query);
+      for(let value of states){
+        if(value)publicationIdArray.push(value.publication);
+      }
+      params = {...params, _id: {'$nin': publicationIdArray}}
+    }
     const data = await all(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
     return data;
@@ -63,11 +101,13 @@ export class PublicationsService {
     return await one(this.publicationModel, { _id: _id }, null, 'user', userDataPopulateWithTopten());
   }
 
-  async update(_id: string, body: UpdatePublicationDto, res) {
+  async update(_id: string, body: UpdatePublicationDto, res = null) {
 
     const data = await put(this.publicationModel, body, { _id: _id }, 'user', userDataPopulateWithTopten());
 
-    return res.status(HttpStatus.OK).json(data);
+    if(res){
+      return res.status(HttpStatus.OK).json(data);
+    }
   }
 
   async remove(_id: string, res) {

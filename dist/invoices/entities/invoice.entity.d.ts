@@ -11,4 +11,4 @@ export declare class Invoice extends Cart {
     invoiceUrl: string;
     transactionId: string;
 }
-export declare const InvoiceSchema: mongoose.Schema<mongoose.Document<Invoice, any, any>, mongoose.Model<mongoose.Document<Invoice, any, any>, any, any, any>, {}, {}>;
+export declare const InvoiceSchema: mongoose.Schema<mongoose.Document<Invoice, any, any>, mongoose.Model<mongoose.Document<Invoice, any, any>, any, any, any>, {}, {}, any>;

@@ -7,7 +7,7 @@ export declare class PublicationManagementsService {
     private readonly notificationsService;
     constructor(pubmanegementModel: Model<PubManagementDocument>, notificationsService: NotificationsService);
     create(body: CreatePublicationManagementDto, res: any): Promise<any>;
-    findAll(params: any, res: any): Promise<any>;
+    findAll(params: any, res?: any): Promise<any>;
     findOne(publication: string, params: any, res: any): Promise<any>;
-    remove(publication: string, params: any, res: any): Promise<any>;
+    remove(_id: string, params: any, res?: any): Promise<any>;
 }

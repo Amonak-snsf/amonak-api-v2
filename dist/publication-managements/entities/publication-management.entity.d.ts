@@ -10,4 +10,4 @@ export declare class PublicationManagement extends DefaultModel {
     reason: string;
     status: boolean;
 }
-export declare const PubManagementSchema: mongoose.Schema<mongoose.Document<PublicationManagement, any, any>, mongoose.Model<mongoose.Document<PublicationManagement, any, any>, any, any, any>, {}, {}>;
+export declare const PubManagementSchema: mongoose.Schema<mongoose.Document<PublicationManagement, any, any>, mongoose.Model<mongoose.Document<PublicationManagement, any, any>, any, any, any>, {}, {}, any>;

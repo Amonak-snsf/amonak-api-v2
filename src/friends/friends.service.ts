@@ -105,12 +105,8 @@ export class FriendsService {
     const query1 = [{ from: cfDto.from, to: cfDto.to }, { from: cfDto.to, to: cfDto.from }];
     const friend = await one(this.friendModel, { $or: query1 });
 
-    if(friend){
-
-      const query1 = { from: cfDto.from, to: cfDto.to };
-      await put(this.friendModel, { status: Status.requested }, query1);
-
-      return res.status(HttpStatus.OK).json({ message: 'friendship request send with success !'});
+    if(friend && friend.Status === Status.requested){
+      return res.status(HttpStatus.OK).json({ message: 'friendship request already exist!'});
     }
 
     const from_request = await new this.friendModel({
@@ -124,16 +120,15 @@ export class FriendsService {
 
   async reject(cfDto: CreateFriendDto, res) {
 
-    const query1 = { from: cfDto.from, to: cfDto.to };
+    const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.reject }, query1);
-    
     return res.status(HttpStatus.OK).json({ message: 'friend reject request is done with success !'});
   }
 
   
   async accept(cfDto: CreateFriendDto, res) {
 
-    const query1 = { from: cfDto.from, to: cfDto.to };
+    const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.friend }, query1);
 
     return await res.status(HttpStatus.OK).json({ message: 'friend accept request is done with success !'});
@@ -141,7 +136,7 @@ export class FriendsService {
 
   async block(cfDto: CreateFriendDto, res) {
 
-    const query1 = { from: cfDto.from, to: cfDto.to };
+    const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.block }, query1);
     
     return await res.status(HttpStatus.OK).json({ message: 'friend block request is done with success !'});

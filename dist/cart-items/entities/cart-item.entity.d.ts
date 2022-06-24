@@ -12,4 +12,4 @@ export declare class CartItem extends DefaultModel {
     tax: number;
     shipping: number;
 }
-export declare const CartItemSchema: mongoose.Schema<mongoose.Document<CartItem, any, any>, mongoose.Model<mongoose.Document<CartItem, any, any>, any, any, any>, {}, {}>;
+export declare const CartItemSchema: mongoose.Schema<mongoose.Document<CartItem, any, any>, mongoose.Model<mongoose.Document<CartItem, any, any>, any, any, any>, {}, {}, any>;

@@ -20,44 +20,71 @@ const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const publication_management_entity_1 = require("./entities/publication-management.entity");
 const notifications_service_1 = require("../notifications/notifications.service");
+const publication_managements_type_dto_1 = require("./dto/publication-managements-type.dto");
 let PublicationManagementsService = class PublicationManagementsService {
     constructor(pubmanegementModel, notificationsService) {
         this.pubmanegementModel = pubmanegementModel;
         this.notificationsService = notificationsService;
     }
     async create(body, res) {
-        if (body.type === 'follow' || body.type === 'share' || body.type === 'save' || body.type === 'like' || body.type === 'signal') {
-            let content = (body.type === 'share') ? 'a partagé votre publication' : 'vous suive.';
-            if (body.type === 'save')
+        let alreadyLike = false;
+        if (body.type === publication_managements_type_dto_1.PubManagementType.follow || body.type === publication_managements_type_dto_1.PubManagementType.share || body.type === publication_managements_type_dto_1.PubManagementType.save || body.type === publication_managements_type_dto_1.PubManagementType.like || body.type === publication_managements_type_dto_1.PubManagementType.signale) {
+            let content = (body.type === publication_managements_type_dto_1.PubManagementType.share) ? 'a partagé votre publication' : 'vous suive.';
+            if (body.type === publication_managements_type_dto_1.PubManagementType.save)
                 content = 'a enrégistré votre publication';
-            if (body.type === 'like')
+            if (body.type === publication_managements_type_dto_1.PubManagementType.like)
                 content = 'a aimé votre publication';
-            if (body.type === 'signal')
+            if (body.type === publication_managements_type_dto_1.PubManagementType.signale)
                 content = 'a signalé votre publication';
-            const notificationBody = {
-                from: body.user,
-                to: body.to,
-                publication: body.publication,
-                content: content,
-                type: body.type,
-            };
-            await this.notificationsService.create(notificationBody);
+            if (body.type === publication_managements_type_dto_1.PubManagementType.like) {
+                const mylikes = await this.findAll({ type: publication_managements_type_dto_1.PubManagementType.like, publication: body.publication, user: body.user });
+                if (mylikes && mylikes[0]) {
+                    alreadyLike = true;
+                    this.remove(mylikes[0]._id, {});
+                }
+                else {
+                    const notificationBody = {
+                        from: body.user,
+                        to: body.to,
+                        publication: body.publication,
+                        content: content,
+                        type: body.type,
+                    };
+                    await this.notificationsService.create(notificationBody);
+                }
+            }
+            else {
+                const notificationBody = {
+                    from: body.user,
+                    to: body.to,
+                    publication: body.publication,
+                    content: content,
+                    type: body.type,
+                };
+                await this.notificationsService.create(notificationBody);
+            }
         }
-        return await (0, query_1.create)(this.pubmanegementModel, body);
+        if (!alreadyLike)
+            return await (0, query_1.create)(this.pubmanegementModel, body);
     }
-    async findAll(params, res) {
+    async findAll(params, res = null) {
         const data = await (0, query_1.all)(this.pubmanegementModel, params, null, { _id: -1 }, params.limit, 'user', (0, helpers_1.userDataPopulateWithTopten)());
-        return res.status(common_1.HttpStatus.OK).json(data);
+        if (res)
+            return res.status(common_1.HttpStatus.OK).json(data);
+        if (!res)
+            return data;
     }
     async findOne(publication, params, res) {
         params.publication = publication;
         const data = await (0, query_1.all)(this.pubmanegementModel, params);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(publication, params, res) {
-        params.publication = publication;
-        const data = await (0, query_1.destroy)(this.pubmanegementModel, params);
-        return res.status(common_1.HttpStatus.OK).json(data);
+    async remove(_id, params, res = null) {
+        const data = await (0, query_1.destroy)(this.pubmanegementModel, { _id: _id });
+        if (res)
+            return res.status(common_1.HttpStatus.OK).json(data);
+        if (!res)
+            return data;
     }
 };
 PublicationManagementsService = __decorate([
