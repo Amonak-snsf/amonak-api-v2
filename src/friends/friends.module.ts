@@ -8,7 +8,7 @@ import { Friend, FriendSchema } from './entities/friend.entity';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }, { name: Friend.name, schema: FriendSchema }]), 
-    ConfigModule
+    ConfigModule,
   ],
   controllers: [FriendsController],
   providers: [FriendsService],

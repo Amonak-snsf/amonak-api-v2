@@ -6,7 +6,7 @@ import { all, create, destroy, one } from 'src/utils/query';
 import { CreatePublicationManagementDto } from './dto/create-publication-management.dto';
 import { PublicationManagement, PubManagementDocument } from './entities/publication-management.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
-
+import { PubManagementType as type } from './dto/publication-managements-type.dto';
 @Injectable()
 export class PublicationManagementsService {
   constructor(@InjectModel(PublicationManagement.name) private readonly pubmanegementModel: Model<PubManagementDocument>,
@@ -14,31 +14,54 @@ export class PublicationManagementsService {
     ){}
 
   async create(body: CreatePublicationManagementDto, res) {
-    
-    if(body.type === 'follow' || body.type === 'share' || body.type === 'save' || body.type === 'like' || body.type === 'signal'){
+    let alreadyLike = false;
+    if(body.type ===  type.follow || body.type === type.share || body.type === type.save || body.type === type.like || body.type === type.signale){
 
-      let content = (body.type === 'share') ? 'a partagé votre publication' : 'vous suive.';
-      if(body.type === 'save') content = 'a enrégistré votre publication';
-      if(body.type === 'like') content = 'a aimé votre publication';
-      if(body.type === 'signal') content = 'a signalé votre publication';
+      let content = (body.type === type.share) ? 'a partagé votre publication' : 'vous suive.';
+      if(body.type === type.save) content = 'a enrégistré votre publication';
+      if(body.type === type.like) content = 'a aimé votre publication';
+      if(body.type === type.signale) content = 'a signalé votre publication';
 
-      const notificationBody ={
-        from: body.user,
-        to: body.to,
-        publication: body.publication,
-        content: content,
-        type: body.type,
+      if(body.type === type.like){
+
+        const mylikes = await this.findAll({type: type.like, publication: body.publication, user: body.user})
+        if(mylikes && mylikes[0]){
+          alreadyLike = true;
+          this.remove(mylikes[0]._id, {});
+        }else{
+          const notificationBody ={
+            from: body.user,
+            to: body.to,
+            publication: body.publication,
+            content: content,
+            type: body.type,
+          }
+          await this.notificationsService.create(notificationBody);
+        }
+        
+      }else{
+
+        const notificationBody ={
+          from: body.user,
+          to: body.to,
+          publication: body.publication,
+          content: content,
+          type: body.type,
+        }
+        await this.notificationsService.create(notificationBody);
       }
-      await this.notificationsService.create(notificationBody);
+      
     }
-    return await create(this.pubmanegementModel, body);
+    
+    if(!alreadyLike)return await create(this.pubmanegementModel, body);  
   }
 
-  async findAll(params, res) {
+  async findAll(params, res=null) {
 
     const data = await all(this.pubmanegementModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
-    return res.status(HttpStatus.OK).json(data);
+    if(res)return res.status(HttpStatus.OK).json(data);
+    if(!res)return data;
   }
 
   async findOne(publication: string, params, res) {
@@ -49,11 +72,11 @@ export class PublicationManagementsService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async remove(publication: string, params, res) {
-    params.publication = publication;
+  async remove(_id: string, params, res=null) {
 
-    const data = await destroy(this.pubmanegementModel, params);
+    const data = await destroy(this.pubmanegementModel, { _id: _id });
 
-    return res.status(HttpStatus.OK).json(data);
+    if(res)return res.status(HttpStatus.OK).json(data);
+    if(!res)return data;
   }
 }

@@ -9,6 +9,7 @@ var PublicationType;
     PublicationType["publicity"] = "publicity";
     PublicationType["share"] = "share";
     PublicationType["default"] = "default";
+    PublicationType["sendAlerte"] = "sendAlerte";
 })(PublicationType = exports.PublicationType || (exports.PublicationType = {}));
 var AlerteType;
 (function (AlerteType) {

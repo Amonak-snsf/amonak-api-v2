@@ -23,11 +23,12 @@ export class UsersService {
     return res.status(HttpStatus.OK).json(data);
   }
 
-  async findOne(_id: string, res) {
+  async findOne(_id: string, res=null) {
 
     const data = await one(this.userModel, {_id: _id});
 
-    return res.status(HttpStatus.OK).json(data);
+    if(res)return res.status(HttpStatus.OK).json(data);
+    if(!res) return data;
   }
 
   async update(_id: string, upDto: UpdateUserDto, res) {

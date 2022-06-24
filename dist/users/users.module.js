@@ -15,15 +15,17 @@ const user_entity_1 = require("./entities/user.entity");
 const config_1 = require("@nestjs/config");
 const friend_entity_1 = require("../friends/entities/friend.entity");
 const friends_module_1 = require("../friends/friends.module");
+const messages_module_1 = require("../messages/messages.module");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [mongoose_1.MongooseModule.forFeature([{ name: user_entity_1.User.name, schema: user_entity_1.UserSchema }, { name: friend_entity_1.Friend.name, schema: friend_entity_1.FriendSchema }]),
-            config_1.ConfigModule, friends_module_1.FriendsModule
+            config_1.ConfigModule, friends_module_1.FriendsModule, messages_module_1.MessagesModule
         ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService]
+        providers: [users_service_1.UsersService],
+        exports: [users_service_1.UsersService]
     })
 ], UsersModule);
 exports.UsersModule = UsersModule;

@@ -30,9 +30,12 @@ let UsersService = class UsersService {
         const data = await (0, query_1.all)(this.userModel, params, null, { _id: -1 }, params.limit, null, null);
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findOne(_id, res) {
+    async findOne(_id, res = null) {
         const data = await (0, query_1.one)(this.userModel, { _id: _id });
-        return res.status(common_1.HttpStatus.OK).json(data);
+        if (res)
+            return res.status(common_1.HttpStatus.OK).json(data);
+        if (!res)
+            return data;
     }
     async update(_id, upDto, res) {
         const user = await (0, query_1.exist)(this.userModel, { _id: _id });

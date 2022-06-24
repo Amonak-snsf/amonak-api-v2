@@ -19,4 +19,4 @@ export declare class Publication extends DefaultModel {
     publicity: string;
     shareMessage: string;
 }
-export declare const PublicationSchema: mongoose.Schema<mongoose.Document<Publication, any, any>, mongoose.Model<mongoose.Document<Publication, any, any>, any, any, any>, {}, {}>;
+export declare const PublicationSchema: mongoose.Schema<mongoose.Document<Publication, any, any>, mongoose.Model<mongoose.Document<Publication, any, any>, any, any, any>, {}, {}, any>;

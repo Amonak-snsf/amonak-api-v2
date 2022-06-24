@@ -10,6 +10,8 @@ export declare class MailService {
     contact(data: any, url: string): Promise<void>;
     newsletter(data: any, url: string): Promise<void>;
     topten(data: any, url: string): Promise<void>;
+    alerte(data: any, url: string): Promise<void>;
     friendRequest(data: any, url: string): Promise<void>;
     confirmFriendRequest(data: any, url: string): Promise<void>;
+    address(data: Array<any>): any;
 }

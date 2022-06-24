@@ -12,4 +12,4 @@ export declare class Comment extends DefaultModel {
     status: boolean;
     likes: [];
 }
-export declare const CommentSchema: mongoose.Schema<mongoose.Document<Comment, any, any>, mongoose.Model<mongoose.Document<Comment, any, any>, any, any, any>, {}, {}>;
+export declare const CommentSchema: mongoose.Schema<mongoose.Document<Comment, any, any>, mongoose.Model<mongoose.Document<Comment, any, any>, any, any, any>, {}, {}, any>;

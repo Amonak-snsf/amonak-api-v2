@@ -5,6 +5,7 @@ import { Files } from "src/users/dto/file-interface";
 export declare type MessageDocument = Message & Document;
 export declare class Message extends Notification {
     files: Files[];
+    fromPoulate?: User;
     deleters: User[];
 }
-export declare const MessageSchema: mongoose.Schema<mongoose.Document<Message, any, any>, mongoose.Model<mongoose.Document<Message, any, any>, any, any, any>, {}, {}>;
+export declare const MessageSchema: mongoose.Schema<mongoose.Document<Message, any, any>, mongoose.Model<mongoose.Document<Message, any, any>, any, any, any>, {}, {}, any>;

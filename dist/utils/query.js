@@ -39,9 +39,12 @@ const createIfne = async (model, body, filter, populate, populateFields) => {
 };
 exports.createIfne = createIfne;
 const one = async (model, filter, fields, populate, populateFields) => {
-    const data = await model.findOne(filter, (0, helpers_1.arrayToString)(fields)).populate(populate, (0, helpers_1.arrayToString)(populateFields)).catch(err => {
+    let data = await model.findOne(filter, (0, helpers_1.arrayToString)(fields)).catch(err => {
         throw (0, error_1.error)(err, common_1.HttpStatus.NOT_FOUND);
     });
+    if (populate) {
+        data = data.populate(populate, (0, helpers_1.arrayToString)(populateFields));
+    }
     return data;
 };
 exports.one = one;

@@ -4,7 +4,8 @@ export declare enum PublicationType {
     alerte = "alerte",
     publicity = "publicity",
     share = "share",
-    default = "default"
+    default = "default",
+    sendAlerte = "sendAlerte"
 }
 export declare enum AlerteType {
     default = "default",

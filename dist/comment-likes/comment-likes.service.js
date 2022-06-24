@@ -28,37 +28,47 @@ let CommentLikesService = class CommentLikesService {
         this.notificationService = notificationService;
     }
     async create(createCommentLikeDto, res) {
-        const data = await (0, query_1.create)(this.commentLikeModel, createCommentLikeDto);
+        let data;
+        const mycommentsLikes = await this.findAll({ comment: createCommentLikeDto.comment, user: createCommentLikeDto.user });
+        if (mycommentsLikes && mycommentsLikes[0]) {
+            this.remove(mycommentsLikes[0]._id, {});
+        }
+        else {
+            data = await (0, query_1.create)(this.commentLikeModel, createCommentLikeDto);
+        }
         let content = 'a aimé votre commentaire sur une publication';
-        const allLikeOfThisComment = await (0, query_1.allDistinct)(this.commentLikeModel, 'user', { comment: data.comment });
+        const allLikeOfThisComment = await (0, query_1.allDistinct)(this.commentLikeModel, 'user', { comment: createCommentLikeDto.comment });
         if (allLikeOfThisComment) {
             for (let value of allLikeOfThisComment) {
                 content = 'a aimé le commentaire d\'une publication que vous avez aussi aimé';
                 if (value && `${value}` !== '' && `${value}` !== createCommentLikeDto.commentCreator) {
                     await this.notificationService.create({
-                        from: data.user,
+                        from: createCommentLikeDto.user,
                         content: content,
                         to: value,
-                        comment: data.comment,
+                        comment: createCommentLikeDto.comment,
                         type: notification_type_dto_1.NotificationType.like
                     });
                 }
             }
         }
-        if (createCommentLikeDto.commentCreator !== `${data.user}`) {
+        if (createCommentLikeDto.commentCreator !== `${createCommentLikeDto.user}`) {
             await this.notificationService.create({
-                from: data.user,
+                from: createCommentLikeDto.user,
                 content: content,
                 to: createCommentLikeDto.commentCreator,
-                comment: data.comment,
+                comment: createCommentLikeDto.comment,
                 type: notification_type_dto_1.NotificationType.like
             });
         }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async findAll(params, res) {
+    async findAll(params, res = null) {
         const data = await (0, query_1.all)(this.commentLikeModel, params);
-        return res.status(common_1.HttpStatus.OK).json(data);
+        if (res)
+            return res.status(common_1.HttpStatus.OK).json(data);
+        if (!res)
+            return data;
     }
     async findOne(comment) {
         return await (0, query_1.all)(this.commentLikeModel, { comment: comment });
@@ -67,10 +77,12 @@ let CommentLikesService = class CommentLikesService {
         const data = await (0, query_1.put)(this.commentLikeModel, updateCommentLikeDto, { comment: comment });
         return res.status(common_1.HttpStatus.OK).json(data);
     }
-    async remove(comment, params, res) {
-        params.comment = comment;
-        const data = await (0, query_1.destroy)(this.commentLikeModel, params);
-        return res.status(common_1.HttpStatus.OK).json(data);
+    async remove(_id, params, res = null) {
+        const data = await (0, query_1.destroy)(this.commentLikeModel, { _id: _id });
+        if (res)
+            return res.status(common_1.HttpStatus.OK).json(data);
+        if (!res)
+            return data;
     }
 };
 CommentLikesService = __decorate([

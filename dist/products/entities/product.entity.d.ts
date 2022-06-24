@@ -18,4 +18,4 @@ export declare class Product extends DefaultModel {
     status: boolean;
     buys: number;
 }
-export declare const ProductSchema: mongoose.Schema<mongoose.Document<Product, any, any>, mongoose.Model<mongoose.Document<Product, any, any>, any, any, any>, {}, {}>;
+export declare const ProductSchema: mongoose.Schema<mongoose.Document<Product, any, any>, mongoose.Model<mongoose.Document<Product, any, any>, any, any, any>, {}, {}, any>;

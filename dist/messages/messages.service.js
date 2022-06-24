@@ -19,9 +19,11 @@ const mongoose_2 = require("mongoose");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
 const message_entity_1 = require("./entities/message.entity");
+const user_entity_1 = require("../users/entities/user.entity");
 let MessagesService = class MessagesService {
-    constructor(messageModel) {
+    constructor(messageModel, userModel) {
         this.messageModel = messageModel;
+        this.userModel = userModel;
     }
     async create(createMessageDto) {
         const data = await (0, query_1.create)(this.messageModel, createMessageDto, 'to', (0, helpers_1.userDataPopulateWithTopten)());
@@ -29,11 +31,54 @@ let MessagesService = class MessagesService {
     }
     async findAll(params) {
         let query;
+        let filterMessage = [];
+        let distinctMessage = [];
         if (params.to && params.from) {
             query = { $or: [{ from: params.from, to: params.to }, { from: params.to, to: params.from }] };
         }
+        if (params.distinct && params.from) {
+            distinctMessage = await this.findAllDistinct(params);
+            query = { $or: [{ to: { '$nin': distinctMessage } }, { from: { '$nin': distinctMessage } }] };
+        }
+        if (params.status) {
+            query = Object.assign(Object.assign({}, query), { status: params.status });
+        }
         const data = await (0, query_1.all)(this.messageModel, query, null, { _id: -1 }, params.limit, 'to', (0, helpers_1.userDataPopulateWithTopten)());
+        if (params.distinct && params.from) {
+            let newValue = {};
+            for (const value of data) {
+                if (distinctMessage.includes(`${value.from}`) || distinctMessage.includes(`${value.to._id}`)) {
+                    const filter = filterMessage.find(message => {
+                        return ((`${message.from._id}` === `${value.from}`) || (`${message.to._id}` === `${value.from}`));
+                    });
+                    const user = await (0, query_1.one)(this.userModel, { _id: value.from });
+                    newValue = value;
+                    newValue['from'] = user;
+                    if (!filter)
+                        filterMessage.push(newValue);
+                }
+            }
+        }
+        if (params.distinct && params.from) {
+            return filterMessage;
+        }
         return data;
+    }
+    async findAllDistinct(params) {
+        let query;
+        const userList = [];
+        if (params.from) {
+            query = { $or: [{ from: params.from }, { to: params.from }] };
+        }
+        const data = await (0, query_1.allDistinct)(this.messageModel, 'to', query);
+        if (data && data.length) {
+            for (let to of data) {
+                if (`${to}` !== params.from) {
+                    userList.push(`${to}`);
+                }
+            }
+        }
+        return userList;
     }
     async findOne(_id) {
         const data = await (0, query_1.one)(this.messageModel, { _id: _id });
@@ -51,7 +96,9 @@ let MessagesService = class MessagesService {
 MessagesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(message_entity_1.Message.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(user_entity_1.User.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], MessagesService);
 exports.MessagesService = MessagesService;
 //# sourceMappingURL=messages.service.js.map

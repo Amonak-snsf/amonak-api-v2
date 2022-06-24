@@ -2,6 +2,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { User } from 'src/users/entities/user.entity';
+import { Message } from '../messages/entities/message.entity';
 
 @Injectable()
 export class MailService {
@@ -87,6 +88,38 @@ export class MailService {
     });
   }
 
+  async alerte(data, url: string) {
+    let date = new Date();
+    const attachments = [];
+    if(data.publication && data.publication.files){
+      for(let value of data.publication.files){
+        attachments.push({
+          filename: value.filename,
+          path: `${data.staticUrl}/${value.url}`,
+          cid: value.originalname
+        })
+      }
+    }
+    await this.mailerService.sendMail({
+      to: data.publication?.user?.email,
+      subject: 'Amonak Alerte',
+      template: 'alerte',
+      context: { 
+        userName: data.publication?.user?.userName,
+        url: url,
+        year: date.getFullYear(),
+        message: data?.message,
+        map: data?.map,
+        senderUserName: data.sender?.userName,
+        senderName: `${data.sender?.firstName?? ''} ${data.sender?.lastName?? ''}`,
+        senderEmail: data.sender?.email,
+        senderPhone: data.sender?.phone,
+        senderAddress: this.address(data.sender?.address),
+      },
+      attachments: attachments
+    });
+  }
+
   async friendRequest(data, url: string) {
     let date = new Date();
 
@@ -115,5 +148,16 @@ export class MailService {
         year: date.getFullYear()
       }
     });
+  }
+
+  address(data: Array<any>){
+
+    let address;
+    if(data && data.length){
+  
+      address = data[data.length - 1].fullAddress
+        ?? `${data[data.length - 1].state} ${data[data.length - 1].city}, ${data[data.length - 1].countryName}`;
+    }
+    return address;
   }
 }

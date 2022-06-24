@@ -1,11 +1,10 @@
 
-import { Body, Controller, Get, Param, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, fileDestination, allImageFileFilter } from 'src/utils/file-uploading';
 import { ConfigService } from '@nestjs/config';
-import * as path from 'path';
 import * as fs from 'fs';
 @Controller()
 export class AppController {

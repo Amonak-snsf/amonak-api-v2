@@ -5,6 +5,12 @@ import { Files } from "src/users/dto/file-interface";
 export class CreatePublicationDto {
 
     @ApiProperty({ required: false, type: String })
+    _id?: string;
+
+    @ApiProperty({ required: false, type: String })
+    map?: string;
+    
+    @ApiProperty({ required: false, type: String })
     content: string;
 
     @ApiProperty({ type: []})

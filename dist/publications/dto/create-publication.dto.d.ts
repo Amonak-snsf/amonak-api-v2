@@ -1,5 +1,7 @@
 import { Files } from "src/users/dto/file-interface";
 export declare class CreatePublicationDto {
+    _id?: string;
+    map?: string;
     content: string;
     files: Files[];
     user: string;

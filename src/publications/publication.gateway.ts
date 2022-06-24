@@ -2,11 +2,11 @@ import { SubscribeMessage, WebSocketGateway, WebSocketServer, MessageBody, Conne
 import { Socket, Server } from "socket.io";
 import { Res } from '@nestjs/common';
 import { PubManagementType } from 'src/publication-managements/dto/publication-managements-type.dto'
-
+import { PublicationsService } from './publications.service';
 @WebSocketGateway({ cors: true, path: "/amonak-api", namespace: "api/publication" })
 export class PublicationGateway {
 
-	constructor() {}
+	constructor(private readonly publicationService: PublicationsService) {}
 	@WebSocketServer() server: Server;
 
   @SubscribeMessage("newPublicationEvent")
@@ -31,6 +31,7 @@ export class PublicationGateway {
 
   	if(softDeletePublication.type === PubManagementType.softDeleteAll){
   		this.server.emit("softDeletePublicationListener", softDeletePublication.data);
+		  this.publicationService.update(softDeletePublication.data._id, {status: false});
   		console.log(softDeletePublication.type)
   	}
   	if(softDeletePublication.type === PubManagementType.softDelete){

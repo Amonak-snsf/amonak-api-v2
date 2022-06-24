@@ -693,10 +693,10 @@
     "webpack" "5.71.0"
     "webpack-node-externals" "3.0.0"
 
-"@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.8 || ^8.0.0", "@nestjs/common@^7.0.9 || ^8.0.0", "@nestjs/common@^8.0.0", "@nestjs/common@^8.4.5":
-  "integrity" "sha512-DL30hLtcmosOWGRFrU1YYB59k+7FGX82sbq2QiXLsEXuSig8ZzFm8LR+tD8CX+aKabU9t1GGc18HLjFud/3sww=="
-  "resolved" "https://registry.npmjs.org/@nestjs/common/-/common-8.4.5.tgz"
-  "version" "8.4.5"
+"@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.0 || ^8.0.0", "@nestjs/common@^7.0.8 || ^8.0.0", "@nestjs/common@^7.0.9 || ^8.0.0", "@nestjs/common@^8.0.0", "@nestjs/common@^8.4.5", "@nestjs/common@^8.4.7":
+  "integrity" "sha512-m/YsbcBal+gA5CFrDpqXqsSfylo+DIQrkFY3qhVIltsYRfu8ct8J9pqsTO6OPf3mvqdOpFGrV5sBjoyAzOBvsw=="
+  "resolved" "https://registry.npmjs.org/@nestjs/common/-/common-8.4.7.tgz"
+  "version" "8.4.7"
   dependencies:
     "axios" "0.27.2"
     "iterare" "1.2.1"
@@ -2466,6 +2466,14 @@
     "path-key" "^3.1.0"
     "shebang-command" "^2.0.0"
     "which" "^2.0.1"
+
+"crud-nestjs-mongoose-helper@^1.0.6":
+  "integrity" "sha512-Erns2kFNVsV9i3J5CiI/FFKxzzcKMSb0r9ZjnXYFr8w1NzB3tbLOlcR8ciXwzN3PJSeA2pcPxumTTCDeIrMmkQ=="
+  "resolved" "https://registry.npmjs.org/crud-nestjs-mongoose-helper/-/crud-nestjs-mongoose-helper-1.0.6.tgz"
+  "version" "1.0.6"
+  dependencies:
+    "@nestjs/common" "^8.4.7"
+    "mongoose" "^6.3.8"
 
 "csrf@3.1.0":
   "integrity" "sha512-uTqEnCvWRk042asU6JtapDTcJeeailFy4ydOQS28bj1hcLnYRiqi8SsD2jS412AY1I/4qdOwWZun774iqywf9w=="
@@ -5263,16 +5271,16 @@
   optionalDependencies:
     "saslprep" "^1.0.3"
 
-"mongoose@^6.0.2", "mongoose@^6.2.1":
-  "integrity" "sha512-bAGuf+6mXuVjKReNcOGjdI05y9g0JXnRpZ3/PBN3kVXIn3rbhbFwR/lPbuwtsBsWhlblMK8tieDeFAVzV6yhww=="
-  "resolved" "https://registry.npmjs.org/mongoose/-/mongoose-6.3.3.tgz"
-  "version" "6.3.3"
+"mongoose@^6.0.2", "mongoose@^6.2.1", "mongoose@^6.3.8":
+  "integrity" "sha512-TPIm61/DR2Go+aDXD5HM6vwMvl4dEOFos1oTT4yPT8qJpcTugxWXf5J2Vp+0vzqDETfDMtN/gBhPCzFdFJx2bg=="
+  "resolved" "https://registry.npmjs.org/mongoose/-/mongoose-6.3.8.tgz"
+  "version" "6.3.8"
   dependencies:
     "bson" "^4.6.2"
     "kareem" "2.3.5"
     "mongodb" "4.5.0"
     "mpath" "0.9.0"
-    "mquery" "4.0.2"
+    "mquery" "4.0.3"
     "ms" "2.1.3"
     "sift" "16.0.0"
 
@@ -5286,10 +5294,10 @@
   "resolved" "https://registry.npmjs.org/mpath/-/mpath-0.9.0.tgz"
   "version" "0.9.0"
 
-"mquery@4.0.2":
-  "integrity" "sha512-oAVF0Nil1mT3rxty6Zln4YiD6x6QsUWYz927jZzjMxOK2aqmhEz5JQ7xmrKK7xRFA2dwV+YaOpKU/S+vfNqKxA=="
-  "resolved" "https://registry.npmjs.org/mquery/-/mquery-4.0.2.tgz"
-  "version" "4.0.2"
+"mquery@4.0.3":
+  "integrity" "sha512-J5heI+P08I6VJ2Ky3+33IpCdAvlYGTSUjwTPxkAr8i8EoduPMBX2OY/wa3IKZIQl7MU4SbFk8ndgSKyB/cl1zA=="
+  "resolved" "https://registry.npmjs.org/mquery/-/mquery-4.0.3.tgz"
+  "version" "4.0.3"
   dependencies:
     "debug" "4.x"
 

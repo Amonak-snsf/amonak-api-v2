@@ -51,14 +51,18 @@ export const createIfne = async (model: Model<any>, body: Record<string, any>, f
 
 export const one = async (model: Model<any>, filter: Record<string, any>, fields?: string | string[], populate?: string, populateFields?: string | string[]) => {
     
-    const data = await model.findOne(filter, arrayToString(fields)).populate(populate, arrayToString(populateFields)).catch(err =>{
+    let data = await model.findOne(filter, arrayToString(fields)).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
-    });
+     });
+    
+    if(populate){
+        data = data.populate(populate, arrayToString(populateFields));
+    }
 
     return data;
 }
 
-export const all = async (model: Model<any>, filter: Record<string, any>, fields?: string | string[], sort?: Object, limit?: Number, populate?: string, populateFields?: String | String[]) => {
+export const all = async (model: Model<any>, filter: Record<string, any>, fields?: string | string[], sort?: {}, limit?: number, populate?: string, populateFields?: string | string[]) => {
    
     const data = await model.find(filter, arrayToString(fields)).populate(populate, arrayToString(populateFields)).sort(sort).limit(limitData(limit)).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
@@ -67,7 +71,7 @@ export const all = async (model: Model<any>, filter: Record<string, any>, fields
     return data;
 }
 
-export const allDistinct = async (model: Model<any>, field: string, filter: Record<string, any>, sort?: Object, limit?: Number, populate?: string, populateFields?: String | String[]) => {
+export const allDistinct = async (model: Model<any>, field: string, filter: Record<string, any>, sort?: {}, limit?: number, populate?: string, populateFields?: string | string[]) => {
    
     const data = await model.distinct(field, filter).populate(populate, arrayToString(populateFields)).sort(sort).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);

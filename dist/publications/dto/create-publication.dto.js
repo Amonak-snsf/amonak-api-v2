@@ -16,6 +16,14 @@ class CreatePublicationDto {
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String }),
     __metadata("design:type", String)
+], CreatePublicationDto.prototype, "_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreatePublicationDto.prototype, "map", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
 ], CreatePublicationDto.prototype, "content", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [] }),

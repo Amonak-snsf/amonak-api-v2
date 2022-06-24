@@ -29,4 +29,4 @@ export declare class User extends DefaultModel {
     isFirstTime: boolean;
     isNewFeed: boolean;
 }
-export declare const UserSchema: mongoose.Schema<mongoose.Document<User, any, any>, mongoose.Model<mongoose.Document<User, any, any>, any, any, any>, {}, {}>;
+export declare const UserSchema: mongoose.Schema<mongoose.Document<User, any, any>, mongoose.Model<mongoose.Document<User, any, any>, any, any, any>, {}, {}, any>;
