@@ -5,7 +5,12 @@ export declare class CreateCartDto {
     tax: number;
     shipping: number;
     percentage: number;
+    CartLength: number;
     status: CartStatus;
     isWaiting: boolean;
     isCompleted: boolean;
+    shippingAddress: [];
+    paymentType: string;
+    reference: string;
+    updatedAt: Date;
 }

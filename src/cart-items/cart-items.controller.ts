@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param, Delete, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Res, Query, Patch } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { CartItemsService } from './cart-items.service';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
+import { UpdateCartItemDto } from './dto/update-cart-item.dto';
 
 @ApiTags('cart-items')
 @ApiHeader({
@@ -26,6 +27,11 @@ export class CartItemsController {
   @Get(':cart')
   findOne(@Param('cart') cart: string, @Res() res) {
     return this.cartItemsService.findOne(cart, res);
+  }
+
+  @Patch(':_id')
+  update(@Param('_id') _id: string, @Body() updateCartDto: UpdateCartItemDto, @Res() res) {
+    return this.cartItemsService.update(_id, updateCartDto, res);
   }
 
   @Delete(':_id')

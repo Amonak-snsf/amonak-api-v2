@@ -11,5 +11,6 @@ var CartStatus;
     CartStatus["successfull"] = "successfull";
     CartStatus["failed"] = "failed";
     CartStatus["booking"] = "booking";
+    CartStatus["paiment"] = "paiment";
 })(CartStatus = exports.CartStatus || (exports.CartStatus = {}));
 //# sourceMappingURL=cart-status.dto.js.map

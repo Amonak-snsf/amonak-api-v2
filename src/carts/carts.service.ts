@@ -40,6 +40,7 @@ export class CartsService {
 
   async update(_id: string, updateCartDto: UpdateCartDto, res) {
     
+   updateCartDto.updatedAt = new Date()
     const data = await put(this.cartModel, updateCartDto, { _id: _id }, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);

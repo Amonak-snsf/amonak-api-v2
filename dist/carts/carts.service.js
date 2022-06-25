@@ -41,6 +41,7 @@ let CartsService = class CartsService {
         res.status(common_1.HttpStatus.OK).json(data);
     }
     async update(_id, updateCartDto, res) {
+        updateCartDto.updatedAt = new Date();
         const data = await (0, query_1.put)(this.cartModel, updateCartDto, { _id: _id }, 'user', (0, helpers_1.userDataPopulateWithTopten)());
         res.status(common_1.HttpStatus.OK).json(data);
     }

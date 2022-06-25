@@ -5,5 +5,7 @@ export declare class FilterCart extends FilterCart_base {
     limit: number;
     user: string;
     status: CartStatus;
+    paymentType: string;
+    reference: string;
 }
 export {};

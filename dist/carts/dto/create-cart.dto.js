@@ -35,6 +35,10 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateCartDto.prototype, "percentage", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: Number, default: 0 }),
+    __metadata("design:type", Number)
+], CreateCartDto.prototype, "CartLength", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
     __metadata("design:type", String)
 ], CreateCartDto.prototype, "status", void 0);
@@ -46,5 +50,21 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
 ], CreateCartDto.prototype, "isCompleted", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [] }),
+    __metadata("design:type", Array)
+], CreateCartDto.prototype, "shippingAddress", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreateCartDto.prototype, "paymentType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], CreateCartDto.prototype, "reference", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: Date }),
+    __metadata("design:type", Date)
+], CreateCartDto.prototype, "updatedAt", void 0);
 exports.CreateCartDto = CreateCartDto;
 //# sourceMappingURL=create-cart.dto.js.map

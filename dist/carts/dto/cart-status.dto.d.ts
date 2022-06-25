@@ -6,5 +6,6 @@ export declare enum CartStatus {
     shippingCost = "shippingCostGiven",
     successfull = "successfull",
     failed = "failed",
-    booking = "booking"
+    booking = "booking",
+    paiment = "paiment"
 }

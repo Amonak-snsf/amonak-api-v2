@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ default: 'bestman1995' }),
+    (0, swagger_1.ApiProperty)({ default: 'bestman2022' }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.MinLength)(8),
     __metadata("design:type", String)
@@ -73,7 +73,7 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateUserDto.prototype, "webSites", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [Object] }),
+    (0, swagger_1.ApiProperty)({ type: [] }),
     __metadata("design:type", Array)
 ], CreateUserDto.prototype, "address", void 0);
 __decorate([

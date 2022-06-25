@@ -39,6 +39,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Cart.prototype, "percentage", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false, type: Number, default: 0 }),
+    __metadata("design:type", Number)
+], Cart.prototype, "CartLength", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: false, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
     (0, class_validator_1.IsIn)([cart_status_dto_1.CartStatus.cancelled, cart_status_dto_1.CartStatus.deleted, cart_status_dto_1.CartStatus.failed, cart_status_dto_1.CartStatus.shippingCost, cart_status_dto_1.CartStatus.shippingRequest, cart_status_dto_1.CartStatus.successfull, cart_status_dto_1.CartStatus.unpaid, cart_status_dto_1.CartStatus.booking]),
     __metadata("design:type", String)
@@ -51,6 +55,23 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
 ], Cart.prototype, "isCompleted", void 0);
+__decorate([
+    (0, mongoose_1.Prop)([(0, mongoose_1.raw)({
+            city: { required: false, trim: true, type: String },
+            area: { required: false, trim: true, type: String },
+            map: { required: false, trim: true, type: String },
+            phone: { required: false, trim: true, type: String }
+        })]),
+    __metadata("design:type", Array)
+], Cart.prototype, "shippingAddress", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: String }),
+    __metadata("design:type", String)
+], Cart.prototype, "paymentType", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: String }),
+    __metadata("design:type", String)
+], Cart.prototype, "reference", void 0);
 Cart = __decorate([
     (0, mongoose_1.Schema)()
 ], Cart);

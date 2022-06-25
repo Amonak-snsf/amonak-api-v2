@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import { CartsService } from 'src/carts/carts.service';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
+import { UpdateCartItemDto } from './dto/update-cart-item.dto';
 import { CartItemDocument } from './entities/cart-item.entity';
 export declare class CartItemsService {
     private readonly cartItemModel;
@@ -11,5 +12,6 @@ export declare class CartItemsService {
     create(createCartItemDto: CreateCartItemDto, res: any): Promise<void>;
     findAll(params: any, res: any): Promise<void>;
     findOne(cart: string, res: any): Promise<void>;
+    update(_id: string, updateCartDto: UpdateCartItemDto, res: any): Promise<void>;
     remove(_id: string, res: any): Promise<void>;
 }

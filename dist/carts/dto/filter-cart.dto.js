@@ -27,5 +27,13 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, type: String, default: cart_status_dto_1.CartStatus.unpaid }),
     __metadata("design:type", String)
 ], FilterCart.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], FilterCart.prototype, "paymentType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", String)
+], FilterCart.prototype, "reference", void 0);
 exports.FilterCart = FilterCart;
 //# sourceMappingURL=filter-cart.dto.js.map

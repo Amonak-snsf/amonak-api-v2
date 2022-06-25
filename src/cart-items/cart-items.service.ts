@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { CartsService } from 'src/carts/carts.service';
 import { all, createIfne, destroy, one, put } from 'src/utils/query';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
+import { UpdateCartItemDto } from './dto/update-cart-item.dto';
 import { CartItem, CartItemDocument } from './entities/cart-item.entity';
 
 @Injectable()
@@ -60,6 +61,13 @@ export class CartItemsService {
     res.status(HttpStatus.OK).json(data);
   }
 
+
+  async update(_id: string, updateCartDto: UpdateCartItemDto, res) {
+    
+    const data = await put(this.cartItemModel, updateCartDto, { _id: _id }, 'product');
+
+    res.status(HttpStatus.OK).json(data);
+  }
 
   async remove(_id: string, res) {
     

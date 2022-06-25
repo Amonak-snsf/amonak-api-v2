@@ -8,4 +8,5 @@ export enum CartStatus{
     successfull = 'successfull',
     failed = 'failed',
     booking = 'booking',
+    paiment = 'paiment',
 }

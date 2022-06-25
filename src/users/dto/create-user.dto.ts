@@ -18,7 +18,7 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({default: 'bestman1995'})
+  @ApiProperty({default: 'bestman2022'})
   @IsNotEmpty()
   @MinLength(8)
   password: string;
@@ -52,7 +52,7 @@ export class CreateUserDto {
   @ApiProperty({type: [String]})
   webSites: string[];
 
-  @ApiProperty({ type: [Object]})
+  @ApiProperty({ type: []})
   address: Address[];
 
   @ApiProperty({ type: {}})

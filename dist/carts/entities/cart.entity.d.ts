@@ -8,8 +8,12 @@ export declare class Cart extends DefaultModel {
     tax: number;
     shipping: number;
     percentage: number;
+    CartLength: number;
     status: string;
     isWaiting: boolean;
     isCompleted: boolean;
+    shippingAddress: [];
+    paymentType: string;
+    reference: string;
 }
 export declare const CartSchema: mongoose.Schema<mongoose.Document<Cart, any, any>, mongoose.Model<mongoose.Document<Cart, any, any>, any, any, any>, {}, {}, any>;

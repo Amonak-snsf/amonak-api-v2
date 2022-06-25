@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const cart_items_service_1 = require("./cart-items.service");
 const create_cart_item_dto_1 = require("./dto/create-cart-item.dto");
+const update_cart_item_dto_1 = require("./dto/update-cart-item.dto");
 let CartItemsController = class CartItemsController {
     constructor(cartItemsService) {
         this.cartItemsService = cartItemsService;
@@ -29,6 +30,9 @@ let CartItemsController = class CartItemsController {
     }
     findOne(cart, res) {
         return this.cartItemsService.findOne(cart, res);
+    }
+    update(_id, updateCartDto, res) {
+        return this.cartItemsService.update(_id, updateCartDto, res);
     }
     remove(_id, res) {
         return this.cartItemsService.remove(_id, res);
@@ -58,6 +62,15 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], CartItemsController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Patch)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_cart_item_dto_1.UpdateCartItemDto, Object]),
+    __metadata("design:returntype", void 0)
+], CartItemsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':_id'),
     __param(0, (0, common_1.Param)('_id')),

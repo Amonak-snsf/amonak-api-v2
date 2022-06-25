@@ -55,6 +55,10 @@ let CartItemsService = class CartItemsService {
         const data = await (0, query_1.one)(this.cartItemModel, { cart: cart }, null, 'product');
         res.status(common_1.HttpStatus.OK).json(data);
     }
+    async update(_id, updateCartDto, res) {
+        const data = await (0, query_1.put)(this.cartItemModel, updateCartDto, { _id: _id }, 'product');
+        res.status(common_1.HttpStatus.OK).json(data);
+    }
     async remove(_id, res) {
         const data = await (0, query_1.destroy)(this.cartItemModel, { _id: _id });
         res.status(common_1.HttpStatus.OK).json(data);
