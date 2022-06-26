@@ -17,23 +17,26 @@ export class MessageGateway {
  	async joinChatRoom(@ConnectedSocket() client: Socket, @MessageBody() data: {from: string, to: string}){
  		
 		const friend = await this.friendService.one(data);
+		if(friend){
 		client.join(`${friend._id}`);
- 		client.emit("joinedChatRoom", `${friend._id}`);
+		client.emit("joinedChatRoom", `${friend._id}`);
 		console.log("join room", `${friend._id}`)
+		}
  	}
 
  	@SubscribeMessage("leaveChatRoom")
  	async leaveChatRoom(@ConnectedSocket() client: Socket, @MessageBody() data: {from: string, to: string}){
 		
 		const friend = await this.friendService.one(data);
+		if(friend){
 		client.leave(`${friend._id}`);
  		client.emit("leftChatRoom", `${friend._id}`);
+		}
  	}
 
 	 @SubscribeMessage("sendMessage")
 	 async sendMessage(@ConnectedSocket() client: Socket, @MessageBody() data: {room: string, message: any}){
 		//this.server.to(data.room).emit('getMessage', data);
 		client.broadcast.to(data.room).emit('getMessage', data);
-		console.log("emitfrom room", data.room, data.message)
 	 }
 }

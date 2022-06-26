@@ -34,10 +34,6 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_entity_1.User)
 ], Message.prototype, "fromPoulate", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
-    __metadata("design:type", Array)
-], Message.prototype, "deleters", void 0);
 Message = __decorate([
     (0, mongoose_1.Schema)()
 ], Message);

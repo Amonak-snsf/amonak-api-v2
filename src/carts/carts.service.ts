@@ -16,7 +16,7 @@ export class CartsService {
   async create(createCartDto, res) {
     this.data = createCartDto;
 
-    const data = await createIfne(this.cartModel, this.data, { user: this.data.user, status: CartStatus.unpaid, isWaiting: true })
+    const data = await createIfne(this.cartModel, this.data, { user: this.data.user, isWaiting: true })
     if(this.data.from && this.data.from == 'cart_item'){
       return data;
     }

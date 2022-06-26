@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { userDataPopulateWithTopten } from 'src/utils/helpers';
@@ -25,16 +25,20 @@ export class MessagesService {
     let filterMessage = [];
     let distinctMessage = [];
 
-    if(params.to && params.from) {
+    if(params.to && params.from && params.to !=='undefined' && params.from !=='undefined') {
       query = { $or: [{ from: params.from, to: params.to }, { from: params.to, to: params.from }] };
     }
-    if(params.distinct && params.from){
+    if(params.distinct && params.from && params.from !=='undefined'){
       distinctMessage = await this.findAllDistinct(params);
       query = {$or: [{to: {'$nin': distinctMessage}}, {from: {'$nin': distinctMessage}}]};
     }
 
     if(params.status){
       query = {...query, status: params.status};
+    }
+
+    if(params.notRead){
+      query = {...query, readAt: {'$exists': false}};
     }
 
     const data = await all(this.messageModel, query, null, { _id: -1 }, params.limit, 'to', userDataPopulateWithTopten());
@@ -93,8 +97,26 @@ export class MessagesService {
   }
 
   async update(_id: string, updateMessageDto) {
-    
-    const data = await put(this.messageModel, updateMessageDto, { _id: _id });
+
+    let data;
+
+    if(updateMessageDto.readAt){
+
+      let query = {from: updateMessageDto.from, to: updateMessageDto.to, notRead: true};
+      const all = await this.findAll(query);
+      for(let value of all){
+        await put(this.messageModel, {readAt: new Date()}, {_id: value._id});
+        console.log(all.length, query)
+      }
+      
+    }
+    if(updateMessageDto.readers){
+      updateMessageDto.readers = Array.isArray(updateMessageDto.readers)? updateMessageDto.readers : [updateMessageDto.readers];
+    }
+
+    if(!updateMessageDto.readAt){
+      data = await put(this.messageModel, updateMessageDto, { _id: _id });
+    }
 
     return data;
   }

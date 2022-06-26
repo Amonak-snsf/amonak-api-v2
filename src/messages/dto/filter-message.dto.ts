@@ -3,6 +3,10 @@ import { FilterNotification } from "src/notifications/dto/filter-notification.dt
 
 export class FilterMessage extends PartialType(FilterNotification){
 
- @ApiProperty({ required: false, type: Boolean})
- distinct: false
+ @ApiProperty({ required: false, type: Boolean, default: false})
+ distinct: boolean;
+
+ @ApiProperty({ required: false, type: Boolean, default: false})
+ notRead: boolean
 }
+

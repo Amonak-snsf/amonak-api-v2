@@ -14,5 +14,7 @@ export declare class Notification extends DefaultModel {
     status: boolean;
     seenAt: Date;
     readAt: Date;
+    deleters: User[];
+    readers: User[];
 }
 export declare const NotificationSchema: mongoose.Schema<mongoose.Document<Notification, any, any>, mongoose.Model<mongoose.Document<Notification, any, any>, any, any, any>, {}, {}, any>;

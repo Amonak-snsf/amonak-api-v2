@@ -57,6 +57,14 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
 ], Notification.prototype, "readAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
+    __metadata("design:type", Array)
+], Notification.prototype, "deleters", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] }),
+    __metadata("design:type", Array)
+], Notification.prototype, "readers", void 0);
 Notification = __decorate([
     (0, mongoose_1.Schema)()
 ], Notification);

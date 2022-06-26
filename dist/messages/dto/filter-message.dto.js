@@ -15,8 +15,12 @@ const filter_notification_dto_1 = require("../../notifications/dto/filter-notifi
 class FilterMessage extends (0, swagger_1.PartialType)(filter_notification_dto_1.FilterNotification) {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: false, type: Boolean }),
+    (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
     __metadata("design:type", Boolean)
 ], FilterMessage.prototype, "distinct", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: Boolean, default: false }),
+    __metadata("design:type", Boolean)
+], FilterMessage.prototype, "notRead", void 0);
 exports.FilterMessage = FilterMessage;
 //# sourceMappingURL=filter-message.dto.js.map

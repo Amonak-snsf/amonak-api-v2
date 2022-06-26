@@ -18,7 +18,6 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
-const cart_status_dto_1 = require("./dto/cart-status.dto");
 const cart_entity_1 = require("./entities/cart.entity");
 let CartsService = class CartsService {
     constructor(cartModel) {
@@ -26,7 +25,7 @@ let CartsService = class CartsService {
     }
     async create(createCartDto, res) {
         this.data = createCartDto;
-        const data = await (0, query_1.createIfne)(this.cartModel, this.data, { user: this.data.user, status: cart_status_dto_1.CartStatus.unpaid, isWaiting: true });
+        const data = await (0, query_1.createIfne)(this.cartModel, this.data, { user: this.data.user, isWaiting: true });
         if (this.data.from && this.data.from == 'cart_item') {
             return data;
         }
