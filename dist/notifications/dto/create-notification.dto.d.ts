@@ -6,4 +6,5 @@ export declare class CreateNotificationDto {
     comment: string;
     type: string;
     status: boolean;
+    deleters: [];
 }

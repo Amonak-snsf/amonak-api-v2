@@ -39,4 +39,9 @@ export class MessageGateway {
 		//this.server.to(data.room).emit('getMessage', data);
 		client.broadcast.to(data.room).emit('getMessage', data);
 	 }
+
+	 @SubscribeMessage("deleteMessage")
+	 async deleteMessage(@ConnectedSocket() client: Socket, @MessageBody() data: {room: string}){
+		this.server.to(data.room).emit('deleteMessageListener', data);
+	 }
 }

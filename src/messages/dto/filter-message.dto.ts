@@ -8,5 +8,6 @@ export class FilterMessage extends PartialType(FilterNotification){
 
  @ApiProperty({ required: false, type: Boolean, default: false})
  notRead: boolean
+
 }
 

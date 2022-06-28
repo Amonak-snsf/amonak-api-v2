@@ -44,5 +44,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: true, type: Boolean, default: true }),
     __metadata("design:type", Boolean)
 ], CreateNotificationDto.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: false, type: String }),
+    __metadata("design:type", Array)
+], CreateNotificationDto.prototype, "deleters", void 0);
 exports.CreateNotificationDto = CreateNotificationDto;
 //# sourceMappingURL=create-notification.dto.js.map

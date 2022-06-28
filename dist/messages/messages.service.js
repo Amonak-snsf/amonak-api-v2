@@ -97,10 +97,12 @@ let MessagesService = class MessagesService {
                 console.log(all.length, query);
             }
         }
-        if (updateMessageDto.readers) {
-            updateMessageDto.readers = Array.isArray(updateMessageDto.readers) ? updateMessageDto.readers : [updateMessageDto.readers];
+        if (updateMessageDto.deleters) {
+            updateMessageDto.deleters = Array.isArray(updateMessageDto.deleters) ? updateMessageDto.deleters : [updateMessageDto.deleters];
+            data = await (0, query_1.put)(this.messageModel, updateMessageDto, { _id: _id });
         }
         if (!updateMessageDto.readAt) {
+            console.log(updateMessageDto);
             data = await (0, query_1.put)(this.messageModel, updateMessageDto, { _id: _id });
         }
         return data;

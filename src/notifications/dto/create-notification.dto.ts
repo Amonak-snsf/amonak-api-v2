@@ -26,4 +26,7 @@ export class CreateNotificationDto {
   @ApiProperty({ required: true, type: Boolean, default: true })
   status: boolean;
 
+  @ApiProperty({ required: false, type: String})
+  deleters: [];
+
 }

@@ -110,11 +110,13 @@ export class MessagesService {
       }
       
     }
-    if(updateMessageDto.readers){
-      updateMessageDto.readers = Array.isArray(updateMessageDto.readers)? updateMessageDto.readers : [updateMessageDto.readers];
+    if(updateMessageDto.deleters){
+      updateMessageDto.deleters = Array.isArray(updateMessageDto.deleters)? updateMessageDto.deleters : [updateMessageDto.deleters];
+      data = await put(this.messageModel, updateMessageDto, { _id: _id });
     }
 
     if(!updateMessageDto.readAt){
+      console.log(updateMessageDto)
       data = await put(this.messageModel, updateMessageDto, { _id: _id });
     }
 
