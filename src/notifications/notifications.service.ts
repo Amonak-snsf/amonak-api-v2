@@ -23,8 +23,11 @@ export class NotificationsService {
     let filter = {}
     if(params){
 
-      filter = {...params, readAt : {'$exists' : false }, from: {'$ne' : params.user}, 
+      filter = {from: {'$ne' : params.user}, 
       '$or' : [{to: params.user}, {type: NotificationType.all}] };
+      if(params.status){
+        filter['status'] = params.status;
+      }
       delete filter['user'];
       delete filter['type'];
     }
@@ -44,8 +47,20 @@ export class NotificationsService {
 
   async update(_id: string, updateNotificationDto) {
     
-    const data = await put(this.notificationModel, UpdateNotificationDto, { _id: _id }, 'from', userDataPopulateWithComment());
-
+    let data;
+    if(updateNotificationDto.readAt && updateNotificationDto.to){
+       data = await all(this.notificationModel, {to: updateNotificationDto.to});
+       
+      if(data){
+        for(let value of data){
+          data = await put(this.notificationModel, {readAt: new Date()}, { _id: value._id });
+        }
+      }
+    }
+    else{
+      data = await put(this.notificationModel, UpdateNotificationDto, { _id: _id }, 'from', userDataPopulateWithComment());
+    }
+  
     return data;
   }
 

@@ -32,7 +32,11 @@ let NotificationsService = class NotificationsService {
     async findAll(params) {
         let filter = {};
         if (params) {
-            filter = Object.assign(Object.assign({}, params), { readAt: { '$exists': false }, from: { '$ne': params.user }, '$or': [{ to: params.user }, { type: notification_type_dto_1.NotificationType.all }] });
+            filter = { from: { '$ne': params.user },
+                '$or': [{ to: params.user }, { type: notification_type_dto_1.NotificationType.all }] };
+            if (params.status) {
+                filter['status'] = params.status;
+            }
             delete filter['user'];
             delete filter['type'];
         }
@@ -45,7 +49,18 @@ let NotificationsService = class NotificationsService {
         return data;
     }
     async update(_id, updateNotificationDto) {
-        const data = await (0, query_1.put)(this.notificationModel, update_notification_dto_1.UpdateNotificationDto, { _id: _id }, 'from', (0, helpers_1.userDataPopulateWithComment)());
+        let data;
+        if (updateNotificationDto.readAt && updateNotificationDto.to) {
+            data = await (0, query_1.all)(this.notificationModel, { to: updateNotificationDto.to });
+            if (data) {
+                for (let value of data) {
+                    data = await (0, query_1.put)(this.notificationModel, { readAt: new Date() }, { _id: value._id });
+                }
+            }
+        }
+        else {
+            data = await (0, query_1.put)(this.notificationModel, update_notification_dto_1.UpdateNotificationDto, { _id: _id }, 'from', (0, helpers_1.userDataPopulateWithComment)());
+        }
         return data;
     }
     async remove(_id) {
