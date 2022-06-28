@@ -42,6 +42,9 @@ let ToptensService = class ToptensService {
     }
     async findOne(_id, res) {
         const data = await (0, query_1.one)(this.toptenModel, { _id: _id }, null, 'user', (0, helpers_1.userDataPopulateWithTopten)());
+        if (!res) {
+            return data;
+        }
         return res.status(common_1.HttpStatus.OK).json(data);
     }
     async update(_id, updateToptenDto, res) {

@@ -75,17 +75,33 @@ let MailService = class MailService {
         });
     }
     async topten(data, url) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
         let date = new Date();
+        const attachments = [];
+        if (data.topten && data.topten.files) {
+            for (let value of data.topten.files) {
+                attachments.push({
+                    filename: value.filename,
+                    path: `${data.staticUrl}/${value.url}`,
+                    cid: value.originalname
+                });
+            }
+        }
         await this.mailerService.sendMail({
-            to: data.email,
+            to: (_b = (_a = data.topten) === null || _a === void 0 ? void 0 : _a.user) === null || _b === void 0 ? void 0 : _b.email,
             subject: 'Topten',
             template: 'topten',
             context: {
-                userName: data.userName,
+                userName: (_d = (_c = data.topten) === null || _c === void 0 ? void 0 : _c.user) === null || _d === void 0 ? void 0 : _d.userName,
                 url: url,
-                year: date.getFullYear()
+                year: date.getFullYear(),
+                senderUserName: (_e = data.sender) === null || _e === void 0 ? void 0 : _e.userName,
+                senderName: `${(_g = (_f = data.sender) === null || _f === void 0 ? void 0 : _f.firstName) !== null && _g !== void 0 ? _g : ''} ${(_j = (_h = data.sender) === null || _h === void 0 ? void 0 : _h.lastName) !== null && _j !== void 0 ? _j : ''}`,
+                senderEmail: (_k = data.sender) === null || _k === void 0 ? void 0 : _k.email,
+                senderPhone: (_l = data.sender) === null || _l === void 0 ? void 0 : _l.phone,
+                senderAddress: this.address((_m = data.sender) === null || _m === void 0 ? void 0 : _m.address),
             },
-            attachments: data.files
+            attachments: attachments
         });
     }
     async alerte(data, url) {

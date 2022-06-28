@@ -22,7 +22,8 @@ ToptensModule = __decorate([
             config_1.ConfigModule
         ],
         controllers: [toptens_controller_1.ToptensController],
-        providers: [toptens_service_1.ToptensService]
+        providers: [toptens_service_1.ToptensService],
+        exports: [toptens_service_1.ToptensService]
     })
 ], ToptensModule);
 exports.ToptensModule = ToptensModule;

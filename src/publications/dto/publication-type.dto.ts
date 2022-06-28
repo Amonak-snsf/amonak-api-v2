@@ -6,7 +6,8 @@ export enum PublicationType {
     publicity = 'publicity',
     share = 'share',
     default = 'default',
-    sendAlerte = 'sendAlerte'
+    sendAlerte = 'sendAlerte',
+    sendAlerteTopten = 'sendAlerteTopten',
 }
 
 export enum AlerteType {

@@ -16,6 +16,7 @@ const products_module_1 = require("../products/products.module");
 const publication_gateway_1 = require("./publication.gateway");
 const publication_managements_module_1 = require("../publication-managements/publication-managements.module");
 const users_module_1 = require("../users/users.module");
+const toptens_module_1 = require("../toptens/toptens.module");
 let PublicationsModule = class PublicationsModule {
 };
 PublicationsModule = __decorate([
@@ -23,7 +24,8 @@ PublicationsModule = __decorate([
         imports: [mongoose_1.MongooseModule.forFeature([{ name: publication_entity_1.Publication.name, schema: publication_entity_1.PublicationSchema }]),
             products_module_1.ProductsModule,
             publication_managements_module_1.PublicationManagementsModule,
-            users_module_1.UsersModule
+            users_module_1.UsersModule,
+            toptens_module_1.ToptensModule
         ],
         controllers: [publications_controller_1.PublicationsController],
         providers: [publications_service_1.PublicationsService, publication_gateway_1.PublicationGateway],

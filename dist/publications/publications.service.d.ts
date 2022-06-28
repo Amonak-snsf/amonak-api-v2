@@ -7,6 +7,7 @@ import { PublicationManagementsService } from 'src/publication-managements/publi
 import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
+import { ToptensService } from 'src/toptens/toptens.service';
 export declare class PublicationsService {
     private readonly publicationModel;
     private productService;
@@ -14,7 +15,8 @@ export declare class PublicationsService {
     private pubManagementService;
     private configService;
     private userService;
-    constructor(publicationModel: Model<PublicationDocument>, productService: ProductsService, mailService: MailService, pubManagementService: PublicationManagementsService, configService: ConfigService, userService: UsersService);
+    private toptenService;
+    constructor(publicationModel: Model<PublicationDocument>, productService: ProductsService, mailService: MailService, pubManagementService: PublicationManagementsService, configService: ConfigService, userService: UsersService, toptenService: ToptensService);
     create(body: CreatePublicationDto, res: any): Promise<any>;
     findAll(params: any, res?: {}): Promise<Omit<any, never>[]>;
     findOne(_id: string): Promise<any>;

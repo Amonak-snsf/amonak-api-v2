@@ -14,6 +14,7 @@ import { PublicationManagementsService } from 'src/publication-managements/publi
 import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
+import { ToptensService } from 'src/toptens/toptens.service';
 const isOnline = require("is-online");
 
 @Injectable()
@@ -25,17 +26,19 @@ export class PublicationsService {
      private mailService: MailService,
      private pubManagementService: PublicationManagementsService,
      private configService: ConfigService,
-     private userService: UsersService
+     private userService: UsersService,
+     private toptenService: ToptensService
   ){}
 
   async create(body: CreatePublicationDto, res) {
 
-    if(body.type === PublicationType.sendAlerte){
+    if((body.type === PublicationType.sendAlerte) || (body.type === PublicationType.sendAlerteTopten)){
       const userId = body.user;
       const sender = await this.userService.findOne(userId);
       
       if(isOnline){
         const url = `${this.configService.get("frontUrl")}/home`;
+        if(body.type === PublicationType.sendAlerte){
         const publication = await this.findOne(body._id);
         this.mailService.alerte({
           publication: publication, 
@@ -44,6 +47,15 @@ export class PublicationsService {
           sender: sender,
           staticUrl: this.configService.get("staticUrl")
         }, url)
+        }
+        if(body.type === PublicationType.sendAlerteTopten){
+          const topten = await this.toptenService.findOne(body._id, null)
+          this.mailService.topten({
+            topten: topten, 
+            sender: sender,
+            staticUrl: this.configService.get("staticUrl")
+          }, url)
+        }
       }
       return res.status(HttpStatus.OK).json({message: "Alerte send with success"});
     }
