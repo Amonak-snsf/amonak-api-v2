@@ -52,7 +52,7 @@ export class AuthService {
     await new this.biographyModel({ user: user._id }).save();
     await new this.sellerInfoModel({
       user: user._id,
-      status: Status.created,
+      status: Status.sellerPending,
     }).save();
 
     return res.status(HttpStatus.CREATED).json({

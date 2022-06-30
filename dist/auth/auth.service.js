@@ -50,7 +50,7 @@ let AuthService = class AuthService {
         await new this.biographyModel({ user: user._id }).save();
         await new this.sellerInfoModel({
             user: user._id,
-            status: status_seller_info_1.Status.created,
+            status: status_seller_info_1.Status.sellerPending,
         }).save();
         return res.status(common_1.HttpStatus.CREATED).json({
             status: true,

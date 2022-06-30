@@ -17,8 +17,8 @@ class UpdateSellerStatusDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ enum: status_seller_info_1.Status }),
-    (0, class_validator_1.IsIn)([status_seller_info_1.Status.read, status_seller_info_1.Status.accepted, status_seller_info_1.Status.refused, status_seller_info_1.Status.cancelled, status_seller_info_1.Status.created]),
-    __metadata("design:type", Number)
+    (0, class_validator_1.IsIn)([status_seller_info_1.Status.seller, status_seller_info_1.Status.sellerBloc, status_seller_info_1.Status.sellerReject, status_seller_info_1.Status.sellerRequest, status_seller_info_1.Status.sellerPending]),
+    __metadata("design:type", String)
 ], UpdateSellerStatusDto.prototype, "status", void 0);
 exports.UpdateSellerStatusDto = UpdateSellerStatusDto;
 //# sourceMappingURL=update-seller-status.dto.js.map

@@ -16,7 +16,7 @@ export class SellerInfo extends DefaultModel{
   user: User
 
   @Prop({ required: true, enum: Status })
-  status: number;
+  status: string;
 
   @Prop([
     raw({

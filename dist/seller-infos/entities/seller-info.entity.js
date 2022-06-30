@@ -23,7 +23,7 @@ __decorate([
 ], SellerInfo.prototype, "user", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, enum: status_seller_info_1.Status }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], SellerInfo.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)([

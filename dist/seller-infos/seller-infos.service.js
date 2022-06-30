@@ -45,9 +45,9 @@ let SellerInfosService = class SellerInfosService {
         if (address) {
             this.data.address = address;
         }
-        this.data.status = status_seller_info_1.Status.read;
+        this.data.status = status_seller_info_1.Status.sellerRequest;
         await (0, query_1.put)(this.sellerInforModel, this.data, { user: user });
-        this.accountType = user_account_type_enum_1.AccountType.pending;
+        this.accountType = user_account_type_enum_1.AccountType.sellerRequest;
         const userUpdated = await (0, query_1.put)(this.userModel, { accountType: this.accountType }, { user: user });
         return res.status(common_1.HttpStatus.OK).json(userUpdated);
     }
@@ -58,17 +58,17 @@ let SellerInfosService = class SellerInfosService {
         return res.status(common_1.HttpStatus.OK).json({ message: "User account status has been changed to " + this.accountType + " with success !" });
     }
     status(status) {
-        if (status == status_seller_info_1.Status.accepted) {
+        if (status == status_seller_info_1.Status.seller) {
             this.accountType = user_account_type_enum_1.AccountType.seller;
         }
-        if (status == status_seller_info_1.Status.refused) {
-            this.accountType = user_account_type_enum_1.AccountType.refused;
+        if (status == status_seller_info_1.Status.sellerBloc) {
+            this.accountType = user_account_type_enum_1.AccountType.sellerBloc;
         }
-        if (status == status_seller_info_1.Status.cancelled) {
-            this.accountType = user_account_type_enum_1.AccountType.cancelled;
+        if (status == status_seller_info_1.Status.sellerReject) {
+            this.accountType = user_account_type_enum_1.AccountType.sellerReject;
         }
-        if (status == status_seller_info_1.Status.read) {
-            this.accountType = user_account_type_enum_1.AccountType.pending;
+        if (status == status_seller_info_1.Status.sellerRequest) {
+            this.accountType = user_account_type_enum_1.AccountType.sellerRequest;
         }
         return this.accountType;
     }

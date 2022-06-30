@@ -44,11 +44,11 @@ export class SellerInfosService {
       this.data.address = address;
     }
 
-    this.data.status = Status.read;
+    this.data.status = Status.sellerRequest;
 
     await put(this.sellerInforModel, this.data, { user: user });
     
-    this.accountType = AccountType.pending;
+    this.accountType = AccountType.sellerRequest;
 
     const userUpdated = await put(this.userModel, { accountType: this.accountType }, { user: user });
     
@@ -69,19 +69,19 @@ export class SellerInfosService {
 
   status(status){
 
-    if(status == Status.accepted){
+    if(status == Status.seller){
       this.accountType = AccountType.seller;
     }
-    if(status == Status.refused){
-      this.accountType = AccountType.refused;
+    if(status == Status.sellerBloc){
+      this.accountType = AccountType.sellerBloc;
     }
-    if(status == Status.cancelled){
-      this.accountType = AccountType.cancelled;
+    if(status == Status.sellerReject){
+      this.accountType = AccountType.sellerReject;
     }
-    if(status == Status.read){
-      this.accountType = AccountType.pending;
+    if(status == Status.sellerRequest){
+      this.accountType = AccountType.sellerRequest;
     }
-
+    
     return this.accountType;
   }
 

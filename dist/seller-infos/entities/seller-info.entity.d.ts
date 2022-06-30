@@ -6,7 +6,7 @@ import { Files } from 'src/users/dto/file-interface';
 export declare type SellerInfoDocument = SellerInfo & Document;
 export declare class SellerInfo extends DefaultModel {
     user: User;
-    status: number;
+    status: string;
     files: Files[];
     identityCard: Files[];
     message: string;
