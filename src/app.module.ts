@@ -30,6 +30,7 @@ import { CartItemsModule } from './cart-items/cart-items.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MessagesModule } from './messages/messages.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+//    url: "mongodb://root:F8jtnzkF6Xvt@localhost:27017/amonak-nest?compressors=disabled&gssapiServiceName=mongodb"
 
 @Module({
   imports: [
@@ -38,7 +39,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        uri: `${config.get('db.type')}://${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}`,
+        uri: `${config.get('db.type')}://${config.get('db.username')}:${config.get('db.password')}@${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}?compressors=disabled&gssapiServiceName=mongodb`,
       }),
       inject: [ConfigService],
     }),

@@ -5,6 +5,8 @@ declare const _default: () => {
         port: number;
         name: string;
         password: string;
+        username: string;
+        url: string;
     };
 };
 export default _default;
