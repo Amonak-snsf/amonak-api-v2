@@ -20,6 +20,7 @@ const multer_1 = require("multer");
 const file_uploading_1 = require("./utils/file-uploading");
 const config_1 = require("@nestjs/config");
 const fs = require("fs");
+const common_2 = require("@nestjs/common");
 let AppController = class AppController {
     constructor(appService, config) {
         this.appService = appService;
@@ -32,6 +33,13 @@ let AppController = class AppController {
         const data = [];
         if (files) {
             for (const file of files) {
+                if (file.size > 16783130) {
+                    throw new common_2.HttpException({
+                        statusCode: common_2.HttpStatus.BAD_REQUEST,
+                        message: 'File size must be less than 16M',
+                        errors: 'file size',
+                    }, common_2.HttpStatus.BAD_REQUEST);
+                }
                 data.push({
                     destination: file.destination.replace('./static/', ''),
                     type: file.mimetype.split('/')[0],
