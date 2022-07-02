@@ -39,7 +39,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        uri: `${config.get('db.type')}://${config.get('db.username')}:${config.get('db.password')}@${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}`,
+        uri: config.get('db.url')
+        //`${config.get('db.type')}://${config.get('db.username')}:${config.get('db.password')}@${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}`,
       }),
       inject: [ConfigService],
     }),
