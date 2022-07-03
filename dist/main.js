@@ -31,8 +31,6 @@ async function bootstrap() {
     };
     swagger_1.SwaggerModule.setup('api', app, document, customOptions);
     app.useStaticAssets((0, path_1.join)(__dirname, '..', 'static'));
-    app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
-    app.setViewEngine('hbs');
     app.enableVersioning({
         type: common_1.VersioningType.URI,
         prefix: 'api/v2',

@@ -4,7 +4,6 @@ export declare class AppController {
     private readonly appService;
     private config;
     constructor(appService: AppService, config: ConfigService);
-    getHello(): string;
     upload(files: any, res: any, req: any): any;
     remove(path: string, res: any): any;
 }

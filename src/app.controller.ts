@@ -11,11 +11,6 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 export class AppController {
   constructor(private readonly appService: AppService, private config: ConfigService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @UseInterceptors(
     FilesInterceptor('files', 5, {
       storage: diskStorage({

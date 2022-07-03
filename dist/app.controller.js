@@ -26,9 +26,6 @@ let AppController = class AppController {
         this.appService = appService;
         this.config = config;
     }
-    getHello() {
-        return this.appService.getHello();
-    }
     upload(files, res, req) {
         const data = [];
         if (files) {
@@ -66,12 +63,6 @@ let AppController = class AppController {
         return res.status(200).json(status);
     }
 };
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getHello", null);
 __decorate([
     (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
         storage: (0, multer_1.diskStorage)({

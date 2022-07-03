@@ -38,6 +38,8 @@ const cart_items_module_1 = require("./cart-items/cart-items.module");
 const notifications_module_1 = require("./notifications/notifications.module");
 const messages_module_1 = require("./messages/messages.module");
 const event_emitter_1 = require("@nestjs/event-emitter");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -45,6 +47,9 @@ AppModule = __decorate([
         imports: [
             common_1.CacheModule.register({ ttl: 3600, isGlobal: true }),
             config_1.ConfigModule.forRoot({ isGlobal: true, load: [app_1.default, database_1.default, mail_1.default, jwt_1.default] }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'views/front'),
+            }),
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (config) => ({

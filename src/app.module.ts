@@ -30,12 +30,17 @@ import { CartItemsModule } from './cart-items/cart-items.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MessagesModule } from './messages/messages.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 //    url: "mongodb://root:F8jtnzkF6Xvt@localhost:27017/amonak-nest?compressors=disabled&gssapiServiceName=mongodb"
 
 @Module({
   imports: [
     CacheModule.register({ttl: 3600, isGlobal: true}),
     ConfigModule.forRoot({isGlobal: true,load: [app, db, mail, jwt]}),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'views/front'),
+    }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
