@@ -32,7 +32,7 @@ import { MessagesModule } from './messages/messages.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-//    url: "mongodb://root:F8jtnzkF6Xvt@localhost:27017/amonak-nest?compressors=disabled&gssapiServiceName=mongodb"
+//   url: "mongodb://root:F8jtnzkF6Xvt@localhost:27017/amonak-nest?compressors=disabled&gssapiServiceName=mongodb"
 
 @Module({
   imports: [
