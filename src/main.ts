@@ -11,7 +11,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
   app.enableCors();
-
   const config = new DocumentBuilder()
     .setTitle('Amonak API')
     .setDescription('API for amonak project')

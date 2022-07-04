@@ -57,6 +57,10 @@ let UsersService = class UsersService {
                     this.data.sectors.push(sector);
             });
         }
+        if (upDto.password && upDto.password.length > 7) {
+            this.data.password = await (0, helpers_1.hashPassword)(upDto.password);
+        }
+        console.log(upDto);
         const data = await (0, query_1.put)(this.userModel, this.data, { _id: _id });
         return res.status(common_1.HttpStatus.OK).json(data);
     }

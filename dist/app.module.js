@@ -53,7 +53,7 @@ AppModule = __decorate([
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (config) => ({
-                    uri: `${config.get('db.type')}://${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}`,
+                    uri: config.get('db.url')
                 }),
                 inject: [config_1.ConfigService],
             }),

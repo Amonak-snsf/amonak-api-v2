@@ -59,6 +59,7 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)('accessToken'),
+    (0, common_1.Put)('users/:_id'),
     __param(0, (0, common_1.Param)('_id')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)()),
