@@ -32,10 +32,10 @@ let AuthsGateway = class AuthsGateway {
         console.log("server socket.io server init");
     }
     async handleConnection(client, ...args) {
-        const user = await this.user(client);
-        client.on("client", (data) => {
+        await this.disconnected(client, true);
+        client.on("client", async (data) => {
             console.log(data, " client id: " + client.id);
-            this.disconnected(client, true);
+            const user = await this.user(client);
             client.emit("server", {
                 message: "server socket is started",
                 client: client.handshake.headers,
@@ -43,8 +43,8 @@ let AuthsGateway = class AuthsGateway {
             });
         });
     }
-    handleDisconnect(client) {
-        this.disconnected(client, false);
+    async handleDisconnect(client) {
+        await this.disconnected(client, false);
         console.log(`socket.io disconnected ${client.handshake.headers.authorization}`, client.handshake.headers.userid);
     }
     async disconnected(client, status) {

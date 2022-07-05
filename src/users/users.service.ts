@@ -49,7 +49,6 @@ export class UsersService {
     
     this.data.sectors =  Array.isArray(upDto.sectors) ? upDto.sectors : [upDto.sectors];
     if(user.sectors){
-      console.log(user.sectors);
       user.sectors.forEach(sector => {
         if(sector) this.data.sectors.push(sector);
       });
@@ -58,7 +57,7 @@ export class UsersService {
     if(upDto.password && upDto.password.length > 7){
       this.data.password = await hashPassword(upDto.password);
     }
-console.log(upDto)
+
     const data = await put(this.userModel, this.data, {_id: _id});
 
     return res.status(HttpStatus.OK).json(data);
