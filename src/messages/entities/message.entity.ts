@@ -25,9 +25,6 @@ export class Message extends Notification{
 
     @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     fromPoulate?: User;
-
-    @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-    deleters: User[]
 }
-
+//deleters
 export const MessageSchema = SchemaFactory.createForClass(Message);

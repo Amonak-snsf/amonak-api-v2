@@ -116,7 +116,7 @@ export const userDataPopulateWithTopten = ()=>{
 
 export const userDataPopulateWithComment = ()=>{
 
-  return ['avatar', 'email', 'userName', 'sectors'];
+  return ['avatar', 'email', 'userName', 'sectors', 'address', 'accountType', 'isLog'];
 }
 
 export const customFiles = (files)=>{

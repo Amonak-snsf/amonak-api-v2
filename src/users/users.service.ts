@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
-import { CustomBankCard, userAddress } from 'src/utils/helpers';
+import { CustomBankCard, hashPassword, userAddress } from 'src/utils/helpers';
 import { all, destroy, exist, one, put } from 'src/utils/query';
 import { FriendsService } from '../friends/friends.service';
 
@@ -49,10 +49,13 @@ export class UsersService {
     
     this.data.sectors =  Array.isArray(upDto.sectors) ? upDto.sectors : [upDto.sectors];
     if(user.sectors){
-      console.log(user.sectors);
       user.sectors.forEach(sector => {
         if(sector) this.data.sectors.push(sector);
       });
+    }
+
+    if(upDto.password && upDto.password.length > 7){
+      this.data.password = await hashPassword(upDto.password);
     }
 
     const data = await put(this.userModel, this.data, {_id: _id});

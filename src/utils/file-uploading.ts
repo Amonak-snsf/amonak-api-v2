@@ -4,6 +4,7 @@ import * as jwt from "jsonwebtoken";
 import * as fs from "fs";
 
 export const allImageFileFilter = (req, file, callback) => {
+ 
   if (!file.mimetype.match('video/*') && 
   !file.mimetype.match('image/*') && !file.mimetype.match('application/pdf')) {
     return callback(new Error('Only image, video and pdf files are allowed!'), false);
@@ -12,7 +13,7 @@ export const allImageFileFilter = (req, file, callback) => {
 };
   
 export const editFileName = (req, file, callback) => {
-  
+
     const name = file.originalname.split('.')[0];
     const fileExtName = extname(file.originalname);
     const randomName = Array(30)
@@ -27,7 +28,7 @@ export const fileDestination = async (req, file, callBack) => {
   const token = req.headers['authorization']?? '';
   let user: any; 
   let username: string;
-
+  
   try {
     user = jwt.verify(token.toString().replace('Bearer ', ''), 'amonak-snsf');
     username = `/${user.email}`

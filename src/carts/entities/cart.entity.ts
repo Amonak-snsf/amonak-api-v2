@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { IsIn } from "class-validator";
+import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
+import { IsIn, MinLength } from 'class-validator';
 import * as mongoose from 'mongoose';
 import { User } from "src/users/entities/user.entity";
 import { DefaultModel } from "src/utils/default-model";
@@ -26,6 +26,9 @@ export class Cart extends DefaultModel{
     @Prop({ required: false, type: Number, default: 0 })
     percentage: number;
 
+    @Prop({ required: false, type: Number, default: 0 })
+    CartLength: number;
+
     @Prop({ required: false, type: String, default: CartStatus.unpaid })
     @IsIn([CartStatus.cancelled, CartStatus.deleted, CartStatus.failed, CartStatus.shippingCost, CartStatus.shippingRequest, CartStatus.successfull, CartStatus.unpaid, CartStatus.booking])
     status: string;
@@ -35,6 +38,20 @@ export class Cart extends DefaultModel{
 
     @Prop({ required: false, type: Boolean, default: false })
     isCompleted: boolean;
+
+    @Prop([raw({
+    city: { required: false, trim: true, type: String },
+    area: { required: false, trim: true, type: String },
+    map: { required: false, trim: true, type: String },
+    phone: { required: false, trim: true, type: String }
+    })])
+    shippingAddress: [];
+
+    @Prop({ required: false, type: String})
+    paymentType: string;
+
+    @Prop({ required: false, type: String})
+    reference: string;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

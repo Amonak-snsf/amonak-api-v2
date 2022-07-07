@@ -6,7 +6,7 @@ import { Status } from "./status-seller-info";
 export class FilterSeller extends PartialType(OmitType(CreateSellerInfoDto, ['identityCard', 'files', 'address', 'message'] as const)){
     
     @ApiProperty({ enum: Status})
-    @IsIn([Status.read, Status.accepted, Status.refused, Status.cancelled, Status.created])
+    @IsIn([Status.seller, Status.sellerBloc, Status.sellerReject, Status.sellerRequest, Status.sellerPending])
     status: Status;
 
     @ApiProperty({ type: Number, required: false })

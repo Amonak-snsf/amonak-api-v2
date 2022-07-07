@@ -5,6 +5,6 @@ import { Status } from "./status-seller-info";
 export class UpdateSellerStatusDto  {
 
     @ApiProperty({ enum: Status})
-    @IsIn([Status.read, Status.accepted, Status.refused, Status.cancelled, Status.created])
+    @IsIn([Status.seller, Status.sellerBloc, Status.sellerReject, Status.sellerRequest, Status.sellerPending])
     status: Status;
 }

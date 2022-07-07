@@ -11,6 +11,7 @@ import { User, UserSchema } from 'src/users/entities/user.entity';
     ConfigModule
   ],
   controllers: [ToptensController],
-  providers: [ToptensService]
+  providers: [ToptensService],
+  exports: [ToptensService]
 })
 export class ToptensModule {}

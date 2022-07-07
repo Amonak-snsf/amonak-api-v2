@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Body, Param, Delete, Res, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Body, Param, Delete, Res, Query, UseGuards, Patch, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiHeaders, ApiTags } from '@nestjs/swagger';
@@ -34,8 +34,8 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('accessToken')
+  @Put('users/:_id')
   update(@Param('_id') _id: string, @Body() updateUserDto: UpdateUserDto, @Res() res) {
-
     return this.usersService.update(_id, updateUserDto, res);
   }
 

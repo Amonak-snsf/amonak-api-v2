@@ -16,7 +16,7 @@ export class CartsService {
   async create(createCartDto, res) {
     this.data = createCartDto;
 
-    const data = await createIfne(this.cartModel, this.data, { user: this.data.user, status: CartStatus.unpaid, isWaiting: true })
+    const data = await createIfne(this.cartModel, this.data, { user: this.data.user, isWaiting: true })
     if(this.data.from && this.data.from == 'cart_item'){
       return data;
     }
@@ -40,6 +40,7 @@ export class CartsService {
 
   async update(_id: string, updateCartDto: UpdateCartDto, res) {
     
+   updateCartDto.updatedAt = new Date()
     const data = await put(this.cartModel, updateCartDto, { _id: _id }, 'user', userDataPopulateWithTopten());
 
     res.status(HttpStatus.OK).json(data);

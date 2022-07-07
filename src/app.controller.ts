@@ -6,14 +6,10 @@ import { diskStorage } from 'multer';
 import { editFileName, fileDestination, allImageFileFilter } from 'src/utils/file-uploading';
 import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
+import { HttpException, HttpStatus } from "@nestjs/common";
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService, private config: ConfigService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
 
   @UseInterceptors(
     FilesInterceptor('files', 5, {
@@ -31,6 +27,13 @@ export class AppController {
 
     if(files){
       for(const file of files){
+        if(file.size > 16783130){
+          throw new HttpException({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: 'File size must be less than 16M',
+            errors: 'file size',
+        }, HttpStatus.BAD_REQUEST);
+        }
         data.push({
           destination: file.destination.replace('./static/', ''),
           type: file.mimetype.split('/')[0],

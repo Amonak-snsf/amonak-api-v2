@@ -42,7 +42,9 @@ export class ToptensService {
   async findOne(_id: string, res) {
 
     const data = await one(this.toptenModel, {_id: _id}, null, 'user', userDataPopulateWithTopten());
-
+    if(!res){
+      return data;
+    }
     return res.status(HttpStatus.OK).json(data);
   }
 

@@ -18,6 +18,9 @@ export class CreateCartDto {
     @ApiProperty({ required: false, type: Number, default: 0 })
     percentage: number;
 
+    @ApiProperty({ required: false, type: Number, default: 0 })
+    CartLength: number;
+
     @ApiProperty({ required: true, type: String, default: CartStatus.unpaid })
     status: CartStatus;
 
@@ -26,4 +29,16 @@ export class CreateCartDto {
 
     @ApiProperty({ required: false, type: Boolean, default: false })
     isCompleted: boolean;
-}
+
+    @ApiProperty({ type: []})
+    shippingAddress: [];
+
+    @ApiProperty({ required: false, type: String })
+    paymentType: string;
+
+    @ApiProperty({ required: false, type: String })
+    reference: string;
+
+    @ApiProperty({ required: false, type: Date })
+    updatedAt: Date;
+} 

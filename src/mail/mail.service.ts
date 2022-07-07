@@ -74,17 +74,32 @@ export class MailService {
 
   async topten(data, url: string) {
     let date = new Date();
+    const attachments = [];
+    if(data.topten && data.topten.files){
+      for(let value of data.topten.files){
+        attachments.push({
+          filename: value.filename,
+          path: `${data.staticUrl}/${value.url}`,
+          cid: value.originalname
+        })
+      }
+    }
 
     await this.mailerService.sendMail({
-      to: data.email,
+      to: data.topten?.user?.email,
       subject: 'Topten',
       template: 'topten',
       context: { 
-        userName: data.userName,
+        userName: data.topten?.user?.userName,
         url: url,
-        year: date.getFullYear()
+        year: date.getFullYear(),
+        senderUserName: data.sender?.userName,
+        senderName: `${data.sender?.firstName?? ''} ${data.sender?.lastName?? ''}`,
+        senderEmail: data.sender?.email,
+        senderPhone: data.sender?.phone,
+        senderAddress: this.address(data.sender?.address),
       },
-      attachments: data.files
+      attachments: attachments
     });
   }
 

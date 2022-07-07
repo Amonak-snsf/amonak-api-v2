@@ -40,6 +40,12 @@ export class Notification extends DefaultModel{
 
   @Prop({ required: false })
   readAt: Date;
+
+  @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  deleters: User[]
+    
+  @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  readers: User[]
 }
   
 export const NotificationSchema = SchemaFactory.createForClass(Notification);

@@ -12,4 +12,10 @@ export class FilterCart extends PartialType(OmitType(CreateCartDto, [] as const)
 
     @ApiProperty({ required: false, type: String, default: CartStatus.unpaid })
     status: CartStatus;
+
+    @ApiProperty({ required: false, type: String})
+    paymentType: string;
+
+    @ApiProperty({ required: false, type: String})
+    reference: string;
 }

@@ -11,7 +11,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
   app.enableCors();
-
   const config = new DocumentBuilder()
     .setTitle('Amonak API')
     .setDescription('API for amonak project')
@@ -38,8 +37,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document, customOptions);
   
   app.useStaticAssets(join(__dirname, '..', 'static'));
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('hbs');
 
   app.enableVersioning({
     type: VersioningType.URI,

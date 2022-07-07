@@ -30,15 +30,21 @@ import { CartItemsModule } from './cart-items/cart-items.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MessagesModule } from './messages/messages.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     CacheModule.register({ttl: 3600, isGlobal: true}),
     ConfigModule.forRoot({isGlobal: true,load: [app, db, mail, jwt]}),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'views/front'),
+    }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        uri: `${config.get('db.type')}://${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}`,
+        uri: config.get('db.url')
+        //uri: `${config.get('db.type')}://${config.get('db.host')}:${config.get('db.port')}/${config.get('db.name')}`,
       }),
       inject: [ConfigService],
     }),

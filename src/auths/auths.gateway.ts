@@ -33,10 +33,10 @@ export class AuthsGateway
   }
 
   async handleConnection(client: Socket, ...args: any[]) {
-    const user = await this.user(client);
-    client.on("client", (data) => {
+    await this.disconnected(client, true);
+    client.on("client", async (data) => {
       console.log(data, " client id: " + client.id);
-      this.disconnected(client, true);
+      const user = await this.user(client);
       client.emit("server", {
         message: "server socket is started",
         client: client.handshake.headers,
@@ -45,8 +45,8 @@ export class AuthsGateway
     });
   }
 
-  handleDisconnect(client: Socket) {
-    this.disconnected(client, false);
+  async handleDisconnect(client: Socket) {
+    await this.disconnected(client, false);
     console.log(
       `socket.io disconnected ${client.handshake.headers.authorization}`,
       client.handshake.headers.userid
