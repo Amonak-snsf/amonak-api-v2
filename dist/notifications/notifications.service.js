@@ -18,7 +18,6 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const helpers_1 = require("../utils/helpers");
 const query_1 = require("../utils/query");
-const update_notification_dto_1 = require("./dto/update-notification.dto");
 const notification_entity_1 = require("./entities/notification.entity");
 const notification_type_dto_1 = require("./dto/notification-type.dto");
 let NotificationsService = class NotificationsService {
@@ -59,7 +58,7 @@ let NotificationsService = class NotificationsService {
             }
         }
         else {
-            data = await (0, query_1.put)(this.notificationModel, update_notification_dto_1.UpdateNotificationDto, { _id: _id }, 'from', (0, helpers_1.userDataPopulateWithComment)());
+            data = await (0, query_1.put)(this.notificationModel, updateNotificationDto, { _id: _id }, 'from', (0, helpers_1.userDataPopulateWithComment)());
         }
         return data;
     }

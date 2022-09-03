@@ -39,7 +39,7 @@ let MessageGateway = class MessageGateway {
         }
     }
     async sendMessage(client, data) {
-        client.broadcast.to(data.room).emit('getMessage', data);
+        client.to(data.room).emit('getMessage', data);
     }
     async deleteMessage(client, data) {
         this.server.to(data.room).emit('deleteMessageListener', data);

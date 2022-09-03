@@ -41,7 +41,8 @@ export class MessagesService {
       query = {...query, readAt: {'$exists': false}};
     }
 
-    const data = await all(this.messageModel, query, null, { _id: -1 }, params.limit, 'to', userDataPopulateWithTopten());
+    let order = (params.distinct && params.from) ? -1 : 1;
+    const data = await all(this.messageModel, query, null, { _id: order }, params.limit, 'to', userDataPopulateWithTopten());
 
     if(params.distinct && params.from){
       let newValue = {};

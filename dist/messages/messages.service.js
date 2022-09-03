@@ -46,7 +46,8 @@ let MessagesService = class MessagesService {
         if (params.notRead) {
             query = Object.assign(Object.assign({}, query), { readAt: { '$exists': false } });
         }
-        const data = await (0, query_1.all)(this.messageModel, query, null, { _id: -1 }, params.limit, 'to', (0, helpers_1.userDataPopulateWithTopten)());
+        let order = (params.distinct && params.from) ? -1 : 1;
+        const data = await (0, query_1.all)(this.messageModel, query, null, { _id: order }, params.limit, 'to', (0, helpers_1.userDataPopulateWithTopten)());
         if (params.distinct && params.from) {
             let newValue = {};
             for (const value of data) {

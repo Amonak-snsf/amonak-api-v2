@@ -58,9 +58,8 @@ export class NotificationsService {
       }
     }
     else{
-      data = await put(this.notificationModel, UpdateNotificationDto, { _id: _id }, 'from', userDataPopulateWithComment());
+      data = await put(this.notificationModel, updateNotificationDto, { _id: _id }, 'from', userDataPopulateWithComment());
     }
-  
     return data;
   }
 
