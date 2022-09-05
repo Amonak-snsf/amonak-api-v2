@@ -7,7 +7,7 @@ import { MailService } from 'src/mail/mail.service';
 import { AccountType } from 'src/users/dto/user-account-type.enum';
 import { User, UserDocument } from 'src/users/entities/user.entity';
 import {  userAddress, userDataPopulateWithTopten } from 'src/utils/helpers';
-import { all, one, put } from 'src/utils/query';
+import { all, one, put, create } from 'src/utils/query';
 import { Status } from './dto/status-seller-info';
 import { UpdateSellerInfoDto } from './dto/update-seller-info.dto';
 import { SellerInfo, SellerInfoDocument } from './entities/seller-info.entity';
@@ -46,12 +46,17 @@ export class SellerInfosService {
 
     this.data.status = Status.sellerRequest;
 
-    await put(this.sellerInforModel, this.data, { user: user });
+    const seller = await one(this.sellerInforModel, { user: user });
+    if(seller){
+      await put(this.sellerInforModel, this.data, { user: user });
+    }else{
+      await create(this.sellerInforModel, this.data);
+    }
     
     this.accountType = AccountType.sellerRequest;
-
-    const userUpdated = await put(this.userModel, { accountType: this.accountType }, { user: user });
     
+    const userUpdated = await put(this.userModel, { accountType: this.accountType }, { user: user });
+
     return res.status(HttpStatus.OK).json(userUpdated);
   }
 

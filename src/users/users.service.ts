@@ -5,15 +5,29 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
 import { CustomBankCard, hashPassword, userAddress } from 'src/utils/helpers';
-import { all, destroy, exist, one, put } from 'src/utils/query';
+import { all, destroy, exist, one, put, create } from 'src/utils/query';
 import { FriendsService } from '../friends/friends.service';
+import { FirstTime, FirstTimeDocument } from './entities/first-time.entity';
 
 @Injectable()
 export class UsersService {
   private data;
 
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>
-  ,private friendsService: FriendsService) {}
+  ,private friendsService: FriendsService, @InjectModel(FirstTime.name) private firstTimeModel: Model<FirstTimeDocument>,) {}
+
+  async firstTimeCreate(body: any){
+
+    const data = await create(this.firstTimeModel, body);
+
+    return data;
+  }
+
+  async findAllFirstTime(user: string) {
+
+    const data = await all(this.firstTimeModel, {user: user, status: true});
+    return data;
+  }
 
   async findAll(params, res): Promise<User[]>  {
 
@@ -105,5 +119,7 @@ export class UsersService {
 
     return params;
   }
+
+
   
 }
