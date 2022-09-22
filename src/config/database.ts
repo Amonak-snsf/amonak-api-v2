@@ -10,4 +10,3 @@ export default () => ({
     url: "mongodb+srv://root:root2022@cluster0.2eimy.mongodb.net/?retryWrites=true&w=majority"
   },
 });
- 
