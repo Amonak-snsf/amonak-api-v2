@@ -176,7 +176,7 @@ export class AuthService {
     const checkUserName = await checkUsername(body);
 
     const user = await exist(this.userModel, checkUserName);
-
+    return res.status(HttpStatus.OK).json(user);
     if (!user) {
       throw error(
         {
