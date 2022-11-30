@@ -7,6 +7,6 @@ export default () => ({
     password: process.env.DATABASE_PASSWORD || "F8jtnzkF6Xvt",
     username: process.env.DATABASE_USERNAME || "root",
     //url: 'mongodb://localhost:27017/amonak-nest',
-    url: "mongodb+srv://root:root2022@cluster0.2eimy.mongodb.net/?retryWrites=true&w=majority"
-  },
+    //url: "mongodb+srv://root:root2022@cluster0.2eimy.mongodb.net/?retryWrites=true&w=majority",
+    url: "mongodb://user_amonak:Amonak2022$$@51.75.126.93:27017/amonak?retryWrites=true&w=majority"  },
 });
