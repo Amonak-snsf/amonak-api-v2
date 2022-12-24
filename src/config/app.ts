@@ -7,4 +7,3 @@ export default () => ({
   fileDirectory: process.env.FILE_DIRECTORY || "./static",
   adminEmail: process.env.ADMIN_EMAIL || "aikpeachille55@gmail.com",
 });
- 

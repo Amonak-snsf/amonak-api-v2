@@ -24,6 +24,14 @@ export class UsersController {
     return res.status(HttpStatus.OK).json(data);
   }
 
+  @Get('first-display')
+  async firstDisplayModel(@Res() res) {
+
+    const data = await this.usersService.findAllFirstDispaly();
+
+    return res.status(HttpStatus.OK).json(data);
+  }
+
   @Get('first-times/:user')
   async findOneFirstTime(@Param('user') user: string, @Res() res)  {
 

@@ -20,6 +20,7 @@ import { Status } from "src/seller-infos/dto/status-seller-info";
 import { checkUsername, hashPassword, userAddress } from "src/utils/helpers";
 import { one, put, create, exist } from "src/utils/query";
 import { error } from "src/utils/error";
+import { FirstDisplay, FirstDisplayDocument } from "src/settings/entities/first-display.entity";
 const isOnline = require("is-online");
 
 @Injectable()
@@ -28,6 +29,7 @@ export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @InjectModel(Token.name) private tokenModel: Model<TokenDocument>,
+    @InjectModel(FirstDisplay.name) private firstDisplayModel: Model<FirstDisplayDocument>,
     @InjectModel(Biography.name)
     private biographyModel: Model<BiographyDocument>,
     @InjectModel(SellerInfo.name)
@@ -38,6 +40,7 @@ export class AuthService {
   ) {}
 
   async register(createAuthDto: CreateAuthDto, res): Promise<any> {
+    await this.insertFirstTimeData();
     this.data = createAuthDto;
     this.data.password = await hashPassword(createAuthDto.password);
 
@@ -176,7 +179,6 @@ export class AuthService {
     const checkUserName = await checkUsername(body);
 
     const user = await exist(this.userModel, checkUserName);
-    return res.status(HttpStatus.OK).json(user);
     if (!user) {
       throw error(
         {
@@ -255,5 +257,59 @@ export class AuthService {
       expiresIn: this.configService.get("expire"),
       user: user,
     };
+  }
+
+  async insertFirstTimeData(){
+
+    const body = [
+      {
+        title: "Amonak Team",
+        subtitle: "Voir loin voir nouveau",
+        displayNumber: "display1",
+        logo: "../../../assets/imgs/amonak/n1.png",
+        image: "../../../assets/imgs/amonak/feed1.png",
+        buttonTitle: "FERMER"
+      },
+      {
+        title: "Amonak Team",
+        subtitle: "Voir loin voir nouveau",
+        displayNumber: "display2",
+        logo: "../../../assets/imgs/amonak/n2.png",
+        image: "../../../assets/imgs/amonak/feed3.png",
+        buttonTitle: "FERMER"
+      },
+      {
+        title: "Amonak Team",
+        subtitle: "Voir loin voir nouveau",
+        displayNumber: "display3",
+        logo: "../../../assets/imgs/amonak/n3.png",
+        image: "../../../assets/imgs/amonak/feed3.png",
+        buttonTitle: "FERMER"
+      },
+      {
+        title: "Amonak Team",
+        subtitle: "Voir loin voir nouveau",
+        displayNumber: "display4",
+        logo: "../../../assets/imgs/amonak/n4.png",
+        image: "../../../assets/imgs/amonak/feed4.png",
+        buttonTitle: "FERMER"
+      },
+      {
+        title: "Amonak Team",
+        subtitle: "Voir loin voir nouveau",
+        displayNumber: "display5",
+        logo: "../../../assets/imgs/amonak/n5.png",
+        image: "../../../assets/imgs/amonak/feed5.png",
+        buttonTitle: "FERMER"
+      }
+    ];
+
+    for (const value of body) {
+      const data = await this.firstDisplayModel.findOne({displayNumber: value.displayNumber});
+      if(!data?.displayNumber){
+        await this.firstDisplayModel.create(value);
+      }
+    }
+    
   }
 }

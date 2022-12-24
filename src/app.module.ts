@@ -32,6 +32,7 @@ import { MessagesModule } from './messages/messages.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { FirstDisplay, FirstDisplaySchema } from './settings/entities/first-display.entity';
 
 @Module({
   imports: [
@@ -82,6 +83,7 @@ import { join } from 'path';
       ignoreErrors: true,
       newListener: true
     }),
+    MongooseModule.forFeature([{ name: FirstDisplay.name, schema: FirstDisplaySchema }])
   ],
   controllers: [AppController],
   providers: [AppService],

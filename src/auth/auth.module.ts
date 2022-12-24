@@ -17,6 +17,7 @@ import {
 } from "src/seller-infos/entities/seller-info.entity";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { JwtAuthGuard } from "./guards/jwt.guard";
+import { FirstDisplay, FirstDisplaySchema } from "src/settings/entities/first-display.entity";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { JwtAuthGuard } from "./guards/jwt.guard";
       { name: User.name, schema: UserSchema },
       { name: SellerInfo.name, schema: SellerInfoSchema },
       { name: Biography.name, schema: BiographySchema },
+      { name: FirstDisplay.name, schema: FirstDisplaySchema },
     ]),
     ConfigModule,
     PassportModule,
