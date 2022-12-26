@@ -8,13 +8,15 @@ import { CustomBankCard, hashPassword, userAddress } from 'src/utils/helpers';
 import { all, destroy, exist, one, put, create } from 'src/utils/query';
 import { FriendsService } from '../friends/friends.service';
 import { FirstTime, FirstTimeDocument } from './entities/first-time.entity';
+import { FirstDisplay, FirstDisplayDocument } from 'src/settings/entities/first-display.entity';
 
 @Injectable()
 export class UsersService {
   private data;
 
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>
-  ,private friendsService: FriendsService, @InjectModel(FirstTime.name) private firstTimeModel: Model<FirstTimeDocument>,) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,
+  @InjectModel(FirstDisplay.name) private firstDisplayModel: Model<FirstDisplayDocument>,
+  private friendsService: FriendsService, @InjectModel(FirstTime.name) private firstTimeModel: Model<FirstTimeDocument>,) {}
 
   async firstTimeCreate(body: any){
 
@@ -26,6 +28,12 @@ export class UsersService {
   async findAllFirstTime(user: string) {
 
     const data = await all(this.firstTimeModel, {user: user, status: true});
+    return data;
+  }
+
+  async findAllFirstDispaly() {
+
+    const data = await all(this.firstDisplayModel, {});
     return data;
   }
 
@@ -120,6 +128,4 @@ export class UsersService {
     return params;
   }
 
-
-  
 }
