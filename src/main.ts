@@ -5,10 +5,16 @@ import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/sw
 import { AppModule } from './app.module';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import * as fs from 'fs';
 
 async function bootstrap() {
 
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+const httpsOptions = {
+  key: fs.readFileSync('./privkey.pem'),
+  cert: fs.readFileSync('./fullchain.pem'),
+};
+
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {httpsOptions});
   
   app.enableCors();
   const config = new DocumentBuilder()
