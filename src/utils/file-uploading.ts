@@ -7,7 +7,7 @@ export const allImageFileFilter = (req, file, callback) => {
  
   if (!file.mimetype.match('video/*') && 
   !file.mimetype.match('image/*') && !file.mimetype.match('application/pdf')) {
-    return callback(new Error('Only image, video and pdf files are allowed!'), false);
+    return callback(new Error('validation.filesAuthorized'), false);
   }
   callback(null, true);
 };

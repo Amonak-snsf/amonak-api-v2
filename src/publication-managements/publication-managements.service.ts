@@ -17,10 +17,10 @@ export class PublicationManagementsService {
     let alreadyLike = false;
     if(body.type ===  type.follow || body.type === type.share || body.type === type.save || body.type === type.like || body.type === type.signale){
 
-      let content = (body.type === type.share) ? 'a partagé votre publication' : 'vous suive.';
-      if(body.type === type.save) content = 'a enrégistré votre publication';
-      if(body.type === type.like) content = 'a aimé votre publication';
-      if(body.type === type.signale) content = 'a signalé votre publication';
+      let content = (body.type === type.share) ? 'publicationBackend.shareYourPubliation' : 'publicationBackend.followYou';
+      if(body.type === type.save) content = 'publicationBackend.saveYourPublication';
+      if(body.type === type.like) content = 'publicationBackend.likeYourPublication';
+      if(body.type === type.signale) content = 'publicationBackend.signalYourPublication';
 
       if(body.type === type.like){
 

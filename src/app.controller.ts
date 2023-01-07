@@ -30,7 +30,7 @@ export class AppController {
         if(file.size > 16783130){
           throw new HttpException({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: 'File size must be less than 16M',
+            message: 'validation.fileSize',
             errors: 'file size',
         }, HttpStatus.BAD_REQUEST);
         }

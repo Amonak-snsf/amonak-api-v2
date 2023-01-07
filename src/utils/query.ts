@@ -35,7 +35,7 @@ export const createIfne = async (model: Model<any>, body: Record<string, any>, f
 
     const dataExist = await exist(model, filter);
     if(dataExist){
-        return { message: "data already exist !", body: dataExist };
+        return { message: "validation.modelExist", body: dataExist };
     }
 
     let data = await new model(body).save().catch(err =>{
@@ -87,7 +87,7 @@ export const put = async (model: Model<any>, body: Record<string, any>, filter: 
     });
 
     if(!data){
-        return error('Model not found', HttpStatus.NOT_FOUND);
+        return error('validation.modelNotFound', HttpStatus.NOT_FOUND);
     }
     
     return await one(model, { _id: data._id }, null, populate, arrayToString(populateFields));

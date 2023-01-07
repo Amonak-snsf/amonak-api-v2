@@ -25,14 +25,14 @@ export class CartItemsService {
     if(cart && cart._id){
       this.cart = cart._id;
     }
-    if(cart && cart.message == 'data already exist !'){
+    if(cart && cart.message == 'validation.modelExis'){
       this.cart = cart.body._id;
     }
 
     for (const item of this.data) {
 
       const data = await createIfne(this.cartItemModel, item, { cart: this.cart, product: item.product, price: item.price });
-      if(data && data.message == 'data already exist !'){
+      if(data && data.message == 'validation.modelExis'){
 
         this.data = {};
         this.data['quantity'] = data.body.quantity + item.quantity;

@@ -24,14 +24,14 @@ export class CommentLikesService {
       data = await create(this.commentLikeModel, createCommentLikeDto);
     }
 
-    let content = 'a aimé votre commentaire sur une publication';
+    let content = 'comment.likeYourComment';
 
     const allLikeOfThisComment = await allDistinct(this.commentLikeModel, 'user', {comment: createCommentLikeDto.comment});
 
     if(allLikeOfThisComment){
       for(let value of allLikeOfThisComment){
 
-          content = 'a aimé le commentaire d\'une publication que vous avez aussi aimé';
+          content = 'comment.likeAPublicationcomment';
           if(value && `${value}` !=='' && `${value}` !==createCommentLikeDto.commentCreator){
             await this.notificationService.create({
               from: createCommentLikeDto.user,

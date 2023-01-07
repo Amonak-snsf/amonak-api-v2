@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { HttpStatus, Injectable, Query } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProductsService } from 'src/products/products.service';
-import { customFiles, saleBody, userDataPopulateWithTopten } from 'src/utils/helpers';
+import { saleBody, userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, create, destroy, one, put } from 'src/utils/query';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { PublicationType } from './dto/publication-type.dto';
@@ -57,7 +57,7 @@ export class PublicationsService {
           }, url)
         }
       }
-      return res.status(HttpStatus.OK).json({message: "Alerte send with success"});
+      return res.status(HttpStatus.OK).json({message: "publicationBackend.alerteSend"});
     }
     if((body.type == PublicationType.sale) && !body.share){
       const product = await this.productService.create(saleBody({...body, from: 'publication'}), res);

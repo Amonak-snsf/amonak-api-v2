@@ -106,7 +106,7 @@ export class FriendsService {
     const friend = await one(this.friendModel, { $or: query1 });
 
     if(friend && friend.Status === Status.requested){
-      return res.status(HttpStatus.OK).json({ message: 'friendship request already exist!'});
+      return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendshipExist'});
     }
 
     const from_request = await new this.friendModel({
@@ -115,14 +115,14 @@ export class FriendsService {
       status: Status.requested
     }).save();
 
-    return res.status(HttpStatus.OK).json({ message: 'friendship request send with success !'});
+    return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestSend'});
   }
 
   async reject(cfDto: CreateFriendDto, res) {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.reject }, query1);
-    return res.status(HttpStatus.OK).json({ message: 'friend reject request is done with success !'});
+    return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestCancel'});
   }
 
   
@@ -131,7 +131,7 @@ export class FriendsService {
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.friend }, query1);
 
-    return await res.status(HttpStatus.OK).json({ message: 'friend accept request is done with success !'});
+    return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestAccept'});
   }
 
   async block(cfDto: CreateFriendDto, res) {
@@ -139,7 +139,7 @@ export class FriendsService {
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.block }, query1);
     
-    return await res.status(HttpStatus.OK).json({ message: 'friend block request is done with success !'});
+    return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestBloq'});
   }
 
 

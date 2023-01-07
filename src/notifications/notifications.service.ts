@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { userDataPopulateWithComment, userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, create, destroy, put } from 'src/utils/query';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { Notification, NotificationDocument } from './entities/notification.entity';
 import { NotificationType } from "./dto/notification-type.dto";
 

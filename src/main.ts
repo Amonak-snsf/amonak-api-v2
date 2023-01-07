@@ -48,7 +48,9 @@ const httpsOptions = {
     type: VersioningType.URI,
     prefix: 'api/v2',
   });
-  await app.listen(process.env.APP_PORT);
+  await app.listen(process.env.APP_PORT, ()=>{
+    console.log(`app start on : ${process.env.API_URL}`)
+  });
 }
 bootstrap();
 
