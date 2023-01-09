@@ -61,7 +61,7 @@ export class AuthService {
     return res.status(HttpStatus.CREATED).json({
       status: true,
       message:
-        "validation.signupSucces",
+        "validation.register",
     });
   }
 
