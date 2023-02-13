@@ -1,10 +1,9 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, allDistinct, create, destroy, one, put } from 'src/utils/query';
 import { Message, MessageDocument } from './entities/message.entity';
-import { Status } from '../toptens/dto/topten-status-interface';
 import { User, UserDocument } from 'src/users/entities/user.entity';
 
 @Injectable()

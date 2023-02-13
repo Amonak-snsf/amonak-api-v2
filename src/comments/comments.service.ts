@@ -24,14 +24,14 @@ export class CommentsService {
 
     const data = await create(this.commentModel, createCommentDto, 'user', userDataPopulateWithTopten());
 
-    let content = 'a commenté votre publication';
+    let content = 'comment.commentYourPublication';
 
     const allCommentOfThisPublication = await allDistinct(this.commentModel, 'user', {publication: data.publication});
 
     if(allCommentOfThisPublication){
       for(let value of allCommentOfThisPublication){
 
-          content = 'a commenté une publication que vous avez aussi commenté';
+          content = 'comment.commentAPublication';
           if(value && `${value}` !== createCommentDto.publicationCreator && `${value}` !==''){
             await this.notificationService.create({
               from: data.user,

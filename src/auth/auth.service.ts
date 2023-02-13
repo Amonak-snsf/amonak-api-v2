@@ -61,7 +61,7 @@ export class AuthService {
     return res.status(HttpStatus.CREATED).json({
       status: true,
       message:
-        "Votre inscription a été faite avec succès. Veuillez vérifier votre boite e-mail pour confirmer votre compte!",
+        "validation.register",
     });
   }
 
@@ -69,7 +69,7 @@ export class AuthService {
     await one(this.tokenModel, { _id: tokenId });
     return await res
       .status(HttpStatus.OK)
-      .json({ status: true, message: "Valid token." });
+      .json({ status: true, message: "validation.checkToken" });
   }
 
   async resentActivationEmail(email: string, res) {
@@ -79,13 +79,13 @@ export class AuthService {
       this.sendUserConfirmation(user);
       return res
         .status(HttpStatus.OK)
-        .json({ status: true, message: "Email send with success!" });
+        .json({ status: true, message: "validation.resentActivationEmailSuccess" });
     }
 
     throw error(
       {
         statusCode: HttpStatus.FORBIDDEN,
-        message: "Email not send. Please check your network!",
+        message: "validation.resentActivationEmailError",
       },
       HttpStatus.FORBIDDEN
     );
@@ -98,7 +98,7 @@ export class AuthService {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message: "Le code de confirmation que vous avez fourni est invalid.",
+          message: "validation.activateAccount",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -122,7 +122,7 @@ export class AuthService {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message: "Ce compte n'existe pas.",
+          message: "validation.sendResetPasswordRequestFirstError",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -135,7 +135,7 @@ export class AuthService {
       return res.status(HttpStatus.OK).json({
         status: true,
         message:
-          "Votre demande a été traité avec succès! Veuillez vérifier votre boite e-mail pour rénitialiser votre mot de passe.",
+          "validation.sendResetPasswordRequestSuccess",
         display: true,
       });
     }
@@ -143,7 +143,7 @@ export class AuthService {
     throw error(
       {
         statusCode: HttpStatus.FORBIDDEN,
-        message: "Veuillez vérifier votre connexion internet!",
+        message: "validation.sendResetPasswordRequestLastError",
         display: true,
       },
       HttpStatus.FORBIDDEN
@@ -157,7 +157,7 @@ export class AuthService {
         {
           statusCode: HttpStatus.NOT_FOUND,
           message:
-            "Le lien de réinitialisation de mot de passe que vous avez fourni est invalid.",
+            "validation.resetPassword",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -183,7 +183,7 @@ export class AuthService {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message: "Votre nom d'utilisateur est incorrecte.",
+          message: "validation.incorrecteUsername",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -194,7 +194,7 @@ export class AuthService {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message: "Votre mot de passe est incorrecte.",
+          message: "validation.incorrectePassword",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -204,7 +204,7 @@ export class AuthService {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message: "Votre compte n'est pas encore activé.",
+          message: "validation.accountNotActivate",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -263,44 +263,44 @@ export class AuthService {
 
     const body = [
       {
-        title: "Amonak Team",
-        subtitle: "Voir loin voir nouveau",
+        title: "amonakTeam.title",
+        subtitle: "amonakTeam.subtitle",
         displayNumber: "display1",
         logo: "../../../assets/imgs/amonak/n1.png",
         image: "../../../assets/imgs/amonak/feed1.png",
-        buttonTitle: "FERMER"
+        buttonTitle: "amonakTeam.buttonTitle"
       },
       {
-        title: "Amonak Team",
-        subtitle: "Voir loin voir nouveau",
+        title: "amonakTeam.title",
+        subtitle: "amonakTeam.subtitle",
         displayNumber: "display2",
         logo: "../../../assets/imgs/amonak/n2.png",
         image: "../../../assets/imgs/amonak/feed3.png",
-        buttonTitle: "FERMER"
+        buttonTitle: "amonakTeam.buttonTitle"
       },
       {
-        title: "Amonak Team",
-        subtitle: "Voir loin voir nouveau",
+        title: "amonakTeam.title",
+        subtitle: "amonakTeam.subtitle",
         displayNumber: "display3",
         logo: "../../../assets/imgs/amonak/n3.png",
         image: "../../../assets/imgs/amonak/feed3.png",
-        buttonTitle: "FERMER"
+        buttonTitle: "amonakTeam.buttonTitle"
       },
       {
-        title: "Amonak Team",
-        subtitle: "Voir loin voir nouveau",
+        title: "amonakTeam.title",
+        subtitle: "amonakTeam.subtitle",
         displayNumber: "display4",
         logo: "../../../assets/imgs/amonak/n4.png",
         image: "../../../assets/imgs/amonak/feed4.png",
-        buttonTitle: "FERMER"
+        buttonTitle: "amonakTeam.buttonTitle"
       },
       {
-        title: "Amonak Team",
-        subtitle: "Voir loin voir nouveau",
+        title: "amonakTeam.title",
+        subtitle: "amonakTeam.subtitle",
         displayNumber: "display5",
         logo: "../../../assets/imgs/amonak/n5.png",
         image: "../../../assets/imgs/amonak/feed5.png",
-        buttonTitle: "FERMER"
+        buttonTitle: "amonakTeam.buttonTitle"
       }
     ];
 
