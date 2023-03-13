@@ -72,7 +72,7 @@ export class UsersService {
     this.data.sectors =  Array.isArray(upDto.sectors) ? upDto.sectors : [upDto.sectors];
     if(user.sectors){
       user.sectors.forEach(sector => {
-        if(sector) this.data.sectors.push(sector);
+        if(sector) this.data.sectors.unshift(sector);
       });
     }
 

@@ -16,6 +16,7 @@ import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
 import { ToptensService } from 'src/toptens/toptens.service';
 const isOnline = require("is-online");
+var ObjectId = require('mongodb').ObjectID;
 
 @Injectable()
 export class PublicationsService {
@@ -92,6 +93,16 @@ export class PublicationsService {
 
     if(params.search){
       params = { status: true, content: {$regex: new RegExp(params.search, 'i')}};
+    }
+
+    if(params.greaterThanObjectId && params.search){
+      var oid = new ObjectId(params.greaterThanObjectId);
+      params = {...params, _id: {$gt: oid}}
+    }
+
+    if(params.greaterThanObjectId && !params.search){
+      var oid = new ObjectId(params.greaterThanObjectId);
+      params = {_id: {$gt: oid}}
     }
 
     if(userId){

@@ -23,7 +23,8 @@ export class PublicationGateway {
       this.server.emit('updatePublicationShareStatistiqueListener', newPublication.data)
     }
     
-    console.log("form client publication id after create it", newPublication.data._id, newPublication.type)
+    console.log("form client publication id after create it", newPublication, newPublication.type)
+	//when user share a publication
   }
 
   @SubscribeMessage("softDeletePublicationEvent")
@@ -62,6 +63,7 @@ export class PublicationGateway {
 
     this.server.emit("likePublicationListener", likePublication.data);
     console.log("like publication")
+	///when user like a publication
   }
 
   @SubscribeMessage("updatePublicationEvent")
