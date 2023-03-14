@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { ProductsService } from 'src/products/products.service';
 import { saleBody, userDataPopulateWithTopten } from 'src/utils/helpers';
 import { all, create, destroy, one, put } from 'src/utils/query';
@@ -95,16 +95,6 @@ export class PublicationsService {
       params = { status: true, content: {$regex: new RegExp(params.search, 'i')}};
     }
 
-    if(params.greaterThanObjectId && params.search){
-      var oid = new ObjectId(params.greaterThanObjectId);
-      params = {...params, _id: {$gt: oid}}
-    }
-
-    if(params.greaterThanObjectId && !params.search){
-      var oid = new ObjectId(params.greaterThanObjectId);
-      params = {_id: {$gt: oid}}
-    }
-
     if(userId){
       const publicationIdArray = [];
       let query = {$or: [{user: userId, type: type.softDelete}, {type: type.softDeleteAll}]}
@@ -112,10 +102,14 @@ export class PublicationsService {
       for(let value of states){
         if(value)publicationIdArray.push(value.publication);
       }
+      
       params = {...params, _id: {'$nin': publicationIdArray}}
+      if(params.greaterThanObjectId){
+        var oid = new Date(params.greaterThanObjectId);
+        params = {limit: params.limit, status: true, _id: {'$nin': publicationIdArray} , createdAt:  {'$lt': new Date(oid).toISOString()}}
+      }
     }
     const data = await all(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
-
     return data;
   }
 
