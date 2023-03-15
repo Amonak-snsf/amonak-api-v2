@@ -36,6 +36,9 @@ let NotificationsService = class NotificationsService {
             if (params.status) {
                 filter['status'] = params.status;
             }
+            if (params.readAt && params.readAt === 'false') {
+                filter = Object.assign(Object.assign({}, filter), { readAt: { '$exists': false } });
+            }
             delete filter['user'];
             delete filter['type'];
         }
@@ -49,7 +52,7 @@ let NotificationsService = class NotificationsService {
     }
     async update(_id, updateNotificationDto) {
         let data;
-        if (updateNotificationDto.readAt && updateNotificationDto.to) {
+        if (updateNotificationDto.readAt && updateNotificationDto.to && !updateNotificationDto._id) {
             data = await (0, query_1.all)(this.notificationModel, { to: updateNotificationDto.to });
             if (data) {
                 for (let value of data) {

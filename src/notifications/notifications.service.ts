@@ -27,6 +27,9 @@ export class NotificationsService {
       if(params.status){
         filter['status'] = params.status;
       }
+      if(params.readAt && params.readAt === 'false'){
+        filter = {...filter, readAt: { '$exists': false }}
+      }
       delete filter['user'];
       delete filter['type'];
     }
@@ -47,7 +50,7 @@ export class NotificationsService {
   async update(_id: string, updateNotificationDto) {
     
     let data;
-    if(updateNotificationDto.readAt && updateNotificationDto.to){
+    if(updateNotificationDto.readAt && updateNotificationDto.to && !updateNotificationDto._id){
        data = await all(this.notificationModel, {to: updateNotificationDto.to});
        
       if(data){
