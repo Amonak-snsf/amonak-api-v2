@@ -49,9 +49,9 @@ export const createIfne = async (model: Model<any>, body: Record<string, any>, f
     return data;
 }
 
-export const one = async (model: Model<any>, filter: Record<string, any>, fields?: string | string[], populate?: string, populateFields?: string | string[]) => {
+export const one = async (model: Model<any>, filter: Record<string, any>, fields?: string | string[], populate?: string, populateFields?: string | string[], sort?: {}) => {
     
-    let data = await model.findOne(filter, arrayToString(fields)).catch(err =>{
+    let data = await model.findOne(filter, arrayToString(fields)).sort(sort).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
      });
     
@@ -73,7 +73,7 @@ export const all = async (model: Model<any>, filter: Record<string, any>, fields
 
 export const allDistinct = async (model: Model<any>, field: string, filter: Record<string, any>, sort?: {}, limit?: number, populate?: string, populateFields?: string | string[]) => {
    
-    const data = await model.distinct(field, filter).populate(populate, arrayToString(populateFields)).sort(sort).catch(err =>{
+    const data = await model.distinct(field, filter).populate(populate, arrayToString(populateFields)).catch(err =>{
         throw error(err, HttpStatus.NOT_FOUND);
     });
     

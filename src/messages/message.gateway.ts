@@ -45,4 +45,10 @@ export class MessageGateway {
 	 async deleteMessage(@ConnectedSocket() client: Socket, @MessageBody() data: {room: string}){
 		this.server.to(data.room).emit('deleteMessageListener', data);
 	 }
+
+	 @SubscribeMessage("refreshMessageBox")
+	 async refreshMessageBox(@ConnectedSocket() client: Socket, @MessageBody() data: {from: string, to: string}){
+		this.server.emit("refreshMessageBoxHandler", data);
+		console.log("refreshMessageBoxHandler", data)
+	 }
 }

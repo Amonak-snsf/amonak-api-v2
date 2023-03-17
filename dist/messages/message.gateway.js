@@ -44,6 +44,10 @@ let MessageGateway = class MessageGateway {
     async deleteMessage(client, data) {
         this.server.to(data.room).emit('deleteMessageListener', data);
     }
+    async refreshMessageBox(client, data) {
+        this.server.emit("refreshMessageBoxHandler", data);
+        console.log("refreshMessageBoxHandler", data);
+    }
 };
 __decorate([
     (0, websockets_1.WebSocketServer)(),
@@ -87,6 +91,14 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", Promise)
 ], MessageGateway.prototype, "deleteMessage", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)("refreshMessageBox"),
+    __param(0, (0, websockets_1.ConnectedSocket)()),
+    __param(1, (0, websockets_1.MessageBody)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", Promise)
+], MessageGateway.prototype, "refreshMessageBox", null);
 MessageGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: true, path: "/amonak-api", namespace: "api/chat" }),
     __metadata("design:paramtypes", [friends_service_1.FriendsService])
