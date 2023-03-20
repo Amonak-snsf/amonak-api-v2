@@ -227,7 +227,8 @@
     "deleted": "Esta postagem foi excluída.",
     "received": "recebido",
     "write": "Escrever",
-    "title": "Postagens"
+    "title": "Postagens",
+    "inboxMessageForFileReceving": "te enviei um arquivo"
   },
   "answer": {
     "title": "Responder a necessidade",
@@ -541,7 +542,11 @@
       "friendRequestSend": "Pedido de convite de amigo enviado com sucesso.",
       "friendRequestCancel": "Pedido de convite de amigo cancelado com sucesso.",
       "friendRequestAccept": "Solicitação de convite de amigo aceita com sucesso.",
-      "friendRequestBloq": "você bloqueou esta pessoa com sucesso."
+      "friendRequestBloq": "você bloqueou esta pessoa com sucesso.",
+      "send": "te enviei uma solicitação de amizade.",
+      "accept": "aceitou seu pedido de amizade.",
+      "block": "te bloqueei.",
+      "reject": "rejeitou seu pedido de amizade."
     },
     "publicationBackend": {
       "shareYourPubliation": "compartilhou sua postagem.",

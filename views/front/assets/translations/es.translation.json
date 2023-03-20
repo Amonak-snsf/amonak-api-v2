@@ -226,7 +226,8 @@
         "deleted": "Esta publicación ha sido eliminada.",
         "received": "recibió",
         "write": "Escribir",
-        "title": "Mensaje"
+        "title": "Mensaje",
+        "inboxMessageForFileReceving": "te envié un archivo"
       },
       "answer": {
         "title": "respuesta a la necesidad",
@@ -538,7 +539,11 @@
       "friendRequestSend": "Solicitud de invitación de amigo enviada con éxito.",
       "friendRequestCancel": "Solicitud de invitación de amigo cancelada con éxito.",
       "friendRequestAccept": "Solicitud de invitación de amigo aceptada con éxito.",
-      "friendRequestBloq": "Has bloqueado con éxito a esta persona."
+      "friendRequestBloq": "Has bloqueado con éxito a esta persona.",
+      "send": "te envié una solicitud de amistad.",
+      "accept": "acepté tu solicitud de amistad.",
+      "block": "te bloquee.",
+      "reject": "rechazó tu solicitud de amistad."
     },
     "publicationBackend": {
       "shareYourPubliation": "compartió su publicación.",

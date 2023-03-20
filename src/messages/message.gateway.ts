@@ -51,4 +51,16 @@ export class MessageGateway {
 		this.server.emit("refreshMessageBoxHandler", data);
 		console.log("refreshMessageBoxHandler", data)
 	 }
+
+	 @SubscribeMessage("refreshNotificationBox")
+	 async refreshNotificationBox(@ConnectedSocket() client: Socket, @MessageBody() data: {from: string, to: string, all?: boolean}){
+		this.server.emit("refreshNotificationBoxHandler", data);
+		console.log("refreshNotificationBoxHandler", data)
+	 }
+
+	 @SubscribeMessage("refreshFriendListBox")
+	 async refreshFriendListBox(@ConnectedSocket() client: Socket, @MessageBody() data: {from: string, to: string, all?: boolean}){
+		this.server.emit("refreshFriendListBoxHandler", data);
+		console.log("refreshFriendListBoxHandler", data)
+	 }
 }

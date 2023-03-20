@@ -25,14 +25,21 @@ export class CommentsService {
     const data = await create(this.commentModel, createCommentDto, 'user', userDataPopulateWithTopten());
 
     let content = 'comment.commentYourPublication';
+    if(createCommentDto.publicationCreator !== `${data.user._id}`){
+        await this.notificationService.create({
+        from: data.user,
+        content: content,
+        to: createCommentDto.publicationCreator,
+        publication: data.publication,
+        type: NotificationType.comment
+      })
+    }
 
     const allCommentOfThisPublication = await allDistinct(this.commentModel, 'user', {publication: data.publication});
-
     if(allCommentOfThisPublication){
       for(let value of allCommentOfThisPublication){
-
-          content = 'comment.commentAPublication';
-          if(value && `${value}` !== createCommentDto.publicationCreator && `${value}` !==''){
+          if(value && `${value}` !== createCommentDto.publicationCreator && `${value}` !=='' && `${value}` !== `${data.user._id}`){
+            content = 'comment.commentAPublication';
             await this.notificationService.create({
               from: data.user,
               content: content,
@@ -43,18 +50,7 @@ export class CommentsService {
          }
       }
     }
-
-    if(createCommentDto.publicationCreator !== `${data.user._id}`){
-
-        await this.notificationService.create({
-        from: data.user,
-        content: content,
-        to: createCommentDto.publicationCreator,
-        publication: data.publication,
-        type: NotificationType.comment
-      })
-    }
-
+    
     return res.status(HttpStatus.OK).json(data);
   }
 

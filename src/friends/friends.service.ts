@@ -1,7 +1,8 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { all, one, put } from 'src/utils/query';
+import { NotificationsService } from 'src/notifications/notifications.service';
+import { all, destroy, one, put } from 'src/utils/query';
 import { CreateFriendDto } from './dto/create-friend.dto';
 import { Status } from './dto/status-friend.dto';
 import { Friend, FriendDocument } from './entities/friend.entity';
@@ -9,7 +10,8 @@ import { Friend, FriendDocument } from './entities/friend.entity';
 @Injectable()
 export class FriendsService {
 
-  constructor(@InjectModel(Friend.name) private friendModel: Model<FriendDocument>) {}
+  constructor(@InjectModel(Friend.name) private friendModel: Model<FriendDocument>, 
+  private notificationService: NotificationsService,) {}
 
   async listFriendRequest(user: string){
 
@@ -114,15 +116,24 @@ export class FriendsService {
       to: cfDto.to,
       status: Status.requested
     }).save();
-
+    await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.send',  `${Status.requested}`);
     return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestSend'});
   }
-
+  
   async reject(cfDto: CreateFriendDto, res) {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
-    const user = await put(this.friendModel, { status: Status.reject }, query1);
-    return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestCancel'});
+    const findOne = await one(this.friendModel, { ...query1, status:  Status.requested});
+    if(findOne && `${findOne.from}` === cfDto.from){
+      await destroy(this.friendModel, { _id: findOne._id });
+      return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestCancel'});
+    }
+    else{
+      const user = await put(this.friendModel, { status: Status.reject }, query1);
+      await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.reject',  `${Status.reject}`);
+      return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestCancel'});
+    }
+    
   }
 
   
@@ -130,7 +141,7 @@ export class FriendsService {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.friend }, query1);
-
+    await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.accept',  `${Status.friend}`);
     return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestAccept'});
   }
 
@@ -138,9 +149,20 @@ export class FriendsService {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.block }, query1);
-    
+    await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.block',  `${Status.block}`);
     return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestBloq'});
   }
 
+  async createNotification(from: string, to: string, content: string, type: string){
+
+    const notificationBody = {
+      from: from,
+      to: to,
+      content: content,
+      type: type
+    }
+
+    await this.notificationService.create(notificationBody)
+  }
 
 }

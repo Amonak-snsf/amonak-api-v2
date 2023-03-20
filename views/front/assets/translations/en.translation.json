@@ -227,7 +227,8 @@
         "deleted": "This message has been deleted.",
         "received": "Received",
         "write": "Write",
-        "title":"Inbox"
+        "title":"Inbox",
+        "inboxMessageForFileReceving": "sent you a file"
     },
     "answer":{
         "title":"Respondre to the need",
@@ -542,7 +543,11 @@
         "friendRequestSend": "Friend invite request sent successfully.",
         "friendRequestCancel": "Friend invite request canceled successfully.",
         "friendRequestAccept": "Friend invite request successfully accepted.",
-        "friendRequestBloq": "you have successfully blocked this person."
+        "friendRequestBloq": "you have successfully blocked this person.",
+        "send": "sent you a friend request.",
+        "accept": "accepted your friend request.",
+        "block": "blocked you.",
+        "reject": "rejected your friend request."
       },
       "publicationBackend": {
         "shareYourPubliation": "shared your post.",

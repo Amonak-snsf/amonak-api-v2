@@ -48,6 +48,14 @@ let MessageGateway = class MessageGateway {
         this.server.emit("refreshMessageBoxHandler", data);
         console.log("refreshMessageBoxHandler", data);
     }
+    async refreshNotificationBox(client, data) {
+        this.server.emit("refreshNotificationBoxHandler", data);
+        console.log("refreshNotificationBoxHandler", data);
+    }
+    async refreshFriendListBox(client, data) {
+        this.server.emit("refreshFriendListBoxHandler", data);
+        console.log("refreshFriendListBoxHandler", data);
+    }
 };
 __decorate([
     (0, websockets_1.WebSocketServer)(),
@@ -99,6 +107,22 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", Promise)
 ], MessageGateway.prototype, "refreshMessageBox", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)("refreshNotificationBox"),
+    __param(0, (0, websockets_1.ConnectedSocket)()),
+    __param(1, (0, websockets_1.MessageBody)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", Promise)
+], MessageGateway.prototype, "refreshNotificationBox", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)("refreshFriendListBox"),
+    __param(0, (0, websockets_1.ConnectedSocket)()),
+    __param(1, (0, websockets_1.MessageBody)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", Promise)
+], MessageGateway.prototype, "refreshFriendListBox", null);
 MessageGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: true, path: "/amonak-api", namespace: "api/chat" }),
     __metadata("design:paramtypes", [friends_service_1.FriendsService])

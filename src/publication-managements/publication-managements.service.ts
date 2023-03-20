@@ -40,7 +40,6 @@ export class PublicationManagementsService {
         }
         
       }else{
-
         const notificationBody ={
           from: body.user,
           to: body.to,

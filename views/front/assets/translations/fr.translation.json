@@ -227,7 +227,8 @@
         "deleted": "Ce message a été supprimé.",
         "received": "reçu",
         "write": "Ecrire",
-        "title":"Inbox"
+        "title":"Inbox", 
+        "inboxMessageForFileReceving":"vous a envoyé un fichier"
     },
     "answer":{
         "title":"Repondre au besoin",
@@ -542,9 +543,12 @@
         "friendRequestSend": "Demande d'invitation d'ami envoyé avec succès.",
         "friendRequestCancel": "Demande d'invitation d'ami annulé avec succès.",
         "friendRequestAccept": "Demande d'invitation d'ami accepté avec succès.",
-        "friendRequestBloq":"vous avez bloqué cette personne avec succès."
+        "friendRequestBloq":"vous avez bloqué cette personne avec succès.",
+        "send": "vous a envoyé une demande d'amie.",
+        "accept": "a accepté votre demande d'amie.",
+        "block": "vous a bloqué.",
+        "reject": "a rejetté votre demande d'amie."
     },
-
     "publicationBackend":{
         "shareYourPubliation": "a partagé votre publication.",
         "followYou":"vous suive.",

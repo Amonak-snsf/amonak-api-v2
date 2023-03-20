@@ -12,7 +12,7 @@ import { NotificationType } from "src/notifications/dto/notification-type.dto";
 @Injectable()
 export class CommentLikesService {
   constructor(@InjectModel(CommentLike.name) private readonly commentLikeModel: Model<CommentLikeDocument>,
-    @InjectModel(Comment.name) private readonly commentModel: Model<CommentLikeDocument>,
+    @InjectModel(Comment.name) private readonly commentModel: Model<CommentDocument>,
     private notificationService: NotificationsService,){}
 
   async create(createCommentLikeDto: CreateCommentLikeDto, res) {
@@ -25,20 +25,28 @@ export class CommentLikesService {
     }
 
     let content = 'comment.likeYourComment';
+    const notificationBody = {
+      from: createCommentLikeDto.user,
+      content: content,
+      to: createCommentLikeDto.commentCreator,
+      comment: createCommentLikeDto.comment,
+      type: NotificationType.like
+    }
 
     const allLikeOfThisComment = await allDistinct(this.commentLikeModel, 'user', {comment: createCommentLikeDto.comment});
+    const comment = await one(this.commentModel, { _id: createCommentLikeDto.comment });
+    if(comment && comment.publication){
+      notificationBody['publication'] =  comment.publication;
+    }
 
     if(allLikeOfThisComment){
       for(let value of allLikeOfThisComment){
-
-          content = 'comment.likeAPublicationcomment';
-          if(value && `${value}` !=='' && `${value}` !==createCommentLikeDto.commentCreator){
+          if(value && `${value}` !=='' && `${value}` !==createCommentLikeDto.commentCreator && `${value}` !== `${data.user._id}`){
+            content = 'comment.likeAPublicationcomment';
+            notificationBody['content'] =  content;
             await this.notificationService.create({
-              from: createCommentLikeDto.user,
-              content: content,
-              to: value,
-              comment: createCommentLikeDto.comment,
-              type: NotificationType.like
+              ...notificationBody,
+              to: value
             })
           }
       }
@@ -46,13 +54,7 @@ export class CommentLikesService {
 
     if(createCommentLikeDto.commentCreator !== `${createCommentLikeDto.user}`){
 
-        await this.notificationService.create({
-        from: createCommentLikeDto.user,
-        content: content,
-        to: createCommentLikeDto.commentCreator,
-        comment: createCommentLikeDto.comment,
-        type: NotificationType.like
-      })
+        await this.notificationService.create(notificationBody)
     }
     return res.status(HttpStatus.OK).json(data);
   }

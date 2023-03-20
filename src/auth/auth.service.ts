@@ -232,7 +232,11 @@ export class AuthService {
     const url = `${this.configService.get("frontUrl")}/account-activation`;
     await create(this.tokenModel, { token: token, user: user._id });
 
-    this.mailService.sendUserConfirmation(user, token, url);
+    try {
+      this.mailService.sendUserConfirmation(user, token, url);
+    } catch (error) {
+      console.log(error," sending mail")
+    }
   }
 
   async sendResetPassswordRequestEmail(user) {
@@ -245,7 +249,11 @@ export class AuthService {
       tokenSave._id
     }`;
 
-    this.mailService.resetPassword(user, url);
+    try {
+      this.mailService.resetPassword(user, url);
+    } catch (error) {
+      console.log(error," sending mail")
+    }
   }
 
   async logUser(user) {

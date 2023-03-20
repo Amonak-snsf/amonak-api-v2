@@ -41,21 +41,30 @@ export class PublicationsService {
         const url = `${this.configService.get("frontUrl")}/home`;
         if(body.type === PublicationType.sendAlerte){
         const publication = await this.findOne(body._id);
-        this.mailService.alerte({
-          publication: publication, 
-          message: body.content, 
-          map: body.map,
-          sender: sender,
-          staticUrl: this.configService.get("staticUrl")
-        }, url)
-        }
-        if(body.type === PublicationType.sendAlerteTopten){
-          const topten = await this.toptenService.findOne(body._id, null)
-          this.mailService.topten({
-            topten: topten, 
+        try {
+          this.mailService.alerte({
+            publication: publication, 
+            message: body.content, 
+            map: body.map,
             sender: sender,
             staticUrl: this.configService.get("staticUrl")
           }, url)
+        } catch (error) {
+          console.log(error," sending mail")
+        }
+        
+        }
+        if(body.type === PublicationType.sendAlerteTopten){
+          const topten = await this.toptenService.findOne(body._id, null)
+          try {
+            this.mailService.topten({
+              topten: topten, 
+              sender: sender,
+              staticUrl: this.configService.get("staticUrl")
+            }, url)
+          } catch (error) {
+            console.log(error," sending mail")
+          }
         }
       }
       return res.status(HttpStatus.OK).json({message: "publicationBackend.alerteSend"});
@@ -70,14 +79,13 @@ export class PublicationsService {
     }
 
     const data = await create(this.publicationModel, body, 'user', userDataPopulateWithTopten());
-
     if(body.share){
       const pubManagement = {
         user: body.user, 
         publication: body.share, 
         type: PublicationType.share, 
         status: true, 
-        reason: '', 
+        reason: '',
         to: data.user._id
       }
       await this.pubManagementService.create(pubManagement, res)
