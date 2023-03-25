@@ -224,7 +224,8 @@
     "file": "Importar um arquivo",
     "online": "On-line",
     "offline": "desligada",
-    "deleted": "Esta postagem foi excluída.",
+    "deleted": "Esta mensagem foi excluída.",
+    "deleted1": "Esta mensagem será eliminada.",
     "received": "recebido",
     "write": "Escrever",
     "title": "Postagens",
@@ -404,7 +405,7 @@
       "stat": {
         "title": "quadro de bordo",
         "product": "Meus produtos",
-        "chiffre": "Meus benefícios",
+        "chiffre": "meu saldo",
         "chiffreTitle": "Evolução da minha loja",
         "chiffreSale": "As minhas vendas",
         "chiffreAff": "Volume de negócios",

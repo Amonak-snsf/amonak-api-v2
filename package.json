@@ -46,6 +46,7 @@
     "is-online": "^9.0.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "^5.1.0",
     "mongoose": "^6.2.1",
     "nestjs-paginate": "^2.4.4",
     "nodemailer": "^6.7.2",

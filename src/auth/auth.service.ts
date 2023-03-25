@@ -73,6 +73,7 @@ export class AuthService {
   }
 
   async resentActivationEmail(email: string, res) {
+
     const user = await one(this.userModel, { email: email });
     const online = await isOnline({ timeout: 1000 });
     if (online) {

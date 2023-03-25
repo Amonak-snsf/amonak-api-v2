@@ -223,7 +223,8 @@
         "file": "Importar un archivo",
         "online": "En línea",
         "offline": "Desconectado",
-        "deleted": "Esta publicación ha sido eliminada.",
+        "deleted": "Esta mensagem ha sido eliminada.",
+        "deleted1": "Este mensaje será eliminado.",
         "received": "recibió",
         "write": "Escribir",
         "title": "Mensaje",
@@ -401,7 +402,7 @@
       "stat": {
         "title": "Salpicadero",
         "product": "Mes productos",
-        "chiffre": "Mis ganancias",
+        "chiffre": "Mi balance",
         "chiffreTitle": "Evolución de ma boutique",
         "chiffreSale": "Mis vientos",
         "chiffreAff": "Ganancias",

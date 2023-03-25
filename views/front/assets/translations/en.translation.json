@@ -225,6 +225,7 @@
         "online": "Online",
         "offline": "Offline",
         "deleted": "This message has been deleted.",
+        "deleted1": "This message will be deleted.",
         "received": "Received",
         "write": "Write",
         "title":"Inbox",
@@ -347,7 +348,7 @@
         "sellerMessage":"This form is reserved for sellers. Become a seller by clicking on the following button",
         "siteWeb":"Website (optional)",
         "create": "CREATE",
-        "removeMessage": "is delete with succes."
+        "removeMessage": "is deleted with succes."
     },
     "share":{
         "addText":"Add a message to the publication",
@@ -405,7 +406,7 @@
     "stat":{
         "title":"Dashboard",
         "product":"My products",
-        "chiffre":"My numbers",
+        "chiffre":"My balance",
         "chiffreTitle":"Evolution of my store",
         "chiffreSale":"My sales",
         "chiffreAff":"Turnover",
@@ -432,7 +433,7 @@
         "gerer":"MANAGE"
     },
     "social":{
-        "title":"Do you really want to suppress?"
+        "title":"are you sure you want to delete?"
     },
     "all":{
         "search":"Search",
@@ -577,7 +578,7 @@
         "success": "with success",
         "youFollow": "You are now following the publications of",
         "delete": "Remove",
-        "share": "To share",
+        "share": "Share",
         "follow": "Follow",
         "save": "Save",
         "softDelete": "delete for me",
