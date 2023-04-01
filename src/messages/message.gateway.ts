@@ -63,4 +63,10 @@ export class MessageGateway {
 		this.server.emit("refreshFriendListBoxHandler", data);
 		console.log("refreshFriendListBoxHandler", data)
 	 }
+
+	 @SubscribeMessage("refreshCartBox")
+	 async refreshCartBox(@ConnectedSocket() client: Socket, @MessageBody() data: {to: string}){
+		client.emit("refreshCartBoxHandler", data);
+		console.log("refreshCartBoxHandler", data)
+	 }
 }
