@@ -56,6 +56,10 @@ let MessageGateway = class MessageGateway {
         this.server.emit("refreshFriendListBoxHandler", data);
         console.log("refreshFriendListBoxHandler", data);
     }
+    async refreshCartBox(client, data) {
+        client.emit("refreshCartBoxHandler", data);
+        console.log("refreshCartBoxHandler", data);
+    }
 };
 __decorate([
     (0, websockets_1.WebSocketServer)(),
@@ -123,6 +127,14 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", Promise)
 ], MessageGateway.prototype, "refreshFriendListBox", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)("refreshCartBox"),
+    __param(0, (0, websockets_1.ConnectedSocket)()),
+    __param(1, (0, websockets_1.MessageBody)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", Promise)
+], MessageGateway.prototype, "refreshCartBox", null);
 MessageGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({ cors: true, path: "/amonak-api", namespace: "api/chat" }),
     __metadata("design:paramtypes", [friends_service_1.FriendsService])
