@@ -14,8 +14,9 @@ const httpsOptions = {
   cert: fs.readFileSync('./fullchain.pem'),
 };
 
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {httpsOptions});
-  
+  // const app = await NestFactory.create<NestExpressApplication>(AppModule, {httpsOptions});
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
   app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('Amonak API')
