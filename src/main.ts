@@ -9,10 +9,10 @@ import * as fs from 'fs';
 
 async function bootstrap() {
 
-const httpsOptions = {
-  key: fs.readFileSync('./privkey.pem'),
-  cert: fs.readFileSync('./fullchain.pem'),
-};
+// const httpsOptions = {
+//   key: fs.readFileSync('./privkey.pem'),
+//   cert: fs.readFileSync('./fullchain.pem'),
+// };
 
   // const app = await NestFactory.create<NestExpressApplication>(AppModule, {httpsOptions});
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
