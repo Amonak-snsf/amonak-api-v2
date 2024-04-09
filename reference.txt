@@ -1,0 +1,12 @@
+//upload file
+
+https://tkssharma.com/file-upload-feature-using-nestjs/
+https://www.youtube.com/watch?v=i1wN86rnMEI&list=PLIGDNOJWiL1_YrquGbDDN4BNNRy678Spr
+
+auth authentication
+https://stackoverflow.com/questions/69660408/how-to-handle-the-internal-server-error-nestjs
+
+transaction
+https://wanago.io/2021/09/06/api-nestjs-transactions-mongodb-mongoose/
+
+https://nextjs.org/docs/api-reference/next/router

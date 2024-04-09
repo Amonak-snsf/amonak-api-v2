@@ -1,0 +1,142 @@
+
+
+@media screen and (max-width:767px){
+    .padding-top{
+    margin-top:30px;
+    }
+}
+  
+  @media screen and (min-width:768px) and (max-width:1024px){
+    .padding-top{
+    margin-top:100px;
+    }
+  }
+  
+  @media screen and (min-width:1025px){
+    .padding-top{
+    margin-top:100px;
+    }
+  }
+
+  .btnDesktop{
+      margin-bottom:30px;
+  }
+
+  .invoiceContainer{
+      padding:50px;
+  }
+
+  .amonakLogoText{
+      font-size:45px;
+  }
+
+  .invoiceSubtitle{
+      font-size:20px;
+  }
+
+  .padTop-10{
+      padding-top:10px;
+  }
+
+  .padLeft-10{
+      padding-left:6px;
+  }
+
+  .titleInvoice{
+    font-size:14px;
+    color:black;
+    text-decoration: underline;
+}
+
+.paddingLeftLight{
+    padding-left: 10px !important;
+    padding: 0;
+}
+
+.mt-50{
+    padding-top:50px !important;
+}
+
+.borderBottomBlue{
+    border-bottom:2px solid #0c7ae9 !important;
+}
+
+.borderTop{
+    border-top:2px solid #0c7ae9 !important;
+}
+
+.mb-20{
+    padding-bottom: 10px;;
+}
+
+.width-100{
+width: 100%;
+}
+
+.width-40{
+    width: 40vw !important;
+    padding-right:10px;
+}
+
+.width-20{
+    width: 20vw !important;
+}
+
+td{
+    word-break: break-word;
+}
+
+.semiGras{
+    font-size: 22px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.gras{
+font-size: 22px;
+padding-bottom: 10px;
+padding-top: 10px;
+}
+
+.color-blue{
+    color:#0c7ae9;
+}
+
+.flex-direction-rows{
+    display: flex;
+    flex-direction: row !important;
+}
+
+.vendeurName{
+    width: 40% !important;
+}
+
+.col-6{
+    min-width: 50%;
+    max-width: 60%;
+}
+
+.row{
+    width: 100%;
+}
+
+.justify-content-end{
+    justify-content: flex-end;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.divBordered{
+    border:2px solid #0c7ae9;
+    margin-top:25px;
+}
+
+.semiGras{
+    font-weight: 500;
+}
+
+.gras{
+    font-weight: 600;
+}

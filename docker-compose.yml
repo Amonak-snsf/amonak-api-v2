@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # Next.js app
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: amonak-api
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - amonak-net
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+
+  # MongoDB
+  mongodb:
+    image: mongo:latest
+    container_name: amonak-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=amonak
+      - MONGO_INITDB_ROOT_PASSWORD=Hp@C2WPluX=Pw]y~sJ96ç3Tnç,!@¨£¨£
+      - MONGO_INITDB_DATABASE=amonak
+    volumes:
+      - mongodb-data:/var/lib/mongodb
+    networks:
+      - amonak-net
+    restart: unless-stopped
+
+  # MongoDB Compass
+  mongocompass:
+    image: mongo-express
+    container_name: amonak-mongocompass
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=amonak
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=Hp@C2WPluX=Pw]y~sJ96ç3Tnç,!@¨£¨£
+    networks:
+      - amonak-net
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+networks:
+  amonak-net:
+    driver: bridge
+
+volumes:
+  mongodb-data:
