@@ -93,8 +93,9 @@ export class AuthService {
   }
 
   async activate(token: number, res) {
+    
     const fetchToken = await one(this.tokenModel, { token: token });
-
+  
     if (!fetchToken) {
       throw error(
         {
@@ -109,7 +110,7 @@ export class AuthService {
     const user = await put(
       this.userModel,
       { status: true, isLog: true },
-      { _id: fetchToken.user, status: false }
+      { _id: fetchToken.user }
     );
 
     const logUser = await this.logUser(user);
