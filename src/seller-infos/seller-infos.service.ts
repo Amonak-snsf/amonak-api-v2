@@ -63,14 +63,13 @@ export class SellerInfosService {
 
   async manageSellerInfoStatus(user: string, status, res){
 
-    
-    return res.status(HttpStatus.OK).json({status, user, account: this.status(status)});
-
     await put(this.sellerInforModel, { status: status}, { user: user });
     const account = this.status(status);
     
-    await put(this.userModel, { accountType: account }, { user: user } );
+    const resP = await put(this.userModel, { accountType: account }, { user: user } );
     
+    return res.status(HttpStatus.OK).json({resP, status, user, account: this.status(status)});
+
     return res.status(HttpStatus.OK).json({ message: "User account status has been changed to "+this.accountType+" with success !"});
   }
 
