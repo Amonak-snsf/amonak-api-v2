@@ -64,6 +64,8 @@ export class SellerInfosService {
   async manageSellerInfoStatus(user: string, status, res){
 
     
+    return res.status(HttpStatus.OK).json({status, user, account: this.status(status)});
+
     await put(this.sellerInforModel, { status: status}, { user: user });
     const account = this.status(status);
     
