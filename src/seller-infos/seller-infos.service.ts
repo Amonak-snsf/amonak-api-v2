@@ -63,8 +63,8 @@ export class SellerInfosService {
 
   async manageSellerInfoStatus(user: string, status, res){
 
-    await put(this.sellerInforModel, { status: status}, { user: user });
     
+    await put(this.sellerInforModel, { status: status}, { user: user });
     const account = this.status(status);
     
     await put(this.userModel, { accountType: account }, { user: user } );
