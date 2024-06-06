@@ -67,8 +67,6 @@ export class SellerInfosService {
     const account = this.status(status);
     
     const resP = await put(this.userModel, { accountType: account }, { _id: user } );
-    
-    return res.status(HttpStatus.OK).json({resP, status, user, account: this.status(status)});
 
     return res.status(HttpStatus.OK).json({ message: "User account status has been changed to "+this.accountType+" with success !"});
   }
