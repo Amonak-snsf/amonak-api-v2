@@ -66,7 +66,7 @@ export class SellerInfosService {
     await put(this.sellerInforModel, { status: status}, { user: user });
     const account = this.status(status);
     
-    const resP = await put(this.userModel, { accountType: account }, { user: user } );
+    const resP = await put(this.userModel, { accountType: account }, { _id: user } );
     
     return res.status(HttpStatus.OK).json({resP, status, user, account: this.status(status)});
 
