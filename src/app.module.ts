@@ -33,6 +33,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { FirstDisplay, FirstDisplaySchema } from './settings/entities/first-display.entity';
+import { ThumbnailModule } from './thumbnail/thumbnail.module';
 
 @Module({
   imports: [
@@ -83,7 +84,8 @@ import { FirstDisplay, FirstDisplaySchema } from './settings/entities/first-disp
       ignoreErrors: true,
       newListener: true
     }),
-    MongooseModule.forFeature([{ name: FirstDisplay.name, schema: FirstDisplaySchema }])
+    MongooseModule.forFeature([{ name: FirstDisplay.name, schema: FirstDisplaySchema }]),
+    ThumbnailModule
   ],
   controllers: [AppController],
   providers: [AppService],

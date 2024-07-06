@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from '@nestjs/mongoose';        
 import mongoose, { Model } from 'mongoose';
 import { ProductsService } from 'src/products/products.service';
 import { saleBody, userDataPopulateWithTopten } from 'src/utils/helpers';
@@ -15,6 +15,9 @@ import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
 import { ToptensService } from 'src/toptens/toptens.service';
+import * as ffmpeg from 'fluent-ffmpeg';
+import * as fs from 'fs';
+import * as path from 'path';
 const isOnline = require("is-online");
 var ObjectId = require('mongodb').ObjectID;
 
@@ -31,15 +34,42 @@ export class PublicationsService {
      private toptenService: ToptensService
   ){}
 
+
+  async generateThumbnail(videoPath: string, thumbnailPath: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      ffmpeg(videoPath)
+        .on('end', () => {
+          console.log('Thumbnail generated successfully');
+          resolve();
+        })
+        .on('error', (err) => {
+          console.error('Error generating thumbnail', err);
+          reject(err);
+        })
+        .screenshots({
+          count: 1,
+          folder: path.dirname(thumbnailPath),
+          filename: path.basename(thumbnailPath),
+          size: '1080x1920'
+        });
+    });
+  }
+
+
+
   async create(body: CreatePublicationDto, res) {
 
+// Gérer la création de différents types de publications
     if((body.type === PublicationType.sendAlerte) || (body.type === PublicationType.sendAlerteTopten)){
+      // Pour l'envoi des alertes
       const userId = body.user;
       const sender = await this.userService.findOne(userId);
       
+      // Vérifier si en ligne pour envoyer des emails
       if(isOnline){
         const url = `${this.configService.get("frontUrl")}/home`;
         if(body.type === PublicationType.sendAlerte){
+        // Envoyer un email d'alerte
         const publication = await this.findOne(body._id);
         try {
           this.mailService.alerte({
@@ -55,6 +85,7 @@ export class PublicationsService {
         
         }
         if(body.type === PublicationType.sendAlerteTopten){
+          // Envoyer un email d'alerte
           const topten = await this.toptenService.findOne(body._id, null)
           try {
             this.mailService.topten({
@@ -69,16 +100,23 @@ export class PublicationsService {
       }
       return res.status(HttpStatus.OK).json({message: "publicationBackend.alerteSend"});
     }
+
+     // Gérer la création de publication de vente
     if((body.type == PublicationType.sale) && !body.share){
       const product = await this.productService.create(saleBody({...body, from: 'publication'}), res);
       body.product = product._id;
-    }
 
+    
+    }
+    // Gérer le partage des publications
     if(body.share && (body.type !== PublicationType.sale)){
       delete body.product
     }
 
+    // Créer la publication
     const data = await create(this.publicationModel, body, 'user', userDataPopulateWithTopten());
+    
+    // Gérer le mécanisme de partage
     if(body.share){
       const pubManagement = {
         user: body.user, 
@@ -91,18 +129,32 @@ export class PublicationsService {
       await this.pubManagementService.create(pubManagement, res)
     }
 
+    if (body.videoPath) {
+
+      const thumbnailPath = path.join(__dirname, '..','..', 'uploads', `${data._id}.png`);
+      await this.generateThumbnail(body.videoPath, thumbnailPath);
+      data.thumbnailPath = thumbnailPath;
+      await data.save();
+    }
+
     return res.status(HttpStatus.OK).json(data);
 
-  } 
- 
+  }
+
+
+
   async findAll(params, res = {}) {
+    // Trouver toutes les publications en fonction des paramètres
     
     const userId = res['accountid'];
 
+    // Fonctionnalité de recherche
     if(params.search){
       params = { status: true, content: {$regex: new RegExp(params.search, 'i')}};
     }
 
+
+    // Filtrer les publications en fonction de l'utilisateur et des types de gestion
     if(userId){
       const publicationIdArray = [];
       let query = {$or: [{user: userId, type: type.softDelete}, {type: type.softDeleteAll}]}
@@ -117,15 +169,19 @@ export class PublicationsService {
         params = {limit: params.limit, status: true, _id: {'$nin': publicationIdArray} , createdAt:  {'$lt': new Date(oid).toISOString()}}
       }
     }
+    
+    // Récupérer les publications
     const data = await all(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
     return data;
   }
 
+  // Trouver une publication spécifique par son ID
   async findOne(_id: string) {
     
     return await one(this.publicationModel, { _id: _id }, null, 'user', userDataPopulateWithTopten());
   }
 
+   // Mettre à jour une publication spécifique par son ID avec les données fournies
   async update(_id: string, body: UpdatePublicationDto, res = null) {
 
     const data = await put(this.publicationModel, body, { _id: _id }, 'user', userDataPopulateWithTopten());
@@ -135,6 +191,7 @@ export class PublicationsService {
     }
   }
 
+  // Supprimer une publication spécifique par son ID
   async remove(_id: string, res) {
     
     const data = await destroy(this.publicationModel, { _id: _id });

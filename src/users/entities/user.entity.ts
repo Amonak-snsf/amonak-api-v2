@@ -42,6 +42,9 @@ export class User extends DefaultModel {
   @Prop({ required: false, trim: true, type: String, default: 'M' })
   gender: string;
 
+  @Prop({ required: false, trim: true, type: String })
+  description: string;
+
   @Prop({ required: false, trim: true, type: Date })
   birthDay: string;
 
@@ -89,7 +92,7 @@ export class User extends DefaultModel {
   }))
   bankCard: Record<string, any>;
 
-  @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }] })
+  @Prop({ required: true, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }] })
   friends: Friend[]
 
   @Prop({ required: false, type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
@@ -112,6 +115,9 @@ export class User extends DefaultModel {
 
   @Prop({ required: false, trim: true, type: Boolean, default: true })
   isNewFeed: boolean;
+
+ 
+  
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
