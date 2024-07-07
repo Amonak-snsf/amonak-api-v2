@@ -71,6 +71,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-
 ssh root@195.35.25.205 server koner
 sudo cd /home/fintechgodwin-amonak/htdocs/amonak-api-v2

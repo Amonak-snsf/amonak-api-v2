@@ -13,22 +13,35 @@ export class FriendsService {
   constructor(@InjectModel(Friend.name) private friendModel: Model<FriendDocument>, 
   private notificationService: NotificationsService,) {}
 
+
+// Liste les demandes d'amis pour un utilisateur donné
   async listFriendRequest(user: string){
 
     const userList: Array<string> = [];
 
+    try {
+
+ // Récupère toutes les demandes d'amis reçues par l'utilisateur
     const friends = await all(this.friendModel, { to: user, status: Status.requested });
 
+    // Si des demandes d'amis sont trouvées, les ajouter à la liste
     if(friends && friends.length){
 
       for(let friend of friends){
         userList.push(friend.from)
       }
+    }}
+    catch (error) {
+      // Gérer les erreurs potentielles
+      console.error('Erreur lors de la récupération des demandes d\'amis :', error);
+      throw new Error('Impossible de récupérer les demandes d\'amis');
     }
-    
+
     return userList;
   }
 
+
+// Récupère une amitié entre deux utilisateurs
   async one(data: {from: string, to: string}){
 
     const query = [{ from: data.from, to: data.to, status: Status.friend }, 
@@ -37,12 +50,14 @@ export class FriendsService {
     return friend;
   }
 
+  // Liste les amis d'un utilisateur donné
   async listFriend(user: string){
     
     const userList: Array<string> = [];
     const query = [{ from: user, status: Status.friend }, { to: user, status: Status.friend }];
     const friends = await all(this.friendModel, { $or: query });
 
+  // Si des amis sont trouvés, les ajouter à la liste
     if(friends && friends.length){
 
       for(let friend of friends){
@@ -57,6 +72,8 @@ export class FriendsService {
     
     return userList;
   }
+
+  // Liste les suggestions d'amis pour un utilisateur donné
 
   async listSugestions(user: string){
 
@@ -80,10 +97,12 @@ export class FriendsService {
     return userList;
   }
 
+//Liste les utilisateurs en relation avec un utilisateur donné (amis ou demandes)  
   async listUsers(user: string){
 
     const userList: Array<string> = [];
 
+    // Récupère les amis et les demandes d'amis de l'utilisateur
     const query = [{ from: user}, { to: user }];
     
     const friends = await all(this.friendModel, { $or: query });
@@ -102,24 +121,29 @@ export class FriendsService {
     return userList;
   }
 
+  // Envoie une demande d'ami
   async send(cfDto: CreateFriendDto, res) {
     
     const query1 = [{ from: cfDto.from, to: cfDto.to }, { from: cfDto.to, to: cfDto.from }];
     const friend = await one(this.friendModel, { $or: query1 });
 
+    // Vérifie si une demande d'ami existe déjà
     if(friend && friend.Status === Status.requested){
       return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendshipExist'});
     }
-
+     // Crée une nouvelle demande d'ami
     const from_request = await new this.friendModel({
       from: cfDto.from,
       to: cfDto.to,
       status: Status.requested
     }).save();
+
+     // Crée une notification pour la demande d'ami
     await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.send',  `${Status.requested}`);
     return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestSend'});
   }
   
+  // Rejette une demande d'ami
   async reject(cfDto: CreateFriendDto, res) {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
@@ -136,7 +160,7 @@ export class FriendsService {
     
   }
 
-  
+  // Accepte une demande d'ami
   async accept(cfDto: CreateFriendDto, res) {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
@@ -145,14 +169,19 @@ export class FriendsService {
     return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestAccept'});
   }
 
+// Bloque un utilisateur
   async block(cfDto: CreateFriendDto, res) {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.block }, query1);
+
+    // Crée une notification pour le blocage
     await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.block',  `${Status.block}`);
     return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestBloq'});
   }
 
+
+  // Crée une notification
   async createNotification(from: string, to: string, content: string, type: string){
 
     const notificationBody = {

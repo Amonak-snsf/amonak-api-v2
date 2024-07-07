@@ -1,3 +1,4 @@
+// Importation des modules nécessaires de NestJS et des autres dépendances
 import { HttpStatus, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectModel } from "@nestjs/mongoose";
@@ -23,48 +24,51 @@ import { error } from "src/utils/error";
 import { FirstDisplay, FirstDisplayDocument } from "src/settings/entities/first-display.entity";
 const isOnline = require("is-online");
 
+// Décorateur Injectable pour indiquer que cette classe peut être injectée en tant que service
 @Injectable()
 export class AuthService {
   private data: any;
+
+  // Constructeur pour injecter les modèles, services de configuration, de mail et de JWT
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @InjectModel(Token.name) private tokenModel: Model<TokenDocument>,
     @InjectModel(FirstDisplay.name) private firstDisplayModel: Model<FirstDisplayDocument>,
-    @InjectModel(Biography.name)
-    private biographyModel: Model<BiographyDocument>,
-    @InjectModel(SellerInfo.name)
-    private sellerInfoModel: Model<SellerInfoDocument>,
+    @InjectModel(Biography.name) private biographyModel: Model<BiographyDocument>,
+    @InjectModel(SellerInfo.name) private sellerInfoModel: Model<SellerInfoDocument>,
     private configService: ConfigService,
     private mailService: MailService,
     private jwtService: JwtService
   ) {}
 
+  // Méthode pour enregistrer un utilisateur
   async register(createAuthDto: CreateAuthDto, res): Promise<any> {
-    await this.insertFirstTimeData();
+    await this.insertFirstTimeData(); // Insertion de données initiales si nécessaire
     this.data = createAuthDto;
-    this.data.password = await hashPassword(createAuthDto.password);
+    this.data.password = await hashPassword(createAuthDto.password); // Hachage du mot de passe
 
+    // Traitement de l'adresse utilisateur
     this.data.address = userAddress(
       Array.isArray(this.data.address)
         ? this.data.address[0]
         : this.data.address
     );
-    const user = await create(this.userModel, this.data);
+    const user = await create(this.userModel, this.data); // Création de l'utilisateur
 
-    this.sendUserConfirmation(user);
-    await new this.biographyModel({ user: user._id }).save();
+    this.sendUserConfirmation(user); // Envoi de l'email de confirmation
+    await new this.biographyModel({ user: user._id }).save(); // Création de la biographie
     await new this.sellerInfoModel({
       user: user._id,
       status: Status.sellerPending,
-    }).save();
+    }).save(); // Création des informations du vendeur
 
     return res.status(HttpStatus.CREATED).json({
       status: true,
-      message:
-        "validation.register",
+      message: "validation.register",
     });
   }
 
+  // Méthode pour vérifier un token
   async checkToken(tokenId: string, res) {
     await one(this.tokenModel, { _id: tokenId });
     return await res
@@ -72,8 +76,8 @@ export class AuthService {
       .json({ status: true, message: "validation.checkToken" });
   }
 
+  // Méthode pour renvoyer un email d'activation
   async resentActivationEmail(email: string, res) {
-
     const user = await one(this.userModel, { email: email });
     const online = await isOnline({ timeout: 1000 });
     if (online) {
@@ -92,6 +96,7 @@ export class AuthService {
     );
   }
 
+  // Méthode pour activer un compte avec un token
   async activate(token: number, res) {
     const fetchToken = await one(this.tokenModel, { token: token });
 
@@ -99,14 +104,23 @@ export class AuthService {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message: "validation.activateAccount",
+          message: "Le code d'activation est erroné.",
           display: true,
         },
         HttpStatus.NOT_FOUND
       );
     }
 
-    const user = await put(
+    const user = await one(this.userModel, { _id: fetchToken.user });
+
+    if (user.status) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: false,
+        message: "Le code d'activation a déjà été utilisé.",
+      });
+    }
+
+    await put(
       this.userModel,
       { status: true, isLog: true },
       { _id: fetchToken.user, status: false }
@@ -114,8 +128,10 @@ export class AuthService {
 
     const logUser = await this.logUser(user);
     return res.status(HttpStatus.OK).json(logUser);
-  }
+  } 
+  
 
+  // Méthode pour envoyer une demande de réinitialisation de mot de passe
   async sendResetPasswordRequest(email: string, res) {
     const user = await exist(this.userModel, { email: email });
 
@@ -135,8 +151,7 @@ export class AuthService {
       this.sendResetPassswordRequestEmail(user);
       return res.status(HttpStatus.OK).json({
         status: true,
-        message:
-          "validation.sendResetPasswordRequestSuccess",
+        message: "validation.sendResetPasswordRequestSuccess",
         display: true,
       });
     }
@@ -151,14 +166,14 @@ export class AuthService {
     );
   }
 
+  // Méthode pour réinitialiser le mot de passe
   async resetPassword(body, res) {
     const fetchToken = await one(this.tokenModel, { _id: body.token });
     if (!fetchToken) {
       throw error(
         {
           statusCode: HttpStatus.NOT_FOUND,
-          message:
-            "validation.resetPassword",
+          message: "validation.resetPassword",
           display: true,
         },
         HttpStatus.NOT_FOUND
@@ -176,6 +191,7 @@ export class AuthService {
     return res.status(HttpStatus.OK).json(logUser);
   }
 
+  // Méthode pour se connecter
   async login(body, res) {
     const checkUserName = await checkUsername(body);
 
@@ -216,18 +232,21 @@ export class AuthService {
     return res.status(HttpStatus.OK).json(logUser);
   }
 
+  // Méthode pour vérifier un email
   async checkEmail(email, res) {
     await one(this.userModel, { email: email });
 
     return res.status(HttpStatus.OK).json({ status: true });
   }
 
+  // Méthode pour vérifier l'authentification d'un utilisateur
   async auth(userId: string, res) {
     const data = await one(this.userModel, { _id: userId });
 
     return res.status(HttpStatus.OK).json(data);
   }
 
+  // Méthode pour envoyer un email de confirmation à l'utilisateur
   async sendUserConfirmation(user) {
     const token = Math.floor(1000 + Math.random() * 9000).toString();
     const url = `${this.configService.get("frontUrl")}/account-activation`;
@@ -236,27 +255,27 @@ export class AuthService {
     try {
       this.mailService.sendUserConfirmation(user, token, url);
     } catch (error) {
-      console.log(error," sending mail")
+      console.log(error, " sending mail");
     }
   }
 
+  // Méthode pour envoyer un email de réinitialisation de mot de passe
   async sendResetPassswordRequestEmail(user) {
     const token = Math.floor(1000 + Math.random() * 9000).toString();
     const tokenSave = await new this.tokenModel({
       token: token,
       user: user._id,
     }).save();
-    const url = `${this.configService.get("frontUrl")}/reset-password/${
-      tokenSave._id
-    }`;
+    const url = `${this.configService.get("frontUrl")}/reset-password/${tokenSave._id}`;
 
     try {
       this.mailService.resetPassword(user, url);
     } catch (error) {
-      console.log(error," sending mail")
+      console.log(error, " sending mail");
     }
   }
 
+  // Méthode pour authentifier un utilisateur et générer un token JWT
   async logUser(user) {
     const payload = { email: user.email, sub: user._id };
     const accessToken = this.jwtService.sign(payload);
@@ -268,8 +287,8 @@ export class AuthService {
     };
   }
 
-  async insertFirstTimeData(){
-
+  // Méthode pour insérer des données initiales si elles n'existent pas
+  async insertFirstTimeData() {
     const body = [
       {
         title: "amonakTeam.title",
@@ -314,11 +333,10 @@ export class AuthService {
     ];
 
     for (const value of body) {
-      const data = await this.firstDisplayModel.findOne({displayNumber: value.displayNumber});
-      if(!data?.displayNumber){
+      const data = await this.firstDisplayModel.findOne({ displayNumber: value.displayNumber });
+      if (!data?.displayNumber) {
         await this.firstDisplayModel.create(value);
       }
     }
-    
   }
 }

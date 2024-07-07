@@ -37,6 +37,9 @@ export class CreateUserDto {
   @IsIn(['M', 'F'])
   gender: Gender;
 
+  @ApiProperty()
+  description: string;
+
   @ApiProperty({ type: Date })
   birthDay: Date;
 
@@ -85,5 +88,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   lastConnected: Date;
+
+ 
 
 }

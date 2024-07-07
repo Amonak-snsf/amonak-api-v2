@@ -26,7 +26,7 @@ export class Publication extends DefaultModel{
         size: { required: false, trim: true, type: Number, select: true},
         url: { required: false, trim: true, type: String, select: true },
         }
-       )
+       ) 
     ])
     files: Files[];
 
@@ -65,6 +65,14 @@ export class Publication extends DefaultModel{
 
     @Prop({ required: false, type: String, trim: true })
     shareMessage: string;
+
+    @Prop({ required: false, type: String, trim: true })
+    videoPath: string;
+
+    @Prop({ required: false, type: String, trim: true })
+    thumbnailPath: string;
+
+    
 }
 
 export const PublicationSchema = SchemaFactory.createForClass(Publication);

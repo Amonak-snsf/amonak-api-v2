@@ -18,7 +18,7 @@ export class CreateSellerInfoDto {
   @ApiProperty({ type: {}})
   identityCard: File;
 
-  @ApiProperty({ type: {}})
+ @ApiProperty({ type: {}})
   address: Address;
 
   @ApiProperty({ type: [String] })

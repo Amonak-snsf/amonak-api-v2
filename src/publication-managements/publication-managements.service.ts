@@ -12,23 +12,30 @@ export class PublicationManagementsService {
   constructor(@InjectModel(PublicationManagement.name) private readonly pubmanegementModel: Model<PubManagementDocument>,
     private readonly notificationsService: NotificationsService
     ){}
-
+  // Méthode pour créer une gestion de publication
   async create(body: CreatePublicationManagementDto, res) {
-    let alreadyLike = false;
+    let alreadyLike = false; // Variable pour vérifier si la publication est déjà likée
+
+    // Vérifie si le type est follow, share, save, like ou signale
     if(body.type ===  type.follow || body.type === type.share || body.type === type.save || body.type === type.like || body.type === type.signale){
 
-      let content = (body.type === type.share) ? 'publicationBackend.shareYourPubliation' : 'publicationBackend.followYou';
+      let content = (body.type === type.share) ? 'publicationBackend.shareYourPubliation' : 'publicationBackend.followYou'; // Définit le contenu de la notification en fonction du type
       if(body.type === type.save) content = 'publicationBackend.saveYourPublication';
       if(body.type === type.like) content = 'publicationBackend.likeYourPublication';
       if(body.type === type.signale) content = 'publicationBackend.signalYourPublication';
 
+      // Si le type est like, vérifie si l'utilisateur a déjà liké la publication
       if(body.type === type.like){
 
         const mylikes = await this.findAll({type: type.like, publication: body.publication, user: body.user})
+
         if(mylikes && mylikes[0]){
+          // Si déjà liké, supprime le like
           alreadyLike = true;
           this.remove(mylikes[0]._id, {});
-        }else{
+        }
+        // Sinon, crée une notification pour le like
+        else{
           const notificationBody ={
             from: body.user,
             to: body.to,
@@ -39,7 +46,9 @@ export class PublicationManagementsService {
           await this.notificationsService.create(notificationBody);
         }
         
-      }else{
+       }
+       // Pour les autres types, crée une notification
+       else{
         const notificationBody ={
           from: body.user,
           to: body.to,
@@ -51,18 +60,22 @@ export class PublicationManagementsService {
       }
       
     }
-    
+    // Crée la gestion de publication si ce n'est pas un like déjà existant
     if(!alreadyLike)return await create(this.pubmanegementModel, body);  
   }
 
+  // Méthode pour récupérer toutes les gestions de publications avec des filtres optionnels
   async findAll(params, res=null) {
 
+    // Récupère les données en utilisant les paramètres, triées par `_id` décroissant
     const data = await all(this.pubmanegementModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
 
+    // Retourne les données avec un statut 200 si une réponse est fournie, sinon retourne simplement les données
     if(res)return res.status(HttpStatus.OK).json(data);
     if(!res)return data;
   }
 
+  // Méthode pour récupérer une gestion de publication spécifique par son identifiant
   async findOne(publication: string, params, res) {
     params.publication = publication;
 
@@ -71,6 +84,7 @@ export class PublicationManagementsService {
     return res.status(HttpStatus.OK).json(data);
   }
 
+  // Méthode pour supprimer une gestion de publication spécifique par son identifiant
   async remove(_id: string, params, res=null) {
 
     const data = await destroy(this.pubmanegementModel, { _id: _id });
