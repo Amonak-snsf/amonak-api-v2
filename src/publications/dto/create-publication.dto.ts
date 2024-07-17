@@ -60,4 +60,6 @@ export class CreatePublicationDto {
 
     @ApiProperty({ required: false, type: String })  
     videoPath: string;
+    /*@ApiProperty({ required: false, type: [String] })
+    publicationIdArray: string[];*/
 }

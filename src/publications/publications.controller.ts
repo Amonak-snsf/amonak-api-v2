@@ -19,12 +19,12 @@ import { extname } from 'path';
 export class PublicationsController {
   constructor(private readonly publicationsService: PublicationsService) {}
 
- /*@Post()
+ @Post()
   create(@Body() body: CreatePublicationDto, @Res() res) {
     return this.publicationsService.create(body, res);
-  }*/
+  }
   
-  @Post() // Route pour créer une nouvelle publication
+  /*@Post() // Route pour créer une nouvelle publication
   @UseInterceptors(FileInterceptor('videoPath', {
     storage: diskStorage({
       destination: './uploads', // Répertoire pour les fichiers uploadés
@@ -40,11 +40,12 @@ export class PublicationsController {
       body.videoPath = videoFile.path;
     } 
     return this.publicationsService.create(body, res);
-  }
+  }*/
 
   @Get() // Route pour récupérer toutes les publications
   async findAll(@Query() params: FilterPublicationDto, @Res() res, @Req() req) {
     res.accountid = req.headers?.accountid;
+    console.log("Controller - accountid:", res.accountid); // Log the accountid
     const data = await this.publicationsService.findAll(params, res);
     res.status(HttpStatus.OK).json(data);
   }
