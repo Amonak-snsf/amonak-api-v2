@@ -45,6 +45,7 @@ export class PublicationsController {
   @Get() // Route pour récupérer toutes les publications
   async findAll(@Query() params: FilterPublicationDto, @Res() res, @Req() req) {
     res.accountid = req.headers?.accountid;
+    console.log("Controller - accountid:", res.accountid); // Log the accountid
     const data = await this.publicationsService.findAll(params, res);
     res.status(HttpStatus.OK).json(data);
   }

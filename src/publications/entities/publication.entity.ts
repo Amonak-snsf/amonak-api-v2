@@ -71,6 +71,8 @@ export class Publication extends DefaultModel{
 
     @Prop({ required: false, type: String, trim: true })
     thumbnailPath: string;
+    //@Prop({ required: false, type: [String], trim: true })
+   // publicationIdArray: string[];
 
     
 }
