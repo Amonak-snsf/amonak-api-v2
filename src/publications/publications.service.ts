@@ -34,29 +34,6 @@ export class PublicationsService {
      private toptenService: ToptensService
   ){}
 
-
-  async generateThumbnail(videoPath: string, thumbnailPath: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      ffmpeg(videoPath)
-        .on('end', () => {
-          console.log('Thumbnail generated successfully');
-          resolve();
-        })
-        .on('error', (err) => {
-          console.error('Error generating thumbnail', err);
-          reject(err);
-        })
-        .screenshots({
-          count: 1,
-          folder: path.dirname(thumbnailPath),
-          filename: path.basename(thumbnailPath),
-          size: '1080x1920'
-        });
-    });
-  }
-
-
-
   async create(body: CreatePublicationDto, res) {
 
 // Gérer la création de différents types de publications
@@ -129,18 +106,43 @@ export class PublicationsService {
       await this.pubManagementService.create(pubManagement, res)
     }
 
-    if (body.videoPath) {
-
-      const thumbnailPath = path.join(__dirname, '..','..', 'uploads', `${data._id}.png`);
-      await this.generateThumbnail(body.videoPath, thumbnailPath);
-      data.thumbnailPath = thumbnailPath;
-      await data.save();
+    if (body.files && body.files.length > 0) {
+      const fileUrl = body.files.find(file => file.url)
+      if (fileUrl.url) {
+        const thumbnailPath = path.join(__dirname, '..', '..', 'uploads', `${data._id}.png`);
+        data.videoPath= fileUrl.url
+        await this.generateThumbnail(data.videoPath, thumbnailPath);
+        data.thumbnailPath = thumbnailPath;
+        await data.save();
+      } else {
+        console.error("File URL is missing");
+        
+      }
     }
 
     return res.status(HttpStatus.OK).json(data);
 
   }
 
+  async generateThumbnail(videoPath: string, thumbnailPath: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      ffmpeg(videoPath)
+        .on('end', () => {
+          console.log('Thumbnail generated successfully');
+          resolve();
+        })
+        .on('error', (err) => {
+          console.error('Error generating thumbnail', err);
+          reject(err);
+        })
+        .screenshots({
+          count: 1,
+          folder: path.dirname(thumbnailPath),
+          filename: path.basename(thumbnailPath),
+          size: '1080x1920'
+        });
+    });
+  }
 
 
   async findAll(params, res = {}) {
