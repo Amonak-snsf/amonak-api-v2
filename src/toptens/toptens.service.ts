@@ -24,8 +24,9 @@ export class ToptensService {
     this.data = cTdo;
 
     const d = new Date();
-    this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
-
+    //this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
+   this.data.end_at = new Date(d.getTime() + 24 * 60 * 60 * 1000);
+    console.log(this.data.end_at)
     const data = await create(this.toptenModel, this.data, 'user', userDataPopulateWithTopten());
 
     return res.status(HttpStatus.OK).json(data);

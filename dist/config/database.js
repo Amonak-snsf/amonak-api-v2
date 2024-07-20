@@ -8,7 +8,7 @@ exports.default = () => ({
         name: process.env.DATABASE_NAME || "amonak",
         password: process.env.DATABASE_PASSWORD || "F8jtnzkF6Xvt",
         username: process.env.DATABASE_USERNAME || "root",
-        url: "mongodb+srv://root:F8jtnzkF6Xvt@amonak.wfdx4wo.mongodb.net/?retryWrites=true&w=majority&appName=amonak"
+        url: 'mongodb://localhost:27017/amonak3-nest',
     },
 });
 //# sourceMappingURL=database.js.map
