@@ -24,10 +24,15 @@ export class ToptensService {
     this.data = cTdo;
 
     const d = new Date();
+    console.log(d)
     //this.data.end_at = d.setDate(d.getDate() + (parseInt(cTdo.duration, 10) * 7));
-   this.data.end_at = new Date(d.getTime() + 24 * 60 * 60 * 1000);
-    console.log(this.data.end_at)
+   this.data.endAt = new Date(d.getTime() + 24 * 60 * 60 * 1000);
+   
+   
+    console.log( this.data.endAt)
     const data = await create(this.toptenModel, this.data, 'user', userDataPopulateWithTopten());
+
+   
 
     return res.status(HttpStatus.OK).json(data);
 
@@ -35,9 +40,21 @@ export class ToptensService {
 
   async findAll(body, res) {
 
-    const data = await all(this.toptenModel, body, null, { _id: -1 }, body.limit, 'user', userDataPopulateWithTopten());
 
+    const currentDate = new Date();
+    const currentDateInMillis = currentDate.getTime()
+    const filter = {
+      ...body,
+      endAt: { $gt: currentDateInMillis }, // Filtre les TopTen non expirés
+    };
+    console.log(filter)
+    const data = await all(this.toptenModel, filter, null, { _id: -1 }, body.limit, 'user', userDataPopulateWithTopten());
+
+    data.forEach(topten => {
+      console.log('end_at:', topten.endAt);
+    });
     return res.status(HttpStatus.OK).json(data);
+ 
   }
 
   async findOne(_id: string, res) {

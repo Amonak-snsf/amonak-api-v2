@@ -34,8 +34,9 @@ export class PublicationsService {
      private toptenService: ToptensService
   ){}
 
-
   async create(body: CreatePublicationDto, res) {
+
+    
 
 // Gérer la création de différents types de publications
     if((body.type === PublicationType.sendAlerte) || (body.type === PublicationType.sendAlerteTopten)){
@@ -83,17 +84,17 @@ export class PublicationsService {
     if((body.type == PublicationType.sale) && !body.share){
       const product = await this.productService.create(saleBody({...body, from: 'publication'}), res);
       body.product = product._id;
-    
+
     }
     // Gérer le partage des publications
     if(body.share && (body.type !== PublicationType.sale)){
       delete body.product
     }
 
-
-    // Créer la publication
-    const data = await create(this.publicationModel, body, 'user', userDataPopulateWithTopten());
+// Créer la publication
+const data = await create(this.publicationModel, body, 'user', userDataPopulateWithTopten());
     
+ 
     // Gérer le mécanisme de partage
     if(body.share){
       const pubManagement = {
@@ -107,25 +108,36 @@ export class PublicationsService {
       await this.pubManagementService.create(pubManagement, res)
     }
 
-    console.log('Checking files...');
-    if (body.files && body.files.length > 0) {
-      const videoFile = body.files.find((file) => file.url);
-      console.log('videoFile:', videoFile);
-      if (videoFile && videoFile.url) {
-        console.log('File URL:', videoFile.url);
-        data.videoPath = videoFile.url
-        console.log(data.videoPath)
-        const thumbnailPath = path.join(__dirname, '..', '..', 'uploads', `${data._id}.png`);
-        await this.generateThumbnail(data.videoPath, thumbnailPath);
-        data.thumbnailPath = thumbnailPath;
-        await data.save();
+   if (body.type === PublicationType.sale){
+
+      if (body.files && body.files.length > 0) {
+        const videoFile = body.files.find((file) => file.url);
+        console.log('videoFile:', videoFile);
+        if (videoFile && videoFile.url) {
+          console.log('File URL:', videoFile.url);
+          const videoPath = `${process.env.STATIC_URL}/${videoFile.url}`;
+          //data.videoPath = videoFile.url
+          console.log(videoPath)
+          //const thumbnailPath = path.join(__dirname, '..', '..', 'static','uploads',`${data.user.email}`,'images');
+          //const thumbnailPath = `uploads/${data.user.email}/images/${data._id}.png`;
+          const thumbnailDir = path.join(__dirname, '..', '..', 'static', 'uploads', `${data.user.email}`, 'images');
+          const thumbnailPath = path.join(thumbnailDir, `${data._id}.png`);
+          await this.generateThumbnail(videoPath, thumbnailPath);
+          //data.thumbnailPath = `${thumbnailPath.replace('./static/', '')}/${data._id}.png`;
+          const relativePath = path.relative(path.join(__dirname, '..', '..', 'static'), thumbnailPath);
+          data.thumbnailPath = `${process.env.STATIC_URL}/${relativePath}`
+          await data.save();
+        } else {
+          console.error("File or file URL is missing", body.files);
+          // Handle missing URL, e.g., throw an error or log the issue
+        }
       } else {
-        console.error("File or file URL is missing", body.files);
-        // Handle missing URL, e.g., throw an error or log the issue
+        console.error("Files array is missing or empty", body.files);
       }
-    } else {
-      console.error("Files array is missing or empty", body.files);
+
     }
+    
+    
 
     return res.status(HttpStatus.OK).json(data);
 
@@ -152,50 +164,47 @@ export class PublicationsService {
   }
 
 
+
 async findAll(params, res = {}) {
   // Trouver toutes les publications en fonction des paramètres
   const userId = res['accountid'];
  
 
 
+
   // Fonctionnalité de recherche
   if(params.search){
       params = { status: true, content: {$regex: new RegExp(params.search, 'i')}};
-    
+      
   }
 
   // Filtrer les publications en fonction de l'utilisateur et des types de gestion
   if(userId){
       const publicationIdArray = [];
-   
+      
       let query = {$or: [{user: userId, type: type.softDelete}, {type: type.softDeleteAll}]};
-     
+      
 
       const states = await this.pubManagementService.findAll(query);
-     
+    
 
       for(let value of states){
-          console.log("Value:", value); // Log each value
           if(value){
               publicationIdArray.push(value.publication);
           }
       }
 
-   
 
       params = {...params, _id: {'$nin': publicationIdArray}};
-   
 
       if(params.greaterThanObjectId){
           var oid = new Date(params.greaterThanObjectId);
           params = {limit: params.limit, status: true, _id: {'$nin': publicationIdArray}, createdAt: {'$lt': new Date(oid).toISOString()}};
-     
       }
   }
 
   // Récupérer les publications
   const data = await all(this.publicationModel, params, null, { _id: -1 }, params.limit, 'user', userDataPopulateWithTopten());
-
   return data;
 }
 
