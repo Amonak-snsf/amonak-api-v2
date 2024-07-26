@@ -116,16 +116,16 @@ const data = await create(this.publicationModel, body, 'user', userDataPopulateW
         if (videoFile && videoFile.url) {
           console.log('File URL:', videoFile.url);
           const videoPath = `${process.env.STATIC_URL}/${videoFile.url}`;
-          //data.videoPath = videoFile.url
           console.log(videoPath)
-          //const thumbnailPath = path.join(__dirname, '..', '..', 'static','uploads',`${data.user.email}`,'images');
-          //const thumbnailPath = `uploads/${data.user.email}/images/${data._id}.png`;
+          
           const thumbnailDir = path.join(__dirname, '..', '..', 'static', 'uploads', `${data.user.email}`, 'images');
           const thumbnailPath = path.join(thumbnailDir, `${data._id}.png`);
           await this.generateThumbnail(videoPath, thumbnailPath);
-          //data.thumbnailPath = `${thumbnailPath.replace('./static/', '')}/${data._id}.png`;
+          
           const relativePath = path.relative(path.join(__dirname, '..', '..', 'static'), thumbnailPath);
-          data.thumbnailPath = `${process.env.STATIC_URL}/${relativePath}`
+          data.thumbnailPath = `${process.env.STATIC_URL}/${relativePath}`;
+          data.thumbnailPath = path.normalize(data.thumbnailPath).replace(/\\/g, '/');
+
           await data.save();
         } else {
           console.error("File or file URL is missing", body.files);

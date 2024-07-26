@@ -24,23 +24,6 @@ export class PublicationsController {
     return this.publicationsService.create(body, res);
   }
   
-  /*@Post() // Route pour créer une nouvelle publication
-  @UseInterceptors(FileInterceptor('videoPath', {
-    storage: diskStorage({
-      destination: './uploads', // Répertoire pour les fichiers uploadés
-      filename: (req, file, callback) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        callback(null, file.fieldname + '-' + uniqueSuffix + extname(file.originalname));
-      },
-    }),
-  }))
-  @ApiConsumes('multipart/form-data')
-  create(@Body() body: CreatePublicationDto, @UploadedFile() videoFile: Express.Multer.File, @Res() res) {
-    if (videoFile) {
-      body.videoPath = videoFile.path;
-    } 
-    return this.publicationsService.create(body, res);
-  }*/
 
   @Get() // Route pour récupérer toutes les publications
   async findAll(@Query() params: FilterPublicationDto, @Res() res, @Req() req) {
