@@ -85,6 +85,38 @@ export class PublicationsService {
       const product = await this.productService.create(saleBody({...body, from: 'publication'}), res);
       body.product = product._id;
 
+      if (body.files && body.files.length > 0) {
+      
+        const userId = body.user;
+        const user = await this.userService.findOne(userId); // Suppose que findOne renvoie un utilisateur avec un champ 'email'
+        const userEmail = user?.email || 'unknownuser';
+        const videoFile = body.files.find((file) => file.url);
+         // Assurez-vous que l'utilisateur est un objet contenant l'email
+        console.log('videoFile:', videoFile);
+        if (videoFile && videoFile.url && videoFile.filename) {
+          console.log('File URL:', videoFile.url);
+          const videoPath = `${process.env.STATIC_URL}/${videoFile.url}`;
+          console.log(videoPath)
+          const {name} = path.parse(`${videoFile.originalname}`);
+          
+          const thumbnailDir = path.join(__dirname, '..', '..', 'static', 'uploads',`${userEmail}`, 'images');
+          const thumbnailPath = path.join(thumbnailDir, `${name}.png`);
+          console.log(body._id)
+          await this.generateThumbnail(videoPath, thumbnailPath);
+          
+          const relativePath = path.relative(path.join(__dirname, '..', '..', 'static'), thumbnailPath);
+          body.thumbnailPath = `${process.env.STATIC_URL}/${relativePath}`;
+          body.thumbnailPath = path.normalize(body.thumbnailPath).replace(/\\/g, '/');
+          console.log(body.thumbnailPath)
+
+        } else {
+          console.error("File or file URL is missing", body.files);
+          // Handle missing URL, e.g., throw an error or log the issue
+        }
+      } else {
+        console.error("Files array is missing or empty", body.files);
+      }
+
     }
     // Gérer le partage des publications
     if(body.share && (body.type !== PublicationType.sale)){
@@ -108,36 +140,6 @@ const data = await create(this.publicationModel, body, 'user', userDataPopulateW
       await this.pubManagementService.create(pubManagement, res)
     }
 
-   if (body.type === PublicationType.sale){
-
-      if (body.files && body.files.length > 0) {
-        const videoFile = body.files.find((file) => file.url);
-        console.log('videoFile:', videoFile);
-        if (videoFile && videoFile.url) {
-          console.log('File URL:', videoFile.url);
-          const videoPath = `${process.env.STATIC_URL}/${videoFile.url}`;
-          console.log(videoPath)
-          
-          const thumbnailDir = path.join(__dirname, '..', '..', 'static', 'uploads', `${data.user.email}`, 'images');
-          const thumbnailPath = path.join(thumbnailDir, `${data._id}.png`);
-          await this.generateThumbnail(videoPath, thumbnailPath);
-          
-          const relativePath = path.relative(path.join(__dirname, '..', '..', 'static'), thumbnailPath);
-          data.thumbnailPath = `${process.env.STATIC_URL}/${relativePath}`;
-          data.thumbnailPath = path.normalize(data.thumbnailPath).replace(/\\/g, '/');
-
-          await data.save();
-        } else {
-          console.error("File or file URL is missing", body.files);
-          // Handle missing URL, e.g., throw an error or log the issue
-        }
-      } else {
-        console.error("Files array is missing or empty", body.files);
-      }
-
-    }
-    
-    
 
     return res.status(HttpStatus.OK).json(data);
 
@@ -233,3 +235,7 @@ async findAll(params, res = {}) {
   }
 
 }
+function parse(originalname: any): { name: any; } {
+  throw new Error('Function not implemented.');
+}
+
