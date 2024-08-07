@@ -235,7 +235,4 @@ async findAll(params, res = {}) {
   }
 
 }
-function parse(originalname: any): { name: any; } {
-  throw new Error('Function not implemented.');
-}
 
