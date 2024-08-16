@@ -33,7 +33,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { FirstDisplay, FirstDisplaySchema } from './settings/entities/first-display.entity';
-import { ThumbnailModule } from './thumbnail/thumbnail.module';
 import { NotificationModule } from './notification/notification.module';
 
 @Module({
@@ -86,7 +85,6 @@ import { NotificationModule } from './notification/notification.module';
       newListener: true
     }),
     MongooseModule.forFeature([{ name: FirstDisplay.name, schema: FirstDisplaySchema }]),
-    ThumbnailModule,
     NotificationModule
   ],
   controllers: [AppController],
