@@ -6,12 +6,14 @@ import { all, destroy, one, put } from 'src/utils/query';
 import { CreateFriendDto } from './dto/create-friend.dto';
 import { Status } from './dto/status-friend.dto';
 import { Friend, FriendDocument } from './entities/friend.entity';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Injectable()
 export class FriendsService {
 
   constructor(@InjectModel(Friend.name) private friendModel: Model<FriendDocument>, 
-  private notificationService: NotificationsService,) {}
+  private notificationsService: NotificationService,) {}
+  private notificationService: NotificationsService
 
 
 // Liste les demandes d'amis pour un utilisateur donné
@@ -138,9 +140,20 @@ export class FriendsService {
       status: Status.requested
     }).save();
 
-     // Crée une notification pour la demande d'ami
+
+
+      // Envoi de la notification via FCM
+      const notificationPayload = {
+        title: 'Nouvel abonné',
+        body: `${cfDto.from} s'est abonné à vous `,
+        token: "eqMtsjiLYSoWNbl6muwoYX:APA91bEBwMXBB2MtJXFI5tesmDHH0Z0SR5ftyjv_wEg84AnhnDmYBsn8IQ5jExTbqfKA8t3qEWurxP7wl67QBzMjKa6kndF8bpwRXYgM7cAFfKHvfeo_wcYGG7jX1rNZ6Zn26pxPgFe2",  // Vous devez obtenir ce token au préalable
+      };
+  
+      await this.notificationsService.sendPush(notificationPayload);
+
+     /* Crée une notification pour la demande d'ami
     await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.send',  `${Status.requested}`);
-    return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestSend'});
+    return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestSend'});*/
   }
   
   // Rejette une demande d'ami
@@ -154,8 +167,8 @@ export class FriendsService {
     }
     else{
       const user = await put(this.friendModel, { status: Status.reject }, query1);
-      await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.reject',  `${Status.reject}`);
-      return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestCancel'});
+    /*await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.reject',  `${Status.reject}`);
+      return res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestCancel'});*/
     }
     
   }
@@ -165,8 +178,17 @@ export class FriendsService {
 
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.friend }, query1);
-    await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.accept',  `${Status.friend}`);
-    return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestAccept'});
+
+   /* const notificationPayload = {
+      title: 'Acceptation',
+      body: `${cfDto.to} a accepté votre demande d'ami`,
+      token: "eqMtsjiLYSoWNbl6muwoYX:APA91bEBwMXBB2MtJXFI5tesmDHH0Z0SR5ftyjv_wEg84AnhnDmYBsn8IQ5jExTbqfKA8t3qEWurxP7wl67QBzMjKa6kndF8bpwRXYgM7cAFfKHvfeo_wcYGG7jX1rNZ6Zn26pxPgFe2",  // Vous devez obtenir ce token au préalable
+    };
+
+    await this.notificationsService.sendPush(notificationPayload);/*
+
+   /* await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.accept',  `${Status.friend}`);
+    return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestAccept'});*/
   }
 
 // Bloque un utilisateur
@@ -175,13 +197,13 @@ export class FriendsService {
     const query1 = {$or: [{ from: cfDto.from, to: cfDto.to }, { to: cfDto.from, from: cfDto.to }]};
     const user = await put(this.friendModel, { status: Status.block }, query1);
 
-    // Crée une notification pour le blocage
+    /*Crée une notification pour le blocage
     await this.createNotification(cfDto.from, cfDto.to, 'friendRequest.block',  `${Status.block}`);
-    return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestBloq'});
+    return await res.status(HttpStatus.OK).json({ message: 'friendRequest.friendRequestBloq'});*/
   }
 
 
-  // Crée une notification
+ /* Crée une notification
   async createNotification(from: string, to: string, content: string, type: string){
 
     const notificationBody = {
@@ -192,6 +214,6 @@ export class FriendsService {
     }
 
     await this.notificationService.create(notificationBody)
-  }
+  }*/
 
 }

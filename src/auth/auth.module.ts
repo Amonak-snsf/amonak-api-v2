@@ -19,10 +19,13 @@ import {
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { JwtAuthGuard } from "./guards/jwt.guard";
 import { FirstDisplay, FirstDisplaySchema } from "src/settings/entities/first-display.entity";
+import { NotificationModule } from "src/notification/notification.module";
+import { NotificationService } from "src/notification/notification.service";
 
 // Définition du module AuthModule
 @Module({
   imports: [
+    NotificationModule,
     // Configuration de Mongoose pour les entités utilisées par le module
     MongooseModule.forFeature([
       { name: Token.name, schema: TokenSchema }, // Enregistrement de l'entité Token

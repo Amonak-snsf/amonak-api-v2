@@ -22,6 +22,7 @@ import { checkUsername, hashPassword, userAddress } from "src/utils/helpers";
 import { one, put, create, exist } from "src/utils/query";
 import { error } from "src/utils/error";
 import { FirstDisplay, FirstDisplayDocument } from "src/settings/entities/first-display.entity";
+import { NotificationService } from "src/notification/notification.service";
 const isOnline = require("is-online");
 
 // Décorateur Injectable pour indiquer que cette classe peut être injectée en tant que service
@@ -38,7 +39,8 @@ export class AuthService {
     @InjectModel(SellerInfo.name) private sellerInfoModel: Model<SellerInfoDocument>,
     private configService: ConfigService,
     private mailService: MailService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private notificationService: NotificationService
   ) {}
 
   // Méthode pour enregistrer un utilisateur
@@ -55,6 +57,9 @@ export class AuthService {
     );
     const user = await create(this.userModel, this.data); // Création de l'utilisateur
 
+    //await this.notificationService.sendRegistrationNotification();
+
+
     this.sendUserConfirmation(user); // Envoi de l'email de confirmation
     await new this.biographyModel({ user: user._id }).save(); // Création de la biographie
     await new this.sellerInfoModel({
@@ -62,10 +67,6 @@ export class AuthService {
       status: Status.sellerPending,
     }).save(); // Création des informations du vendeur
 
-    return res.status(HttpStatus.CREATED).json({
-      status: true,
-      message: "validation.register",
-    });
   }
 
   // Méthode pour vérifier un token

@@ -15,6 +15,7 @@ import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
 import { ToptensService } from 'src/toptens/toptens.service';
+import { NotificationService } from 'src/notification/notification.service';
 import * as ffmpeg from 'fluent-ffmpeg';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -31,7 +32,8 @@ export class PublicationsService {
      private pubManagementService: PublicationManagementsService,
      private configService: ConfigService,
      private userService: UsersService,
-     private toptenService: ToptensService
+     private toptenService: ToptensService,
+     private notificationService: NotificationService
   ){}
 
   async create(body: CreatePublicationDto, res) {
@@ -116,7 +118,13 @@ export class PublicationsService {
       } else {
         console.error("Files array is missing or empty", body.files);
       }
-
+/* groupe de personnes
+      const notificationPayload = {
+        title: 'Nouvelle article en vente',
+        body: `${body.user} vient de mettre une article en vente. Profité! `,
+        token: "eqMtsjiLYSoWNbl6muwoYX:APA91bEBwMXBB2MtJXFI5tesmDHH0Z0SR5ftyjv_wEg84AnhnDmYBsn8IQ5jExTbqfKA8t3qEWurxP7wl67QBzMjKa6kndF8bpwRXYgM7cAFfKHvfeo_wcYGG7jX1rNZ6Zn26pxPgFe2",  // Vous devez obtenir ce token au préalable
+      };
+      await this.notificationService.sendPush(notificationPayload);*/
     }
     // Gérer le partage des publications
     if(body.share && (body.type !== PublicationType.sale)){
@@ -129,6 +137,9 @@ const data = await create(this.publicationModel, body, 'user', userDataPopulateW
  
     // Gérer le mécanisme de partage
     if(body.share){
+      const userId = body.user;
+      const user = await this.userService.findOne(userId); // Suppose que findOne renvoie un utilisateur avec un champ 'email'
+      const userName = user?.userName;
       const pubManagement = {
         user: body.user, 
         publication: body.share, 
@@ -138,8 +149,21 @@ const data = await create(this.publicationModel, body, 'user', userDataPopulateW
         to: data.user._id
       }
       await this.pubManagementService.create(pubManagement, res)
-    }
 
+          
+      const sharedPublication = await this.publicationModel.findById(body.share).populate('user');
+      const targetUser = sharedPublication?.user;
+      const fcmToken = targetUser?.fcmToken;
+      const notificationPayload = {
+       
+              title: 'Partage', 
+              body: `${userName} a partagé votre publication`,
+              token: fcmToken
+            };
+            await this.notificationService.sendPush(notificationPayload);
+          
+    }
+    
 
     return res.status(HttpStatus.OK).json(data);
 

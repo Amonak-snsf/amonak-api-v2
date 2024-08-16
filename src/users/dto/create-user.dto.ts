@@ -89,6 +89,10 @@ export class CreateUserDto {
   @ApiProperty()
   lastConnected: Date;
 
+  @ApiProperty()
+  fcmToken: string;
+
+  
  
 
 }

@@ -116,8 +116,12 @@ export class User extends DefaultModel {
   @Prop({ required: false, trim: true, type: Boolean, default: true })
   isNewFeed: boolean;
 
+  @Prop({required: false, trim: true, type: String, default: true })
+  fcmToken: string
+
  
   
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
