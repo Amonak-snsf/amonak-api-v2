@@ -62,20 +62,13 @@ export class CommentsService {
           if(value && `${value}` !== createCommentDto.publicationCreator && `${value}` !=='' && `${value}` !== `${data.user._id}`){
             content = 'comment.commentAPublication';
 
-            const notificationPayload = {
-              title: 'Commentaire',
-              body: `${data.user.userName} a commenté votre publication `,
-              token: "eqMtsjiLYSoWNbl6muwoYX:APA91bEBwMXBB2MtJXFI5tesmDHH0Z0SR5ftyjv_wEg84AnhnDmYBsn8IQ5jExTbqfKA8t3qEWurxP7wl67QBzMjKa6kndF8bpwRXYgM7cAFfKHvfeo_wcYGG7jX1rNZ6Zn26pxPgFe2",  // Vous devez obtenir ce token au préalable
-            };
-        
-            await this.notificationsService.sendPush(notificationPayload);
-         /* await this.notificationService.create({
+          await this.notificationService.create({
               from: data.user,
               content: content,
               to: value,
               publication: data.publication,
               type: NotificationType.comment
-            })*/
+            })
          }
       }
     }
