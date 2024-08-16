@@ -6,11 +6,15 @@ import { all, create, destroy, one } from 'src/utils/query';
 import { CreatePublicationManagementDto } from './dto/create-publication-management.dto';
 import { PublicationManagement, PubManagementDocument } from './entities/publication-management.entity';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationService } from 'src/notification/notification.service';
+import { UsersService } from 'src/users/users.service';
 import { PubManagementType as type } from './dto/publication-managements-type.dto';
 @Injectable()
 export class PublicationManagementsService {
   constructor(@InjectModel(PublicationManagement.name) private readonly pubmanegementModel: Model<PubManagementDocument>,
-    private readonly notificationsService: NotificationsService
+    private readonly notificationsService: NotificationsService,
+    private readonly notificationService: NotificationService,
+    private userService: UsersService,
     ){}
   // Méthode pour créer une gestion de publication
   async create(body: CreatePublicationManagementDto, res) {
@@ -36,17 +40,30 @@ export class PublicationManagementsService {
         }
         // Sinon, crée une notification pour le like
         else{
-          const notificationBody ={
+        const userId = body.user;
+        const user = await this.userService.findOne(userId); // Suppose que findOne renvoie un utilisateur avec un champ 'email'
+        const userName = user?.userName;
+          // Envoi de la notification via FCM
+       const notificationPayload = {
+        title: '',
+        body: `${userName} a aimé votre publication `,
+        token: "eqMtsjiLYSoWNbl6muwoYX:APA91bEBwMXBB2MtJXFI5tesmDHH0Z0SR5ftyjv_wEg84AnhnDmYBsn8IQ5jExTbqfKA8t3qEWurxP7wl67QBzMjKa6kndF8bpwRXYgM7cAFfKHvfeo_wcYGG7jX1rNZ6Zn26pxPgFe2",  // Vous devez obtenir ce token au préalable
+      };
+  
+      await this.notificationService.sendPush(notificationPayload);
+
+          /*const notificationBody ={
             from: body.user,
             to: body.to,
             publication: body.publication,
             content: content,
             type: body.type,
           }
-          await this.notificationsService.create(notificationBody);
+          await this.notificationsService.create(notificationBody);*/
         }
         
        }
+
        // Pour les autres types, crée une notification
        else{
         const notificationBody ={
@@ -62,7 +79,7 @@ export class PublicationManagementsService {
     }
     // Crée la gestion de publication si ce n'est pas un like déjà existant
     if(!alreadyLike)return await create(this.pubmanegementModel, body);  
-  }
+  } 
 
   // Méthode pour récupérer toutes les gestions de publications avec des filtres optionnels
   async findAll(params, res=null) {

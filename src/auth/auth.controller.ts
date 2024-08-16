@@ -30,6 +30,8 @@ export class AuthController {
   register(@Body() createAuthDto: CreateAuthDto, @Res() res) {
     // Appel du service d'enregistrement avec les données reçues et l'objet de réponse
     return this.authService.register(createAuthDto, res);
+
+    
   }
 
   // Route GET pour vérifier un token

@@ -9,13 +9,16 @@ import { PublicationGateway } from './publication.gateway';
 import { PublicationManagementsModule } from 'src/publication-managements/publication-managements.module'
 import { UsersModule } from 'src/users/users.module';
 import { ToptensModule } from 'src/toptens/toptens.module';
+import { NotificationModule } from 'src/notification/notification.module';
+
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Publication.name, schema: PublicationSchema }]),
   ProductsModule,
   PublicationManagementsModule,
   UsersModule,
-  ToptensModule
+  ToptensModule,
+  NotificationModule
 ],
   controllers: [PublicationsController],
   providers: [PublicationsService, PublicationGateway],

@@ -34,6 +34,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { FirstDisplay, FirstDisplaySchema } from './settings/entities/first-display.entity';
 import { ThumbnailModule } from './thumbnail/thumbnail.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -85,7 +86,8 @@ import { ThumbnailModule } from './thumbnail/thumbnail.module';
       newListener: true
     }),
     MongooseModule.forFeature([{ name: FirstDisplay.name, schema: FirstDisplaySchema }]),
-    ThumbnailModule
+    ThumbnailModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [AppService],
